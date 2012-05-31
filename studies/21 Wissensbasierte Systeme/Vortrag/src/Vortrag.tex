@@ -1,0 +1,133 @@
+\documentclass{beamer}
+% Für schnelleres Kompilieren:
+%\documentclass[draft]{beamer}
+%\includeonlyframes{toc,current}
+
+\mode<presentation>
+{
+  \usetheme{Malmoe}
+  % Antibes, Pittsburgh, Dresden, Berlin, Goettingen, Luebeck, Rochester
+  \setbeamercovered{transparent}
+}
+
+\usepackage{listings}
+
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{hellgrau}{rgb}{0.95,0.95,0.95}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{0.7,0.7,0.7}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% Konfiguration des listing-Paketes
+\lstset{%
+	float=hbp,%
+	identifierstyle=\color{colIdentifier}, %
+	basicstyle=\ttfamily\scriptsize,%
+	stringstyle=\ttfamily,%
+	keywordstyle=\color{colKeys}, %
+	stringstyle=\color{colString}, %
+	commentstyle=\color{colComments}, %
+	columns=flexible, %
+	tabsize=2, %
+% 	frame=tb, %
+	extendedchars=true, %
+	showspaces=false, %
+	showstringspaces=false, %
+	numbers=left, %
+	numberstyle=\tiny, %
+	breaklines=true, %
+	backgroundcolor=\color{hellgelb}, %
+	breakautoindent=true, %
+	captionpos=b%,
+% 	aboveskip=\bigskipamount,%
+% 	belowskip=\medskipamount,%
+	escapeinside={(*}{*)}, %
+% 	mathescape, %
+	language=oz
+}
+
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{times}
+\usepackage{multimedia}
+
+\title[WBSY SS07]{The Mozart Programming System}
+\author[Ruf, Tammen]{Tobias Ruf, Jan Tammen}
+
+\institute{
+  Wissensbasierte Systeme SS 07,\\
+  Fakultät Informatik,\\
+  HTWG Konstanz
+}
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={The Mozart Programming System},%
+  pdfauthor={Jan Tammen,%
+  			 Tobias Ruf},%
+  pdfsubject={Wissensbasierte Systeme},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={<Keywords>},
+  % pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+  pdfpagemode=FullScreen,
+%  pdfstartview=FitH,
+}
+
+\date{24.~April 2007}
+\subject{The Mozart Programming Systeme}
+
+\pgfdeclareimage[height=1cm]{htwg-logo}{../images/htwg-logo}
+\logo{\pgfuseimage{htwg-logo}}
+
+% Folgendes sollte gelöscht werden, wenn man nicht am Anfang jedes
+% Unterabschnitts die Gliederung nochmal sehen möchte.
+\AtBeginSection[]
+{
+ \begin{frame}<beamer>
+   %\frametitle{Gliederung}
+   \tableofcontents[currentsection,currentsubsection]
+ \end{frame}
+}
+
+% Falls Aufzählungen immer schrittweise gezeigt werden sollen, kann
+% folgendes Kommando benutzt werden:
+% mit highlight: <+- | alert@+>
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+% Frame: Titelseite
+\begin{frame}
+  \centering\pgfimage[width=0.5\textwidth]{../images/mozart-logo}
+  \titlepage
+\end{frame}
+
+% Frame: Gliederung
+\begin{frame}[label=toc]
+  \tableofcontents
+\end{frame} 
+
+\section{Einleitung}
+\input{Einleitung}
+
+\section{Paradigmen}
+\input{Paradigmen}
+ 
+\section{System Module}
+\input{SystemModule} 
+
+\section{Projekte und aktuelle Entwicklungen}
+\input{ProjekteEntwicklungen}
+
+% Schluss-Folie
+\begin{frame}
+  \frametitle{Danke.}
+  Fragen?
+\end{frame}
+
+\end{document}

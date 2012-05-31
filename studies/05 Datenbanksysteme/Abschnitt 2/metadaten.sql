@@ -1,0 +1,6 @@
+# Attribute der Tabelle ferienwohnung
+DESCRIBE ferienwohnung;
+SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS WHERE TABLE_NAME = 'FERIENWOHNUNG';
+
+# Rechte auf Tabelle ferienwohnung
+SELECT * FROM TABLE_PRIVILEGES WHERE TABLE_NAME = 'FERIENWOHNUNG';

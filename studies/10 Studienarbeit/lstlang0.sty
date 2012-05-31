@@ -1,0 +1,38 @@
+\lst@definelanguage{XQuery}%
+{%
+    keywords={%
+        if,then,else,%
+        for,in,let,where,and,or,order,by,return,%
+        doc,match-all,starts-with,data,tokenize,string-join,compare,substring,%
+        date,integer,current-date,count,%
+        xs:date,xs:integer,%
+        exists},%
+    sensitive=true,%
+    alsodigit={-},%
+    alsoletter=:,%
+    alsoother=$,%
+%    keywordsprefix=$,%
+    comment=[s]{(:}{:)},%
+    morestring=[d]",%
+    morestring=[d]',%   
+}[keywords,comments,strings]%
+
+\lst@definelanguage[eXist]{XQuery}[]{XQuery}%
+{%
+    morekeywords={%
+        %% XQuery-update-extensions
+        update,insert,into,preceding,following,delete,replace,with,value,delete,rename,as,%
+        %% Request-stuff
+        request:request-parameter},%
+}%
+
+\lst@definelanguage{SQL05}[]{SQL}%
+  {morekeywords={%
+     PATH,PROPERTY,ROOT,USING,query,modify,exist,nodes,value,XML,FOR,GO,declare,OPENXML,REFERENCES},%
+  }%
+
+\lst@definelanguage{SQLORA}[]{SQL}%
+  {morekeywords={%
+     XMLTYPE,REFERENCING},%
+  }%  
+\endinput

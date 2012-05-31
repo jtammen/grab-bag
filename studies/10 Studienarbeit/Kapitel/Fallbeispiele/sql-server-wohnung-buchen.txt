@@ -1,0 +1,19 @@
+SELECT COUNT(*)	FROM buchung
+WHERE id_wohnung = '1' AND
+(
+	CAST(zeitraum.value(
+		'(/Zeitraum/@von)[1]','VARCHAR(10)') AS DATETIME) 
+			< '2006-02-15' 
+	AND CAST(zeitraum.value(
+		'(/Zeitraum/@bis)[1]','VARCHAR(10)') AS DATETIME) 
+			> '2006-01-15'
+)
+OR
+(
+	CAST(zeitraum.value(
+		'(/Zeitraum/@von)[1]','VARCHAR(10)') AS DATETIME) 
+			> '2006-02-15' 
+	AND CAST(zeitraum.value(
+		'(/Zeitraum/@bis)[1]','VARCHAR(10)') AS DATETIME) 
+			< '2006-01-15'
+)

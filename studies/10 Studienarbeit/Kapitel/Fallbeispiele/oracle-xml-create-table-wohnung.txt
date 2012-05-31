@@ -1,0 +1,11 @@
+CREATE TABLE wohnung(
+    id_wohnung int,
+    name varchar2(50),
+    groesse int,
+    anzahl_zimmer int,
+    preis_pro_tag int,
+    ausstattung XMLType,
+    id_land int,
+    CONSTRAINT pk_id_wohnungen PRIMARY KEY(id_wohnung),
+    CONSTRAINT fk_id_land FOREIGN KEY(id_land) REFERENCING land(id_land)
+)

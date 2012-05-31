@@ -1,0 +1,3 @@
+http://howto.ipng.be/openMosix-HOWTO/x1254.html
+http://facultyfp.salisbury.edu/taanastasio/COSC490/Fall03/Lectures/Threads/hello.cpp.txt
+http://www.tjhsst.edu/~rlatimer/supercomp/ThreadLab00.html

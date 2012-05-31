@@ -1,0 +1,8 @@
+CREATE XML INDEX xmldatapathidx ON xmldb.dbo.tb_index(xmldata)
+ USING XML INDEX xmldataidx FOR PATH
+
+CREATE XML INDEX xmldatapropertyidx ON xmldb.dbo.tb_index(xmldata)
+ USING XML INDEX xmldataidx FOR PROPERTY
+
+CREATE XML INDEX xmldatavalueidx ON xmldb.dbo.tb_index(xmldata)
+ USING XML INDEX xmldataidx FOR VALUE

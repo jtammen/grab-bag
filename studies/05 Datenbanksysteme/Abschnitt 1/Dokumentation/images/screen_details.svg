@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="595.27559pt"
+   height="841.88976pt"
+   viewBox="15 8 30 33"
+   id="svg2343"
+   sodipodi:version="0.32"
+   inkscape:version="0.40+cvs"
+   sodipodi:docname="screen_details.svg"
+   sodipodi:docbase="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images">
+  <metadata
+     id="metadata2502">
+    <rdf:RDF
+       id="RDF2504">
+      <cc:Work
+         rdf:about=""
+         id="Work2506">
+        <dc:format
+           id="format2508">image/svg+xml</dc:format>
+        <dc:type
+           id="type2510"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs2500" />
+  <sodipodi:namedview
+     showgrid="true"
+     inkscape:document-units="px"
+     showborder="true"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="1153"
+     inkscape:zoom="1.6676767"
+     inkscape:cx="598.53514"
+     inkscape:cy="541.47457"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:current-layer="svg2343" />
+  <rect
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.066281773"
+     x="20.837847"
+     y="14.349471"
+     width="21.221409"
+     height="19.601593"
+     id="rect2347" />
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.63478965;font-style:normal;font-weight:700;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.211279"
+     y="15.183896"
+     id="text2349">Detailansicht Ferienwohnung</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.57131070;font-style:italic;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.211279"
+     y="16.453476"
+     id="text2355">Allgemeines</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="17.723055"
+     id="text2357">Land</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="18.992636"
+     id="text2359">Anzahl Zimmer</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="20.262213"
+     id="text2361">Größe in qm</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="21.531797"
+     id="text2363">Preis / Tag</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.57131070;font-style:italic;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.211279"
+     y="23.143652"
+     id="text2367">Zusatzausstattung</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="24.413229"
+     id="text2369">Sauna?</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="25.68281"
+     id="text2371">Schwimmbad?</text>
+  <line
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.068242632;stroke-dasharray:0.13648528 "
+     x1="21.216286"
+     y1="27.562189"
+     x2="41.758232"
+     y2="27.562189"
+     id="line2373" />
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.63478965;font-style:normal;font-weight:700;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.211279"
+     y="28.831877"
+     id="text2377">Attraktionen</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="21.846071"
+     y="29.9153"
+     id="text2379">Es werden Attraktionen im Umkreis von</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="22.480864"
+     y="32.051289"
+     id="text2383">Disneyland Paris (Freizeitpark)</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="22.480864"
+     y="33.003475"
+     id="text2387">[...]</text>
+  <g
+     id="g2162">
+    <g
+       transform="matrix(3.943234,0.000000,0.000000,1.083487,-111.4882,-2.497357)"
+       id="g2142">
+      <rect
+         style="fill:#e6e6e6"
+         x="36.277046"
+         y="26.740967"
+         width="2.5391688"
+         height="0.63478714"
+         id="rect2395" />
+      <rect
+         style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.035513762"
+         x="36.277046"
+         y="26.740967"
+         width="2.5391688"
+         height="0.63478714"
+         id="rect2397" />
+    </g>
+    <text
+       transform="scale(1.000004,0.999996)"
+       style="font-size:0.50783175;font-style:normal;font-weight:700;fill:#000000;font-family:monospace;text-anchor:middle"
+       x="36.602135"
+       y="26.97916"
+       id="text2399">Ich möchte diese Wohnung buchen!</text>
+  </g>
+  <text
+     style="font-size:0.50783175;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="28.992411"
+     y="17.569403"
+     id="text2413"
+     transform="scale(1.000004,0.999996)">Frankreich</text>
+  <rect
+     style="fill:#e6e6e6"
+     x="28.828873"
+     y="23.778355"
+     width="0.63479221"
+     height="0.63478714"
+     id="rect2465" />
+  <rect
+     style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.063478969"
+     x="28.828873"
+     y="23.778355"
+     width="0.63479221"
+     height="0.63478714"
+     id="rect2467" />
+  <g
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="matrix(1.000008,0.000000,0.000000,1.000000,-0.271419,1.081181)"
+     id="g1422">
+    <rect
+       style="fill:#e6e6e6"
+       x="29.100060"
+       y="23.966747"
+       width="0.63478714"
+       height="0.63478714"
+       id="rect2473" />
+    <rect
+       style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.063478716"
+       x="29.100060"
+       y="23.966747"
+       width="0.63478714"
+       height="0.63478714"
+       id="rect2475" />
+  </g>
+  <g
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="matrix(1.000008,0.000000,0.000000,1.000000,5.405124,1.883028)"
+     id="g1384">
+    <g
+       id="g1380">
+      <rect
+         style="fill:#e6e6e6"
+         x="26.783087"
+         y="27.521557"
+         width="1.9043615"
+         height="0.63478714"
+         id="rect2477" />
+      <rect
+         style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.063478716"
+         x="26.783087"
+         y="27.521557"
+         width="1.9043615"
+         height="0.63478714"
+         id="rect2479" />
+    </g>
+    <text
+       style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+       x="27.239836"
+       y="28.023808"
+       id="text2481">100</text>
+  </g>
+  <text
+     style="font-size:0.50783175;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="28.992411"
+     y="18.839401"
+     id="text3324"
+     transform="scale(1.000004,0.999996)">3</text>
+  <text
+     style="font-size:0.50783175;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="28.992411"
+     y="20.117096"
+     id="text3369"
+     transform="scale(1.000004,0.999996)">40,5</text>
+  <text
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783175;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="29.039484"
+     y="21.377872"
+     id="text3398">80,50 €</text>
+  <text
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="18.150921"
+     y="9.725956"
+     id="text2351" />
+  <text
+     style="font-size:0.50782973;font-style:normal;font-weight:700;fill:#000000;font-family:sans;text-anchor:start"
+     x="19.547453"
+     y="9.1546488"
+     id="text2353" />
+  <text
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="16.373516"
+     y="22.167786"
+     id="text2375" />
+  <text
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="17.643091"
+     y="25.976509"
+     id="text2385" />
+  <text
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="17.643091"
+     y="26.611298"
+     id="text2389" />
+  <path
+     d="M 28.821070,23.874720 C 28.899824,23.939800 28.973862,24.011775 29.044924,24.086463 C 29.074380,24.117799 29.102930,24.150190 29.135358,24.178571 C 29.161969,24.201861 29.265393,24.199143 29.234496,24.216347 C 29.006028,24.343562 28.959054,24.385799 29.049397,24.310448 C 29.255330,24.045498 29.445806,23.772240 29.731265,23.586416 C 29.814957,23.537914 29.898650,23.489413 29.982342,23.440911 L 29.771207,23.611782 C 29.841791,23.570797 29.912375,23.529812 29.982959,23.488827 C 29.690211,23.665208 29.487623,23.929241 29.297229,24.207901 C 29.071452,24.474832 28.972368,24.403111 28.816297,24.225759 C 28.756438,24.162637 28.659070,24.065545 28.597208,24.037365 L 28.821070,23.874720 z "
+     id="path1379"
+     style="stroke-opacity:1.0000000;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1.0000000px;stroke:none;fill-rule:nonzero;fill-opacity:1.0000000;fill:#00ff00" />
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="22.433897"
+     y="31.061829"
+     id="text2152">Name</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="31.630739"
+     y="31.061829"
+     id="text2154">Entfernung in km</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="31.64146"
+     y="32.051289"
+     id="text2156">60,40</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.50783169;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="34.289406"
+     y="29.9153"
+     id="text2170">km angezeigt:</text>
+  <text
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     transform="scale(1.000004,0.999996)"
+     style="font-size:0.57131070;font-style:italic;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start"
+     x="35.003483"
+     y="16.453476"
+     id="text2172">Bilder</text>
+  <rect
+     y="17.310635"
+     x="36.327938"
+     height="2.5635643"
+     width="2.0158730"
+     id="rect2174"
+     style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd" />
+  <rect
+     y="17.310635"
+     x="36.054092"
+     height="2.5635643"
+     width="2.0158730"
+     id="rect2957"
+     style="fill-opacity:1.0000000;fill:#c8c8c8" />
+  <line
+     inkscape:export-ydpi="7.2700000"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.047226787;stroke-dasharray:0.094453587 "
+     x1="34.248135"
+     y1="25.612577"
+     x2="34.248135"
+     y2="15.774577"
+     id="line2959" />
+  <rect
+     y="17.310635"
+     x="38.971333"
+     height="2.5635643"
+     width="2.0158730"
+     id="rect3733"
+     style="fill:#c8c8c8;fill-opacity:1.0000000" />
+  <rect
+     y="20.596508"
+     x="38.971333"
+     height="2.5635643"
+     width="2.0158730"
+     id="rect3735"
+     style="fill:#c8c8c8;fill-opacity:1.0000000" />
+  <rect
+     transform="matrix(0.000000,1.000000,-1.000000,0.000000,0.000000,0.000000)"
+     y="-38.375751"
+     x="20.870354"
+     height="2.5635643"
+     width="2.0158730"
+     id="rect3737"
+     style="fill:#c8c8c8;fill-opacity:1.0000000" />
+  <text
+     style="font-size:0.35262293;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="36.178257"
+     y="19.656866"
+     id="text3743"
+     transform="scale(1.000004,0.999996)">Bild #1</text>
+  <text
+     style="font-size:0.35262293;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="39.081104"
+     y="19.656866"
+     id="text3745"
+     transform="scale(1.000004,0.999996)">Bild #2</text>
+  <text
+     style="font-size:0.35262293;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="39.081104"
+     y="22.970337"
+     id="text3747"
+     transform="scale(1.000004,0.999996)">Bild #4<tspan
+   y="22.970337"
+   x="39.081104"
+   id="tspan3749"
+   sodipodi:role="line"></tspan></text>
+  <text
+     style="font-size:0.35262293;font-style:normal;font-weight:normal;fill:#000000;font-family:monospace;text-anchor:start"
+     x="35.955246"
+     y="22.688112"
+     id="text3751"
+     transform="scale(1.000004,0.999996)">Bild #3<tspan
+   y="22.688112"
+   x="35.955246"
+   id="tspan3753"
+   sodipodi:role="line"></tspan></text>
+</svg>

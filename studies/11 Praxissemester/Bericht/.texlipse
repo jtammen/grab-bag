@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Mon Oct 16 10:34:34 CEST 2006
+builderNum=3
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=ps
+tempDir=tmp
+mainTexFile=Praxissemesterbericht.tex
+outputFile=Praxissemesterbericht.ps
+langSpell=de
+markDer=true
+srcDir=src/

@@ -1,0 +1,27 @@
+\begin{table}
+	\sffamily
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Spaltenname} & \multicolumn{1}{V{6em}@{}}{Bedeutung} \\
+		%\cmidrule(r){1-1}\cmidrule(l){2-2}		
+		\midrule\addlinespace\addlinespace
+		
+		id					&	bezeichnet eindeutig einen Knoten eines Dokuments. \\																	
+		parentid		& verweist auf den Vaterknoten bei einem Element, bei Textknoten \zB auf das zugehörige Attribut oder Element.	\\													
+		nodetype		& identifiziert den Knotentyp unter Verwendung des \acr{dom}-Nummerierungsschemas für Knotenarten.		\\											
+		localname		& enthält den Element- oder Attributnamen.		\\					
+		prefix			& stellt das Namensraumpräfix dar. \\
+		namespaceuri & URI des zugehörigen Namensraumes.	\\
+		datatype		& gibt den Datentyp von Elementen und Attributen an. \\															
+		prev				& enthält die Knotennummer des vorhergehenden Geschwisterknoten. \\																		
+		text				& nimmt den Attributwert oder Elementinhalt auf. \\																																					
+		\addlinespace
+		\bottomrule
+		
+		\end{tabularx}
+	\caption{Format der Edge Table, \citep[Kap. 11.3.2]{KlettkeMeyer}}
+	\label{tab:edge-table-format}
+\end{table}

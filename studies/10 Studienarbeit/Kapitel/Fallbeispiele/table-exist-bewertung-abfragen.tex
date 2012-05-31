@@ -1,0 +1,30 @@
+Mit den von eXist zur Verfügung gestellten Abfragemöglichkeiten (XQuery samt Update-Extensions) ließen sich die für das Fallbeispiel benötigten Datenbankanfragen leicht umsetzen. Der Einsatz einer standardisierten Sprache wie XQuery bietet große Vorteile bei der Portabilität sowie der Unterstützung durch externe Tools (wie \zB XQuery-Debugger oder Visualisierungstools).
+
+Allerdings gibt es auch in eXist eine Reihe von Funktionen, die nicht im XQuery-Standard vorhanden sind; als Beispiel seien die für die Durchführung von Updates hinzugefügten Erweiterungen genannt.
+
+Tabelle \ref{tab:exist-bewertung-abfragen} fasst die in eXist vorhandenen Möglichkeiten zusammen.
+
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		XPath 									& \ding{51} & XPath 2.0, \acr{w3c} Working Draft aus dem November 2003. Standard-Funktionen nicht vollständig implementiert. \\ \cmidrule{1-3}
+	  XQuery 									& \ding{51} & XQuery 1.0, \acr{w3c} Working Draft aus dem November 2003. Standard-Funktionen nicht vollständig implementiert. Zusätzliche Auswahl an eXist-spezifischen Funktionen sowie Erweiterungen für die Volltextsuche. \\ \cmidrule{1-3}
+	  Änderungsoperationen		& \ding{51}	& Mittels XUpdate bzw. eigenen XQuery-Erweiterungen. Änderungen sind auf Dokumenten- bzw. Node-Ebene möglich. Bearbeitet werden können Element-, Attribut und auch Text-Knoten. \\ \cmidrule{1-3}
+		Ergebnis-Darstellung		&  					& Mittels der XQuery-Engine lassen sich über das \acr{http}-\acr{api} Ergebnisdaten als String bzw. \acr{xml}-String zurückgeben. Über das "`XML:DB"'-\acr{api} kann bei der Verwendung von Java mit enstprechenden Objekten gearbeitet werden. Letztere Zugriffsmöglichkeit (sowie die weiteren, \acr{xml-rpc} sowie \acr{soap}) wurde in unserem Fallbeispiel jedoch nicht verwendet. \\ \cmidrule{1-3}
+		Transaktionssicherheit	& \ding{51}	& Im derzeitigen Entwicklungs-Stadium gibt es keine für den Benutzer direkt sicht- bzw. nutzbaren Transaktionen. Es werden jedoch intern alle Schreibvorgänge in Transaktionen gekapselt und alle Operationen in einem Journal aufgezeichnet. Bei einem Datenbankfehler können so alle durchgeführten Transaktionen wiederholt, alle noch nicht durchgeführten Transaktionen zurückgenommen werden. Für das Fallbeispiel wurden die entsprechenden Optionen für das Logging aktiviert -- es traten jedoch keine Probleme auf, die eine Wiederherstellung nötig gemacht hätten. \\
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Abfragen}
+	\label{tab:exist-bewertung-abfragen}
+\end{table}

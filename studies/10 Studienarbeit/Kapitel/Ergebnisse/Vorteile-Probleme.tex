@@ -1,0 +1,77 @@
+\section{Modellierung und Entwurf}
+Sollen in einer Anwendung \acr{xml}-Daten verarbeitet und in einer Datenbank gespeichert werden, müssen u.a. bei der Modellierung der Anwendung einige Punkte berücksichtigt werden.
+Dabei sind zwei mögliche Szenarien zu betrachten:
+
+\begin{enumerate}
+	\item Verwendung "`reiner"' \acr{xml}-Daten
+	\item Verwendung einer Mischung aus "`relationalen"' und \acr{xml}-Daten
+\end{enumerate}
+
+Der 1. Fall stellt sich als der besser umsetzbare dar. Obwohl bisher keine allgemein akzeptierte Modellierungssprache für \acr{xml} bzw. \acr{dtd}/\acr{xsd} existiert (s. \citep{url:Klettke2005b}), gibt es einige mögliche Ansätze für die Modellierung:
+
+\begin{itemize}
+	\item Bei dokumentzentrierten Dokumenten: Modellierung von Struktur (und Inhalt) mittels eines speziellen baumbasierten \acr{xml}-Editors (\zB "`XMLSpy"')
+	\item Bei semistrukturierten Dokumenten: bisher keine allgemein akzeptierte Vorgehensweise
+	\item Bei datenzentrierten Dokumenten: Modellierung von Struktur mittels \acr{erm} oder \acr{uml}
+\end{itemize}
+
+Doch auch bei der Verwendung eines \acr{erm} oder eines \acr{uml}-Diagramms gibt es einige Einschränkungen:
+
+\begin{itemize}
+	\item Das \acr{erm} lässt sich beim relationalen Datenbankentwurf direkt auf Relationen bzw. Tabellen abbilden; bei der Modellierung von \acr{xml} hingegen ist diese Abbildbarkeit (in beide Richtungen) nicht vollständig gegeben -- es kann also nur eine bestimmte Untermenge beider Konzepte verwendet werden.
+	\item Bei der Verwendung eines \acr{uml}-Diagramms für die \acr{xml}-Modellierung gibt es ebenfalls eine Art "`semantische Lücke"'; so lassen sich zwar	
+	\begin{itemize}
+		\item Elemente auf Klassen,
+		\item Attribute auf Aggregationen sowie
+		\item Alternativen auf Generalisierung/Spezialisierung
+	\end{itemize}
+	abbilden. Allerdings können beispielsweise in der Richtung \acr{uml} $\Rightarrow$ \acr{xml} m:n-Kardinalitäten nicht dargestellt werden. Es bleibt in diesem Fall also auch nur eine gewisse Untermenge abbildbar.
+\end{itemize}
+
+Im 2. Fall, der Vermischung von "`relationalen"' und \acr{xml}-Daten, ergibt sich zusätzlich das Problem, dass bei der Modellierung die verschiedenen Speicherungsformen berücksichtigt werden müssten. Bei einem \acr{erm} lassen sich für Entity-Typen zusätzlich \emph{Attribute} modellieren. Es kann nun jedoch bei der Transformation des \acr{erm} nicht unterschieden werden, ob es sich bei einem Attribut um ein \acr{xml}-Element handelt (welches wiederum Unterelemente enthalten könnte), oder um ein "`normales"' Attribut einer Relation.
+Es wird klar, dass bei der gemeinsamen Nutzung beider Konzepte das herkömmliche \acr{erm} nicht ausreichend ist.
+
+Zusammenfassend lässt sich sagen, dass sich bisher keine allgemeingültige Modellierungsmethode für den Entwurf von \acr{xml}-Daten durchgesetzt hat. Für die Erstellung komplexer Schemata muss man alternativ \zB auf das Reverse-Engineering zurückgreifen. Für die Modellierung bzw. den Entwurf einer Anwendung bedeutet dies einen erhöhten Aufwand.
+
+\section{Implementierung}
+Auch bei der Implementierung einer Anwendung, welche \acr{xml}-Daten benutzt, sind einige Punkte zu beachten.
+
+\subsection{Strukturumwandlungen}
+Wird \zB in einem objektorientierten Umfeld gearbeitet, so müssen die aus der Datenbank ausgelesenen \acr{xml}-Daten stets in ihre Objekt-Repräsentation umgewandelt werden (\emph{Unmarshalling}). Ebenso muss das Objekt beim Speichern in die Datenbank (komplett bzw. teilweise) in seine \acr{xml}-Darstellung gewandelt werden (\emph{Marshalling}). Dies bedeutet natürlich zusätzlichen Aufwand -- mitunter ist dieser Aufwand größer als bei der Verwendung rein relationaler Daten.
+
+
+\subsection{Validierung}
+Durch die Verwendung von Schemata (\acr{dtd} bzw. \acr{xsd}) lässt sich die Validierung von \zB Benutzereingaben vereinfachen und standardisieren. Die evaluierten \acr{dbms} bieten dazu die Möglichkeit, beim Speichern von \acr{xml}-Daten eine Validierung gegen ein entsprechendes Schema durchzuführen. Auf mögliche Fehler kann so zielsicher hingewiesen werden und es entfällt die Erstellung eigener, komplexer Validierungsmechanismen.
+
+\subsection{Trennung von Daten und Präsentation}
+Ein oft erstrebtes Ziel ist die möglichst komplette Trennung der \emph{Daten} und der \emph{Präsentation} einer Anwendung. Somit können beide Teile unabhängig voneinander entwickelt und auch geändert werden. Gerade im Web-Bereich ist diese Trennung oft besonders
+wichtig und vorteilhaft -- so können beispielsweise durch Austauschen der Präsentations-Schicht verschiedene Typen von Endgeräten (Webbrowser, Mobiler Client, Textconsole, \ldots) bedient sowie verschiedene Arten der Ausgabe (\zB \acr{xhtml}, \acr{pdf}, \ldots) erzeugt werden.
+
+Dass die Trennung von Struktur und Darstellung aber gerade mithilfe von \acr{xml} -- durch Verwendung geeigneter Technologien wie \acr{xsl} -- besonders vereinfacht wird, haben wir bereits im Einführungskapitel erläutert. 
+Verwendet man nun also anstatt "`relationaler"' Daten direkt \acr{xml} in der Datenbank, so können die Daten auf einfache und standardisierte (\zB mittels \acr{xsl}-Transformationen) Weise in verschiedene Formate gebracht werden.
+
+\section{Datentransfer}
+Besonders vorteilhaft ist die Verwendung von \acr{xml} in Bezug auf den Austausch von Daten. Es lassen sich \zB die Daten einer Tabelle in \acr{xml}-Format exportieren, welche dann wiederum durch eine externe Applikation weiterverarbeitet werden können -- eine entsprechende Importschnittstelle vorausgesetzt. 
+Durch die Standardisierung von \acr{xml} und des hohen Verbreitungsgrades ist eine solche Schnittstelle auch bereits in vielen heutigen Anwendungen vorhanden.
+
+Bezogen auf unser Fallbeispiel ließe sich ein Anwendungsfall für dieses Szenario angeben: Die gespeicherten Buchungsdaten sollen in einer externen Applikation analysiert werden, \zB auf besondere Spitzenauslastungszeiten oder besonders beliebte Wohnungen. Bietet diese Analyse-Applikation nun eine entsprechende \acr{xml}-Schnittstelle, so können die Daten aus der Datenbank leicht in die geforderte \acr{xml}-Struktur gebracht und schließlich in die Applikation exportiert werden.
+
+\section{Native XML-DBMS und "`XML-enabled"' DBMS}
+Zusätzlich zur Frage, ob \acr{xml} überhaupt im Datenmodell verwendet werden soll, stellt sich die Wahl zwischen einer nativen Speicherung der \acr{xml}-Daten und der Speicherung in einem relationalen \acr{dbms}. Dabei gibt es bei beiden Optionen jeweils Vor- und Nachteile zu beachten.
+
+\begin{itemize}
+	\item nativ: 
+	\begin{itemize}
+		\item für dokumentzentrierte \acr{xml}-Dokumente geeignet, da bei den nativen \acr{dbms} zwischen Inhalt und Struktur unterschieden wird
+		\item einfacher Austausch von \acr{xml}-Dokumenten, da die Struktur gleich bleibt
+		\item für semistrukturierte \acr{xml}-Dokumente eignet es sich auch, weil bei \acr{xml} im Gegensatz zu relationalen Datenbanken die Struktur nicht fest vorgegeben ist
+	\end{itemize}
+	\item "`\acr{xml}-enabled"':
+		\begin{itemize}
+			\item das Mapping zwischen \acr{xml} und \acr{sql} ist möglicherweise komplex und umständlich -- und daher mitunter auch mit Performanzverlust behaftet
+		  %\item beim Mapping gehen evtl. Strukturinformationen gehen beim Mapping
+		  \item Round-Tripping evtl. nicht möglich
+		\end{itemize}
+\end{itemize}
+
+Zusammenfassend sei festgehalten, dass die Wahl des \acr{dbms} natürlich maßgeblich von der Art der zu speichernden Daten und durchzuführenden Abfragen abhängig gemacht werden sollte -- eine allgemeine Empfehlung kann also weder für die eine noch die andere Methode abgegeben werden.

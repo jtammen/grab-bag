@@ -1,0 +1,66 @@
+\subsection{Temporal Difference Learning: Q-Learning}
+
+\begin{frame}
+  \frametitle{Temporal Difference Learning (TD)}
+  \begin{itemize}
+    \item kombiniert Ideen der Monte-Carlo Strategie und die Vorgehensweise des
+    Dynamischen Programmierens (DP)
+    \item Hauptunterschied zu DP: TD ist ein "`Modellfreies"' Verfahren 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Q-Learning}
+  \begin{itemize}
+     \item Variante des Temporal Difference Learning
+     \item Typisches Merkmal: kein Modell (weder in der Lern- noch in der 
+     Aktionsauswahlphase) $\Rightarrow$ "`Lernen in unbekannter Umgebung"'
+     \begin{itemize}
+       \item Konkret: Weder die Zustandsübergangsfunktion $\delta(s,a)$ noch die
+       Belohnungsfunktion $r(s,a)$ sind bekannt.
+     \end{itemize}
+     \item Ziel des Q-Lernens: Lernen einer Aktion-Wert-Funktion (Q-Funktion)
+     durch Exploration, die den Nutzen eines Zustandsübergangs durch Auswahl einer
+     bestimmten Aktion wiederspiegelt
+     \begin{itemize}
+       \item Q-Funktion liefert für jeden Zustandsübergang einen Nutzenwert
+       $\hat{Q}(s,a)$ unter Annahme, dass danach $\pi^*$ (optimale Policy) folgt
+     \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Q-Learning Algorithmus [Watkins, 1989]}
+  \begin{enumerate}
+    \item Initialisiere $\hat{Q}(s,a) = 0$ $\forall$ $s \in S$ und $a \in A$,
+    $s$ ist Startzustand
+    \item Wiederhole solange der Agent lebt bzw. solange wie Änderungen von Q
+    klein genug sind
+    \begin{itemize}
+      \item wähle eine Aktion $a$ und führe sie aus bzw. nach Ablauf des ersten
+      Iterationsdurchgangs wähle optimale Aktion $a^*$
+      \item erhalte kurzfristige Belohnung (Reward) $r \in R$ und neuen Zustand
+      $s' \in S$
+      \item $\hat{Q}(s,a) := r + \gamma * max_{a' \in A}\hat{Q}(s',a')$,
+      wobei $\gamma$ = Discountfaktor mit  $0 < \gamma < 1$
+      \item $s := s'$
+    \end{itemize}
+    \item Gib optimale Policy  $\pi^*(s) = argmax_{a}\hat{Q}(s,a)$.
+  \end{enumerate}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Q-Learning Beispiel}
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \pgfimage[width=1.0\textwidth]{../images/Q_learn_1}     
+    \column{.5\textwidth}
+    \pgfimage<2->[width=1.0\textwidth]{../images/Q_learn_2}
+  \end{columns}  
+  \begin{itemize}
+    \item Update der Q-Werte
+    \item Q-Funktion: $\hat{Q}(s,a) := r + \gamma * max_{a' \in
+    A}\hat{Q}(s',a')$ 
+    \item hier im Beispiel: $0 + 0.9*max{63,81,100} = 0.9*100 = 90$
+  \end{itemize}
+\end{frame}

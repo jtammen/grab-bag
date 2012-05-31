@@ -1,0 +1,38 @@
+# Project: Aufgabe 2
+# Makefile created by Dev-C++ 4.9.9.0
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = 
+OBJ  = main.o Benutzer.o Bibliothek.o Buch.o $(RES)
+LINKOBJ  = main.o Benutzer.o Bibliothek.o Buch.o $(RES)
+LIBS =  -L"C:/Programme/Dev-Cpp/lib"  -lgmon -pg  -g3 
+INCS =  -I"C:/Programme/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Programme/Dev-Cpp/include/c++/3.3.1"  -I"C:/Programme/Dev-Cpp/include/c++/3.3.1/mingw32"  -I"C:/Programme/Dev-Cpp/include/c++/3.3.1/backward"  -I"C:/Programme/Dev-Cpp/lib/gcc-lib/mingw32/3.3.1/include"  -I"C:/Programme/Dev-Cpp/include" 
+BIN  = "Aufgabe 2.exe"
+CXXFLAGS = $(CXXINCS) -g   -pg -g3
+CFLAGS = $(INCS)   -pg -g3
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before "Aufgabe 2.exe" all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Aufgabe 2.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Benutzer.o: Benutzer.cpp
+	$(CPP) -c Benutzer.cpp -o Benutzer.o $(CXXFLAGS)
+
+Bibliothek.o: Bibliothek.cpp
+	$(CPP) -c Bibliothek.cpp -o Bibliothek.o $(CXXFLAGS)
+
+Buch.o: Buch.cpp
+	$(CPP) -c Buch.cpp -o Buch.o $(CXXFLAGS)

@@ -1,0 +1,28 @@
+Die Umsetzung brachte einige komplexe Abfragen hervor. Vergleicht man die Abfragen mit solchen für ein rein relationale \acr{dbms}, fällt auf jeden Fall eine erhöhte Komplexität auf. Dies ist auch darauf zurückzuführen, dass \acr{xml}-Daten und relationale Daten gemischt wurden.
+
+Tabelle \ref{tab:oracle-bewertung-abfragen} fasst die in Oracle vorhandenen Möglichkeiten zusammen.
+
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		XPath 									& \ding{51} & Wird unterstützt durch \texttt{existNode()}, \texttt{extractValue()}, \texttt{extract()} und \texttt{XMLSqeuence()}.  \\ \cmidrule{1-3}
+	  XQuery 									& \ding{55} & Wird erst ab Oracle 10i unterstützt. \\ \cmidrule{1-3}
+	  Änderungsoperationen		& \ding{51}	& Mittels Update der \acr{xml}-Daten durch die Funktion \texttt{UPDATEXML()}. \acr{xml}-Daten werden auf Wohlgeformtheit hin überprüft.  \\ \cmidrule{1-3}
+		Ergebnis-Darstellung		&  					& Die Daten lassen sich konvertieren. Mittels \texttt{getClobVal()}, \texttt{getNumVal()} und \texttt{getStringVal()} können die Daten als CLOB, numerische Wert oder als String zurückgegeben werden.  \\ \cmidrule{1-3}
+		Transaktionssicherheit	&  & nicht bekannt \\
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Abfragen}
+	\label{tab:oracle-bewertung-abfragen}
+\end{table}

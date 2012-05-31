@@ -1,0 +1,36 @@
+\subsection{Monte-Carlo und Dynamisches Programmieren}
+
+\begin{frame}
+  \frametitle{Monte-Carlo (MC)}
+	Monte-Carlo-Methoden basieren auf Schätzungen der Belohnungsfunktion. Das
+	heisst, die Belohnung für Zustand X wird aufgrund der Erfahrung der vorherigen
+	Zustände geschätzt. Hierbei geht der Algorithmus "`episodisch"' vor, sprich er
+	besucht nicht alle Zustände
+	\begin{itemize}
+      \item Nachteile:
+      	\begin{itemize}
+            \item Keine Garantie für ein globales Optimum der Strategie, da
+            nicht alle Zustände besucht werden müssen
+            \item Nur für episodische Tasks geeignet
+         \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Dynamisches Programmieren (DP)}
+Der Value-Iteration-Algorithmus [Bellman, 1957] gehört zu den Methoden des
+dynamischen Programmierens. Es werden alle Zustände durchlaufen, und die
+aktuelle Belohnung auf die Bewertung des vorherigen Zustands und der dort
+ausgewählten Aktion übertragen ($\hat V_{dp}$-Funktion).
+	\begin{itemize}
+      \item Weitere DP Algorithmen: Policy Iteration, Policy Improvement, Policy
+      Iteration
+      \item Nachteile:
+      	\begin{itemize}
+            \item Benötigt komplettes Umgebungsmodell
+            \item Die komplette Value-Funktion wird zum evaluieren und
+            verbessern eines Zustandes benötigt $\rightarrow$ Speicherbedarf
+         \end{itemize}
+    \end{itemize}
+\end{frame}

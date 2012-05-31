@@ -1,0 +1,355 @@
+\documentclass[
+	a4paper,     		%% Papiergroesse: A4 OBSOLETE
+%	twoside,     		%% Zweiseitiges Layout (alternativ: oneside)
+	headsepline, 		%% Horizontale Linie unter Kopfzeile
+	footsepline, 		%% Horizontale Linie ueber Fusszeile
+	titlepage,   		%% Eigenstaendige Titelseite (alternativ: notitlepage)
+%	halfparskip, 		%% Halbe Leerzeile zwischen zwei Abschnitten (alternativ: parskip, ...)
+	12pt,        		%% Schriftgroesse: 12pt (alternativ: 10pt, 11pt, ...) OBSOLETE
+%	bibtotoc,			%% Bibliographie in's Inhaltsverzeichnis aufnehmen
+%	liststotoc,			%% Indexe in's Inhaltsverzeichnis aufnehmen
+%	smallheadings,		%% Kleine Ueberschriften
+%	DIV1,				%% Divisor, Zeilenlänge ca. 70 Zeichen
+%	BCOR01cm,			%% Bindekorrektur
+%	draft			  	%% Entwurfsmodus, volle/leere Boxen markieren
+%	abstracton			%% Titel "`Zusammenfassung"' einschalten
+]{scrreprt}
+
+%%%
+%%% Pakete
+%%%
+
+%%% Glossar
+% \usepackage[german]{gloss}
+% \newcommand{\acr}[1]{{\small\gloss[word]{#1}}}
+% 
+% \newcommand{\abk}[1]{#1\xdot}
+% \DeclareRobustCommand\xdot{\futurelet\token\Xdot}
+% \def\Xdot{\ifx\token\bgroup.\else\ifx\token\egroup.\else
+%   \ifx\token\/.\else\ifx\token\ .\else\ifx\token!.\else
+%   \ifx\token,.\else\ifx\token:.\else\ifx\token;.\else
+%   \ifx\token?.\else\ifx\token/.\else\ifx\token'.\else
+%   \ifx\token).\else\ifx\token-.\else\ifx\token+.\else
+%   \ifx\token~.\else
+%   \ifx\token.\else.\ \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi} 
+% \newcommand{\zB}{\mbox{z.\,B}\xdot}
+
+%%% Literaturverzeichnis, deutschen Stil benutzen (dinat)
+%%% TODO: funktioniert leider derzeit nicht mit TeXlipse!
+%\usepackage[square]{natbib}
+%\citestyle{dinat}
+
+%%% Grafik
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{sudoku}
+
+%%% Subfigures
+\usepackage{subfig}
+
+%%% Deutsche Sprache verwenden
+\usepackage{ngerman}
+
+%%% Kodierung der Eingabezeichen setzen (fuer dt. Umlaute etc.)
+%%% Für Linux: [latin1] für Windows: [ansinew]
+\usepackage[utf8]{inputenc}
+
+%%% Zeichen-Kodierung in PDF-Dokumenten
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl}
+
+%%% Web-Addressen auch mit T1-Encoding
+\usepackage[T1]{url}
+%%% ... und in tt-Font
+\urlstyle{tt}
+
+%%% amsmath, amssymb, amstext: Unterstuetzung div. mathematischer Zeichen etc.
+\usepackage{amsmath,amssymb,amstext,units}
+
+%%% pifont: "pifont Xs and Check Marks"
+% \usepackage{pifont}
+
+%%% PostScript-Fonts ersetzen
+\usepackage{psfrag}
+
+%%% Programmcode einbinden, Listings
+\usepackage{listings}
+
+%%% Farb-Unterstuetzung
+\usepackage{color}
+
+%%% Tabellen
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{threeparttable}	% Fussnoten in table-Umgebung
+
+%%% Floats strikter positionieren (Option 'H'ere)
+\usepackage{float}
+
+%%%
+%%% Pakete konfigurieren, Definitionen
+%%%
+
+%%% Ueberschriften bis zur Ebene 3 nummerieren
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{3}
+
+%%% Neue Spaltentypen definieren
+\newcolumntype{N}{>{\bfseries\scriptsize}l}
+\newcolumntype{V}[1]{
+	>{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}
+}
+
+%%% Ein paar Farbdefinitionen (s. http://texnik.de/listings/listing0.pdf)
+
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{hellgrau}{rgb}{0.95,0.95,0.95}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{0.7,0.7,0.7}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% Konfiguration des listing-Paketes
+\lstset{%
+	float=hbp,%
+	identifierstyle=\color{colIdentifier}, %
+ 	basicstyle=\ttfamily\small,%
+	stringstyle=\ttfamily,%
+	keywordstyle=\color{colKeys}, %
+	stringstyle=\color{colString}, %
+	commentstyle=\color{colComments}, %
+	columns=flexible, %
+	tabsize=2, %
+% 	frame=tb, %
+	extendedchars=true, %
+	showspaces=false, %
+	showstringspaces=false, %
+	numbers=left, %
+	numberstyle=\tiny, %
+	breaklines=true, %
+	backgroundcolor=\color{hellgrau}, %
+	breakautoindent=true, %
+	captionpos=b,%,
+	aboveskip=\bigskipamount,%
+	belowskip=\medskipamount,%
+	escapeinside={(*}{*)}, %
+	mathescape=true, %
+	language=oz
+}
+
+%%% Benoetigte Sprachen laden
+% \lstloadlanguages{Pseudo}
+
+%%%
+%%% Seitenlayout, Schriften
+%%%
+
+%%% scrpage2: KOMA Kopf- und Fusszeile
+\usepackage[automark]{scrpage2}
+
+%%% KOMA-Script: Optionen
+% \KOMAoptions{fontsize=12pt}
+% \KOMAoptions{paper=a4}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Schrift fuer Ueberschriften umstellen
+%\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%% Schriften fuer Titel- und Fusszeile umstellen
+%\setkomafont{pagehead}{\normalfont\sffamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily\slshape}
+
+%%% Unterstuetzung fuer Grafiken
+\usepackage[dvips]{graphicx}
+\DeclareGraphicsExtensions{.eps}
+\graphicspath{{../images}}
+
+%%% Hyperlinks in PS-Dokumenten, Optionen s.o.
+\usepackage[%
+  dvips,%
+  colorlinks=false,%
+  breaklinks=true,%
+]{hyperref}
+
+\usepackage{breakurl}
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={The Mozart Programming System},%
+  pdfauthor={Jan Tammen (jan.tammen@htwg-konstanz.de),%
+  			 Tobias Ruf (tobias.ruf@htwg-konstanz.de)},%
+  pdfsubject={Wissensbasierte Systeme},%
+  pdfcreator={Jan Tammen (jan.tammen@htwg-konstanz.de)},%
+  pdfkeywords={Mozart, Oz, multiparadigmisch},
+  pdfproducer={\LaTeX\ with package \flqq hyperref\frqq}, %%
+%   colorlinks=true,
+%  linkcolor=Gray,
+%  urlcolor=Gray,
+  bookmarksopen=true,
+  pdfpagemode=UseOutlines,
+  pdfview=FitV, % FitH
+  pdfstartview=FitV,
+  pdfhighlight=/I,
+%   pdfborder=0 0 0, % keine Box um die Links!
+  bookmarksnumbered=false,
+  plainpages=false,
+}
+
+%%% Links im dvips-Mode auch umbrechen
+%\usepackage{breakurl}
+
+%%%
+%%% Layout der Titelseite
+%%%
+
+%%% Titelkopf, erscheint oberhalb des Titels
+\titlehead{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../images/htwg-logo}
+	\end{figure}
+}
+
+%%%% Subject, erscheint oberhalb des Titels
+\subject{Wissensbasierte Systeme, SS 07}
+
+%%% Titel
+\title{The Mozart Programming System}
+
+
+%%% Publisher, hier: Verantwortlicher Prof.
+\publishers{%
+	\small
+  Prof.\ Dr.\,Hedtstück, HTWG Konstanz
+}
+
+%%%% Autor. Weitere Autoren mit \and{<Name>} hinzufuegen
+\author{%
+	Tobias Ruf
+	\and{%
+		Jan Tammen
+	}%
+}%
+
+%%% Datum setzen
+\date{\today}
+
+%%% Rueckseite der Titelseite
+\lowertitleback{%
+	\footnotesize%
+	Erstellt mit \LaTeXe\ unter Verwendung des \KOMAScript-Pakets.
+}
+
+%%%
+%%% Header und Footer
+%%%
+
+\pagestyle{scrheadings}
+
+%%% Kopfzeile in den Rand ragen lassen
+%\setheadwidth{textwithmarginpar}
+
+%%% Fusszeile in den Rand ragen lassen
+%\setfootwidth{head}
+
+%%% \automark[rechte Seite]{linke Seite}
+%\automark[subsection]{section}
+
+%% Header links -- section
+%\ihead[]{\rightmark}
+
+%% Header rechts -- chapter
+%\ohead[]{\leftmark}
+
+%% Header mittig -- leer
+\chead[]{}
+
+%% Footer mittig -- leer
+\cfoot[]{}
+
+%% Footer rechts -- Seitenzahl
+\ofoot[]{\thepage}
+
+%%% Footer links -- Titel der Arbeit
+\ifoot[]{\footnotesize{The Mozart Programming System}}
+
+%%%
+%%% Sonstiges
+%%%
+
+%%% Glossar und Index erstellen 
+% \makegloss
+% \makeindex
+
+%%%
+%%% Beginn Hauptdokument
+%%%
+\begin{document}
+
+%%% Titelseite erstellen
+\maketitle
+
+%%% Inhaltsverzeichnis erstellen
+%\newpage
+\tableofcontents
+
+%%% Bildverzeichnis erstellen
+%\newpage
+%\listoffigures
+
+%%% Tabellenverzeichnis erstellen
+%\newpage
+%\listoftables
+
+%%%
+%%% Beginn Inhalt
+%%%
+\chapter{Einleitung}
+\input{Einleitung}
+
+\chapter{Paradigmen} \label{chapter:paradigmen}
+\input{Paradigmen}
+
+\chapter{System Module}
+\input{SystemModule}
+
+\chapter{Projekte und aktuelle Entwicklungen}
+\input{ProjekteEntwicklungen}
+
+%%%
+%%% Anhaenge: Glossar, Bibliographie...
+%%%
+
+%\cleardoublepage % oder \clearpage
+%\phantomsection 
+
+\appendix
+\pdfbookmark[-1]{\appendixname}{\appendixname} 
+
+\chapter{Quellcode Sudoku-Löser (GUI)}
+\lstinputlisting[label={lst:sudoku-solver-gui}, caption={Graphische Ausgabe der
+Sudoku-Lösung}, firstline=66, mathescape=false]{../sudokuSolver.oz}
+
+%%% Bibliographie-Stil
+% abbrvdin, alphadin, plaindin, unsrtdin
+\bibliographystyle{alphadin}
+
+%%% Anstatt 'Literatur' -> 'Quellen'
+\renewcommand{\bibname}{Quellen}
+
+%%% Bibliographie ausgeben
+\bibliography{Literatur}
+
+%%% Glossar ausgeben
+%\printgloss{Glossar}
+
+\end{document}

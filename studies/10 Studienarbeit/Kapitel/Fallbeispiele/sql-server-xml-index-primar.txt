@@ -1,0 +1,5 @@
+CREATE PRIMARY XML INDEX [wohnungidx] ON [dbo].[wohnung] 
+(
+	[ausstattung]
+)
+GO

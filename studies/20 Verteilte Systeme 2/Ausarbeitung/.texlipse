@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Fri Mar 16 10:58:39 CET 2007
+builderNum=3
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=ps
+tempDir=tmp
+mainTexFile=Ausarbeitung.tex
+outputFile=Ausarbeitung.ps
+langSpell=de
+markDer=true
+srcDir=src/

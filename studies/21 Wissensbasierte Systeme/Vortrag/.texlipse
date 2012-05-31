@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Fri Mar 16 11:03:20 CET 2007
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=Vortrag.tex
+outputFile=Vortrag.pdf
+langSpell=de
+markDer=true
+srcDir=src/

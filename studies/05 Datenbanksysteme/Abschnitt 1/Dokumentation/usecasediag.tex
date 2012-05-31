@@ -1,0 +1,46 @@
+	\vspace{2em}
+
+	\begin{pspicture}(0,0)(15,13.5)
+	%\psgrid
+	\psset{framesep=0}
+	%
+	\psframe[linewidth=0.2pt, linestyle=dashed](3,14)(12,0.5)
+	\rput(7.5,1){IVBF}
+	%
+	\rput(1,12)		{\rnode{acIT}	{\umlActor{Interessent}}}
+	\rput(1,5)			{\rnode{acVM}	{\umlActor{Vermieter}}}
+	\rput(14,5)		{\rnode{acBT}	{\umlActor{Betreiber}}}
+	\rput(14,12)		{\rnode{acKD}	{\umlActor{Kunde}}}
+	%
+	%
+	\umlPutCase{5.0,13.0}	{SW}{Wohnung\\suchen}
+	\umlPutCase{5.0,11.5}	{SA}{Attraktion\\suchen}
+	\umlPutCase{5.2,10.0}	{REG}{Registrieren}
+	\umlPutCase{9.5,10.5}	{BW}{Wohnung\\buchen} 
+	\umlPutCase{9.5,08.0}	{CHK}{Verfügbarkeit\\prüfen} 
+	
+	\umlPutCase{5.0,6.0}	{WA}{Wohnung\\anbieten}
+	\umlPutCase{5.0,4.0}	{WB}{Wohnung\\bearbeiten}
+	\umlPutCase{9.5,6.0}	{FV}{Fluglinien\\verwalten}
+	\umlPutCase{9.5,4.0}	{WV}{Wohnungen\\verwalten}
+	\umlPutCase{9.5,2.0}	{BV}{Kunden\\verwalten}
+	%
+	\ncline{acIT}{SW}
+	\ncline{acIT}{SA}
+	\ncline{acIT}{REG}
+	\ncline{acKD}{SW}
+	\ncline{acKD}{SA}
+	\ncline{acKD}{BW}
+	
+	\ncline[linestyle=dashed]{CHK}{BW}
+	\nbput[nrot=:R]{\umlStereoType{include}}
+	\ncputicon{umlV}
+	
+	\ncline{acVM}{WA}
+	\ncline{acVM}{WB}
+	
+	\ncline{acBT}{FV}
+	\ncline{acBT}{WV}
+	\ncline{acBT}{BV}
+	
+	\end{pspicture}

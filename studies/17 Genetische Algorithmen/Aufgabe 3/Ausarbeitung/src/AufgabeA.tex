@@ -1,0 +1,29 @@
+Nach Durchführung einiger Testläufe mit dem Demoskript \texttt{demotsplib.m} 
+und dem TSP-Problem \texttt{bays29.tsp} zeigte sich, dass die Ergebnisse i.A. 
+noch recht weit vom Optimalwert 2020 (vgl. \cite[Appendix]{Reinelt94}) entfernt 
+waren.
+
+Das Beispielskript ist standardmäßig mit den folgenden Parametern konfiguriert:
+
+\begin{itemize}
+  \item \texttt{NumberSubpopulation}: Anzahl der Subpopulationen, 6
+  \item \texttt{NumberIndividuals}: Anzahl der Individuen pro Population, 50
+  \item \texttt{Selection.GenerationGap}: Anzahl der Individuen pro Population, 0.95
+  \item \texttt{Termination.Method}: Art des Abbruchkriteriums, 1 (entspricht
+  dem Erreichen der maximalen Anzahl von Generationen)
+  \item \texttt{Termination.MaxGen}: Anzahl der Generationen, nach denen der
+  Algorithmus terminieren soll, 400
+\end{itemize}
+
+Durch die Wahl des genetischen Algorithmus' \texttt{tbx3perm} sind implizit 
+weiterhin die folgenden Einstellungen gegeben:
+
+\begin{itemize}
+  \item \texttt{VariableFormat}: Format der Variablen und Konvertierung 
+  zwischen diesem und in dem intern verwendeten Format, 5 (entspricht einem 
+  nicht festgelegten Format, demzufolge findet auch keine Konvertierung statt).
+  \item \texttt{Recombination.Name}: Verwendetes Rekombinationsverfahren, 
+  \texttt{recpm} (entspricht Partial Matching Recombination)
+  \item \texttt{Mutation.Name}: Verwendetes Mutationsverfahren, \texttt{mutswap}
+  (entspricht Swap Mutation)
+\end{itemize}

@@ -1,0 +1,12 @@
+MÅller  Sonnenweg 1a  03.05.2005  18:01
+1  Nudeln  Spaghetti  Bolognese  7.95
+2  Pizza  L  Salami  Ananas  6.80
+1  Pizza  X  KÑse  Schinken  10.90
+4  Eis 3  Vanille  Erdbeer  Schoko  4.00
+3  Bier  Becks  2.50
+1  Limo  1.0  Cola  4.00
+1  Nudeln  Tortellini  Chef  8.30
+1  Bier  Rothaus  2.00
+2  Pizza  M  KÑse  Pilze  7.10
+1  Limo  0.5  Fanta  3.00
+0

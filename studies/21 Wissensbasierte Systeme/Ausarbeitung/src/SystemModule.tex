@@ -1,0 +1,360 @@
+Neben der Implementierung der Basisumgebung für Oz bietet das Mozart Programming
+System auch so genannte \textsl{System Module}, die ein effektiveres und
+effizienteres Entwickeln von Anwendungen ermöglichen. Die Module lassen sich in
+mehrere Einsatzgebiete gliedern, die im Folgenden erläutert werden. 
+ 
+\section{Application Programming}
+
+Für das \textsl{Application Programming} finden sich zwei Module, die das
+Arbeiten mit Applikationen und das Verwenden der vorhandenen Module erleichtern.
+
+\begin{description}
+  \item[\texttt{Application}] Das Modul \texttt{Application} ermöglicht den
+  Zugriff auf die Argumente einer Anwendung und bietet Prozeduren um
+  Anwendungen zu beenden. Der Zugriff auf die Argumente ist vergleichbar mit
+  \texttt{Strings[] args} in Java. Es stehen 3 verschiedene Argumentarten für
+  Web-, Kommandozeilen- und GUI-Anwendungen zur Verfügung. Außerdem können mit
+  Hilfe dieses Moduls die Argumente auf unterschiedliche Arten geparst und
+  verarbeitet werden. 
+  \item[\texttt{Module}] Für den Zugriff, das Linken und Laden von Modulen ist
+  das Modul \texttt{Module} zuständig. Hier kann auf vorhandene Module, wie z.B.
+  \texttt{Application}, zugriffen werden um Prozeduren zu verwenden. Außerdem
+  können eigene Oz-Anwendungen als Module geladen werden und später dann gelinkt
+  werden.
+\end{description}
+
+\section{Constraint Programming}
+
+Die Module, die in den Bereich des \textsl{Constraint Programming} fallen,
+stellen einen der wichtigsten Teile für die Erweiterung von Oz dar. Hier finden
+sich Module, die die Semantik und Syntax für das Constraint Programming
+erweitern. Beispielsweise wird die Semantik durch das Modul \texttt{FD} um
+\textsl{Finite Set Constraints} erweitert, eine Erweiterung auf Mengen von
+Constraints. 
+
+Ein kurzer Überblick aller Module für das Constraint Programming,
+\begin{description}
+  \item[\texttt{Search}] Dieses Modul bietet Unterstützung für die \textsl{Suche} von
+  Lösungen, näheres siehe Punkt \ref{subsection:Search}. 
+  
+  \item[\texttt{FD}] Für den leichteren Umgang mit \textit{Finite Domain Constraints}
+  finden sich in diesem Module beispielsweise vordefinierte Propagatoren, siehe
+  Punkt \ref{subsection:FD}.
+  
+  \item[\texttt{Schedule}] Das Modul \texttt{Schedule} unterstützt die
+  Entwicklung von Scheduling-Anwendung\-en, in denen Tasks auf gegebene Ressourcen
+  verteilt werden, so dass keine zeitlichen Überlappungen auftreten. In
+  \cite[System Modules, Part II]{url:mozart-documentation} wird diese
+  Vermeidung von zeitlichen
+  Überlappungen als \textsl{Serialization for Unary Resources} bezeichnet.
+  Außerdem bietet das Modul Propagatoren und Verteiler um mehrere Tasks, die
+  verschiedene Ressourcen benötigen, so zu verteilen, damit jede Ressource
+  \textsl{serialized} ist. Zusätzlich wird auch noch das so genannte kumulative
+  Scheduling unterstützt, hier dürfen die Kapazitäten der Ressourcen nicht
+  überschritten werden.
+  
+  \item[\texttt{FS}] Hinter diesem Modul verbergen sich \textsl{Finite Set
+  Constraints}. Es handelt sich um eine neue Constraint-Art für Oz, die eine
+  $n$-elementige Menge mit $n$ finite Domain Variablen assoziiert. Mengen von
+  Constraint Variablen erweisen sich, laut \cite[System Modules, Part
+  II]{url:mozart-documentation}, bei
+  kombinatorischer Suche und Natural Language Processing als sehr nützlich. Im
+  Umfang des Moduls befinden sich Prozeduren, Propagatoren etc. für den
+  einfachen Umgang mit Finite Set Constraints.
+  
+  \item[\texttt{RecordC}] Um auch mit anderen Datentypen als Domain Variablen,
+  Intervall von Integern, auf den Constraint Store zuzugreifen, bietet das
+  Modul \texttt{RecordC} die Möglichkeit, Constraints vom Datentyp
+  \texttt{Record} zu verwenden. Es werden Prozeduren angeboten um das
+  \textsl{Telling} auf den Store für Records zu erweitern.
+  
+  \item[\texttt{Combinator}] Damit Constraints miteinander kombiniert werden
+  können, bietet dieses Modul Prozeduren zur Kombination der Constraints. Bei den
+  Kombinatoren handelt es sich hauptsächlich um konditionale oder logische, wie
+  z.B. \texttt{Combinator.'or'} oder \texttt{Combinator.'not'}. Hier handelt
+  sich um eine direkte Erweiterung der Oz-Syntax, die ohne weiteren Aufwand
+  verwendet werden kann, daher werden die Operatoren auch als String aufgerufen.
+  
+  \item[\texttt{Space}] Mit Hilfe dieses Moduls können eigene \textsl{Inferenzmaschinen}
+  erstellt werden. Es werden Prozeduren bereitgestellt, mit denen Spaces
+  verwaltet werden können. Durch die eigene Verwaltung, wie das Erzeugen neues
+  Spaces \texttt{Spaces.create} oder das Zusammenfügen von Spaces
+  \texttt{Spaces.merge}, können für die Inferenzmaschine neue Schlussfolgerungen
+  erreicht werden. 
+\end{description}
+
+Im Folgenden wird näher auf die Module \texttt{Search} und \texttt{FD} 
+eingegangen, da diese den meisten Einsatz beim Constraint Programming finden.
+
+\subsection{Modul \texttt{Search}}
+\label{subsection:Search}
+
+Für die Suche bietet das Modul 3 Möglichkeiten, die
+\textsl{Basis-Suchmaschinen}, die \textsl{Universellen Suchmaschinen} und die
+\textsl{Parallele Suche}. Allgemein ist zur Suche in Mozart zu sagen, dass nach
+einer bzw. der ersten möglichen Lösung, allen Lösungen und der besten Lösung
+gesucht werden kann. Für die Suche nach der besten Lösung muss noch eine Ordnung
+übergeben werden, die definiert, was eine gute oder schlechte Lösung ist.
+
+\subsubsection{Basis-Suchmaschinen}
+
+Um die Suche mit den Basis-Suchmaschinen zu ermöglichen, müssen in den
+Prozeduren, mit denen eine Lösung gefunden werden soll, Entscheidungspunkte 
+gesetzt werden. Dieses Setzten der Punkte erfolgt über das Schlüsselwort
+\texttt{choice}, das nebenbei bemerkt aus dem Modul \texttt{Combinator} stammt. 
+
+Ein kleines Beispiel nach \cite{LogicProgr:2003} zur Verdeutlichung. Hier sollen
+nach den Kinder eines gegebenen Vaters gesucht werden.
+
+\lstinputlisting[
+	mathescape=false,
+	caption={Suche nach allen Lösungen}, 
+	label={lst:baseSearch}]
+	{../baseSearch.oz} 
+
+Der letzte Aufruf in Listing \ref{lst:baseSearch} stößt die Suche mit dem Vater
+"`terach"' an. Durch den Aufruf \texttt{Search.base.all} wird nach allen
+möglichen Lösungen gesucht und als Ergebnis wird die Liste \texttt{[abraham
+nachor haran]} zurückgegeben.
+
+\subsubsection{Universelle Suchmaschinen}
+
+Mit den Universellen Suchmaschinen lässt sich eine parametrisierte Suche
+durchführen. Hierzu bietet das Modul die Möglichkeit des so genannten
+\textsl{Recomputation} \cite[System Modules, Part II, Chapter
+4.2]{url:mozart-documentation}, die Suche zu stoppen
+und verschiedene Ausgabemodi zu verwenden.
+
+Mit Hilfe des Recomputation können auch für sehr große Suchbäume, für die in der
+Regel nicht genügend Speicherplatz zur Verfügung steht, Lösungen gefunden
+werden. Bei der normalen Suche in Oz wird in jedem Distributionschritt eine
+neue Kopie des Spaces erstellt. Dadurch kann der Speicherbedarf bei sehr großen
+Suchbäumen schnell sehr groß werden. Um diesem Problem Abhilfe zu schaffen, kann
+mittels der Recomputation angegeben werden, dass nur alle $n$ Distributionsschritte
+eine Kopie erstellt werden soll. Die Verringerung des Speicherbedarfs geht
+allerdings auf die Kosten der Zeit. Schlägt eine Suche im $n-1$-ten Schritt nach
+der letzten Kopie fehl, muss zur letzten Kopie zurück gesprungen werden und
+einige Suchpfadteile könnten mehrfach durchsucht werden.
+
+\subsubsection{Parallele Suche}
+
+Mit Hilfe der parallelen Suche soll die Exploration von Suchbäumen beschleunigt
+werden, siehe \cite[System Modules, Part II, Chapter
+4.4]{url:mozart-documentation}. Um die Suche zu parallelisieren,
+wird der Suchbaum in mehrer Untersuchbäume aufgeteilt und auf mehrere
+Oz-Prozesse verteilt. Die Verteilung auf mehrere Oz-Prozesse kann lokal auf
+einen PC laufen oder auch auf mehrere PCs im Netzwerk verteilt werden. Damit die
+Suche parallel laufen kann, stellt das Modul die Klasse \texttt{Search.parallel}
+bereit, die alle Aufgaben übernimmt.
+
+\subsection{Finite Domain Constraints: \texttt{FD}}
+\label{subsection:FD}
+
+Ein weiterer wichtiger Teil für das Constraint Programming stellt das Modul
+\texttt{FD} für \textsl{Finite Domain Constraints} dar. Das Modul definiert
+Prozeduren, Propagatoren und Distributions-Strategien für die Suche.
+
+Die meisten hier definierten Prozeduren und Propagatoren können implizit in Oz
+verwendet werden. Beispielsweise bedarf es bei Prozeduren für das Telling auf den
+Constraintstore keinen expliziten Import des Moduls. Die definierten
+Propagatoren gliedern sich in generische, symbolische, und binäre (0/1
+Propagatoren), vgl. \cite[System Modules, Part II, Chapter 5
+]{url:mozart-documentation}. Die generischen
+Propagatoren lassen Definitionen für den Wertebereich von Domain Variablen zu,
+z.B. kleiner gleich "`\texttt{=<:}"', die auch implizit in Oz verwendet werden
+können. 
+
+Zusätzlich bietet das Modul \textsl{Reflection} und das so genannte
+\textsl{Watching}, nach \cite[System Modules, Part II, Chapter
+5.5]{url:mozart-documentation}, für Domains (Domain
+Variablen) an. Bei Reflection kann z.B. die aktuelle untere oder obere Grenze
+der Domain Variable zurückgegeben werden, \texttt{reflect.min} bzw.
+\texttt{reflect. max}. Mittels des Watching können Domains beobachtet werden.
+Beispielsweise wird \texttt{true} bei \texttt{\{FD.watch.size *Domain1 +Domain2
+?B\}} zurück gegeben, wenn die Intervallgröße von \texttt{Domain1} kleiner
+wird als die Größe von \texttt{Domain2}.
+
+\section{Verteilte Programmierung}
+
+Für die Entwicklung von \textsl{verteilten Anwendungen} bietet das Mozart
+Programming System einen Satz von Modulen, die die Entwicklung erleichtern.
+Neben Modulen für den Verbindungsaufbau oder die Remote-Steuerung von
+Oz-Prozessen, finden sich auch Module für die Manipulation für URLs (Uniform
+Resource Locator) oder für statistische Analysen der Verteilung.
+
+Ein Überblick aller verfügbaren Module für die verteilte Programmierung, 
+
+\begin{description}
+  \item[\texttt{Connection}] Um in Oz eine Verbindung zwischen Oz-Prozessen
+  herzustellen, werden so genannte \textsl{Tickets}
+  \cite[System Modules, Part III]{url:mozart-documentation} verwendet. Ein
+  Ticket stellt einen String
+  dar, der für den Verbindungsaufbau verschickt wird. Um eine Verbindung
+  herzustellen, erzeugt ein Prozess, der so genannte \textsl{Server}, ein Ticket,
+  das vom \textsl{Client} auf der anderen Seite geholt bzw. empfangen wird.
+  Das Modul \texttt{Connection} unterscheidet hier zwei Verbindungstypen,
+  nach \cite[System Modules, Part III]{url:mozart-documentation}:
+  \begin{description}
+    \item[One-to-one] Erlaubt nur Einzelverbindungen zwischen 2 Prozessen, mit
+    einem einmal verwendbaren Ticket.
+    \item[Many-to-one] Erlaubt Verbindung von mehreren Clients zu einem Server
+    mit dem gleichen Ticket.
+  \end{description}
+  \item[\texttt{Remote}] Mittels dieses Moduls können über das Netzwerk andere
+  Oz-Prozesse gestartet werden. Diese neu erzeugten Prozesse können
+  \textsl{remote} gesteuert werden. Von der Klasse \texttt{Remote.manager} wird
+  auf einem Computer im Netzwerk eine Instanz erzeugt, der so genannte
+  \textsl{Remote Modul Manager}, der es erlaubt remote den Prozess zu steuern
+  und auf die Ressourcen des entfernten Computers zuzugreifen. 
+  \item[\texttt{URL}] Das Modul \texttt{URL} dient zur Erzeugung und Manipulation
+  von URLs, für das WWW und das Dateisystem. Durch die Prozedur \texttt{URL.make}
+  wird eine URL erzeugt, die sich als Datenstruktur verwalten lässt,
+  beispielsweise \texttt{\{URL.make 
+  "'http://www. mozart\-oz.org/home-1.1.0/share/FD.ozf"'\}}. Das Modul kümmert
+  sich um die systemspezifischen Seperatoren für Verzeichnisse, somit spielt es
+  keine Rolle, ob Verzeichnisse durch \verb+\+ oder \verb+/+ getrennt werden.
+  
+  \item[\texttt{Resolve}] Damit schnell Dateien oder Unterverzeichnisse in
+  einer URL gefunden und verarbeitet werden können, bietet das Modul
+  \texttt{Resolve} einige Prozeduren. Wie der Name schon sagt, soll die
+  übergebene URL nach verschiedenen Arten aufgelöst werden, z.B. kann mit
+  \texttt{root} das Rootverzeichnis für alle übergebenen URLs gesetzt werden.
+  
+  \item[\texttt{Fault}] Mit Hilfe dieses Moduls können Fehler bei Verteilung
+  erkannt und behandelt werden. Anzumerken ist an dieser Stelle, dass dieses
+  Modul laut der Dokumentation \cite[System Modules, Part
+  III]{url:mozart-documentation} im aktuellen
+  Release (Version 1.3.2) noch nicht komplett fertig gestellt ist.
+  
+  \item[\texttt{Discovery}] Bei der Lokation von Diensten (Oz-Servern) im
+  Netzwerk hilft das Modul \texttt{Discovery}. Ein Oz-Server wird im einen Wert
+  initialisiert, in der Regel mit einen Ticket, und wartet bis ein Client eine
+  Anfrage startet. Sucht ein Client einen Dienst im Netzwerk sendet er einen
+  Broadcast über das Netzwerk und wartet auf die Antwort des zugehörigen
+  Servers. In der aktuellen Version 1.3.2 ist die Funktionalität nur für Linux-
+  und Solaris-Netzwerke verfügbar, siehe \cite[System Modules, Part
+  III]{url:mozart-documentation}. 
+  
+  \item[\texttt{DPInint}] Die so genannte Verteilungsschicht, nach
+  \cite[System Modules, Part III]{url:mozart-documentation}, wird bei Mozart nur
+  bei Bedarf dynamisch
+  nachgeladen. Über das Modul \texttt{DPInit} können einige Parameter zur
+  Ladezeit der Verteilungsschicht initialisiert werden. \texttt{IpPort} legt
+  beispielsweise fest über welchen Port kommuniziert werden soll. 
+  
+  \item[\texttt{DPStatistics}] Das Modul \texttt{DPStatistics} unterstützt die
+  statistische Analyse von verteilten Anwendungen, um möglicherweise einige
+  Aspekte verbessern zu können. Mit Hilfe des Moduls können Logfiles in
+  verschiedenen Ausgabemodi erstellt werden. 
+\end{description}
+
+\section{Open Programming}
+
+In der Mozart Dokumentation \cite[System Modules, Part
+IV]{url:mozart-documentation}  werden diese Module
+als Verbindung zum Rest der \textsl{Computational World} beschrieben. Mit Hilfe
+dieser Module erhält man Zugriff auf Dateien und Zugang zum Betriebssystem.
+
+\begin{description}
+  \item[\texttt{Open}] Mit diesem Modul ermöglicht Mozart den Zugriff auf
+  Dateien (\texttt{Open.file}), Sockets (\texttt{Open.socket}) und Pipes
+  (\texttt{Open.pipe}). Wie üblich können Dateien geöffnet, eingelesen,
+  geschrieben und wieder geschlossen werden. Mit Sockets können Verbindungen zum
+  Netzwerk über TCP oder UDP geöffnet und verarbeitet werden. Über die Klasse
+  \texttt{Open.pipe} können Prozesse über die übergebene PID (Process ID)
+  \textsl{geforkt} werden, um Daten mit diesem Prozess auszutauschen.
+  Zusätzlich beinhaltet das Modul die Klasse \texttt{Open.text}, die in
+  Verbindung mit den anderen Klassen verwendet werden kann um Text buchstaben-
+  oder zeilenweise einzulesen. Außerdem werden Exceptions von diesem Modul
+  ausgelöst, falls Probleme beim Zugriff auftreten, z.B. \textsl{already closed}.
+  
+  \item[\texttt{OS}] Die Prozeduren des Moduls \texttt{OS} sind laut
+  \cite[System Modules, Part IV]{url:mozart-documentation} zu POSIX (Portable
+  Operating System Interface)
+  kompatibel. Hauptsächlich handelt es sich um Prozeduren für die Interaktion
+  mit dem Betriebssystem, z.B. das Erzeugen von Zufallszahlen (\texttt{OS.rand})
+  oder Zugriff auf das Dateisystem (\texttt{OS.tmpnam}, absoluter Pfad zu einer
+  neu erzeugten Datei). Außerdem erhält man auch Zugriff auf Verzeichnisse,
+  beispielsweise liefert \texttt{OS.getDir} alle Pfade zu Dateien im gegebenen
+  Verzeichnis. Zusätzlich bietet das Modul Zugriff auf Sockets, die Systemzeit und
+  Umgebungsvariablen. Bei den so genannten \textsl{Low Level Procedures} können
+  Angaben über die Lese- oder Schreibberechtigung gemacht werden, z.B. read only
+  usw. Zu diesen Prozeduren zählen auch Prozeduren, wie \texttt{OS.kill}, für
+  die Prozess-Steuerung, näheres siehe \cite[System Modules, Part IV]{url:mozart-documentation}.
+\end{description}
+
+\section{System Programmierung}
+
+In das Gebiet der System Programmierung fallen Module, die die
+\textsl{Funktionalität} das Mozart Programming System betreffen. Im Folgendem
+einen Überblick dieser Module,
+
+\begin{description}
+  \item[\texttt{Pickle}] Das Modul \texttt{Pickle} dient dazu, zustandslose
+  Werte zu speichern, also um Peristenz herzustellen. Die Werte können unter
+  einem Dateinamen gespeichert und über diesen wieder geladen werden, z.B.
+  komprimierte Speicherung \texttt{Pickle.save\-Compressed}.
+  
+  \item[\texttt{Property}] Um die Parameter der \textsl{Mozart Engine} (Virtual
+  Maschine) abzufragen und zu aktualisieren, dient dieses Modul. Hierzu wird
+  eine Schnittstelle mit 3 Prozeduren bereitgestellt. Zum Setzten von
+  \textsl{Properties} die Prozedur \texttt{Property.put} und für den Zugriff
+  auf die Parameter \texttt{Property.get} (nur Lesen des Parameters) und
+  \texttt{Property.condGet}. Die Einstellungen können beispielsweise die
+  Distribuierung, die Spaces oder den Speichernutzung betreffen, näheres siehe
+  \cite[System Modules, Part V]{url:mozart-documentation}.
+  
+  \item[\texttt{Error}] Damit Fehlermeldungen, in Form von Exceptions, leserlich
+  gestaltet werden können, bietet das Modul \texttt{Error} die Möglichkeit die
+  Fehler zu formatieren. So genannte \textsl{Error Formatters} können erstellt
+  werden, die Aussage über einen speziellen Fehler geben können. Außerdem bietet
+  das Modul Prozeduren zur Fehlerbehandlung in einen Fehlerfall, z.B.
+  \texttt{Error.printException}. 
+  
+  \item[\texttt{ErrorFormatters}] Mozart stellt im Modul
+  \texttt{ErrorFormatters} schon einige vordefinierte Fehlermeldungen bereit,
+  die von \texttt{Error}-Modul verwendet werden und auch selbst verwendet
+  werden können. Beispielsweise formatiert \texttt{os} Exceptions und Fehler,
+  die von der Schnittstelle zum Betriebssystem hoch kommen.  
+  
+  \item[\texttt{Finalize}] Mit Hilfe dieses Moduls können in Functors oder
+  Klassen gekapselte Daten (Ressourcen) automatisch wieder freigegeben werden,
+  falls der Functor oder die Klasse nicht mehr existiert. Hierfür wird in
+  \cite[System Modules, Part V]{url:mozart-documentation} ein Beispiel für eine
+  Datenbankverbindung, die
+  in einer Klasse gekapselt ist, vorgestellt. Falls die Klasse nicht mehr
+  benötigt wird, wird die Instanz durch die Garbage Collection zerstört. Bevor
+  allerdings die Instanz gelöscht wird, sollte die Datenbankverbindung
+  geschlossen werden, diese Aufgabe übernimmt das Modul \texttt{Finalize}.
+  
+  \item[\texttt{System}] Im Modul \texttt{System} werden Prozeduren
+  zusammengefasst, die in Verbindung mit der Mozart Engine stehen. Die meisten
+  Prozeduren beziehen sich auf die formatierte Ausgabe von beispielsweise
+  Fehler oder einfachen Strings.
+\end{description} 
+
+\section{Window Programming}
+
+Wie bei jeder höheren Programmiersprache stellt Mozart Oz Module für die
+Oberflächenprogrammierung bereit. Zur Programmierung nutzt Mozart eine
+objektorientierte Schnittstelle zu \textsl{Tk} (Toolkit). Ursprünglich entstand
+Tk mit der Skriptsprache Tcl \footnote{\url{http://www.tcl.tk/}} (Tool Command
+Language) und stellt ein plattformunabhängiges \textsl{Graphical User Interface
+Toolkit} dar, siehe \cite{url:tcl-tk}.  
+
+\begin{description}
+  \item[\texttt{Tk}] Dieses Modul stellt die Schnittstelle zu Tk dar. Hier
+  können Fenster (\texttt{Tk.frame}), so genannte \textsl{Widgets} oder Buttons
+  (\texttt{Tk.button}) zu einer Benutzeroberfläche zusammengestellt werden.
+  Außerdem können Bilder zu Darstellung geladen werden. Zusätzlich bietet das Modul
+  noch so genannte \textsl{Listeners}, die den Listener des  
+  Java-Oberflächenkonzepts ähneln, um die Oberfläche über bestimmte Ereignisse
+  zu benachrichtigen, siehe \cite[System Modules, Part VI]{url:mozart-documentation}. 
+  
+  \item[\texttt{TkTools}] Um die Erstellung von Oberflächen zu erleichtern, wird
+  das Modul \texttt{TkTools} von Mozart bereitgestellt. In diesem Modul finden
+  sich vordefinierte Oberflächenkomponenten, wie Dialoge
+  (\texttt{TkTools.dialog}) oder Menüleisten (\texttt{TkTools.menubar}), die
+  einfach in der GUI verwendet werden können.
+\end{description}
+

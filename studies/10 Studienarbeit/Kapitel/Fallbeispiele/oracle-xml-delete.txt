@@ -1,0 +1,1 @@
+DELETE FROM wohnung WHERE id_wohnung = 1;

@@ -1,0 +1,115 @@
+\subsection{Concurrent Constraint Programming}
+\begin{frame}{Constraint Programming}
+  \begin{itemize}
+    \item Constraint: logische Formel, welche den möglichen Wertebereich von 
+    Variablen einschränkt (engl.\ to constrain)
+    \item Elementarer Constraint: z.\,B.\: $X=Y \quad X=23 \quad 
+    X=\mathrm{pair}(Y\,Z)$
+    \item \textsl{finite domain} Constraint: $X::1\#42$, Beschränkung von $X$ 
+    auf ganze Zahlen zwischen 1 und 42
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Constraint Programming: finite domain problems}
+  \begin{itemize}
+    \item Lösung kombinatorischer Probleme, z.\,B.\ "`N Damen"'-, 
+    "`Graphfärbe"'-Problem mithilfe von \textsl{Constraint Propagation}
+    \item Hier: Speicher $\equiv$ \textsl{Constraint Store}, Aktoren $\equiv$ 
+    \textsl{Propagators}
+    \item Constraint Store speichert Konjunktion aus elementaren Constraints, 
+    z.\,B.\ $X \in 0\#5 \wedge Y = 8 \wedge Z \in 13\#23$
+    \item Propagators führen komplexte Constraints ein, z.\,B.\ $X < Y$ oder 
+    $X^2 + Y^2 = Z^2$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Constraint Programming: Beispiel Propagation}
+  \begin{itemize}
+    \item Constraint Store enthält: $X \in 0\#9 \wedge Y \in 0\#9$
+    \item Propagator 1 ($P_1$): $X + Y = 9$, Propagator 2 ($P_2$): $2 \cdot X + 
+    4 \cdot Y = 24$
+  \end{itemize}
+  \pause
+  \begin{enumerate}[<+->]
+    \item $P_2$ schränkt ein: $X \in 0\#8 \quad Y \in 2\#6$
+    \item $P_1$ schränkt ein: $X \in 3\#7 \quad Y \in 2\#6$
+    \item \ldots
+    \item $P_2$ stellt fest: $X = 6 \quad Y = 3$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Constraint Programming: Distribuierung}
+  \begin{itemize}
+    \item Constraint Propagation ist keine vollständige Lösungsmethode
+    \item Abhilfe: "`Distribution"'
+    \item Unterteilung des Suchraums in mehrere Spaces (mithilfe eines
+    Suchbaums) 
+    \item Dazu: "`Erfinden"' eines neuen Constraints für den linken Teilbaum;
+    dessen Negation für den rechten Teilbaum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Constraint Programming in Oz: "`Send More Money"'}
+  \begin{block}{Das "`Send More Money"'-Problem}
+    \begin{description}
+      \item[Gegeben] $SEND + MORE = MONEY$
+      \item[Gesucht] Ziffern (0-9) für die Buchstaben
+      \item[Bedingungen] Ziffern paarweise verschieden, $S \neq 0, M \neq 0$
+      \item[Lösung] $9567 + 1085 = 10652$
+    \end{description}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Constraint Programming in Oz}
+  \lstinputlisting[firstline=2]{../oz-constraint.oz}
+  \href{run:oz-constraint.oz}{\beamergotobutton{OPI starten}} 
+\end{frame}
+
+\subsection{Funktionale Programmierung}
+\begin{frame}{Funktionale Programmierung}
+  \begin{itemize}
+    \item Grundidee: Auswertung (mathematischer) Ausdrücke
+    \item Ziel: Programmverifikation vereinfachen (s.\ $\lambda$-Kalkül)
+    \item Gewöhnungsbedürftig: Keine Schleifen und Zuweisungen, sondern 
+    Rekursion!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Funktionale Programmierung in Oz}
+  \lstinputlisting{../oz-funktional2.oz}
+  \href{run:oz-funktional2.oz}{\beamergotobutton{OPI starten}} 
+\end{frame}
+
+\subsection{Objektorientierte Programmierung}
+\begin{frame}{Klassen und Objekte}
+  \begin{itemize}
+    \item Klasse: Datenstruktur mit Methodentabelle und Attributnamen
+    \item Objekt: Datenstruktur mit Komponenten, darunter u.\,a.\:
+	  \begin{itemize}
+        \item Klasse
+        \item Zustand
+      \end{itemize}
+        \item Besonderheiten: Unterstützung für Mehrfachvererbung, sog.\ 
+        "`Features"'
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Objektorientierte Programmierung in Oz}
+  \lstinputlisting{../oz-oop.oz}
+  \href{run:oz-oop.oz}{\beamergotobutton{OPI starten}} 
+\end{frame}
+
+\subsection{Logische Programmierung}
+\begin{frame}{Logische Programmierung}
+  \begin{itemize}
+    \item Grundidee: Berechnung als \textsl{Deduktion}
+    \item Jedem bekannt: PROLOG
+    \item Aus der Idee der logischen Programmierung ging 
+    Constraintprogrammierung hervor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Logische Programmierung in Oz}
+  \lstinputlisting{../oz-logisch.oz}
+  \href{run:oz-logisch.oz}{\beamergotobutton{OPI starten}} 
+\end{frame}

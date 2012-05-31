@@ -1,0 +1,17 @@
+INSERT INTO [wohnung] (
+	[id_wohnung], 
+	[name], 
+	[groesse], 
+	[anzahl_zimmer], 
+	[preis_pro_tag], 
+	[ausstattung], 
+	[id_land])
+VALUES (
+	166,
+	'Domizil Patty',
+	7,
+	4,
+	188,
+	'<Ausstattung><Telefon/></Ausstattung>',
+	113)
+GO

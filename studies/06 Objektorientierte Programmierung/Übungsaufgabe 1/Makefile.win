@@ -1,0 +1,39 @@
+# Project: Übungsaufgabe 1
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = main.o MyDouble.o MyNumber.o Exception.o $(RES)
+LINKOBJ  = main.o MyDouble.o MyNumber.o Exception.o $(RES)
+LIBS =  -L"C:/Programme/Dev-Cpp/lib" -static  
+INCS =  -I"C:/Programme/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Programme/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Programme/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Programme/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Programme/Dev-Cpp/include/c++/3.4.2"  -I"C:/Programme/Dev-Cpp/include" 
+BIN  = Aufgabe1.exe
+CXXFLAGS = $(CXXINCS)   -ansi -pedantic -Wall
+CFLAGS = $(INCS)   -ansi -pedantic -Wall
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before Aufgabe1.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Aufgabe1.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+MyDouble.o: MyDouble.cpp
+	$(CPP) -c MyDouble.cpp -o MyDouble.o $(CXXFLAGS)
+
+MyNumber.o: MyNumber.cpp
+	$(CPP) -c MyNumber.cpp -o MyNumber.o $(CXXFLAGS)
+
+Exception.o: Exception.cpp
+	$(CPP) -c Exception.cpp -o Exception.o $(CXXFLAGS)

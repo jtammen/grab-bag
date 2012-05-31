@@ -1,0 +1,35 @@
+		\setlength\umlSymbolHeightDefault{.6em}
+		\setlength\umlSymbolWidthDefault{.3em}
+	  \umlDiagram[box=,border,sizeX=14.0cm,sizeY=6.0cm,ref=ClassDiagram]{%
+	  \footnotesize%
+			\umlClass[pos=\umlTop{ClassDiagram},%
+					  		refpoint=t,%
+					  		posDelta={0em, -1em},%
+					  		reference=K]{Knoten}{%
+				\umlAttribute[visibility=-, type=int]{haeufigkeit}%
+			}{%
+				\umlMethod[visibility=+]{Knoten}{int haeufigkeit}%
+				\umlMethod[visibility=+, returntype=bool]{operator<}{const Knoten\&}%
+			}%
+			%
+			\umlClass[pos=\umlBottomLeft{K},%
+							  posDelta={-10.5em,-4em},%
+							  refpoint=tl,%
+								reference=IK]{InnenKnoten}{%
+				\umlAttribute[visibility=-, type=const Knoten*]{kindLinks}%
+				\umlAttribute[visibility=-, type=const Knoten*]{kindRechts}%
+			}{%
+				\umlMethod[visibility=+]{InnenKnoten}{Knoten* links, Knoten* rechts}%
+			}%
+			%
+			\umlClass[pos=\umlTopRight{IK},%
+							  posDelta={1.5em,0em},%
+							  refpoint=tl,%
+								reference=AK]{AussenKnoten}{%
+				\umlAttribute[visibility=-, type=char]{symbol}%
+			}{%
+				\umlMethod[visibility=+]{AussenKnoten}{char c, int h}%
+			}%
+		\umlSubclass[ref=relIKK,armB=0.93,armA=0.49,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{IK}{K}{}%
+		\umlSubclass[ref=relAKK,armB=0.93,armA=0.50,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{AK}{K}{}%
+		}%

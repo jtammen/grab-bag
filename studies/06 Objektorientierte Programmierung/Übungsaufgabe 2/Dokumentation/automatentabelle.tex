@@ -1,0 +1,95 @@
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabular}{@{}*{5}{l}@{}}		
+		\toprule
+		\multicolumn{1}{@{}N}{Im Zustand}				& 
+		\multicolumn{1}{V{6em}}{bei Zeichen} 		& 
+		\multicolumn{1}{V{6em}}{Aktion}					&
+		\multicolumn{1}{V{6em}}{Zeichen lesen}	&
+		\multicolumn{1}{V{6em}}{Folgezustand}		\\
+		
+		\midrule
+		
+		\multirow{8}{*}{Basis}										&
+			'									& ---				& ja			&			ZK			\\ %\cmidrule(r){2-5}
+		& /									& ---				& ja			& 		Ko?			\\ %\cmidrule(r){2-5}
+		& ''								& ---				& ja			& 		String	\\ %\cmidrule(r){2-5}
+		& Wz (Weiﬂzeichen)	& ---				& ja			&			Basis		\\ %\cmidrule(r){2-5}
+		& Zi (Ziffer)				& Zi merken	& ja			&			Zahl		\\ %\cmidrule(r){2-5}
+		& Sz (Sonderzeichen)& Sz merken	& ja			& 		SZF			\\ %\cmidrule(r){2-5}
+		& Bu (Buchstabe)		& Bu merken	& ja			&			Name		\\ %\cmidrule(r){2-5}
+		& eof	(end of file)	& ---				& nein		& 		---			\\		
+		\cmidrule{1-5}
+		
+		\multirow{2}{*}{ZK}												&
+		$\backslash$	& ---							& ja			&			ZKescape	\\
+		& sonst.			& Zeichen merken	& ja			& 		ZKwert		\\
+		\cmidrule{1-5}
+		
+		\multirow{1}{*}{ZKescape}							&
+			sonst.			& Zeichen merken				& ja			&			ZKwert		\\
+		\cmidrule{1-5}	
+		
+		\multirow{1}{*}{ZKwert}								&
+			'			& Ausgabe ZK									& ja			&			Basis			\\
+		\cmidrule{1-5}					
+		
+		\multirow{3}{*}{Ko?}											&
+		sonst.	& ---			& ja			&			Basis		\\
+		& /			& ---			& ja			& 		Ko			\\
+		& *			& ---			& ja			& 		*Ko			\\		
+		\cmidrule{1-5}		
+					
+		\multirow{2}{*}{Ko}												&
+		sonst.		& ---			& ja			&			Ko		\\
+		& eol			& ---			& ja			& 		Basis	\\	
+		\cmidrule{1-5}
+		
+		\multirow{2}{*}{*Ko}											&
+		sonst.		& ---			& ja			&			*Ko		\\
+		& *				& ---			& ja			& 		KoE?	\\	
+		\cmidrule{1-5}		
+							
+		\multirow{2}{*}{KoE?}											&
+		sonst.		& ---			& ja			&			*Ko		\\
+		& /				& ---			& ja			& 		Basis	\\	
+		\cmidrule{1-5}							
+
+		\multirow{3}{*}{Zahl}										&
+			Zi			& Zi dazumerken			& ja			&			Zahl		\\
+		& Sz			& Zi ausgeben, 
+								Sz merken					& ja			& 		SZF			\\
+		& sonst.	& Zahl ausgeben			& ja			& 		Basis		\\			
+		\cmidrule{1-5}
+
+		\multirow{5}{*}{SZF}										&
+			Sz			& Zeichen dazumerken& ja			&			SZF			\\
+		& Wz			& ---								& ja			& 		SZF			\\
+		& Bu			& SZF ausgeben,
+								Bu merken					& ja			& 		Name		\\
+		& Zi			& SZF ausgeben,
+								Zi merken					& ja			& 		Zahl		\\								
+		& ''			& SZF ausgeben			& ja			& 		String	\\
+		& sonst.	& SZF ausgeben			& ja			& 		Basis		\\
+		\cmidrule{1-5}
+
+		\multirow{4}{*}{Name}											&
+		Bu/Zi/Us		& Zeichen dazumerken	& ja		&			Name		\\
+		& Sz				& Name ausgeben,
+									Sz merken						& ja		& 		SZF			\\
+		& Wz				& Name ausgeben				& ja		& 		Basis		\\
+		& ''				& Name ausgeben				& ja		& 		String	\\				
+		\cmidrule{1-5}
+
+		\multirow{2}{*}{String}										&
+			''				& String ausgeben			& ja		&			Basis		\\
+		& sonst.		& Zeichen merken			& ja		& 		String	\\
+							
+		\addlinespace
+		\bottomrule
+		
+		\end{tabular}
+	\caption{Automatentabelle}
+	\label{tab:Automatentabelle}
+\end{table}

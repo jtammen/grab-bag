@@ -1,0 +1,28 @@
+\begin{table}
+	\sffamily
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{} & \multicolumn{1}{@{}N}{\acr{xml}-Information} & \multicolumn{1}{V{6em}@{}}{Datenbank-Informationen} \\
+		%\cmidrule(r){1-1}\cmidrule(l){2-2}		
+		\midrule\addlinespace\addlinespace
+		
+		Element						&	\acr{xml}-Element																& Attribut einer Relation \\
+											& Sequenz von Elementen														&	Attribute einer Relation \\
+											& Alternative	von Elementen												& Attribute einer Relation \\
+											& Element mit dem Quantifizierer "`?"' 						& Attribut, Nullwerte möglich \\
+											& Elemente mit Quantifizierer "`+"' oder "`*"' 		& SET oder LIST \\
+											& komplex stukrutiertes (geschachteltes) Element 	& ROW Type \\
+		Attribut					& \acr{xml}-Attribut															& Attribut einer Relation \\
+											& \#IMPLIED																				& Nullwert erlaubt \\
+											& \#REQUIRED																			& Nullwert nicht erlaubt \\
+											& Defaultwert																			& Defaultwert	\\			
+		\addlinespace
+		\bottomrule
+		
+		\end{tabularx}
+	\caption{Datenbankstruktur für ein DTD-Schema, \citep[Kap. 8.4.1]{KlettkeMeyer}}
+	\label{tab:xml-datenbankstruktur-automatisch}
+\end{table}

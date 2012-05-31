@@ -1,0 +1,100 @@
+\section{Einleitung}
+Als Ausgangsbasis für die Beispielapplikation dient eine Übungsaufgabe aus der Vorlesung "`Datenbanksysteme"' an der FH Konstanz. Ziel dieser Aufgabe ist die Erstellung und Umsetzung eines Datenbank-Schemas für eine fiktive Internetapplikation. Welche Funktionen die Anwendung für die Untersuchung der für diese Arbeit relevanten Fragen zweckmäßigerweise haben sollte, wird in den nachfolgenden Abschnitten erläutert.
+
+\section{Zielsetzung}
+Das Beispielprogramm soll es ermöglichen, dass Kunden über das Internet Ferienwohnungen buchen können. 
+
+Im Vordergrund soll die Praxistauglichkeit der \acr{xml}-Funktionalitäten in Datenbanksystemen stehen. Da der Zeitaufwand für die Erstellung minimiert werden soll, wurden einige Abstriche im Funktionsumfang gemacht. Vielmehr sollen die Anforderungen so konzipiert sein, dass  Datenbankzugriffe wie löschen, ändern und hinzufügen getestet werden können. Ziel der Anfoderungsanalyse ist es also, nach der Implementierung eine Einschätzung vornehmen zu können, ob die \acr{xml}-Funktionalitäten eine Verbesserung, eine Verschlechterung oder keinen Unterschied zu herkömmlichen relationalen Datenbanken darstellen und inwieweit die Datenbanken \acr{xml}-Funktionalitäten bereits unterstützen.
+
+\section{Benutzergruppe}
+Es existieren zwei Benutzergruppen: Die erste Benutzergruppe besteht aus den Anwendern, die über das Internet eine Ferienwohnung buchen wollen. Eine zweite Benutzergruppe ist dafür zuständig, dass die Daten über die Ferienwohnung eingepflegt werden.
+
+\section{Voraussetzungen}
+Auf der Clientseite: Ein Standard-Webbrowser wie beispielsweise Microsoft Internet Explorer oder Mozilla Firefox ist ausreichend für die Bedienung der Anwendung. Es wird davon ausgegangen, dass jeweils eine aktuelle Version installiert ist. 
+
+Auf der Serverseite: Es müssen die \acr{dbms} von Oracle, SQL-Server und eXist installiert sein. Darüber hinaus muss ein Webserver (\zB Apache) verfügbar sein.
+
+\section{Aufgaben und Ziele}
+\subsection{Aufgaben}
+Ziel der Software ist einerseits, dem Kunden Informationen über die Ferienwohnung zur Verfügung zu stellen, auf der anderen Seite soll dem Kunden ermöglicht werden, Ferienwohnungen über das Internet zu buchen. Die Buchung einer Ferienwohnung soll dadurch automatisiert werden.
+
+\subsection{Ziele}
+Die Software dient dazu, ein Internetportal für die Buchung von Ferienwohnungen zur Verfügung zu stellen.
+
+\section{Nutzungsfälle}
+Die Abbildung \ref{fig:beispielapplikation-anwendungsfaelle} zeigt zunächst im Überblick die vom System unterstützten Anwendungsfälle. Diese werden dann in den darauffolgenden Kapiteln detaillierter beschrieben.
+\begin{figure}
+	\centering
+		\includegraphics[width=0.90\textwidth]{images/beispielapplikation-anwendungsfaelle.eps}
+	\caption{UML-Anwendungsfalldiagramm}
+	\label{fig:beispielapplikation-anwendungsfaelle}
+\end{figure}
+
+\subsection{Suchen von Ferienwohnungen}
+Dem Benutzer soll es ermöglicht werden, nach bestimmten Ferienwohnungen zu suchen. Dazu soll der Benutzer eine Eingabemaske angezeigt bekommen, in die er Suchkriterien eingeben kann. Diese Suchkriterien sind:
+\begin{itemize}
+	\item Land
+	\item Anzahl der Zimmer
+	\item Maximaler Preis
+	\item Ausstattungsmerkmale
+\end{itemize}
+Die Ausgabe soll formatiert erfolgen. An die Formatierung werden keine besonderen Anforderungen gestellt.
+
+Ziel des Nutzungsfalls ist die Suche nach alphanumerischen Werten über Joins (Suchkriterium Land). Die Joins sollen bei Oracle und SQL-Server über die Tabellen \texttt{Kunden} und \texttt{Wohnungen} erfolgen -- bei eXist über \acr{xml}-Dokumente. Darüber hinaus soll nach numerischen Werten (Suchkriterium Zimmer) und mit Vergleichsoperatoren wie kleiner/größer (Suchkriterium Preis) gesucht werden.
+
+\subsection{Buchen von Ferienwohnungen}
+Nachdem der Kunde eine Ferienwohnung gefunden hat, soll er die Möglichkeit haben, diese Wohnung zu buchen. Dazu soll der Benutzer das gewünschte Anfangs- und Enddatum eingeben oder über ein Listenfeld auswählen können. Die Buchung erfolgt über einen Klick auf eine Schaltfläche. Anschließend soll die Software überprüfen, ob die Wohnung im fraglichen Zeitraum frei ist. Wenn dies der Fall ist, wird die Wohnung gebucht, d.h. es wird ein neuer Datensatz für die Buchung in der Datenbank abgelegt. Schlägt die Buchung fehl, wird eine Fehlermeldung ausgegeben und der Kunde kann nochmals versuchen eine Wohnung zu buchen.
+
+Ziel des Nutzungsfalls ist es zu testen, ob ein neuer Datensatz eingefügt werden kann. Außerdem soll überprüft werden, ob die Datumsfunktionen auf \acr{xml}-Daten angewendet werden können. 
+
+\subsection{Hinzufügen, Ändern und Löschen von Ferienwohnungen}
+Die Firma soll in der Lage sein, neue Ferienwohnungen hinzuzufügen, zu löschen oder zu ändern. Das Hinzufügen erfolgt über eine einfache Eingabemaske, die nur aus Eingabefeldern besteht. Nach dem Beenden der Eingabe soll der Anwender durch Anklicken einer Schaltfläche "`Hinzufügen"' die Eingabe bestätigen.
+
+Beim Löschen sucht der Anwender zunächst eine Ferienwohnung, wie im Nutzungsfall "`Suchen von Ferienwohnungen"' beschrieben. Wenn diese gefunden wurde, kann der Benutzer die Ferienwohnung durch Klicken auf eine Schaltfläche "`Löschen"' aus der Datenbank entfernen.  
+
+Die Funktion "`Änderung"' ähnelt dem Hinzufügen eines Datensatzes, mit dem Unterschied, dass zunächst ein Datensatz gesucht wird. Dies geschieht ebenfalls wie im Nutzungsfall "`Suchen von Ferienwohnungen"' beschrieben wurde. Nachdem der Datensatz gefunden ist, kann dessen Inhalt in Eingabefeldern geändert und durch die Schaltfläche "`Bestätigen"' gespeichert werden.
+
+Es existieren zwei Ansichen: Eine für den Verwalter und eine für den Kunden. Nur in der Ansicht für den Verwalter lassen sich Ferienwohnungen ändern, hinzufügen und löschen. Bei der Ansicht für den Kunden fehlen diese Funktionen. 
+
+Ziel dieses Nutzungsfalls ist es, Einfüge-, Lösch- und Änderungsoperationen bei Datenbanken unter Benutzung der \acr{xml}-Funktionalitäten zu testen.
+
+\section{Datenstrukturen}
+Nachfolgend sind die \acr{dtd}s für die Speicherung der \acr{xml}-Daten in eXist sowie die \texttt{CREATE TABLE}-Statements für Oracle und \acr{sql}-Server aufgeführt.
+
+\subsection{eXist}
+\lstinputlisting[language=XML,caption={DTD für Wohnungen},label=listing:dtd-wohnungen]{Kapitel/Fallbeispiele/wohnungen.dtd}
+\lstinputlisting[language=XML,caption={DTD für Länder},label=listing:dtd-länder]{Kapitel/Fallbeispiele/laender.dtd}
+\lstinputlisting[language=XML,caption={DTD für Kunden},label=listing:dtd-kunden]{Kapitel/Fallbeispiele/kunden.dtd}
+\lstinputlisting[language=XML,caption={DTD für Buchungen},label=listing:dtd-buchungen]{Kapitel/Fallbeispiele/buchungen.dtd}
+
+\subsection{Oracle}
+\lstinputlisting[language=SQLORA,caption={CREATE-TABLE-Statement Wohnungen, Oracle},label=listing:oracle-xml-create-table-wohnung]{Kapitel/Fallbeispiele/oracle-xml-create-table-wohnung.txt}
+\lstinputlisting[language=SQLORA,caption={CREATE-TABLE-Statement Länder, Oracle},label=listing:oracle-xml-create-table-land]{Kapitel/Fallbeispiele/oracle-xml-create-table-land.txt}
+\lstinputlisting[language=SQLORA,caption={CREATE-TABLE-Statement Kunden, Oracle},label=listing:oracle-xml-create-table-kunde]{Kapitel/Fallbeispiele/oracle-xml-create-table-kunde.txt}
+\lstinputlisting[language=SQLORA,caption={CREATE-TABLE-Statement Buchungen, Oracle},label=listing:oracle-xml-create-table-buchung]{Kapitel/Fallbeispiele/oracle-xml-create-table-buchung.txt}
+
+\subsection{SQL-Server}
+\lstinputlisting[language=SQL05,caption={CREATE-TABLE-Statement Wohnungen, SQL-Server},label=listing:sql-server-create-table-wohnung]{Kapitel/Fallbeispiele/sql-server-create-table-wohnung.txt}
+\lstinputlisting[language=SQL05,caption={CREATE-TABLE-Statement Länder, SQL-Server},label=listing:sql-server-create-table-land]{Kapitel/Fallbeispiele/sql-server-create-table-land.txt}
+\lstinputlisting[language=SQL05,caption={CREATE-TABLE-Statement Kunden, SQL-Server},label=listing:sql-server-create-table-kunde]{Kapitel/Fallbeispiele/sql-server-create-table-kunde.txt}
+\lstinputlisting[language=SQL05,caption={CREATE-TABLE-Statement Buchungen, SQL-Server},label=listing:sql-server-create-table-buchung]{Kapitel/Fallbeispiele/sql-server-create-table-buchung.txt}
+
+\section{Realisierung}
+Die Realisierung der Anwendung erfolgt mittels der frei verfügbaren Skriptsprache \acr{php} in der Version 5. Diese Sprache eignet sich besonders gut für den Einsatz bei Webapplikationen und es lassen sich relativ schnell Anwendungen erstellen, die über einen Webbrowser bedienbar sind. Ein weiterer Vorteil ist die Verfügbarkeit einer ganzen Reihe von Standard-Klassen, die \zB einen einheitlichen Zugriff auf Datenbanksysteme ermöglichen.
+
+Neben den verwendeten \acr{dbms} kommen also die folgenden Komponenten zum Einsatz:
+
+\begin{itemize}
+	\item Apache Webserver (Version 2.0.x) \footnote{\url{http://httpd.apache.org}}
+	\item Skriptsprache \acr{php} (Version 5.x) \footnote{\url{http://www.php.net}}
+	\item \acr{pear}-Datenbankabstraktionslayer "`DB"' \footnote{\url{http://pear.php.net/package/DB/}} -- ermöglicht Zugriff auf Oracle sowie Microsoft SQL-Server über die entsprechenden \acr{php}-Schnittstellen
+	\item \acr{pear}-\acr{http}-Utilities "`HTTP"' \footnote{\url{http://pear.php.net/package/HTTP/}} -- komfortable Benutzung von \acr{http}-""Anfragen; dient der Ansteuerung von eXist.
+	\item \acr{odbtp} -- Middleware für den \acr{sql}-Server
+	\item die Ausgabe der Daten wird serverseitig über \acr{xsl}-Transformationssheets erstellt und durch den Webbrowser über \acr{css} formatiert dargestellt.
+\end{itemize}
+
+Neben diesen bereits verfügbaren Standard-Komponenten spricht besonders die umfangreiche und einfach zu benutzende \acr{xml}-Unterstüzung für einen Einsatz von \acr{php}. Gerade in der aktuellen Version 5 wurden diese Funktionen komplett überarbeitet und erweitert.
+
+So gibt es neben der Unterstützung für \acr{sax}-Parsing und einem stark vereinfachten Interface für den Lese- und Schreibzugriff auf \acr{xml}-Dokumente (genannt "`simplexml"') auch eine Implementierung des \acr{w3c}-\acr{dom}-""Standards.
+
+Weitere wichtige Bestandteile sind Schema-Validierung (\acr{dtd} und \acr{xsd}), Zugriff auf Dokumente per XPath sowie \acr{xsl}-Transformationen. Ebendiese \acr{xsl}-""Unterstützung wird in der Beispiel-Applikation für die dynamische Transformation der \acr{xml}-Daten in \acr{xhtml} verwendet.

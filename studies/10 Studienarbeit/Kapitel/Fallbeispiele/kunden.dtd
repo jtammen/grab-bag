@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Adresse (PLZ, Stadt, Strasse, Land)>
+<!ELEMENT BLZ (#PCDATA)>
+<!ELEMENT Bankname (#PCDATA)>
+<!ELEMENT Bankverbindung (Bankname, BLZ, Konto-Nr)>
+<!ELEMENT Konto-Nr (#PCDATA)>
+<!ELEMENT Kunde (Name, Adresse, Bankverbindung)>
+<!ATTLIST Kunde
+  Nr CDATA #REQUIRED
+>
+<!ELEMENT Kunden (Kunde)>
+<!ELEMENT Land EMPTY>
+<!ATTLIST Land
+  Nr CDATA #REQUIRED
+>
+<!ELEMENT Nachname (#PCDATA)>
+<!ELEMENT Name (Vorname, Nachname)>
+<!ELEMENT PLZ (#PCDATA)>
+<!ELEMENT Stadt (#PCDATA)>
+<!ELEMENT Strasse (#PCDATA)>
+<!ATTLIST Strasse
+  Haus-Nr CDATA #REQUIRED
+>
+<!ELEMENT Vorname (#PCDATA)>

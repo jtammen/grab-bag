@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Laender (Land+)>
+<!ELEMENT Land (Name)>
+<!ATTLIST Land
+  Nr CDATA #REQUIRED
+>
+<!ELEMENT Name (#PCDATA)>

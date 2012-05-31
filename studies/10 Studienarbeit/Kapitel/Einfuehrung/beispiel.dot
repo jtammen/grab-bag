@@ -1,0 +1,42 @@
+digraph "DOM" {
+    node [fontname="Helvetica"];
+    node [fontsize="9"];
+    graph [orientation="landscape"];
+    ranksep=".75in"
+        
+    a [shape=record,label="{Studienarbeit}"];
+    aZb [shape=record,label="{Thema}"];
+    a -> aZb;
+    aZbZa [label="Untersuchung und Bewertung..."];
+    aZb -> aZbZa;
+    aZd [shape=record,label="{Betreuer|Name=Oliver Eck\n}"];
+    a -> aZd;
+    aZdZb [shape=record,label="{Titel}"];
+    aZd -> aZdZb;
+    aZdZbZa [label="Prof. Dr."];
+    aZdZb -> aZdZbZa;
+    aZdZd [shape=record,label="{Email}"];
+    aZd -> aZdZd;
+    aZdZdZa [label="eck@fh-konstanz.de"];
+    aZdZd -> aZdZdZa;
+    aZf [shape=record,label="{Autoren}"];
+    a -> aZf;
+    aZfZb [shape=record,label="{Autor|Name=Christoph Eck\n}"];
+    aZf -> aZfZb;
+    aZfZbZb [shape=record,label="{Email}"];
+    aZfZb -> aZfZbZb;
+    aZfZbZbZa [label="christoph.eck@..."];
+    aZfZbZb -> aZfZbZbZa;
+    aZfZd [shape=record,label="{Autor|Name=Daniel Beerstecher\n}"];
+    aZf -> aZfZd;
+    aZfZdZb [shape=record,label="{Email}"];
+    aZfZd -> aZfZdZb;
+    aZfZdZbZa [label="beerstec@..."];
+    aZfZdZb -> aZfZdZbZa;
+    aZfZf [shape=record,label="{Autor|Name=Jan Tammen\n}"];
+    aZf -> aZfZf;
+    aZfZfZb [shape=record,label="{Email}"];
+    aZfZf -> aZfZfZb;
+    aZfZfZbZa [label="jan.tammen@..."];
+    aZfZfZb -> aZfZfZbZa;
+}

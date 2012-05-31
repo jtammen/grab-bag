@@ -1,0 +1,4 @@
+- Anzahl Test-/Trainingsdaten
+- Aktivierungsfunktion
+- Lernrate, Momentum
+- Trainingsfunktion

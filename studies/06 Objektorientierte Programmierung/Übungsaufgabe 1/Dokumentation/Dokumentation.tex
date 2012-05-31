@@ -1,0 +1,722 @@
+%%% File-Information {{{
+%%% Filename: template_bericht.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2004-06-30 18:19:32 mp>
+%%% Authors: The LaTeX@TUG-Team [http://latex.tugraz.at/]:
+%%%          Karl Voit (vk), Michael Prokop (mp), Stefan Sollerer (ss)
+%%% History:
+%%%   20040630 (mp) added comments to foldmethod at end of file
+%%%   20040625 (vk,ss) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+% twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+headsepline, %% add a horizontal line below the column title
+footsepline, %% add a horizontal line above the page footer
+titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+halfparskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+% fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+%draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+12pt,         %% set default font size to 11 point
+DIV16
+]{scrartcl}  %% article, see KOMA documentation (scrguide.dvi)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% packages
+%%%
+
+%%%
+%%% encoding and language set
+%%%
+
+%%% ngerman: language set to new-german
+\usepackage{ngerman}
+
+%%% inputenc: coding of german special characters
+\usepackage[latin1]{inputenc}
+
+%%% fontenc, ae, aecompl: coding of characters in PDF documents
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
+%%%
+%%% technical packages
+%%%
+
+%%% amsmath, amssymb, amstext: support for mathematics
+\usepackage{amsmath,amssymb,amstext}
+
+%%% psfrag: replace PostScript fonts
+\usepackage{psfrag}
+
+%%% listings: include programming code
+\usepackage{listings}
+\usepackage{moreverb}
+
+%%% units: technical units
+\usepackage{units}
+
+%%% color: support for ... colors, yes!
+\usepackage{color}
+
+%%% some color-definitions (see http://texnik.de/listings/listing0.pdf)
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{hellgrau}{rgb}{0.9,0.9,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% configuration of the listings-package
+\lstset{%
+	float=hbp,%
+	basicstyle=\ttfamily\small, %
+	identifierstyle=\color{colIdentifier}, %
+	keywordstyle=\color{colKeys}, %
+	stringstyle=\color{colString}, %
+	commentstyle=\color{colComments}, %
+	columns=flexible, %
+	tabsize=4, %
+	frame=tb, %
+	extendedchars=true, %
+	showspaces=false, %
+	showstringspaces=false, % 
+	numbers=left, %
+	numberstyle=\tiny, %
+	breaklines=true, %
+	backgroundcolor=\color{hellgrau}, %
+	breakautoindent=true, %
+	captionpos=b%
+}
+
+%%%
+%%% layout
+%%%
+
+%%% scrpage2: KOMA heading and footer
+%%% Note: if you don't use this package, please remove 
+%%%       \pagestyle{scrheadings} and corresponding settings
+%%%       below too.
+\usepackage{scrpage2}
+
+% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+% Schrift fuer Captions verkleinern
+%\setkomafont{captionlabel}{\scriptsize}
+%\setkomafont{caption}{\usekomafont{captionlabel}}
+
+% Float
+\usepackage{float}
+
+%%%
+%%% PDF
+%%%
+
+\newif\ifpdf
+  \ifx\pdfoutput\undefined
+     \pdffalse
+  \else
+     \pdfoutput=1
+     \pdftrue
+  \fi
+
+%%% Should be LAST usepackage-call!
+%%% For docu on that, see reference on package ``hyperref''
+\ifpdf{%   (definitions for using pdflatex instead of latex)
+
+	%%% for screen (PDF), we use sans-serif-fonts
+	\usepackage{mathpazo}
+	\usepackage[scaled=.95]{helvet}
+	\usepackage{courier}	
+	\renewcommand{\familydefault}{\sfdefault}
+	\usepackage[sf]{titlesec}
+
+  %%% graphicx: support for graphics
+  \usepackage[pdftex]{graphicx}
+ 
+  \pdfcompresslevel=9
+
+  %%% hyperref (hyperlinks in PDF): for more options or more detailed
+  %%%          explanations, see the documentation of the hyperref-package
+  \usepackage[%
+    %%% general options
+    pdftex=true,      %% sets up hyperref for use with the pdftex program
+    %plainpages=false, %% set it to false, if pdflatex complains: ``destination with same identifier already exists''
+    %
+    %%% extension options
+    backref=section,   %% if true, adds a backlink text to the end of each item in the bibliography
+    pagebackref=false, %% if true, creates backward references as a list of page numbers in the bibliography
+    colorlinks=true,   %% turn on colored links (true is better for on-screen reading, false is better for printout versions)
+    %
+    %%% PDF-specific display options
+    bookmarks=true,          %% if true, generate PDF bookmarks (requires two passes of pdflatex)
+    bookmarksopen=false,     %% if true, show all PDF bookmarks expanded
+    bookmarksnumbered=false, %% if true, add the section numbers to the bookmarks
+    %pdfstartpage={1},        %% determines, on which page the PDF file is opened
+    pdfpagemode=None,	       %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+    breaklinks=true         
+  ]{hyperref}
+
+
+  %%% provide all graphics (also) in this format, so you don't have
+  %%% to add the file extensions to the \includegraphics-command
+  %%% and/or you don't have to distinguish between generating
+  %%% dvi/ps (through latex) and pdf (through pdflatex)
+  \DeclareGraphicsExtensions{.pdf}
+  \graphicspath{{./images}}
+
+\else    %(definitions for using latex instead of pdflatex)
+
+  \usepackage[dvips]{graphicx}
+
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}  
+
+  \usepackage[%
+    dvips,            %% sets up hyperref for use with the dvips driver
+    colorlinks=false, %% better for printout version; almost every hyperref-extension is eliminated by using dvips
+    breaklinks=true 
+  ]{hyperref}
+
+\fi %ifpdf
+
+%%% sets the PDF-Information options
+%%% (see fields in Acrobat Reader: ``File -> Document properties -> Summary'')
+%%% Note: this method is better than as options of the hyperref-package (options are expanded correctly)
+\hypersetup{
+  pdftitle={Schnittstelle für Langzahl-Arithmetik}, %%
+  pdfauthor={Jan Tammen <foobar@fh-konstanz.de>}, %%
+  pdfsubject={Objektorientierte Programmierung, Übungsaufgabe 1}, %%
+  pdfcreator={Jan Tammen <foobar@fh-konstanz.de>}, %% 
+  pdfproducer={}, %%
+  pdfkeywords={} %%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[3]{
+  \begin{center}
+    \includegraphics[width=#1, keepaspectratio=true]{#2} \\
+    \textbf{#3}
+  \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% define the titlepage
+%%%
+
+% \subject{}   %% subject which appears above titlehead
+% \titlehead{} %% special heading for the titlepage
+
+%%% title
+\title{Schnittstelle für Langzahl-Arithmetik}
+\subject{Objektorientierte Programmierung, Übungsaufgabe 1}
+
+%%% author(s)
+\author{Jan Tammen \href{mailto:foobar@fh-konstanz.de}{<foobar@fh-konstanz.de>}}
+
+%\publishers{Ort der Durchführung: EDC-Labor, FH Konstanz.\\
+%						Datum: 16.12.2004}
+
+\date{\today}
+
+% \thanks{} %% use it instead of footnotes (only on titlepage)
+
+% \dedication{} %% generates a dedication-page after titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% set heading and footer
+%%%
+
+%%% scrheadings default: 
+%%%      footer - middle: page number
+\pagestyle{scrheadings}
+
+%%% user specific
+%%% usage:
+%%% \position[heading/footer for the titlepage]{heading/footer for the rest of the document}
+
+%%% heading - left
+% \ihead[]{}
+
+%%% heading - center
+% \chead[]{}
+
+%%% heading - right
+% \ohead[]{}
+
+%%% footer - left
+% \ifoot[]{}
+
+%%% footer - center
+% \cfoot[]{}
+
+%%% footer - right
+% \ofoot[]{}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+
+\begin{document}
+
+% \pagenumbering{roman} %% small roman page numbers
+
+%%% include the title
+%\thispagestyle{empty}  %% no header/footer (only) on this page
+\maketitle
+
+%%% start a new page and display the table of contents
+\newpage
+\tableofcontents
+
+%%% start a new page and display the list of figures
+%\newpage
+%\listoffigures
+
+%%% start a new page and display the list of tables
+% \newpage
+% \listoftables
+
+%%% display the main document on a new page 
+\newpage
+
+% \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+
+\section{Einleitung}
+Um die begrenzte Genauigkeit des Datentyps \texttt{double} zu erweitern, muss eine andere
+Speicherungsform für gebrochene Zahlen gewählt werden. Mögliche Optionen sind die Speicherung 
+als String bzw. das Ablegen jeder einzelnen Ziffer in einem \texttt{integer}-Feld.
+
+Solch eine "`Langzahl"' soll in einer Klasse gekapselt werden, welche die üblichen arithmetischen Operationen
+zur Verfüfung stellt. Um Implementierungsdetails vor dem Anwender der Klasse zu verbergen, wird ihm
+ein einfaches Interface, eine Schnittstelle, zur Verfügung gestellt.
+In der folgenden Dokumentation sollen Ansatz und Entwurf dieser Schnittstelle dargestellt werden.
+
+
+\section{Schnittstelle der Langzahl-Klasse}
+\lstinputlisting[language=C++]{../Langzahl.h}
+
+Das Konzept beruht auf der abstrakten Basis-Klasse \texttt{Langzahl}, von welcher die späteren konkreten 
+Implementierungen abgeleitet werden.
+Im Einzelnen müssen die Kindklassen mindestens folgende Methoden implementieren:
+
+\begin{description}
+	\item[operator=] Zuweisungsoperator. Kopiert die Datenkomponenten des Parameter-Objektes in das Zielobjekt. Gibt Selbst-Referenz zurück.
+	\item[operator+] Additionsoperator. Addiert die gekapselte Zahl des Parameter-Objektes zur Zahl des Zielobjeteks. Gibt Selbst-Referenz zurück.
+	\item[operator-] Subtraktionsoperator. Subtrahiert die gekapselte Zahl des Parameter-Objektes von der Zahl des Zielobjektes. Gibt Selbst-Referenz zurück.
+	\item[operator*] Multiplikationsoperator. Multipliziert die gekapselte Zahl des Parameter-Objektes mit der Zahl des Zielobjektes. Gibt Selbst-Referenz zurück.
+	\item[operator/] Divisionsoperator. Dividiert die Zahl des Zielobjektes durch die gekapselte Zahl des Parameter-Objektes. Gibt Selbst-Referenz zurück.
+	\item[operator+=] Zusammengesetzter Zuweisungsoperator: Addition. Gibt Selbst-Referenz zurück.
+	\item[operator-=] Zusammengesetzter Zuweisungsoperator: Subtraktion. Gibt Selbst-Referenz zurück.
+	\item[operator*=] Zusammengesetzter Zuweisungsoperator: Multiplikation. Gibt Selbst-Referenz zurück.
+	\item[operator/=] Zusammengesetzter Zuweisungsoperator: Division. Gibt Selbst-Referenz zurück.
+	\item[getNumber] Gibt den \textbf{ganzzahligen} Anteil der Zahl zurück.
+	\item[isNull] Abfrage der Datenkomponente \texttt{mIsNull}. Gibt bool'schen Wert zurück: \texttt{true}, falls Zahl $=$ 0, \texttt{false}, falls Zahl $\neq$ 0.
+\end{description}
+
+Die weiteren Implementierungsdetails, wie z.B. die interne Speicherung der Zahl, müssen jeweils in den abgeleiteten Klassen festgelegt werden.
+
+\section{Anwendung: Reihenentwicklung}
+In einem Anwendungsprogramm soll die Verwendung der Schnittstelle demonstriert werden. Dabei werden
+durch das Programm zwei einfache unendliche Reihenentwicklungen simuliert. Folgende Reihen werden dazu hier betrachtet:
+
+\begin{eqnarray}
+	\sum_{k=1}^{\infty}{\frac{1}{k(k+1)}} &=& \frac{1}{2} + \frac{1}{6} + \frac{1}{12} + \ldots = \mathbf{1} \label{eqn:reihe_1} \\
+	\sum_{k=1}^{\infty}{(-1)^{k+1} \frac{1}{2k-1}} &=& \pm \ldots = \mathbf{\frac{\pi}{4}} \label{eqn:reihe_2}
+\end{eqnarray}
+
+\section{Klasse mit Datentyp double}
+Eine konkrete Klasse \texttt{MyDouble} welche von \texttt{Langzahl} abgeleitet wird, benutzt zur Speicherung
+der Zahl den C++-Standard-Datentyp \texttt{double}. Dazu der passenden Ausschnitt aus der Klassen-Deklaration:
+
+\lstset{language=C++}
+\begin{lstlisting}[caption={Ausschnitt MyDouble.h}]
+#include "Langzahl.h"
+class MyDouble : public virtual Langzahl
+{
+[...]
+    private:     
+        long double mNumber;
+};
+\end{lstlisting}
+
+Die o.g. Methoden/Operatoren können nun ohne weitere Umwege direkt implementiert werden, z.B. für den Additionsoperator:
+
+\begin{lstlisting}[caption={Additionsoperator MyDouble}]
+MyDouble& MyDouble::operator+ (const MyDouble& z)
+{
+    this->mNumber = (this->mNumber+z.mNumber);
+    return (*this);
+}
+\end{lstlisting}
+
+\subsection{Anwendung im Testprogramm}
+Im Testprogramm sieht die Verwendung der \texttt{MyNumber}-Klasse für die in (\ref{eqn:reihe_1}) 
+beschriebene Reihenentwicklung folgendermaßen aus:
+
+\begin{lstlisting}[caption={Verwendung MyDouble im Testprogramm},morekeywords={sum}]
+#include "MyDouble.h"
+int main ()
+{
+    /// [...] Abfrage Anzahl Iterationen
+
+    MyDouble sum;
+    MyDouble* potenz = new MyDouble(1.0);
+    for (int i = 0; i < numIterations; ++i)
+    {
+        sum += potenz->getKehrwert();
+        potenz->setNumber(potenz->getNumber()*2.0);
+    }
+    
+    std::cout << "Summe: " << sum << std::endl; 
+}
+\end{lstlisting}
+
+Die dafür benutzte Hilfsmethode \texttt{getKehrwert} ist wie folgt definiert:
+
+\begin{lstlisting}[caption={Deklaration MyDobule::getKehrwert}]
+MyDouble& MyDouble::getKehrwert(void)
+{
+    MyDouble* tmp = new MyDouble((1.0/this->mNumber));
+    return *tmp;
+}
+\end{lstlisting}
+
+\section{Klasse mit Langform}
+Für die Klassenversion, welche die Zahl intern in einer Langform speichert, werden folgende Erweiterungen des Datenteils
+in der Deklaration vorgenommen:
+
+\lstset{language=C++}
+\begin{lstlisting}[caption={Ausschnitt MyNumber.h}]
+#include "MyNumber.h"
+class MyNumber : public virtual Langzahl
+{
+[...]
+    private:     
+        static const unsigned int mMaxDecimalPlaces = 100;
+        long        mNumber;
+        vector<int> mDecimalPlaces;
+};
+\end{lstlisting}
+
+Beschreibung der Datenkomponenten:
+
+\begin{description}
+	\item[mMaxDecimalPlaces] Anzahl der maximal speicherbaren Nachkommastellen.
+	\item[mNumber] Vorkommateil.
+	\item[mDecimalPlaces] Integer-Feld mit den Nachkommastellen.
+\end{description}
+
+\section{Arithmetik mit Langzahlen}
+In den folgenden Abschnitten werden die Algorithmen für das Rechnen (Addition, Subtraktion, Multiplikation) mit den durch die zu implementierende \texttt{Langzahl}-Klasse 
+repräsentierten Langzahlen (in Pseudocode) vorgestellt.
+
+\subsection{Addition}
+Bei der \textbf{Addition} von Langzahlen werden jeweils die Vorkommateile der Faktoren getrennt summiert. Dies ist durch den bei diesem Design gewählten Datentyp (\texttt{long int}) des Vorkommateils ohne weitere Hilfsmittel durchführbar.
+Hierbei besteht natürlich die Gefahr eines Überlaufes, auf den der Anwender entsprechend hingewiesen werden muss.
+
+Es folgt die Summation der Nachkommateile der Faktoren. Dabei wird nach der Schulmethode vorgegangen -- die einzelnen Ziffern der Faktoren werden von rechts beginnend addiert, ein eventuell auftretender Übertrag wird in die nächsthöhere Stelle übernommen. Sollte am "`Ende"' der Zahl ebenfalls ein Übertrag aufgetreten sein, so muss dieser zum Vorkommateil-Summanden addiert werden.
+
+\subsubsection{Vorzeichenbehaftete Faktoren}
+Neben dem Standardfall $s = x + y$ müssen bei den Additionsoperatoren folgende Spezialfälle behandelt werden:
+
+\begin{itemize}
+	\item $(-x) + y \equiv y - x$
+	\item $x + (-y) \equiv - (y - x)$
+	\item $(-x) + (-y) \equiv - (x + y)$
+\end{itemize}
+
+Die Vorgehensweise lässt sich dabei folgendermaßen zusammenfassen: Sind die Vorzeichen der Faktoren identisch, so ist der Betrag
+der Summe die Summe der Faktoren-Beträge und das Vorzeichen das gemeinsame Vorzeichen der Faktoren.
+
+Wenn die Faktoren unterschiedliche Vorzeichen haben, muss zunächst der größere von beiden Faktoren-Beträgen ermittelt werden.
+Der Betrag der Summe ergibt sich nun aus der Differenz des größeren und des kleineren Faktor-Betrages. Das Vorzeichen des 
+größeren Faktor-Betrages ist gleichzeitig auch das Vorzeichen der Summe.
+
+\subsubsection{Beispiel zur Addition}
+\begin{lstlisting}[caption={Beispiel Addition Schulmethode},escapechar=\%,keepspaces=true]
+gegeben:
+x = 12,854571, x_v = 12, x_n = 0,854571
+y = 98,957235, y_v = 98, y_n = 0,957235
+
+gesucht:
+s = (x_v+x_n) + (y_v+y_n)
+
+---------------------
+Vorkommateil:
+s_v = x_v + y_v = 12 + 98 = 110
+
+Nachkommateil:
+s_n = x_n + y_n:
+
+    0,854571
++   0,957235
+---------------------
+    0,701706
++   1,11010  Übertrag
+---------------------
+=   1,811806 
+
+Addieren des Übertrags zu s_v: s_v + 1 = 111
+
+Gesamtergebnis: s = 111,811806   
+\end{lstlisting}
+
+\subsubsection{Pseudocode}
+\textit{Hinweis}: Hier wird lediglich der "`Normalfall"', also die Addition zweier positiven Zahlen betrachtet. Die anderen
+Fälle lassen sich auf diesen Fall bzw. die Subtraktion zurückführen.
+
+\begin{lstlisting}[language=Pseudo,caption={Pseudocode Addition}]
+Langzahl x, y, s
+
+// extension: Zwischenergebnis, carry: Übertrag
+carry, extension in unsignedint
+carry, extension = 0
+
+s.setVorkommateil(x.vorkommaTeil addition y.vorkommaTeil)
+
+for <i> from 0 to <Länge y> do
+	extension =  y[i] addition x[i]
+	extension = (extension addition carry)
+	carry = 0
+	
+	if <extension >= 10> then
+		extension = (extension subtraktion 10)
+		carry = 1
+	end if
+	
+	s.addNachkommastelle(extension)
+end for
+
+if <carry > 0> then
+	s.vorkommateil += (s.vorkommateil addition 1)
+end if
+\end{lstlisting}
+
+\subsection{Subtraktion}
+Da bei diesem Entwurf die Speicherung der Zahl intern im Dezimalsystem erfolgt, wird für die \textbf{Subtraktion}
+ebenfalls die bekannte Schulmethode angewandt. Zunächst sollten ebenfalls wieder die Vorzeichen der Faktoren betrachtet
+werden, um Spezialfälle zu behandeln: $x - (-y) \equiv x + y$, $(-x) - y \equiv -(x + y)$, $(-x) - (-y) \equiv - (y - x)$.
+Das Vorgehen zur Aufteilung der Rechnung in Vor- und Nachkommateil ist dabei analog zur Additions-Methode.
+
+\subsubsection{Beispiel zur Subtraktion}
+\begin{lstlisting}[caption={Beispiel Subtraktion Schulmethode},escapechar=\%,keepspaces=true]
+gegeben:
+x = 12,854571, x_v = 12, x_n = 0,854571
+y = 98,957235, y_v = 98, y_n = 0,957235
+
+gesucht:
+d = (x_v+x_n) - (y_v+y_n)
+
+// Bestimmung des größeren Betrages -> "Tausch" der Variablen!
+
+---------------------
+Vorkommateil:
+s_v = x_v - y_v = 98 - 12 = 86
+
+Nachkommateil:
+s_n = x_n - y_n:
+
+    0,957235
+-   0,854571
+---------------------
+    0,103764
+-   0,00110  Übertrag
+---------------------
+=   0,102664
+
+Gesamtergebnis: da getauscht wurde: d = -d = -86,102664
+\end{lstlisting}
+
+\subsubsection{Pseudocode}
+\textit{Hinweis}: Hier wird lediglich der "`Normalfall"', also die Subtraktion zweier positiven Zahlen betrachtet. Die anderen
+Fälle lassen sich auf diesen Fall bzw. die Addition zurückführen. Es wird weiterhin angenommen, dass in \texttt{x} bereits
+die betraglich größere Zahl vorliegt.
+
+\begin{lstlisting}[language=Pseudo,caption={Pseudocode Subtraktion}]
+Langzahl x, y, d
+
+// extension: Zwischenergebnis, carry: Übertrag
+carry, extension in unsignedint
+carry, extension = 0
+
+d.setVorkommateil(x.vorkommateil subtraktion y.vorkommateil)
+
+for <i> from 0 to <Länge y> do
+	if <y[i] > (x[i] addition carry )> then
+		extension = (x[i] addition 10) subtraktion y[i] subtraktion carry
+		carry = 1
+	else
+		extension = x[i] subtraktion y[i] subtraktion carry
+		carry = 0
+	end if
+		
+	d.addNachkommastelle(extension)
+end for
+\end{lstlisting}
+
+
+\subsection{Multiplikation}
+Bei der Schulmethode für die \textbf{Multiplikation} muss zunächst der Betrag der zu multiplizierenden
+Faktoren gebildet werden. Anschließend wird der Multiplikand der Reihe nach von rechts nach 
+links mit den einzelnen Ziffern des Multiplikators multipliziert. Dabei muss der Wertigkeit der 
+Ziffern durch ein Herausrücken nach links Rechnung getragen werden. Nun werden die Teilsummen 
+zum Gesamtergebnis aufsummiert. 
+
+Schließlich muss noch das Komma an der korrekten Stelle positioniert werden -- die Anzahl der 
+Nachkommastellen im Endergebnis ergibt sich dabei aus der Summe der Nachkommastellen der Multiplikanden.
+
+\subsubsection{Vorzeichenbehaftete Faktoren}
+Das Vorzeichen des Endergebnisses ist \textbf{positiv}, wenn kein oder beide Faktoren negativ sind
+und \textbf{negativ}, wenn einer der Faktoren negativ ist.
+
+\subsubsection{Beispiel zur Multiplikation}
+\begin{lstlisting}[caption={Beispiel Multiplikation Schulmethode},escapechar=\%,keepspaces=true]
+gegeben:
+x = 12,345678, y = 87,654321
+
+gesucht:
+p = x * y
+
+12345678 * 87654321
+---------------------
+	98765424
++	 86419746
++	  74074068
++	   61728390
++	    49382712
++	     37037034
++	      24691356
++	       12345678
+---------------------
+=  1082152022374638
+   
+Setzen des Kommas nach 6+6=12 Stellen (von rechts):
+
+p = 1082,152022374638
+\end{lstlisting}
+
+\subsubsection{Pseudocode}
+\begin{lstlisting}[language=Pseudo,caption={Pseudocode Multiplikation Schulmethode}]
+Langzahl x, y, p
+x = abs(x)
+y = abs(y)
+
+for <i> from 0 to <Länge y> do
+  p += <multipliziere x mit i-ter Ziffer von y>
+  <y eine Stelle nach rechts verschieben>
+  <x eine Stelle nach links verschieben>
+end for 
+\end{lstlisting}
+
+\textit{Anmerkung: Um o.g. Algorithmus zu verwenden, müsste eine entsprechende Methode implementiert
+werden, welche eine komplette Langzahl mit einem \texttt{integer} multipliziert und dabei die "`Wertigkeit"'
+der Stelle berücksichtigt. Alternativ könnte man dieses Vorgehen auch getrennt für Vor- und Nachkommateil
+wählen.}
+
+\subsection{Kehrwert einer ganzen Zahl}
+Der Kehrwert einer ganzen Zahl $x$ ergibt sich allgemein durch die Bildung von $\frac{1}{x}$.
+Der folgende Algorithmus erreicht entweder sein Ende, falls das Ergebnis "`gerade"', also endlich ist
+oder falls die gewünschte Anzahl an Nachkommastellen (\texttt{a}) erreicht ist.
+
+\subsubsection{Pseudocode}
+\begin{lstlisting}[language=Pseudo,caption={Pseudocode Kehrwertbildung},escapechar=\%]
+z = 1						// Zähler
+n = x						// Nenner
+a in unsignedint
+Langzahl ergebnis
+
+while <true> do
+	x = <größte ganze Zahl mit n * x <= z>
+	ergebnis.setVorkommateil(x)
+
+	if <a == 0> then
+		exit
+	else
+		z = (10*(z-n * x))
+	end if
+	
+	if <z == 0> then
+		exit
+	end if
+	
+	x = <größte ganze Zahl mit n * x <= z>
+	ergebnis.addNachkommastelle(x)
+	
+	a = a-1
+	
+end while
+\end{lstlisting}
+
+%%%
+%%% end main document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix  %% include it, if something (bibliography, index, ...) follows below
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% bibliography
+%%%
+%%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+%%%
+% \bibliographystyle{plain}
+
+%%% name of the bibliography file without .bib
+%%% e.g.: literatur.bib -> \bibliography{literatur}
+% \bibliography{FIXXME}
+
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Notice!
+%%% This file uses the outline-mode of emacs and the foldmethod of Vim.
+%%% Press 'zi' to unfold the file in Vim.
+%%% See ':help folding' for more information.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker

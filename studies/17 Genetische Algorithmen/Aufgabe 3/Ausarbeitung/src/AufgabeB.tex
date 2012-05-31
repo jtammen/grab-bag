@@ -1,0 +1,60 @@
+\subsection{Architektur des Testsystems}
+\label{subsec:ArchitekturTestsystem}
+Für die Durchführung der Tests wurde zunächst das der GEATbx beiliegende Skript
+\textbf{demotsplib.m} als Ausgangsbasis benutzt. Alle für die Testläufe zu
+variierenden Parameter lassen sich im Kopf des Skriptes \textbf{tsp.m} in
+Variablenform festlegen. 
+
+Für die Durchführung der Aufgabe c) waren beispielsweise die Anzahl der
+Subpopulationen und der Individuen pro Population in verschiedenen
+Konstellationen zu testen. Zusätzlich dazu lassen wir für jede
+Variablenkombination eine definierbare Anzahl von Testläufen laufen, um später
+Mittelwert und Standardabweichung berechnen zu können. Listing
+\ref{lst:testsystem-pseudo} zeigt den beispielhaften Aufbau des Testskripts für
+Aufgabe c). Für Aufgabe d) wurde eine modifizierte Version des in
+\ref{lst:testsystem-pseudo} beschriebenen Skriptes eingesetzt. Der Pseudocode
+zu der genannten Modifikation wird in Listing \ref{lst:testsystemTeilD}
+aufgeführt. Der komplette Code der Skripte \ref{lst:testsystem-pseudo} und
+\ref{lst:testsystemTeilD} ist im Anhang aufgeführt.
+
+\begin{lstlisting}[language=Pseudo, label={lst:testsystem-pseudo}, 
+caption={Pseudocode Testskript Teil B}]
+Subpopulationen = (1, 5, 8, 12)
+Individuen = (15, 30, 45, 60)
+AnzahlTestlaeufe = 20
+
+foreach anzahlSubpopulationen in Subpopulationen do
+	foreach anzahlIndividuen in Individuen do
+		for <AnzahlTestlaeufe> do
+			Fuehre genetischen Algorithmus aus
+			Berechne Minimal-/Maximalwert
+		end for
+		Ergebnisausgabe Logfile
+	end foreach
+end foreach
+\end{lstlisting}
+
+\begin{lstlisting}[language=Pseudo, label={lst:testsystemTeilD}, 
+caption={Pseudocode Testskript Teil D}]
+Subpopulationen  = 12;
+Individuen 	     = 60;
+AnzahlTestlaeufe = 20;
+
+SelektionsMethoden = (selsus, selrws, seltour)
+
+foreach SelektionsMethode in SelektionsMethoden do
+	for <AnzahlTestlaeufe> do
+			Fuehre genetischen Algorithmus aus
+			Berechne Minimal-/Maximalwert
+	end for
+		Ergebnisausgabe Logfile
+end foreach
+\end{lstlisting}
+
+Zur späteren Auswertung der Ergebnisse werden alle relevanten Daten in ein
+Logfile protokolliert. Abbruchkriterium für die genetische Optimierung ist hier
+das Erreichen der Maximalgeneration 100.
+
+\subsubsection{Eingesetzte Hard- und Software}
+Die Tests der Aufgabe c) wurden auf einem Pentium M mit 1.6 GHz unter 
+Verwendung von Matlab 5.3 und GEATbx Version 3.8 durchgeführt.

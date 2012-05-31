@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Sun Nov 05 14:09:07 CET 2006
+builderNum=3
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=ps
+tempDir=tmp
+mainTexFile=Aufgabe 1.tex
+outputFile=Aufgabe1.ps
+langSpell=de
+markDer=true
+srcDir=src/

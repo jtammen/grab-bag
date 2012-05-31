@@ -1,0 +1,37 @@
+\begin{frame}{Mozart - Einleitung}
+  \begin{itemize}
+    \item Mozart implementiert die multiparadigmische Programmiersprache Oz
+    \item Forschungsprojekt seit ca.\ 1995 (B, D, S)
+    \item Oz ist plattformunabhängig (Byte-Code ähnlich wie Java)
+    \item Open-Source-Lizenz
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Mozart - Features}
+  \begin{itemize}
+    \item Unterstützung mehrerer Programmierparadigmen
+    \item Nebenläufigkeit (Threads, Synchronisation)
+    \item Transparente Verteilung
+    \item Dynamische Typisierung
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Oz - Programmiermodell (OPM)}
+  \begin{itemize}
+    \item Berechnungen laufen in sog.\ "`Spaces"' (Berechnungsraum) ab
+    \item \textsl{Aktoren} kommunizieren darin über einen gemeinsamen 
+    \textsl{Speicher}, können Information ablegen und abrufen
+    \item Grundlage von Oz: Concurrent Constraint Programming, Erweiterungen 
+    durch \textsl{syntactic sugar}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Oz - Datentypen}
+  \begin{itemize}
+    \item Basisdatentypen: \texttt{Number: Int, Float, Char}
+    \item Zusammengesetzte Typen: \texttt{Record: Tuple, Literal, Bool}
+    \item \texttt{Chunk}: erlaubt Erstellung abstrakter Datentypen, vordefiniert
+    z.\,B.\ \texttt{Array, Dictionary, Class}
+    \item \texttt{Thread, Space, ByteString, \ldots}
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,14 @@
+RoboCup
+ - Simulations-Liga
+ - Lernen von Einzelfähigkeiten
+
+RL
+ - Einführung
+ - MC, DP - 1 Folie
+ - Q-Learning - kleines Beispiel
+ - Neuronale Netze
+
+RoboCup
+ - Lernen Teamfähigkeiten
+ - Überleitung Mid-Size
+ - aktuelle Situation & Fazit

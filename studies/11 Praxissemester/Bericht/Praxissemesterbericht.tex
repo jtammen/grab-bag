@@ -1,0 +1,949 @@
+\documentclass[
+	a4paper,     		%% Papiergroesse: A4
+	twoside,     		%% Zweiseitiges Layout (alternativ: oneside)
+	headsepline, 		%% Horizontale Linie unter Kopfzeile
+	footsepline, 		%% Horizontale Linie ueber Fusszeile
+	titlepage,   		%% Eigenstaendige Titelseite (alternativ: notitlepage)
+%	halfparskip, 		%% Halbe Leerzeile zwischen zwei Abschnitten (alternativ: parskip, ...)
+	12pt,        		%% Schriftgroesse: 12pt (alternativ: 10pt, 11pt, ...)
+%	bibtotoc,				%% Bibliographie in's Inhaltsverzeichnis aufnehmen
+%	liststotoc,			%% Indexe in's Inhaltsverzeichnis aufnehmen
+%	smallheadings,	%% Kleine Ueberschriften
+%	DIV1,						%% Divisor, Zeilenlänge ca. 70 Zeichen
+%	draft			  		%% Entwurfsmodus, volle/leere Boxen markieren
+%	abstracton			%% Titel "`Zusammenfassung"' einschalten
+]{scrreprt}
+
+%%%
+%%% Pakete
+%%%
+
+%%% Grafik
+%\usepackage{pstricks}
+
+%%% Deutsche Sprache verwenden
+\usepackage{ngerman}
+
+%%% Kodierung der Eingabezeichen setzen (fuer dt. Umlaute etc.)
+\usepackage[ansinew]{inputenc}
+
+%%% Zeichen-Kodierung in PDF-Dokumenten
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl}
+
+%%% Web-Addressen auch mit T1-Encoding
+\usepackage[T1]{url}
+%%% ... und in tt-Font
+\urlstyle{tt}
+
+%%% amsmath, amssymb, amstext: Unterstuetzung div. mathematischer Zeichen etc.
+%\usepackage{amsmath,amssymb,amstext}
+\usepackage{eurosym}
+
+%%% pifont: "pifont Xs and Check Marks"
+%\usepackage{pifont}
+
+%%% PostScript-Fonts ersetzen
+\usepackage{psfrag}
+
+%%% Programmcode einbinden, Listings
+%\usepackage{listings}
+
+%%% Farb-Unterstuetzung
+\usepackage{color}
+
+%%% Tabellen
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{threeparttable}	% Fussnoten in table-Umgebung
+
+%%% Floats strikter positionieren (Option 'H'ere)
+\usepackage{float}
+
+%%%
+%%% Pakete konfigurieren, Definitionen
+%%%
+
+%%% Ueberschriften bis zur Ebene 3 nummerieren
+\setcounter{secnumdepth}{3}
+
+%%% Neue Spaltentypen definieren
+%\newcolumntype{N}{>{\bfseries\scriptsize}l}
+%\newcolumntype{V}[1]{
+%	>{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}
+%}
+
+%%% Ein paar Farbdefinitionen (s. http://texnik.de/listings/listing0.pdf)
+%\definecolor{hellgelb}{rgb}{1,1,0.8}
+%\definecolor{hellgrau}{rgb}{0.95,0.95,0.95}
+%\definecolor{colKeys}{rgb}{0,0,1}
+%\definecolor{colIdentifier}{rgb}{0,0,0}
+%\definecolor{colComments}{rgb}{1,0,0}
+%\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% Konfiguration des listing-Paketes
+% \lstset{%
+% 	float=hbp,%
+% 	basicstyle=\ttfamily\footnotesize, %
+% 	identifierstyle=\color{colIdentifier}, %
+% 	keywordstyle=\color{colKeys}, %
+% 	stringstyle=\color{colString}, %
+% 	commentstyle=\color{colComments}, %
+% 	columns=flexible, %
+% 	tabsize=4, %
+% 	frame=tb, %
+% 	extendedchars=true, %
+% 	showspaces=false, %
+% 	showstringspaces=false, % 
+% 	numbers=left, %
+% 	numberstyle=\tiny, %
+% 	breaklines=true, %
+% 	backgroundcolor=\color{hellgrau}, %
+% 	breakautoindent=true, %
+% 	captionpos=b%,
+% 	language=XML,%
+% 	aboveskip=\bigskipamount,%
+% 	belowskip=\medskipamount,%
+% }
+
+%%% Benoetigte Sprachen laden
+%\lstloadlanguages{XML,XSLT,SQL,HTML,PHP,XQuery}
+
+%%%
+%%% Seitenlayout, Schriften
+%%%
+
+%%% scrpage2: KOMA Kopf- und Fusszeile
+\usepackage[automark]{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Schrift fuer Ueberschriften umstellen
+%\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%% Schriften fuer Titel- und Fusszeile umstellen
+%\setkomafont{pagehead}{\normalfont\sffamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily\slshape}
+
+%%% Part-Ueberschrift nicht fett drucken
+%\addtokomafont{part}{\mdseries}
+%\addtokomafont{partnumber}{\mdseries}
+
+%%% Default-Platzierungsbeschraenkungen aendern,
+%%% s. http://www.dante.de/faq/de-tex-faq/html/makros2.html#1
+\makeatletter
+	\renewcommand{\fps@figure}{htbp}
+	\renewcommand{\fps@table}{htbp}
+\makeatother
+
+%%%
+%%% PDF-Einstellungen
+%%%
+
+%%% Fallunterscheidung: PDF- oder 'normale' Erstellung?
+\usepackage{ifpdf}
+
+%%% Falls wir PDF erzeugen...
+\ifpdf
+  %%% Serifenlose Schriften benutzen
+  \usepackage{mathpazo}
+  \usepackage[scaled=.95]{helvet}
+  \usepackage{courier}	
+  \renewcommand{\familydefault}{\sfdefault}
+  \usepackage[sf]{titlesec}
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[pdftex]{graphicx}
+ 
+  %%% Kompressionslevel: 0-9
+  \pdfcompresslevel=9
+
+  %%% Hyperlinks in PDF-Dokumenten
+  \usepackage[%
+  	pdftex,
+    pagebackref=false,			%% Seitenzahlen der Quellseite(n) in Bibliographie auflisten? (true|false) 
+    colorlinks=true,				%% Farblinks? (true -> Screen | false -> Print)    
+    %%% PDF-spezifische Optionen
+    bookmarks=true,					%% PDF-Bookmarks erstellen? (true|false)
+    bookmarksopen=true,			%% Anfangs alle Bookmarks ausgeklappt anzeigen? (true|false) 
+    bookmarksnumbered=true,	%% Abschnitt-Nummerierung in Bookmarks integrieren? (true|false)
+    pdfstartpage={1},				%% Startseite beim Oeffnen der Datei
+    pdfpagemode=UseOutlines,%% Anzeigemodus? (None|UseOutlines|UseThumbs|FullScreen)
+    a4paper=true,						%% A4-Format
+    breaklinks=false,
+    linkcolor=gray					%% Link-Farbe
+  ]{hyperref}
+
+	%%% Dateiendung fuer Grafiken setzen -- so kann beim Einbinden der Grafik
+	%%% auf die Endung verzichtet werden und es wird automatisch die korrekte 
+	%%% Datei ausgewaehlt (.eps / .pdf)
+  \DeclareGraphicsExtensions{.pdf}
+  
+  %%% Pfad fuer Bilder setzen
+  \graphicspath{{./images}}
+
+%%% ... oder im 'normalen' Modus sind
+\else
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[dvips]{graphicx}
+
+  %%% s.o.
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}
+
+  %%% Hyperlinks in PS-Dokumenten, Optionen s.o.
+  \usepackage[%
+    dvips,
+    colorlinks=false,
+    breaklinks=true,				%% Duerfen Links umbrochen werden? (true|false)
+  ]{hyperref}
+
+\fi
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={Praxissemesterbericht 2. PSS bei der SEITENBAU GmbH},%
+  pdfauthor={Jan Tammen (jan.tammen@htwg-konstanz.de)},%
+  pdfsubject={Praxissemesterbericht},%
+  pdfcreator={Jan Tammen (jan.tammen@htwg-konstanz.de)},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={Praxissemesterbericht, PSS, SEITENBAU GmbH Konstanz},%
+%  pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+%  pdfstartview=FitH,
+}
+
+%%% Links im dvips-Mode auch umbrechen
+%\usepackage{breakurl}
+
+%%%
+%%% Layout der Titelseite
+%%%
+
+%%% Titelkopf, erscheint oberhalb des Titels
+\titlehead{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../images/htwg-logo}
+	\end{figure}
+}
+
+%%%% Subject, erscheint oberhalb des Titels
+\subject{Praxissemesterbericht}
+
+%%% Titel
+\title{2.\,PSS bei der SEITENBAU GmbH}
+
+
+%%% Publisher, hier: Betreuer
+\publishers{%
+\small
+  \begin{tabular}{ll}
+    Firma: 			& \textsc{Seitenbau} GmbH, Konstanz\\
+    Praktikant:	& Jan Tammen\\
+               	& Markgrafenstraße 17\\
+               	& 78467 Konstanz\\
+               	& E-Mail: jan.tammen@htwg-konstanz.de\\
+               	& Matrikelnummer: 277143\\
+		Studiengang:& Software-Engineering (Diplom)\\
+		\\
+    Betreuer: 	& Prof. Dr. Massen, HTWG Konstanz, Fakultät Informatik \\
+              	& Sebastian Roller, \textsc{Seitenbau} GmbH (roller@seitenbau.com) \\
+    \\
+    Beginn:			& 01.\, März 2006\\
+    Ende:			& 31.\, August 2006
+  \end{tabular}
+%  \small
+%    Verantwortlicher Betreuer: Sebastian Roller, \textsc{Seitenbau} GmbH\\
+%    Dauer des Praktikums: 1.\,März 2006 bis 31.\,August 2006
+}
+
+%%%% Autor. Weitere Autoren mit \and{<Name>} hinzufuegen
+%\author{%
+%	Jan Tammen, 277143
+%}%
+\author{\small{Jan Tammen}}
+
+%%% Datum setzen
+\date{}
+
+%%% Rueckseite der Titelseite
+\lowertitleback{%
+	\footnotesize%
+	Erstellt mit \LaTeXe\ unter Verwendung des \KOMAScript-Pakets.
+}
+
+%%%
+%%% Header und Footer
+%%%
+
+\pagestyle{scrheadings}
+
+%%% Kopfzeile in den Rand ragen lassen
+%\setheadwidth{textwithmarginpar}
+
+%%% Fusszeile in den Rand ragen lassen
+%\setfootwidth{head}
+
+%%% \automark[rechte Seite]{linke Seite}
+%\automark[subsection]{section}
+
+%% Header links -- section
+%\ihead[]{\rightmark}
+
+%% Header rechts -- chapter
+%\ohead[]{\leftmark}
+
+%% Header mittig -- leer
+\chead[]{}
+
+%% Footer mittig -- leer
+\cfoot[]{}
+
+%% Footer rechts -- Seitenzahl
+\ofoot[]{\thepage}
+
+%%% Footer links -- Titel der Arbeit
+\ifoot[]{\footnotesize{Praxissemesterbericht 2.\,PSS bei der SEITENBAU GmbH}}
+
+%%%
+%%% Sonstiges
+%%%
+
+%%%
+%%% Beginn Hauptdokument
+%%%
+
+\begin{document}
+
+%%% Titelseite erstellen
+\maketitle
+
+%%% Inhaltsverzeichnis erstellen
+\newpage
+\tableofcontents
+
+%%% Bildverzeichnis erstellen	
+\newpage
+%\listoffigures
+
+%%% Tabellenverzeichnis erstellen
+%\newpage
+%\listoftables
+
+%%%
+%%% Beginn Inhalt
+%%%
+
+\chapter{Vorstellung der SEITENBAU GmbH}
+\section{Kurzprofil}
+Bei der Firma \textsc{Seitenbau} GmbH handelt es sich um eine 1996 gegründete, in
+Konstanz ansässige Internet-Full-Service-Agentur. Zu ihren Hauptdienstleistungen
+gehören Content Management Systeme (CMS), Software-Entwicklung sowie webbasierte
+Lösungen für E-Business und E-Government.
+
+Neben dem Hauptsitz in Konstanz (s. Abbildung \ref{fig:sb-aussenansicht})
+unterhält \textsc{Seitenbau} eine weitere Niederlassung in Köln. Insgesamt beschäftigt
+\textsc{Seitenbau} derzeit 41 feste Mitarbeiter und konnte mit diesen in den
+letzten Jahren eine stetige Umsatz- und Gewinnsteigerung erzielen.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.70\textwidth]{../images/sb-aussenansicht}
+  \caption{Außenansicht des Gebäudes mit dem \textsc{Seitenbau}-Hauptsitz in Konstanz}
+  \label{fig:sb-aussenansicht}
+\end{figure}
+
+Mit der 100\%igen Tochterfirma \textsc{Laut} AG, welche ihrerseits das Musikportal
+laut (s. \url{http://www.laut.de}) betreibt, ist \textsc{Seitenbau} außerdem Mutter
+eines äußerst erfolgreichen und expandierenden Internetdienstes.
+
+\section{Zahlen und Daten}
+Die \textsc{Seitenbau} GmbH in aller Kürze:
+
+\begin{description}
+  \item [Gründung] 1996
+  \item [Rechtsform] GmbH
+  \item [Geschäftsführer] Rainer Henze, Florian Leinberger, Sebastian Roller, 
+  Jan Bauer, Stefan Eichenhofer
+  \item [Standorte] Konstanz (Hauptsitz), Köln (Niederlassung)
+  \item [Anzahl feste Mitarbeiter] 41
+  \item [Jahresumsatz 2005] ca. 2,45 Mio. \euro
+\end{description}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.70\textwidth]{../images/sb-mitarbeiterentwicklung}
+  \caption{Entwicklung der Mitarbeiterzahlen}
+  \label{fig:mitarbeiterentwicklung}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.70\textwidth]{../images/sb-umsatzentwicklung}
+  \caption{Entwicklung des Umsatzes}
+  \label{fig:umsatzentwicklung}
+\end{figure}
+
+Im folgenden Abschnitt sollen die einzelnen Geschäftsfelder und Leistungen des
+Unternehmens dargestellt werden.
+
+\section{Geschäftsfelder und Unternehmensstruktur}
+Derzeit erfolgt in der Firma ein Aufbau bzw. die Erweiterung der Abteilung 
+\glq{}Technik und Entwicklung\grq, welche mit der auftragsbasierten 
+Software-Entwicklung von Webapplikationen (beispielsweise in Java) beschäftigt
+ist. In diesem Bereich wurden u.\,a.\ für das Bundesverwaltungsamt
+mehrere webbasierte E-Government-Systeme umgesetzt.
+
+Dieser Bereich ist inzwischen in etwa gleich stark am Erfolg des Unternehmens
+beteiligt, wie das ursprüngliche Geschäftsfeld: Die Konzeption und Erstellung
+von individuellen Web-Lösungen im Internet, Intranet sowie Extranet. In diesem
+Bereich konnte eine ganze Reihe namhafter Kunden gewonnen werden, darunter u.a.
+die Städte Köln, Bonn und Konstanz, das Deutsche Bundesarchiv, die illbruck 
+GmbH, die Schweizer Bundesverwaltung sowie die Loewe AG.
+
+\subsection{Produkte}
+Neben den o.\,a.\ Dienstleistungen bietet \textsc{Seitenbau} außerdem eigenentwickelte
+Softwareprodukte an, mit welchen sich z.\,B.\ die CMS- und Portal-Lösungen der 
+Vertriebspartner erweitern oder anpassen lassen.
+
+Mit der Portallösung \textsl{Intramo} lassen sich personalisierte Mitarbeiterportale
+schnell und kostengünstig aufbauen.
+
+Das plattformunabhängige Newsletter-System \textsl{nemo} ermöglicht die "`individuelle
+Ansprache und den automatisierten Versand von maßgeschneiderten Informationen
+an unterschiedlichste Empfängerkreise"'.
+
+Als Eingabehilfe für das CMS Imperia hat \textsc{Seitenbau} das ActiveX-\textsl{Wordmodul}
+entwickelt, mit welchem sich im "`What You See Is What You Get"'-Verfahren 
+Inhalte bequem durch Redakteure pflegen lassen.
+
+\section{Kooperationspartner}
+Die \textsc{Seitenbau} GmbH hat in mehreren Bereichen langfristige Partnerschaften mit
+Dienstleistern und Herstellern, die durch ihre Kompetenzen und Produkte die
+firmeneigenen Leistungen ergänzen, geschlossen:
+
+\begin{itemize}
+\item im Bereich Content Management Systeme: Service- und Vertriebspartner der
+Imperia AG (CMS \glq{}Imperia\grq), Partner der Six GmbH (CMS \glq{}Six CMS\grq),
+Implementierugnspartner der CoreMedia AG (CMS \glq{}CoreMedia\grq). 
+\item im Bereich Software-Entwicklung: Vertriebs- und Implementierungspartner
+der Softwarefirma Cafesoft (Web Single Sign-On Lösung \glq{}Cams\grq), Mitglied des
+ISV Advantage Partnerprogramms von IBM. Weiterhin Zusammenarbeit mit der
+Konstanzer Firma Esteam Software GmbH im Bereich der (Web-)Softwareentwicklung.
+\item im Bereich PR, Kreation und Design: Zusammenarbeit mit führenden Werbe-
+und PR-Agenturen (darunter z.\,B.\ die Agenturen panta rhei mit Sitz in Amriswil,
+Schweiz oder Panama mit Sitz in Stuttgart) je nach Kundenwunsch.
+\end{itemize}
+
+
+\chapter{Aufgaben und Tätigkeiten im Praktikum}
+Da ich zuvor bereits ein Praktikum in der Firma absolviert sowie als Werkstudent
+gearbeitet hatte, war ich mit den Arbeitsabläufen weitestgehend vertraut und
+es musste keine Einarbeitung mehr erfolgen.
+
+Zu Beginn meines Praktikums befanden sich einige Projekte gerade in der Abgabe- bzw.
+Nachlaufphase. Somit half ich zunächst bei diesen Projekten im Bugfixing, 
+Support und bei kleinen Änderungen. Dabei handelte es sich hauptsächlich um die
+Skriptprogrammierung mit PHP und Perl, Arbeit mit relationalen Datenbanksystemen
+sowie die Webentwicklung mit (X)HTML, CSS und JavaScript.
+
+\section{Projekte}
+Insgesamt arbeitete ich während des Praktikums an diversen kleineren Projekten
+(s.\,o.) sowie an drei größeren. Von diesen dreien wiederum investierte ich die
+meiste Entwicklungszeit in das selbst entworfene und implementierte
+PHP-Framework. Dieses, sowie die verbleibenden zwei größeren Projekte werden in
+den nachfolgenden Abschnitten näher beschrieben.
+
+\subsection{Framework auf PHP-Basis}
+Das für viele der Kunden eingesetzte CMS Imperia wurde von \textsc{Seitenbau}
+immer wieder durch diverse projektspezifische Verwaltungs- und
+Administrationstools erweitert. Beispielsweise können Redakteure die von ihnen 
+erstellten Seiten mit bestimmten \textsl{Themen} verknüpfen, um somit später eine
+thematische Kategorisierung der Inhalte zu ermöglichen. Ebendiese Themen müssen
+über ein graphisches Frontend durch Redakteure bzw. Administratoren verwaltet,
+sprich erstellt, aktualisiert, gelöscht und aufgelistet werden können. Eine
+solche Anwendung bezeichnet man, ausgehend von ihren vier Hauptfunktionen, als
+\textbf{CRUD}-Applikation:
+
+\begin{itemize}
+  \item C für Create (erstellen),
+  \item R für Read (lesen, auflisten),
+  \item U für Update (aktualisieren),
+  \item und D für Delete (löschen).
+\end{itemize}
+
+Durch meine Anregung und Diskussionen mit einigen Kollegen entstand die Idee, für
+diese Art von Anwendungen ein einheitliches, leicht wartbares und erweiterbares
+Rahmenwerk zu schaffen. Denn bei Betrachtung der bereits vorhandenen Tools
+zeigte sich, dass oftmals durch unkontrolliertes Kopieren und Löschen
+unterschiedlicher Teile verschiedene Versionen einer an sich stets gleich
+strukturierten Applikation erstellt worden waren.
+
+Die Schaffung des Frameworks sollte dieser Tatsache Abhilfe verschaffen und
+dabei u.\,a.\ folgende Punkte erfüllen:
+
+\begin{itemize}
+  \item Nutzung einer gemeinsamen Code-Basis für alle CRUD-Applikationen, keine
+  Duplikation mehr von allgemeinen Aufgaben,
+  \item Vereinheitlichung von Datenbankzugriffen,
+  \item Vereinheitlichung von Programmierstandards; Forcierung der
+  objektorientierten Programmierung zwecks besserer Wartbarkeit,
+  \item einfache Handhabung durch den Ersteller des Tools: Interna des
+  Frameworks müssen nicht bekannt sein, um es zu benutzen.
+\end{itemize}
+
+\subsubsection{Entwurf und Design}
+Zunächst verschaffte ich mir einen Überblick über die bereits existierenden
+Framework-Projekte für die PHP-Skriptsprache. Es wurde allerdings schnell deutlich,
+dass die meisten dieser Frameworks entweder zu schwergewichtig waren, zu
+komplziert in der Anwendung oder für die PHP-Version 5 erstellt worden waren.  
+Firmenintern muss aus administrativen Gründen allerdngs noch Version 4
+eingesetzt werden. Aus diesen Günden konnte also keines dieser bereits
+bestehenden Projekte als Basis dienen.
+
+Um die gewünschte verbesserte Wartbarkeit sowie die sinnvolle Trennung zwischen
+den verschiedenen Applikationsschichten zu erreichen, schien mir die Anwendung
+des aus diversen Vorlesungen an der Hochschule bekannten \textbf{MVC}-Paradigmas
+als Systemstruktur am besten geeignet zu sein. Auch wenn sich aufgrund diverser
+technischer Gegebenheiten und Beschränkungen der Zielsprache PHP\,4 nicht das
+"`Original"'-MVC-Muster umsetzen ließ, so sollte dessen Prinzip jedoch zumindest
+im Ansatz verwandt werden.
+
+Zusammen mit dieser Idee und Anregungen durch diverse Open-Source-Projekte wie
+Agavi, Mojavi oder auch Apache Struts wurde das Framework bzw. dessen Komponenten
+entworfen. Abbildung \ref{fig:framework-klassendiagramm} zeigt ein entsprechendes 
+UML-Klassendiagramm, allerdings ohne Implementierungsdetails wie Attribute und
+Methoden.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{../images/framework-klassendiagramm}
+  \caption{UML-Klassendiagramm, Grobstruktur des Frameworks}
+  \label{fig:framework-klassendiagramm}
+\end{figure}
+
+Wie aus dem Diagramm ersichtlich ist, bildet die Komponente \texttt{context} den
+Kern des Frameworks. Sie ist für die Erstellung sowie für die Kommunikation der
+restlichen benötigten Komponenten untereinander verantwortlich. Dazu erhalten
+alle Komponenten Zugriff auf eine Instanz der \texttt{Context}-Klasse und 
+können über diese dann beispielsweise auf die Daten des aktuellen Requests
+(sprich der vom Client gesendeten Anfrage) oder auf eine Datenbank zugreifen.
+
+Weiterhin sehr zentral ist die Komponente \texttt{controller} - sie ist
+verantwortlich für den Kontrollfluss innerhalb der Applikation. Sie muss
+u.\,a.\ entscheiden, welche Aktion der Benutzer durchführen möchte - dazu
+muss dann die passende Instanz einer Command-Klasse instanziiert werden.
+Zusätzlich gibt es die Möglichkeit, vor bzw. nach der Durchführung eines
+Kommandos sogenannte Filter auszuführen - dadurch lassen sich wiederkehrende
+Aufgaben an einer externen Stelle zentralisieren und durchführen. Der Controller
+ist außerdem einer der drei Bestandteile des MVC-Paradigmas.
+
+Die Komponenten \texttt{view} und \texttt{model} bilden die beiden restlichen
+MVC-Bausteine. Ein \glq{}View\grq\ ist in der Terminologie des Frameworks  
+verantwortlich für die Präsentation der Daten, welche wiederum durch das
+\glq{}Model\grq\ repräsentiert werden. Das \glq{}Model\grq\ beinhaltet die 
+(persistenten) Geschäftsdaten der Anwendung - diese werden oftmals aus einer
+Datenbank gelesen und auch in diese geschrieben.
+Für die Erstellung einer Applikation mittels des Frameworks bietet es sich an,
+für jede zu verwaltende Entität eine Unterklasse der Model-Klasse zu bilden und
+den Zugriff auf die Datenbank z.B. mittels des \glq{}ActiveRecord\grq-Entwurfmusters
+(M. Fowler) zu realisieren.
+
+\subsubsection{Implementierung}
+Um während der Implementierung des Frameworks stets Rückmeldungen bzgl. der
+Sinnhaftigkeit und des Nutzens der Arbeit zu haben, wählte ich eines der bereits
+vorhandenen Verwaltungstools aus und erstellte dieses auf Basis des Frameworks
+neu. Es wurden dabei stets nur diejenigen Komponenten bzw. Klassen 
+implementiert, welche gerade für den aktuellen Teil des Tools benötigt wurden. 
+Im Laufe der Entwicklung änderte sich der Entwurf des Frameworks allerdings 
+einige Male in einigen Details, weshalb das oben gezeigte Diagramm auch nicht
+als das initiale Entwurfsdiagramm zu bezeichnen ist.
+
+Auf diese Weise stand am Ende sowohl das "`fertige"' Framework als auch die neu
+umgesetzte Verwaltungsapplikation zur Verfügung. Während der Portierung zweier
+weiterer Tools auf das Framework mussten jeweils nur noch Detailkorrekturen am
+Grundsystem vorgenommen werden und inzwischen scheinen die vorhandenen
+Funktionen stabil einsetzbar zu sein.
+
+\subsubsection{Aufgetretene Probleme}
+Während des Entwurfs bzw. der Implementierung gab es im Grunde keine
+schwerwiegenden Probleme. Die ein oder andere technische Frage konnte stets
+mithilfe von Kollegen, diverser Internetforen sowie Usenet-Gruppen gelöst
+werden. 
+
+Beim Entwurf bzw. den vom Framework zu bietenden Features hatte ich natürlich
+durchweg Kontakt zu den Kollegen, welche das Framework in Zukunft einzusetzen
+hatten bzw. während meines Praktikums schon einsetzten. Dadurch konnten
+bestimmte Feature- oder Design-Wünsche direkt in meine Arbeit einfließen.
+
+\subsubsection{Fazit}
+Die Tatsache, dass das Framework derzeit produktiv im Einsatz ist, bestätigt für
+mich die Nützlichkeit des Projekts. Gegen Ende meines Praktikums waren bereits
+zwei weitere neue Applikationen auf Basis des Frameworks fertiggestellt und eine
+weitere befand sich gerade in Entwicklung.
+
+Für mich persönlich war die eigenständige Entwicklung dieses schon recht
+umfangreichen Projekts eine interessante Herausforderung. Ich konnte sowohl
+erlernte Kenntnisse aus dem Studium (objektorientierter Entwurf, Entwurfsmuster
+MVC und andere, etc.) anwenden und vertiefen als auch neue Kenntnisse gewinnen.
+Dies war insbesondere die Anwendung des AJAX-Konzepts. Das Akronym AJAX steht
+für \textbf{A}synchronous \textbf{J}avaScript \textbf{a}nd \textbf{X}ML. Bei
+diesem "`neuen"', eigentlich keine neuen Technologien verwendenden, Ansatz wird das
+ursprüngliche Modell der tradioniellen Webapplikation durch den Einsatz von
+asynchronen Verbindungen neu interpretiert. Abbildung \ref{fig:ajax-vergleich} 
+zeigt diese neue im Vergleich zur herkömmlichen Vorgehensweise. Durch den
+geschickten Einsatz von AJAX lassen sich somit für den Anwender leichter zu
+bedienende, desktopähnliche Webanwendungen erstellen.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.59\textwidth]{../images/ajax-vergleich}
+  \caption{Vergleich des klassischen Modells einer Web-Anwendungs mit dem
+  AJAX-Ansatz. Quelle: Wikipedia}
+  \label{fig:ajax-vergleich}
+\end{figure}
+
+Auf die erworbenen Kenntnisse über das AJAX-Konzept konnte ich auch bei dem im
+nächsten Kapitel beschriebenen Projekt zurückgreifen.
+
+\subsection{LAUT Klublandschaft}
+Als weitere äußerst interessante Aufgabe durfte ich für die 
+\textsc{Seitenbau}-Tocher \textsc{Laut} das Projekt \glq{}klublandschaft.de\grq\
+realisieren. Zielsetzung des Projekts war die Schaffung eines Internetdienstes,
+mit dessen Hilfe Konzert- und Veranstaltungstermine auf einer Landkarte
+visualisiert werden können. Durch verschiedene Suchmöglichkeiten soll der Nutzer
+in der Lage sein, sich anstehende Veranstaltungen in z.B. Berlin am 1.~Oktober
+anzeigen zu lassen.
+
+\subsubsection{Entwurf und Design}
+Als Basis für das Projekt musste zunächst ein Anbieter möglichst kostenlosen
+Kartenmaterials gefunden werden, welches auch im Internet für derartige Projekte
+verwendet werden darf. Die populärsten Anbieter sind dort z.\,Z.\ Google sowie
+Yahoo, welche beide entsprechendes Kartenmaterial bzw. Kartendienste anbieten. 
+Da zur Zeit der Projektrealisierung die Daten von Google für Deutschland
+detailreicher waren, entschied ich mich für die Nutzung dieses Dienstes.
+
+Google bietet mit der \glq{}Google Maps API\grq\ (s.\
+\url{http://www.google.com/apis/maps/}) eine JavaScript-Schnittstelle
+an, über welche eine Karte objektorientiert erzeugt, angesprochen und
+manipuliert werden kann.
+
+\subsubsection{Implementierung}
+Die Implementierung des Projekts läßt sich grob in die folgenden drei Teile
+zerlegen:
+
+\begin{enumerate}
+  \item Erstellung des \textbf{serverseitigen} Teils, welcher für die   
+  Extraktion der Daten aus der Datenbank und das Senden dieser Daten zurück an
+  den Client verantwortlich ist,
+  \item Erstellung des \textbf{clientseitigen} Teils, welcher mit der  
+  Google-Maps API interagiert und u.\,a.\ die vom Server geschickten Daten  
+  interpretiert und die Marker auf der Karte platziert,
+  \item Erstellung des Codes für die clientseitige (Webbrowser)  
+  \textbf{Darstellung} des Dienstes.
+\end{enumerate}
+
+Die drei Implementierungsteile waren dabei allerdings während der Entwicklung
+zeitlich nicht strikt voneinander getrennt, sondern wurden teilweise parallel 
+bearbeitet.
+
+Auf der \textbf{Serverseite} waren durch diverse PHP-Skripte und -Klassen
+diejenigen Funktionen bereitzustellen, welche die benötigten Daten aus einer
+Datenbank extrahieren und diese dann in XML-Form an den Client (Webbrowser)
+zurücksenden. Diese Funktionen sollten dann mittels des AJAX-Ansatzes aufgerufen
+werden, um z.B. beim Blättern in der Ergebnisliste einen kompletten
+Seitenneuaufbau zu verhindern. 
+Folgende Funktionen wurden dazu auf Serverseite implementiert:
+
+\begin{description}
+	\item[Suche] Der Nutzer kann über das Webfrontend Veranstaltungen nach 
+	diversen Kriterien suchen:
+	\begin{itemize} 
+		\item Stichwort (meist Name des Künstlers),
+		\item Stadt,
+		\item Start- sowie Enddatum.
+  \end{itemize}	
+  Gibt der Nutzer kein Suchkriterium an, werden alle Veranstaltungen des
+  aktuellen Tages angezeigt. Zur Ermittlung der relevanten Veranstaltungsdaten,
+  welche \textsc{Laut} über den Drittanbieter \textsc{Popfrontal} bezieht, muss
+  nun eine bereits für das laut.de-Portal verwendete Suchmethode aufgerufen
+  werden. Diese liefert die Suchergebnisse in einer Datenstruktur zurück, welche
+  in ein XML-Format gebracht und schließlich als String mit dem Content-Type
+  \texttt{text/xml} an den Browser gesendet wird. Die weitere Verarbeitung der
+  Daten erfolgt anschließend auf Clientseite.
+  \item[Detailansicht] Auf der Serverseite unterscheidet sich dieser
+  Anwendungsfall nicht erheblich von einer normalen Suchanfrage, außer dass
+  hier als zusätzliches Suchkriterium der eindeutige Schlüssel einer einzelnen
+  Veranstaltung verwendet wird. Auf diese Weise erhält man als Ergebnis einen
+  einzelnen Veranstaltungsort, welcher dann im Client anders dargestellt werden kann.
+  \item[Speichern von Feedback-Informationen] Als weiteres Feature wird dem
+  Nutzer die Möglichkeit geboten, die in der Datenbank abgelegten Informationen
+  zu einem Veranstaltungsort - also Straße, PLZ, Stadt sowie Geokoordinaten - zu
+  korrigieren. Dazu werden die Daten durch den Nutzer in ein Formular eingegeben
+  und abgeschickt; die Speicherung der Korrekturvorschläge erfolgt dann
+  serverseitig in einer Datenbank.
+\end{description}
+
+Auf der \textbf{Clientseite} gab es diverse JavaScript-Funktionen zu erstellen:
+
+\begin{description}
+\item[Laden der Daten vom Server]
+  Die vom Nutzer eingegebenen Kriterien werden über ein HTML-Formular an den
+  Browser geschickt; dazu wird das oben beschriebene serverseitige PHP-Modul mit
+  entsprechenden Parametern aufgerufen. Da der Aufruf der Suchfunktion asynchron
+  erfolgt, ist zunächst u.\,U.\ eine leere Karte im Browser zu sehen. 
+  \item[Parsen der XML-Antwort und Erstellen der Marker] Nachdem die XML-Daten vom
+  Browser empfangen wurden, müssen die darin enthaltenen Koordinaten der
+  Veranstaltungsorte extrahiert werden. Für jeden Veranstaltungsort wird ein
+  sog. Marker erzeugt, welcher später auf der Karte die Position des Ortes
+  markiert und ein Infofenster mit weiteren Informationen enthält.
+  \item[Zeichnen der Marker und Anpassen des Zoomlevels] Nach dem Erstellen der
+  Marker müssen diese noch über die Maps API in die Karte eingefügt werden,
+  damit der Nutzer sie sehen kann. Anschließend wird der Zoomlevel und
+  Ausschnitt der Karte so eingestellt, dass möglichst alle Marker angezeigt
+  werden und der Nutzer nicht unnötig in der Karte navigieren muss. Abbildung
+  \ref{fig:klublandschaft-uebersicht} zeigt eine beispielhafte Übersicht mit
+  den erzeugten Markern. Zusätzlich zum Marker auf der Karte wird jede  
+  Veranstaltung in einer Liste aufgeführt, sodass der Nutzer stets eine
+  Übersicht über die Suchergebnisse hat.
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.85\textwidth]{../images/klublandschaft-uebersicht}
+    \caption{Startseite der Klublandschaft mit markierten Veranstaltungen}
+    \label{fig:klublandschaft-uebersicht}
+  \end{figure}
+  \item[Anzeige einer Detailansicht] Beim Klick auf einen Marker erscheint ein
+  Infofenster mit weiteren Details zur Veranstaltung (s. Abbildung
+  \ref{fig:klublandschaft-uebersicht-infowindow}). Hier kann der Nutzer
+  dann zur Detailansicht des Veranstaltungsortes wechseln: die Suchergebnisliste
+  wird durch die Detailangaben der Veranstaltung sowie das Feeedback-Formular
+  ersetzt und der Kartenausschnitt und -zoom wird so angepasst, dass der
+  gewählte Ort in "`Großansicht"' im Bild ist. Abbildung
+  \ref{fig:klublandschaft-venue} zeigt eine solche Detailansicht.
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.85\textwidth]
+    {../images/klublandschaft-uebersicht-infowindow}
+    \caption{Der Marker einer Veranstaltung beinhaltet weitere Informationen}
+    \label{fig:klublandschaft-uebersicht-infowindow}
+  \end{figure}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.85\textwidth]{../images/klublandschaft-venue}
+    \caption{Detailansicht einer Veranstaltung}
+    \label{fig:klublandschaft-venue}
+  \end{figure}
+  \item[Speichern von Feedback-Informationen] Falls der Nutzer Korrekturen der
+  Daten einsenden möchte, kann er über ein Formular die Adressdaten anpassen, 
+  sowie die korrekte Position des Veranstaltungsortes durch das Setzen eines
+  neuen Markers auf der Karte angeben.
+\end{description}
+
+Für die \textbf{Darstellung im Client} wird standardkonformes XHTML\,1.\,0\
+Strict benutzt. Die vom Server empfangenen XML-Daten mit den Koordinaten der
+Veranstaltungorte und Angaben zu den Veranstaltungen werden dynamisch via
+clientseitiger XSL-Transformationen in das DOM der Webseite eingefügt. Auf
+diese Weise wird zum einen die Auflistung der Ergebnisse in der rechten Spalte
+befüllt, zum anderen die Inhalte der Infofenster der einzelnen Marker erstellt.
+
+Alternativ hätte man vom Server XHTML-Fragmente zurückschicken lassen können und
+diese via JavaScript einfügen können. Als Nachteil dieser Lösung sah ich jedoch
+die Tatsache, dass dazu der zu schickende XHTML-Code direkt in den
+serverseitigen PHP-Modulen verankert hätte werden müssen. Die XSL-Lösung ist
+hier insofern eleganter, als dass für ein Ändern des Layouts keine Änderungen am
+Programmcode vorgenommen werden müssen - es muss lediglich das jeweilige
+XSL-Transformationssheet durch den Designer angepasst werden.
+
+Die Darstellung (Farben, Schriftgrößen etc.) der kompletten Anwendung lässt sich
+außerdem leicht über CSS (Cascading Style Sheets) verändern.
+
+\subsubsection{Aufgetretene Probleme}
+Im Großen und Ganzen traten zwei Probleme bei der Realisierung auf - zum einen 
+auf der technischen, zum anderen auf der konzeptionellen Ebene. Das technische
+Problem hing zusammen mit dem Laden der XSL-Transformationssheets, welche
+serverseitig abgelegt sind. In einem ersten Versuch hatte ich diese asynchron
+vom Server laden und anschließend in globalen Variablen verfügbar machen wollen.
+Dies führte allerdings in manchen Fällen zu Fehlern; nämlich dann, wenn zur Zeit
+der Transformation das XSL-Objekt noch nicht fertig geladen bzw. initialisiert
+war, z.B. durch Netzwerklatenzen. Als Lösung wird nun vor dem Durchführen der
+XSL-Transformationen sichergestellt, dass auch alle benötigten Objekte
+vorhanden sind, ansonsten werden diese explizit neu geladen.
+
+Auf der konzeptionellen Seite gab es ein weiteres Problem: aufgrund der
+vorhandenen Veranstaltungsdaten kann es durchaus vorkommen, dass an ein und dem
+selben Veranstaltungsort verschiedenen Veranstaltungen, jedoch zu veschiedenen
+Terminen, stattfinden. Da jedoch stets für \textsl{jede} gefundene Veranstaltung
+ein Marker erstellt wurde, überlagerten sich in diesem Falle folglich mehrere
+Marker, was die untenliegenden für den Nutzer unbrauchbar machte.
+Als Lösung wurde in diesen Fällen kein neuer Marker erstellt, sondern dem
+bereits an dieser Position vorhandenen ein zusätzlicher Reiter (die Google
+Maps API stellt diese Funktion zur Verfügung) hinzugefügt.
+
+Ein ähnliches Problem gab es beim Hinauszoomen aus der Karte: ab einem gewissen
+Zoomlevel lagen die z.B. in einer Stadt gesetzten Marker so dicht beieinander,
+dass der Nutzer diese nicht mehr sinnvoll anwählen konnte. Auch hier wurde der
+Weg des Zusammenfassens (Clustering) gewählt: ab einer bestimmten Zoomstufe
+werden dicht aneinanderliegende Marker zu einem "`Cluster-Marker"'
+zusammengefasst, in dessen Infofenster auf die zusammengefassten Unter-Marker
+hingewiesen wird.
+
+\subsubsection{Fazit}
+Für mich war dies eines der spannendsten Projekte während meines Praktikums. Die
+Einarbeit in für mich neue Themengebiete (AJAX, objektorientiertes JavaScript,
+XSL-Tranformationen) bereitete mir viel Freude und ich konnte viele neue Dinge
+lernen.
+Aufgrund der verwendeten, teils speziellen bzw. relativ "`neuen"' Techniken wie
+AJAX, konnte ich allerdings innerhalb der Firma nicht sehr viel Unterstützung
+finden, sondern war hier in der Einarbeit und bei Problemen eher auf mich selbst
+gestellt. Ausreichende Unterstützung fand ich jedoch bei diversen Webprojekten
+(z.B. \url{www.mapki.com}) sowie der Google Maps API Usenet-Gruppe.
+
+\subsection{Java-Entwicklung T-Online}
+Gegen Ende meines Praktikums durfte ich noch Einblick in ein gerade laufendes
+Projekt aus dem Bereich der Java-Software-Entwicklung nehmen.
+
+\subsubsection{Projektbeschreibung}
+\textsl{Seitenbau} entwickelt für die Firma T-Online bzw. T-Com mit dem
+\glq{}Telefoniecenter\grq\ eine webbasierte Oberfläche zur Verwaltung des
+Produkts \glq{}T-One\grq. Der Kunde kann hier bequem und schnell diverse
+Einstellungen seines Telefonanschlusses selbst vornehmen.
+
+Bei dem Projekt handelt es sich um eine webbasierte, mit Java realisierte
+Applikation. Zu Entwicklungszwecken läuft auf dem Rechner des Entwicklers eine
+Apache Tomcat-Installation, in welche das Projekt deployed wird. Somit hat jeder
+Entwickler seine eigene Test- und Entwicklungsumgebung zur Verfügung. Nach
+Beendigung eines Entwicklungsabschnittes wird der bisherige Projektfortschritt
+auf einem lokalen Testserver installiert, sodass zu Testzwecken alle auf den
+selben Entwicklungsstand zugreifen können.
+
+Da es sich bei dem Projekt um ein recht komplexes System handelt, in das schon
+viel Entwicklungszeit gesteckt wurde, musste ich mich zunächst einmal mit der
+Projektstruktur vertraut macht. Als Basis dient das Open Source Framework Apache
+Struts (s. \url{http://struts.apache.org/}), auch in dessen Funktionsweise
+musste ich mich zunächst einarbeiten.
+
+Im Studium hatte ich natürlich bereits Erfahrung mit Java gesammelt - doch zur
+Auffrischung meiner Kenntnisse erhielt ich zunächst eine kleinere Aufgabe
+abseits des Hauptprojekts. Ich erstellte ein Plugin für das
+Software Management Tool \glq{}Maven\grq\ (s. \url{http://maven.apache.org/}),
+welches im Projekt für die Verwaltung der Abhängigkeiten, des Build-Prozesses 
+sowie das Deployen benutzt wird.
+Das Plugin hatte die Aufgabe, aus einer \texttt{.properties}-Datei eine
+Java-Klasse mit statischen Strings zu erstellen. In diesen werden die für die
+Oberfläche des Projekts benötigten Texte für Hinweis- oder Fehlermeldungen
+abgelegt.
+
+\subsubsection{Aufgaben im Projekt}
+Nach meiner Einarbeitungszeit durfte ich an einer Komponente des Projekts
+mitarbeiten. Dabei handelte es sich um die Umsetzung einer Mapping-Schicht
+zwischen einem datenliefernden Web-Service und den Businessobjekten des Projekts.
+
+Da das Telefoniecenter keine eigene Persistenzschicht wie z.B. eine Datenbank
+aufweist, müssen alle Daten, die dem Nutzer angezeigt werden oder die vom Nutzer
+gespeichert werden sollen, von externen Diensten empfangen bzw. an diese gesendet
+werden. Ebendiese Dienste werden über diverse Web-Service-Schnittstellen zur
+Verfügung gestellt.
+
+Meine Aufgabe war nun, die Daten von diesen Web-Services entgegenzunehmen und
+die für das Projekt erstellten Businessobjekte mit den Daten zu füllen. Auch
+mussten in der Anwendung getätigte Einstellungen wieder an den Web-Service
+geschickt werden, um anschließend persistiert werden zu können. Dabei waren
+teilweise recht komplexe Abbildungsmechanismen zu berücksichtigen, da sich
+die Daten vom Web-Service und der Anwendung nicht immer 1:1 umsetzen ließen.
+
+\subsubsection{Fazit}
+Für mich war dieses Projekt insofern interessant, als dass es eine komplett
+andere Struktur und Organisationsform, verglichen mit den anderen Projekten,
+aufwies. Durch die Verwendung einer "`reiferen"' und komplexeren Sprache wie
+Java wird der komplette Projektverlauf zum einen wesentlich aufwändiger sowie
+erfordert eine höhere Disziplin und intensivere Projektsteuerung.
+
+Bei den von mir zuvor bearbeiteten Webprojekten auf PHP-Basis konnte man doch
+oftmals "`einfach drauf losprogrammieren"', was sich teilweise auch in der
+produzierten Codequalität widerspiegelte. Im Gegensatz dazu hat das Projekt
+\glq{}Telefoniecenter\grq\ einen geregelten Ablauf - es wird die iterative
+V-Modell XT Struktur angewandt -, es gibt definierte Schnittstellen und
+ausführlichere Tests.
+
+Schließlich konnte ich neue Kenntnise im Bereich der Web-Services erlangen und
+meine Java-Kenntnisse vertiefen.
+
+\section{Eingesetzte Hilfsmittel}
+Vom Unternehmen sind keine Entwicklungstools o.\,ä.\ vorgeschrieben, jeder
+Entwickler kann hier entsprechend seiner Vorlieben verschiedene Editoren, IDEs,
+etc.\ verwenden.
+
+Ich persönlich war aus dem Studium sowie aus dem Privatbereich die Arbeit mit
+der Eclipse-Plattform gewohnt und arbeitete so auch im Praktikum mit dieser
+meiner Meinung nach sehr komfortablen und vielseitigen Plattform. Einer der
+Vorteile ist in meinen Augen, dass für die Arbeit mit verschiedenen Sprachen
+bzw. Aufgaben nicht unbedingt verschiedene Softwarewerkzeuge verwendet werden
+müssen. Denn für die Eclipse-Plattform existieren derweil für einen Großteil der
+aktuellen Programmier- bzw.\ Markupsprachen entsprechende Plugins. Für folgende
+Arbeiten konnte ich daher Eclipse nutzen:
+
+\begin{itemize}
+  \item PHP-Entwicklung (Plugin \glq{}PHPEclipse\grq)
+  \item Perl-Entwicklung (Plugin \glq{}EPIC\grq)
+  \item (X)HTML, CSS, JavaScript, XML, XSLT, SQL (\glq{}Web Standard Tools\grq\ 
+  Subprojekt)
+  \item sowie Java-Entwicklung samt JUnit-Tests.
+\end{itemize}
+
+Als weiteres Hilfswerkzeug diente mir hauptsächlich das Internet mit den
+Dokumentationen und Referenzen der jeweiligen Hersteller sowie einige, der
+"`Privatbibliothek"' der Firma entstammende, Bücher.
+
+\chapter{Arbeitsumgebung und soziales Umfeld}
+Im Allgemeinen arbeitete ich wie ein "`normaler"' Angestellter in einem der
+Entwicklungsteams mit und erhielt meine Aufgaben vom Team- bzw. Projektleiter,
+mit welchen ich dann auch den Fortschritt meiner Arbeit besprach.
+
+Bei Problemen oder Fragen gab es immer die Möglichkeit, einen der Kollegen zu
+fragen und um Hilfe zu bitten. Andererseits kamen die Kollegen auch mit
+Fachfragen auf mich zu, hatte ich mich doch z.B. in einige Spezialthemen
+eingearbeitet. Dies war einer der Gründe dafür, weshalb ich mich in der Zeit als
+Praktikant wie ein "`vollwertiges"', produktives Teammitglied fühlte.
+
+Zu dem angenehmen Arbeitsumfeld trugen außerdem der lockere Umgangston unter
+allen Mitarbeitern, die flexible Arbeitszeiteinteilung sowie ein offenes,
+angenehmes Büro bei. Abbildung \ref{fig:sb-arbeitsplatz} zeigt meinen
+Arbeitsplatz während des Praktikums.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.63\textwidth]{../images/sb-arbeitsplatz}
+  \caption{Mein Arbeitsplatz}
+  \label{fig:sb-arbeitsplatz}
+\end{figure}
+
+\chapter{Fazit}
+Für mich persönlich war das praktische Studiensemester bei der
+\textsc{Seitenbau} GmbH eine durchweg positive Erfahrung.
+
+Ich konnte sowohl auf fachlicher als auch auf sozialer Ebene neue Eindrücke und
+Erkenntnisse gewinnen. Ebenfalls habe ich Einblicke in die Abläufe des
+Projektgeschäfts, der Organisation und den Kundenkontakt erhalten. Besonders
+positiv hat mich erneut die Art der Zusammenarbeit in einem solchen
+Software-Unternehmen angesprochen: alles wird in Teamarbeit erledigt, es
+gibt keine "`Einzelkämpfer"'. Ideen werden im Team entwickelt, besprochen und
+anschließend verwirklicht. Diese Arbeitsweise sagt mir persönlich sehr zu.
+
+Zudem fand ich es äußerst motivierend und interessant, an den beschriebenen,
+teils sehr verschiedenen und herausfordernden Projekten teilnehmen zu können
+bzw. diese eigenständig und frei umsetzen zu können.
+
+Insgesamt denke ich, mit der Wahl meines Studiums meinen persönlichen
+Fähigkeiten und Interessen Rechnung zu tragen und sehe dies durch mein
+erfolgreiches Praktikum erneut bestätigt.
+
+\end{document}

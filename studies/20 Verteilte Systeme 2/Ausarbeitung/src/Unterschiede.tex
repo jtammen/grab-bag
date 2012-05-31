@@ -1,0 +1,33 @@
+
+\section{Grundlegende Unterschiede}
+\begin{enumerate}
+  \item Pastry vergibt 128 bit Schlüssel, während Tapestry 160 bit Schlüssel
+  verwendet. Tapestry ist daher für prinzipiell für mehr teilnehmende Peers
+  gerüstet.
+  \item Tapestry unterscheidet zwischen Knoten (Peers) und Objekten, dies
+  impliziert, dass in Tapestry zwischen Routing zu Knoten und Routing zu
+  Objekten unterschieden werden muss. Desweitern müssen Knoten Objekte
+  publizieren können, die sie bereitstellen. Pastry macht hier keine
+  Unterscheidung.
+  \item In Tapestry ist eine Maßnahme für den gewollten Austritt eines Peers
+  vorgesehen, während Pastry dies immer als gewollten Fehlerfall behandelt.
+\end{enumerate}
+
+\section{Pastry vs. Tapestry}
+Beide Verfahren beruhen auf dem selben Routing-Prinzip von Plaxton, Rajamaran
+und Richa \cite{PlaxtonRR97}, trotzdem zeichnen sie sich durch unterschiedliche Eigenschaften aus.
+\newline \newline
+Tapestry ist nicht vollständig selbstorganisierend, achtet aber stark auf die
+Konsistenz der Routing-Tabelle. Außerdem basiert Tapestry sehr stark auf
+analytischen Methoden. Desweiteren ist die Performanz von Tapestry nachweisbar
+gut. 
+\newline \newline
+Pastry hingegen verzichtet weitestgehendst auf analytische Methodik und
+setzt dafür Heuristiken ein. Experimentelle Methoden ersetzen also die
+analytischen Betrachtungen. Praktisch ist Pastry dadurch gut umsetzbar, auch
+wenn der Algorithmus nur ungenau beschrieben ist - z. B. wird nicht beschrieben
+wie das Neighbourhood Set (siehe \ref{struktur}) abgebildet ist. Beachtenswert
+ist allerdings dass Pastry sehr robust ist, da die Leaf Sets bereits die
+Zustellung jedes Datenpaketes zusichern (vgl. \cite{Schindelhauer2004}).
+ 
+

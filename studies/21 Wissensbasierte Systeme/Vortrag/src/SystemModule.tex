@@ -1,0 +1,182 @@
+%\subsection{Überblick}
+\begin{frame}{System Module - Überblick} 
+  \begin{itemize}
+    \item Erweiterung der Oz Base Environment
+    \item Ermöglichen effektiveres und effizienteres Entwickeln
+    \item Module für verschiedene Einsatzgebiete
+    \item Sozusagen die Standardbibliothek von Oz
+  \end{itemize}
+\end{frame}
+ 
+\subsection{Application Programming} 
+\begin{frame}{Application Programming}
+  \begin{itemize} 
+    \item 2 Module für Applikationen und das Laden von Modulen
+    \item Module
+    \begin{description}
+      \item[\texttt{Application}] Zugriff auf die Argumente einer
+      Applikation
+      \begin{itemize} 
+  	    \item Vergleichbar mit \texttt{String args[]} in Java
+  	    \item Parsen der übergebenen Argumente
+	  \end{itemize}
+      \item[\texttt{Module}]Laden von Modulen
+    \end{description}
+  \end{itemize}
+\end{frame}
+ 
+\subsection{Constraint Programming}
+\begin{frame}{Constraint Programming}
+  \begin{itemize}
+    \item Erweiterungen für Constraint Programming
+    \item Insgesamt 7 Module, die Semantik und Syntax erweitern
+    \item Module
+    \begin{description}
+      \item[\texttt{Search}] Unterstützung von verschiedenen Suchmaschinen
+      \item[\texttt{FD}] Erweiterungen für finite domain Constraints
+      \item[\texttt{Schedule}] Unterstützung für Scheduling-Anwendungen
+      \item[\texttt{FS}] Erweiterung von finite Domain Constraints auf Mengen
+      \item[\texttt{RecordC}] Records als Constraints
+      \item[\texttt{Combinator}] Kombinatoren für Constraints, z.B. \texttt{or}
+      \item[\texttt{Space}] Erweiterung für die Spaces
+    \end{description}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modul \texttt{Search}}
+  \begin{itemize}
+    \item \textbf{Basis Suchmaschinen} - Suche nach einer Lösung, allen Lösungen oder
+    den besten Lösungen.
+    \item \textbf{Universelle Suchmaschinen} - Parameterisierte Suche
+    \begin{itemize}
+      \item Recomputation - Reduzierung des Suchraums (Space)
+      \item Beenden der Suche
+      \item Verschiedene Ausgabe-Modi
+    \end{itemize}
+    \item \textbf{Parallele Suche} - Verteilung der Suche auf Rechnern im Netzwerk
+    \begin{itemize}
+      \item Verteilung durch Aufteilung des Suchbaum in Untersuchbäume
+      \item Nur von Vorteil, wenn Suchbaum groß genug und gut unterteilbar
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Finite Domain Constraints: \texttt{FD} }
+  \begin{itemize}
+    \item Erweiterung des Telling auf den Constraint Store für
+     Datenstrukturen
+    \item Reflection für Domains
+    \item Verschiedene vordefinierte Propagatoren, z.B. Generic Propagators
+    oder 0/1 Propagators (binär) 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Scheduling Unterstützung: \texttt{Schedule}}
+    \begin{itemize}
+      \item Propagatoren und Verteiler für Scheduling-Anwendungen
+      \item \textit{Serialization for unary resources} - Anordnung von Tasks, die
+      gleiche Ressource benötigen, ohne zeitliche Überlappung
+      \item Verteilung der Tasks, so dass jede benötigte Ressource \textit{serialized}
+      ist
+      \item Kumulatives Scheduling - Kapazität einer Ressource darf nicht
+      überschritten werden
+    \end{itemize} 
+\end{frame}
+
+\begin{frame}{Finite Set Constraints: \texttt{FS}}
+  \begin{itemize}
+    \item Neue Constraint-Art
+    \item Assoziation einer $n$-elementigen Menge mit $n$ finite Domain
+      Variablen
+    \item Mengen von Constraint Variablen sehr nützlich bei kombinatorischer
+      Problemlösung und Natural Language Processing
+    \item Prozeduren, Propagator usw. für den Umgang mit Finite Set Constraints 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{First-class Computation Spaces: \texttt{Space}}
+  \begin{itemize}
+    \item Zur Programmierung von Interferenzmaschinen 
+    \item Prozeduren um mit Computation Spaces umzugehen
+  \end{itemize} 
+\end{frame}
+
+
+
+\subsection{Verteilte Programmierung}
+\begin{frame}{Verteilte Programmierung}
+  \begin{itemize}
+    \item Zur Entwicklung von verteilten Anwendungen
+    \item Module
+    \begin{description}
+      \item[\texttt{Connection}] Ticket-basierter Verbindungsaufbau zwischen unabhängigen Oz
+      Prozessen, auch lokal. Ticket ist ein String, der übertragen wird.
+      \begin{itemize}
+        \item One-to-one - Einzelverbindungen
+        \item Many-to-one - Mehrere Verbindungen mit gleichem Ticket
+      \end{itemize}
+      \item[\texttt{Remote}] Remotesteuerung anderer Oz Prozesse über das
+      Netzwerk. 
+      \item[\texttt{URL}] Erzeugen und Manipulieren von URLs, für das WWW und
+      Dateisystem
+    \end{description}
+  \end{itemize}
+\end{frame} 
+
+\begin{frame}{Verteilte Programmierung}
+  \begin{itemize}
+    \item Weitere Module:
+    \begin{description}
+      \item[\texttt{Resolve}] Auflösen von URLs zur einfacheren Auffindung von Daten
+      \item[\texttt{Fault}] Erkennung und Behandlung von Fehlern in der Verteilung
+      \item[\texttt{Discovery}] Lokation von Diensten (Oz-Server) im Netzwerk
+      \item[\texttt{DPInint}] Initialisierung und Konfiguration der Verteilungsschicht
+      \item[\texttt{DPStatistics}] Abfrage von statistischen Informationen
+    \end{description}
+  \end{itemize}
+\end{frame}
+
+\subsection{Open Programming}
+\begin{frame}{Open Programming}
+  \begin{itemize}
+    \item Verbindung zum Rest der \textit{computational world}
+    \item Module
+    \begin{description}
+      \item[\texttt{Open}] Zugriff auf Dateien, Sockets und Pipes 
+      \item[\texttt{OS}] Support für Betriebssysteme. Prozeduren zur
+      Interaktion mit dem Betriebssystem, z.B. Exceptions falls Fehler auftretten
+    \end{description}
+  \end{itemize}
+\end{frame}
+
+\subsection{System Programmierung}
+\begin{frame}{System Programmierung}
+  \begin{itemize}
+    \item Weitere Funktionalität für die Mozart Engine
+    \item Module
+    \begin{description}
+      \item[\texttt{Pickle}] Persistente Speicherung von zustandlosen Werten
+      \item[\texttt{Property}] Operationen auf Eigenschaften (Properties)
+      \item[\texttt{Error}] Formatierung von Fehlermeldungen, z.B. Exceptions
+      \item[\texttt{ErrorFormatters}] Vordefinierte Fehlerformatierungen, z.B.
+      \texttt{os} Fehler des Betriebssystems
+      \item[\texttt{Finalize}] Automatische Freigabe von Resourcen, bei
+      gekapselten Daten
+      \item[\texttt{System}] Prozeduren für die Mozart Engine, z.B. Drucken
+    \end{description} 
+  \end{itemize}
+\end{frame}
+
+\subsection{Window Programming}
+\begin{frame}{Window Programming}
+  \begin{itemize}
+    \item Programmierung von Benutzeroberflächen mit Tk
+    \item Module
+    \begin{description}
+      \item[\texttt{Tk}] Modul zur GUI Programmierung. Verschiedene Klassen für
+      die Kommunikation zwischen der Graphic Engine und der Mozart Engine
+      \item[\texttt{TkTools}] Graphische Tools, vordefinierte Klassen für
+      Dialoge, Menüs usw. 
+    \end{description}
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,260 @@
+\section{Datenstrukturen von XML-Dokumenten}
+Bei \acr{xml}-Dokumenten gibt es drei verschiedene Datenstrukturen zu unterscheiden.
+Wir unterscheiden zwischen datenzentrierten, dokumentzentrierten und semistrukturierten \acr{xml}-Dokumenten.
+Für jede Datenstruktur gibt es einen geeigneten Lösungsansatz zur Speicherung des \acr{xml}-Dokumentes. Jedoch gibt es nach \citep[Kap. 6]{KlettkeMeyer} keine für alle Anwendungen beste Variante zur Speicherung.
+
+\subsection{Datenzentrierte XML-Dokumente}
+Bei datenzentrierten \acr{xml}-Dokumenten interessieren nur die Daten selbst. Dies wird \zB bei
+\acr{rss} verwendet.
+\lstinputlisting[language=XML,caption={XML-Dokument datenzentriert},label=listing:xml-datenzentriert]{Kapitel/Einfuehrung/datenzentriert.xml}
+Die Struktur ist sehr regelmäßig und beinhaltet keine umfangreichen Texte.
+
+\subsection{Dokumentzentrierte XML-Dokumente}
+Bei dokumentzentrierten \acr{xml}-Dokumenten werden Daten und Informationen unregelmäßig strukturiert und beinhalten oft längere Textpassagen. Anhand eines kleinen Beispiels soll dies verdeutlich werden.
+
+\lstinputlisting[language=XML,caption={XML-Dokument dokumentzentriert},label=listing:xml-dokumentzentriert]{Kapitel/Einfuehrung/dokumentzentriert.xml}
+Die Struktur ist sehr unregelmäßig und kann umfangreiche Texte beinhalten.
+
+\subsection{Semistrukturierte XML-Dokumente}
+Bei semistrukturierten \acr{xml}-Dokumenten handelt es sich um eine Mischform von einem datenzentrierten und dokumentzentrierten \acr{xml}-Dokument.
+\lstinputlisting[language=XML,caption={XML-Dokument semistrukturiert},label=listing:xml-semistrukturiert]{Kapitel/Einfuehrung/semistrukturiert.xml}
+
+\section{Speicherungstechniken}
+Nach \citep[Kap. 8]{KlettkeMeyer} gibt es drei unterschiedliche Speicherungsmethoden für \acr{xml}-Dokumente.
+\begin{enumerate}
+	\item Das \acr{xml}-Dokument wird als Ganzes in die Datenbank abgespeichert. Dies ist über den Datentyp \acr{clob} in einem Datenbanksystem möglich oder das Dokument wird direkt als Datei gespeichert.
+	\item Die Struktur des \acr{xml}-Dokument wird als Graph (Baumstruktur) gespeichert. 
+	\item Die Struktur des \acr{xml}-Dokument bildet die Struktur von Datenbanken ab.
+\end{enumerate}
+
+\section{XML-Datenbanken}
+Es gibt in der Industrie verschiedene Speicherungsverfahren. Von Datenbankherstellern wird zwischen
+nativen und hybriden Datenbanksystemen unterschieden. In den nächsten beiden Abschnitten gehen wir
+tiefer darauf ein.
+
+\subsection{Native XML-Datenbanken}
+Nach \citep{url:RonaldBourret-what.is.a.nativ.db} ist der Fachausdruck \textit{native Datenbank} als reiner Marketing-Begriff zu verstehen. Was unter einer nativen Datenbank zu verstehen ist, muss genauer erläutert werden. Eine mögliche Definition von der \acr{xml}:DB-Mailinglist\footnote{\url{http://xmldb-org.sourceforge.net/projects.html}} beschreibt eine
+native Datenbank 
+\begin{enumerate}
+	\item als eine \acr{xml}-Datenbank, die ein logisches Modell für ein \acr{xml}-Dokument definiert.
+	\item Es erlaubt in Übereinstimmung mit diesem Modell die Speicherung und Zurücklieferung von Dokumenten. Das Modell muss mindestens Elemente, Attribute, \#PCDATA und die Dokumentordnung enthalten. Beispiele für solche Modelle sind das XPath-Datenmodell, das durch \acr{dom} implizierte Modell und die Ereignisse in \acr{sax} 1.0. 
+
+	\item Die fundamentale Einheit der logischen Speicherung die \acr{xml}-Dokumente sind. Diese sind vergleichbar mit den Tupeln einer relationalen Datenbank, die dort die fundamentale Einheit der logischen Speicherung sind.
+	\item Es ist nicht erforderlich ein bestimmtes, zugrunde liegendes Modell zur physischen Speicherung zu besitzen.
+Es kann beispielsweise auf relationalen, hierarchischen und objektrelationalen Datenbanken aufgebaut werden, oder es werden proprietäre Speicherformate wie Indexe und komprimierte Files eingesetzt.
+\end{enumerate}
+
+Es wird zwischen textbasierten nativen \acr{xml}-Datenbanksystemen und modellbasierten nativen \acr{xml}-Datenbanksystemen unterschieden.
+Die textbasierten Systeme speichern die \acr{xml}-Dokumente als Datei oder als \acr{clob}. Bei beiden Varianten werden in den meisten Fällen Indexe verwendet um schnellere Ergebnisse zu erzielen.
+
+In modellbasierten Systemen wird die Technik von Objektmodellen, \zB das \acr{dom}, angewendet. In manchen Fällen basiert das Speichern von Daten auf relationalen, objektorientierten oder hierarchischen Datenbanken.
+
+Nach \citep[Kap. 8.1]{KlettkeMeyer} eignen sich für dokumentzentrierte \acr{xml}-Dokumente Datenbanksysteme, die den Datentyp \acr{clob} oder das einfache Speichern von Dateien unterstützen. Die Methode zur strukturierten Speicherung in Datenbanken (Baumstruktur) eignet sich hauptsächlich zur Abbildung von datenzentrierten \acr{xml}-Dokumenten. Das Speichern der Dokumentstruktur wird für semistrukturierte \acr{xml}-Dokumente verwendet.
+
+\subsubsection{XML-Dokument als Ganzes speichern}
+Das Speichern von \acr{xml}-Dokumenten als Ganzes erfordert bei großen Datenmengen das Erstellen von Indexen. Zur Anwendung kommen Volltext- und Strukturindexe.
+Die unterschiedlichen Verfahren zur Bildung eines Volltextindex gehen nach \citep[Kap. 8.2.1]{KlettkeMeyer} von statisch wortbasierten, linguistischen bis hin zu wissensbasierten \acr{ir}-Methoden. 
+
+Beim Parsen des vollständigen \acr{xml}-Dokumentes, bei dem die Tags miteinbezogen werden, wird in jedem Verfahren ein Stichwort einem entsprechendem \acr{xml}-Dokument zugewiesen. Kommt das Stichwort häufiger vor, erhält es einen höheren Stellenwert (Ranking). 
+Beim Suchvorgang werden die Ergebnisse mit den höchsten Stellenwerten zuerst zurück gegeben.
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+		\begin{tabularx}{\textwidth}{l|X}
+			\toprule
+				\multicolumn{1}{@{}N}{Schemabeschreibung} & nicht erforderlich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Dokumentrekonstruktion} & Dokumente bleiben im Original erhalten \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Anfrage} & Anfragen des \acr{ir} \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Weitere Besonderheiten} & Volltextfunktionen (\acr{sqlmm}), keine Auswertung des \acr{xml}-""Markups \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Einsatz} & für dokumentzentrierte \acr{xml}-Anwendungen	\\
+				\bottomrule
+		\end{tabularx}
+	\caption{Fazit: Volltextindexe, \citep[Kap. 8.2.1]{KlettkeMeyer}}
+	\label{tab:fazit-volltextindex}
+\end{table}
+
+Bei der Verwendung eines kombinierten Volltext- und Strukturindexes kommt ein weiterer Aspekt ins Spiel. Während bei der Volltext-Index-Analyse die Tags mit in den
+gleichen Index eingeflossen sind, wird bei einem kombinierten Index die Analyse von Tags speziell behandelt und gespeichert. Der Volltext-Index speichert den Inhalt zwischen
+den Tags mit einem Verweis auf den \acr{xml}-Index. Der Index des \acr{xml}-Dokumentes (\acr{xml}-Index) enthält nur den Tag des entsprechenden Inhalts. Der Indexeintrag des \acr{xml}-Indexes verweist wiederum auf den Tag im \acr{xml}-Dokument.
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+		\begin{tabularx}{\textwidth}{l|X}
+			\toprule
+				\multicolumn{1}{@{}N}{Schemabeschreibung} & nicht erforderlich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Dokumentrekonstruktion} & Dokumente bleiben im Original erhalten \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Anfrage} & \acr{ir} und Auswertung des Markups\\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Weitere Besonderheiten} & Volltextfunktionen (\acr{sqlmm}) \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Einsatz} & für dokumentzentrierte und auch für semistrukturierte \acr{xml}-Anwendungen	\\
+				\bottomrule
+		\end{tabularx}
+	\caption{Fazit: kombinierter Volltext- und Strukturindex, \citep[Kap. 8.2.2]{KlettkeMeyer}}
+	\label{tab:fazit-vollstrukturindex-strukturindex}
+\end{table}
+
+
+\subsubsection{XML-Dokument als Graphenstruktur speichern}
+Es gibt zwei Wege die Graphenstruktur in einer Datenbank zu speichern. Die eine ist die Abbildung der Graphenstruktur auf eine relationale Datenbankstruktur anhand eines Schemas. Die andere Variante setzt das \acr{dom} ein, um die Speicherung der \acr{xml}-Dokumente in relationalen oder objektrelationalen Datenbanken umzusetzen. Es werden dabei die Struktur des Schemas, die Pfade zu den Objekten und die Daten selbst gespeichert.
+
+Die Abbildung der Graphenstrukur von \acr{xml}-Dokumenten ähnelt der Technik von Strukturindexen. Jedes Tag-Element erhält eine durchlaufende Nummer (ID). Desweiteren wird die Struktur mit der Nummer des Vorgängers (Vorgänger-ID) gekennzeichnet. Bei Verschachtelungen von Elementen zeigen die inneren Elemente (Kinder) auf das äußere Element (Eltern). Und dabei wird den inneren Elmenten eine zweite durchlaufende Nummer (Kind-Nr) vergeben, so dass die Reihenfolge eindeutig ist. Wir möchten die Technik an einem Beispiel klar verdeutlichen.
+
+\lstinputlisting[language=XML,caption={Graphenstrukur abbilden in einer relationalen Datenbank},label=listing:xml-graphenstruktur]{Kapitel/Einfuehrung/graphenstruktur-relational.xml}
+\input{Kapitel/Einfuehrung/table-graphenstruktur-relational}
+Die Attribute in den jeweiligen Tag-Elementen werden in einer seperaten Tabelle gepeichert, mit einem Verweis auf die ID des entsprechenden Tag-Elementes.
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+		\begin{tabularx}{\textwidth}{l|X}
+			\toprule
+				\multicolumn{1}{@{}N}{Schemabeschreibung} & nicht erforderlich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Dokumentrekonstruktion} & möglich, aber sehr aufwändig \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Anfrage} & \nameref{einfuehrung-xml-xquery} / \acr{xql} / angepasstes \acr{sql}\\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Weitere Besonderheiten} & - \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Einsatz} & für semistrukturierte \acr{xml}-Dokumente auch für daten- und dokumentzentrierte Anwendungen möglich	\\
+				\bottomrule
+		\end{tabularx}
+	\caption{Fazit: Abbildung der Graphenstrukur von \acr{xml}-Dokumenten, \citep[Kap. 8.3.1]{KlettkeMeyer}}
+	\label{tab:fazit-abbildung-graphenstruktur}
+\end{table}
+
+Eine weitaus häufiger angewendete Methode zur Speicherung von \acr{xml}-""Dokumenten in relationalen und objektorientierten Datenbanken ist die Verwendung von \acr{dom}.
+Anhand des obigen Beispiels würden die folgenden drei Tabellen die Struktur des \acr{xml}-Dokuments als \acr{dom}-Klassen abbilden.
+\input{Kapitel/Einfuehrung/table-graphenstruktur-relational-dom-node}
+\input{Kapitel/Einfuehrung/table-graphenstruktur-relational-dom-element}
+\input{Kapitel/Einfuehrung/table-graphenstruktur-relational-dom-attribut}
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+		\begin{tabularx}{\textwidth}{l|X}
+			\toprule
+				\multicolumn{1}{@{}N}{Schemabeschreibung} & nicht erforderlich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Dokumentrekonstruktion} & möglich, aber sehr aufwändig \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Anfrage} & \nameref{einfuehrung-xml-xquery} / \acr{xql} / angepasstes \acr{sql} \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Weitere Besonderheiten} & Anfragen und Updates über \acr{dom}-Methoden \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Einsatz} & für semistrukturierte \acr{xml}-Dokumente, daten- und dokumentzentrierte Anwendungen möglich	\\
+				\bottomrule
+		\end{tabularx}
+	\caption{Fazit: Abbildung der Graphenstrukur von \acr{xml}-Dokumenten mittels DOM, \citep[Kap. 8.3.2]{KlettkeMeyer}}
+	\label{tab:fazit-abbildung-graphenstruktur-dom}
+\end{table}
+
+\subsubsection{XML-Dokument auf Datenbankstruktur abbilden}
+Für einige objektorientierte und objektrelationale Datenbanken kann mittels einer \acr{dtd} oder eines \acr{xml}-Schemas die Struktur des Dokuments 1:1 automatisch abgebildet werden. Die Informationen aus dem Schema entsprechen einem Befehl der Datenbank. 
+\input{Kapitel/Einfuehrung/table-datenbankstruktur-automatisch}
+
+Jedoch dürfen im Schema keine Rekursionen vorkommen, denn \acr{xml}-Dokumente sind endlich. Ein weiteres Problem sind bei \acr{xml}-Dokumenten, die den Datentyp im Schema nicht genau spezifizieren. Nach \citep[Kap. 8.4.1]{KlettkeMeyer} ist die Speicherung umständlich und bei Abfragen ineffizient. Dafür gibt es bessere Speicherungsformen, auf die im Abschnitt \ref{xml-einfuehrung-hybride-datenbanken} genauer eingegangen wird.
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+	
+	\begin{threeparttable}
+	\caption{Fazit: Abbildung des \acr{xml}-Schemas automatisch auf Datenbankstruktur, \citep[Kap.8.4.1]{KlettkeMeyer}}
+	
+		\begin{tabularx}{\textwidth}{l|X}
+			\toprule
+				\multicolumn{1}{@{}N}{Schemabeschreibung} & erforderlich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Dokumentrekonstruktion} & nur teilweise möglich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Anfrage} & \acr{sql}- und \acr{xml}-Anfrage und Transformation ist prinzipiell möglich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Weitere Besonderheiten} & Erhalten der Dokumentstruktur über zusätzliche Attribute, Abbildung von NMTOKEN \tnote{1} auf Attributnamen der Datenbank notwendig \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Einsatz} & für datenzentrierte \acr{xml}-Dokumente	\\
+				\bottomrule
+		\end{tabularx}
+		
+		\begin{tablenotes}
+			\footnotesize\normalfont
+    	\item [1] NMTOKEN (name token) ist mit einem \acr{xml}-Namen verwandt, geht jedoch freizügiger mit den Regeln zur Namensgebung um. \citep{url:nmtoken-wikipedia}
+ 		\end{tablenotes}
+	\end{threeparttable}
+  
+	\label{tab:fazit-abbildung-dokument}
+\end{table}
+
+Das Mapping-Verfahren hat einen ähnlichen Ansatz wie das automatische Speichern aus Schemas von \acr{xml}-Dokumenten. Wir definieren je nach Datenbank eine spezielle Map, woraus die Datenbank die Struktur des \acr{xml}-Dokuments lesen und in die Datenbank speichern kann. Damit können \acr{xml}-Dokumente in unterschiedliche Datenbanktypen gespeichert werden.
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+		\begin{tabularx}{\textwidth}{l|X}
+			\toprule
+				\multicolumn{1}{@{}N}{Schemabeschreibung} & erforderlich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Dokumentrekonstruktion} & nicht möglich \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Anfrage} & \acr{sql} \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Weitere Besonderheiten} & Mapping-Vorschriften erforderlich, Speicherung der Dokumentordnung durch zusätzliches Attribut \\
+				\cline{1-2}
+				\multicolumn{1}{@{}N}{Einsatz} & für datenzentrierte \acr{xml}-Dokumente	\\
+				\bottomrule
+		\end{tabularx}
+	\caption{Fazit: Abbildung des \acr{xml}-Dokumentes automatisch auf Datenbankstruktur mittels Mapping, \citep[Kap. 8.4.2]{KlettkeMeyer}}
+	\label{tab:fazit-abbildung-dokument-map}
+\end{table}
+
+\subsection{Hybride XML-Datenbanken} \label{xml-einfuehrung-hybride-datenbanken}
+In einigen Fällen ist die Dokumenteigenschaft (datenzentriert, dokumentzentriert) nicht eindeutig zu bestimmen. Bei Dokumenten, die in die Kategorie der semistrukturierten Dokumente fallen, müssen neue Speicherungsverfahren entwickelt werden. Die Informationen sollten beim Speichern des \acr{xml}-Dokuments
+aufgesplittet werden, d.h., dass datenzentrierte Inhalte auf der physischen Ebene anders gespeichert werden als die dokumentzentrierten. Dies bezeichnen wir als \emph{hybride Speicherung} von \acr{xml}-Dokumenten. 
+
+\subsubsection{Vorgehensweise zur Ermittlung der Speicherungsmethoden}
+Die verschiedenen Speicherungsmethoden müssen nun aus den Strukturinformationen (\acr{dtd} oder \acr{xml}-Schema), aus Statistiken über Dokumente und Anfragen gelesen werden. 
+
+Nach \citep[Kap. 8.5]{KlettkeMeyer} sind folgende Merkmale deuten auf einen bestimmten Dokument-/Inhalt-Typ.
+\begin{itemize}
+	\item Strukturinformationen, wobei \zB Mixed Content und Alternativen auf dokumentzentrierte Inhalte deuten
+	\item Quantifizierer, wie 1, "`+"', "`?"', "`*"' deuten auf unstruktierte Inhalte hin
+	\item Attributeigenschaften, wobei \#REQUIRED \footnote{Angabe für Attribut gilt in \acr{dtd} als erforderlich} dem Quantifizier 1 und \#IMPLIED \footnote{Angabe für Attribut gilt in \acr{dtd} als optional} dem "`?"' zuzuordnen sind
+\end{itemize}
+
+Es erfolgt aus den Strukturinformationen, dass es der Fall sein kann, dass keine eindeutige Zuordung des Datentyps möglich ist. Dies wird \zB bei Quantifizierer wie "`?"' deutlich, denn es ist nicht bestimmt wie oft das Element auftritt.
+Daraus müssen Statistiken aus bereits vorhandenen \acr{xml}-Dokumenten erstellt werden. So ermitteln wir die Häufigkeit des Auftretens für jedes Element und Attribut in den \acr{xml}-Dokumenten.
+
+Weiter können wir aus den Strukturinformationen keine typischen Anfragen an die Datenbank erkennen. Und es lässt sich nicht aus den Statistiken von den \acr{xml}-Dokumenten ableiten, weil nicht immer 
+genau die Anfragen zu den Elementen und Attributen gestellt werden, welche am häufigsten in den \acr{xml}-Dokumenten vorkommen.
+
+Aus den ermittelten Kriterien wird die definitive Datenbankstruktur festgelegt. Die Vorgehensweise, wie sie unter \citep[Kap. 8.5]{KlettkeMeyer} beschrieben ist, zeigt auf, dass Elemente und Attribute
+die datenzentriert sind, häufiger nach der eingesetzten Metrik strukturiert, d.h. eine relationale Abbildung aus der Dokumentstruktur und dokumentzentrierte Inhalte als \acr{xml}-Datentyp deklariert werden.
+
+\subsection{Zusammenfassung}
+Für die Bestimmung, welche der sechs Speicherungsmethoden für welches \acr{xml}-Dokument am geeignetesten ist, soll die folgende Tabelle einen besseren Überblick verschaffen.
+\input{Kapitel/Einfuehrung/table-zusammenfassung-speicherungsmethode}
+
+\subsection{Kommerzielle und Open Source-Systeme}
+\subsubsection{Oracle}
+Die Unterstützung von \acr{xml} bietet Oracle seit der Version Oracle 8i. Oracle unterstützt eine hybride Speicherungstechnik. Nach \citep{url:RonaldBourret-oracle} speichert Oracle die \acr{xml}-Inhalte als \acr{clob}, relational oder als \acr{xml}-Datentyp.
+
+\subsubsection{MS SQL-Server}
+Mit dem Microsoft SQL-Server können \acr{xml}-Informationen relational und als \acr{xml}-Datentyp (intern als \acr{blob}) gespeichert werden. Das \acr{dbms} unterstützt auch ein eigenes Mapping-Verfahren mittels \emph{OpenXML}.
+
+\subsubsection{eXist}
+Unter \citep{url:RonaldBourret-exist} wird eXist als native Datenbank beschrieben. Intern werden Dokumente in sog. \emph{Collections} (entsprechen dem "`Datenbank"'-Konzept bei \acr{rdbms}) zusammengefasst. Diese Collections können wiederum andere Collections enthalten, dadurch entsteht eine hierarchische, dateisystemähnliche Struktur der Dokumente.

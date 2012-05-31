@@ -1,0 +1,855 @@
+%%% File-Information {{{
+%%% Filename: template_bericht.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2004-06-30 18:19:32 mp>
+%%% Authors: The LaTeX@TUG-Team [http://latex.tugraz.at/]:
+%%%          Karl Voit (vk), Michael Prokop (mp), Stefan Sollerer (ss)
+%%% History:
+%%%   20040630 (mp) added comments to foldmethod at end of file
+%%%   20040625 (vk,ss) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+% twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+headsepline, %% add a horizontal line below the column title
+footsepline, %% add a horizontal line above the page footer
+titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+halfparskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+% fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+%draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+12pt,         %% set default font size to 11 point
+DIV16
+]{scrartcl}  %% article, see KOMA documentation (scrguide.dvi)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% packages
+%%%
+
+%\usepackage{pstricks}
+%\usepackage{pst-node}
+%\usepackage{pst-uml}
+%\let\umlClass\pstumlClass	%%% workaround: pst-uml und uml kollidieren
+%\usepackage{uml}
+
+%%%
+%%% encoding and language set
+%%%
+
+%%% ngerman: language set to new-german
+\usepackage{ngerman}
+
+%%% inputenc: coding of german special characters
+\usepackage[latin1]{inputenc}
+
+%%% fontenc, ae, aecompl: coding of characters in PDF documents
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
+%%%
+%%% technical packages
+%%%
+
+%%% amsmath, amssymb, amstext: support for mathematics
+\usepackage{amsmath,amssymb,amstext}
+
+%%% psfrag: replace PostScript fonts
+\usepackage{psfrag}
+
+%%% listings: include programming code
+\usepackage{listings}
+\usepackage{moreverb}
+
+%%% units: technical units
+\usepackage{units}
+
+%%% color: support for ... colors, yes!
+\usepackage{color}
+
+%%% table-stuff
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\newcolumntype{N}{>{\bfseries\scriptsize}l}
+\newcolumntype{V}[1]{%
+  >{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}%
+}
+
+\usepackage{tabularx}
+
+%%% some color-definitions (see http://texnik.de/listings/listing0.pdf)
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{hellgrau}{rgb}{0.9,0.9,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% configuration of the listings-package
+\lstset{%
+	float=hbp,%
+	basicstyle=\ttfamily\small, %
+	identifierstyle=\color{colIdentifier}, %
+	keywordstyle=\color{colKeys}, %
+	stringstyle=\color{colString}, %
+	commentstyle=\color{colComments}, %
+	columns=flexible, %
+	tabsize=4, %
+	frame=tb, %
+	extendedchars=true, %
+	showspaces=false, %
+	showstringspaces=false, % 
+	numbers=left, %
+	numberstyle=\tiny, %
+	breaklines=true, %
+	backgroundcolor=\color{hellgrau}, %
+	breakautoindent=true, %
+	captionpos=b%
+}
+
+%%%
+%%% layout
+%%%
+
+%%% scrpage2: KOMA heading and footer
+%%% Note: if you don't use this package, please remove 
+%%%       \pagestyle{scrheadings} and corresponding settings
+%%%       below too.
+\usepackage[automark]{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Float
+\usepackage{float}
+
+%%%
+%%% PDF
+%%%
+
+\newif\ifpdf
+  \ifx\pdfoutput\undefined
+     \pdffalse
+  \else
+     \pdfoutput=1
+     \pdftrue
+  \fi
+
+%%% Should be LAST usepackage-call!
+%%% For docu on that, see reference on package ``hyperref''
+\ifpdf{%   (definitions for using pdflatex instead of latex)
+
+	%%% for screen (PDF), we use sans-serif-fonts
+	\usepackage{mathpazo}
+	\usepackage[scaled=.95]{helvet}
+	\usepackage{courier}	
+	\renewcommand{\familydefault}{\sfdefault}
+	\usepackage[sf]{titlesec}
+
+  %%% graphicx: support for graphics
+  \usepackage[pdftex]{graphicx}
+ 
+  \pdfcompresslevel=9
+
+  %%% hyperref (hyperlinks in PDF): for more options or more detailed
+  %%%          explanations, see the documentation of the hyperref-package
+  \usepackage[%
+    %%% general options
+    pdftex=true,      %% sets up hyperref for use with the pdftex program
+    %plainpages=false, %% set it to false, if pdflatex complains: ``destination with same identifier already exists''
+    %
+    %%% extension options
+    backref=section,   %% if true, adds a backlink text to the end of each item in the bibliography
+    pagebackref=false, %% if true, creates backward references as a list of page numbers in the bibliography
+    colorlinks=true,   %% turn on colored links (true is better for on-screen reading, false is better for printout versions)
+    %
+    %%% PDF-specific display options
+    bookmarks=true,          %% if true, generate PDF bookmarks (requires two passes of pdflatex)
+    bookmarksopen=false,     %% if true, show all PDF bookmarks expanded
+    bookmarksnumbered=false, %% if true, add the section numbers to the bookmarks
+    %pdfstartpage={1},        %% determines, on which page the PDF file is opened
+    pdfpagemode=None,	       %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+    breaklinks=true         
+  ]{hyperref}
+
+  %%% provide all graphics (also) in this format, so you don't have
+  %%% to add the file extensions to the \includegraphics-command
+  %%% and/or you don't have to distinguish between generating
+  %%% dvi/ps (through latex) and pdf (through pdflatex)
+  \DeclareGraphicsExtensions{.pdf}
+  \graphicspath{{./images}}
+
+\else    %(definitions for using latex instead of pdflatex)
+
+  \usepackage[dvips]{graphicx}
+
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}  
+
+  \usepackage[%
+    dvips,            %% sets up hyperref for use with the dvips driver
+    colorlinks=false, %% better for printout version; almost every hyperref-extension is eliminated by using dvips
+    breaklinks=true 
+  ]{hyperref}
+
+\fi %ifpdf
+
+%%% sets the PDF-Information options
+%%% (see fields in Acrobat Reader: ``File -> Document properties -> Summary'')
+%%% Note: this method is better than as options of the hyperref-package (options are expanded correctly)
+\hypersetup{
+  pdftitle={Systementwurf: Stilanalyse von Texten}, %%
+  pdfauthor={Jan Tammen (jan.tammen@fh-konstanz.de), Christoph Eck (christoph.eck@fh-konstanz.de)}, %%
+  pdfsubject={Praktikum: Software-Engineering}, %%
+  pdfcreator={Jan Tammen (jan.tammen@fh-konstanz.de)}, %% 
+  pdfproducer={}, %%
+  pdfkeywords={} %%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[3]{
+  \begin{center}
+    \includegraphics[width=#1, keepaspectratio=true]{#2} \\
+    \textbf{#3}
+  \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% define the titlepage
+%%%
+
+% \subject{}   %% subject which appears above titlehead
+% \titlehead{} %% special heading for the titlepage
+
+%%% title
+\title{Systementwurf: Stilanalyse von Texten}
+\subject{Praktikum Software-Engineering}
+
+%%% author(s)
+\author{Jan Tammen \href{mailto:foobar@fh-konstanz.de}{(jan.tammen@fh-konstanz.de)}
+					\and{
+						Christoph Eck \href{mailto:ceck@fh-konstanz.de}{(christoph.eck@fh-konstanz.de)}
+					}%
+				}%
+
+\publishers{\small{Großgruppe:\\
+						Eck/Tammen\\
+						Apell/Jehle\\
+						Lehmann/Pfeifer}}
+\date{\today}
+
+% \thanks{} %% use it instead of footnotes (only on titlepage)
+
+% \dedication{} %% generates a dedication-page after titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% set heading and footer
+%%%
+
+%%% scrheadings default: 
+%%%      footer - middle: page number
+\pagestyle{scrheadings}
+
+%%% user specific
+%%% usage:
+%%% \position[heading/footer for the titlepage]{heading/footer for the rest of the document}
+
+%%% heading - left
+% \ihead[]{}
+
+%%% heading - center
+% \chead[]{}
+
+%%% heading - right
+% \ohead[]{}
+
+%%% footer - left
+% \ifoot[]{}
+
+%%% footer - center
+% \cfoot[]{}
+
+%%% footer - right
+% \ofoot[]{}
+
+
+\renewcommand{\figureautorefname}{Abbildung}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+\begin{document}
+
+% \pagenumbering{roman} %% small roman page numbers
+
+%%% include the title
+%\thispagestyle{empty}  %% no header/footer (only) on this page
+\maketitle
+
+%%% start a new page and display the table of contents
+\newpage
+\tableofcontents
+
+%%% start a new page and display the list of figures
+%\newpage
+%\listoffigures
+
+%%% start a new page and display the list of tables
+% \newpage
+% \listoftables
+
+%%% display the main document on a new page 
+\newpage
+
+% \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+
+\section{Festlegung der Einflussfaktoren auf Softwarearchitektur}
+\subsection{Einsatzbedingungen}
+Definiert im Pflichtenheft.
+\subsection{Umgebungs- und Randbedingungen}
+Definiert im Pflichtenheft.
+\subsection{Nichtfunktionale und Qualitätsanforderungen}
+\subsubsection{Nichtfunktionale Anforderungen}
+Es werden keine besonderen Anforderungen bezüglich Internationalisierung, Skalierbarkeit und Wiederverwendbarkeit gestellt.
+\subsubsection{Qualitätsanforderungen}
+Es werden keine besonderen Anforderungen bezüglich Zuverlässigkeit, Änderbarkeit und Effizienz gestellt.
+
+\section{Entwurf der Benutzungsschnittstelle}
+Detaillierte Entwürfe der grafischen Benutzungsschnittstelle sind im Pflichtenheft enthalten. Das folgende Diagramm zeigt den schematischen Aufbau der Oberfläche.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/benutzerschnittstellen}
+	\caption{Benutzungsschnittstelle}
+	\label{fig:benutzungsschnittstelle}
+\end{figure}
+
+\section{Grobarchitektur}
+Das folgende Diagramm stellt die im System enthaltenen Komponenten und deren Abhängigkeiten untereinander dar.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/systementwurf-komponenten-grob}
+	\caption{Grobarchitektur: Komponenten}
+	\label{fig:systementwurf-komponenten-grob}
+\end{figure}
+
+\subsection{Beschreibung der Komponenten}
+\subsubsection{Komponente Benutzeroberfläche}
+Die Komponente Benutzeroberfläche ist verantwortlich für die Aufbereitung und Anzeige der Analyse-Ergebnisse sowie für das Entgegennehmen der Benutzereingaben.
+Sie benutzt die Komponenten Statistik, Roman sowie Wörterbuch.
+
+\subsubsection{Komponente Roman}
+Die Komponente Roman speichert den Text eines Romans ab und verwaltet diesen. Die Komponente beinhaltet folgende Module: 
+\begin{itemize}
+	\item RomanVerwaltung
+	\item Roman
+	\item Text
+	\item Textdatei
+	\item Satz
+	\item Wort
+\end{itemize}
+Die Komponente Roman benutzt die Komponenten Statistik und Wörterbuch.
+
+\subsubsection{Komponente Analyse}
+Die Komponente Analyse analysiert den eingelesenen Roman, teilt die Analyse in Wort- und Satzanalyse auf und kann verschiedene Romane miteinander vergleichen. Die Komponente beinhaltet folgende Module: 
+\begin{itemize}
+	\item Wortanalyse
+	\item Satzanalyse
+	\item Vergleichsanalyse
+	\item Analyse
+\end{itemize}
+Die Komponente Analyse benutzt die Komponenten Roman und Wörterbuch.
+
+\subsubsection{Komponente Wörterbuch}
+Die Komponente Wörterbuch verwaltet die Wörterbücher. Die Komponente beinhaltet folgende Module: 
+\begin{itemize}
+	\item WörterbuchVerwaltung
+	\item Wörterbuch
+	\item Wortart
+\end{itemize}
+Die Komponente Wörterbuch benutzt keine Komponente.
+
+\subsubsection{Komponente Statistik}
+Die Komponente Statistik ist für die Verwaltung der bei der Textanalyse anfallenden statistischen Daten zuständig. Die Komponente beinhaltet folgende Module:
+\begin{itemize}
+	\item Wortstatistik
+	\item Satzstatistik
+\end{itemize}
+Die Komponente Statistik benutzt keine Komponente.
+
+\section{Feinarchitektur}
+Die folgenden Abschnitte beinhalten die detaillierten Diagramme der einzelnen Komponenten sowie die Beschreibungen der in ihnen enthaltenen Module (Klassen).
+
+\subsection{Komponente Roman}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/systementwurf-komponente-roman}
+	\caption{Komponente Roman}
+	\label{fig:systementwurf-komponente-roman}
+\end{figure}
+
+\subsubsection{Klasse RomanVerwaltung}
+Diese Klasse dient als Schnittstelle zwischen der Benutzeroberfläche und der Klasse \texttt{Roman}. Über sie werden die Angaben zu einem Roman wie Autorname, Erscheinungsdatum usw. manipuliert. Außerdem startet der Benutzer über diese Klasse die Textanalyse eines Romans. Sie enthält die folgenden Operationen:
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXX}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{analysiereRoman} & Stößt die Analyse des Romans an & \emph{in}: Quell-Dateiname (Typ: \texttt{String}) \\ \cmidrule{1-3}			
+			\texttt{setzeAutor} & Setzt den Autornamen des Romans & \emph{in}: Roman (Typ: \texttt{Roman}), Autor-Namen (Typ: \texttt{String}) \\ \cmidrule{1-3}
+			\texttt{setzeTitel} & Setzt den Titel des Romans & \emph{in}: Roman (Typ: \texttt{Roman}), Titel (Typ: \texttt{String}) \\ \cmidrule{1-3}
+			\texttt{setzeDatum} & Setzt das Erscheinungsdatum des Romans & \emph{in}: Roman (Typ: \texttt{Roman}), Erscheinungsdatum (Typ: \texttt{Date}) \\ \cmidrule{1-3}
+			\texttt{setzeAbsatzmenge} & Setzt die Absatzmenge des Romans & \emph{in}: Roman (Typ: \texttt{Roman}), Absatzmenge (Typ: \texttt{Integer}) \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse RomanVerwaltung}
+	\label{tab:OperationenDerKlasseRomanVerwaltung}
+\end{table}
+
+\subsubsection{Klasse Roman}
+Diese Klasse repräsentiert einen Roman (Anwendungsweltobjekt) und enthält Informationen über diesen. 
+Die Klasse wird benutzt von der Klasse \texttt{Analyse} und benutzt selbst die Klasse \texttt{Text} ("`hat-ein"'-Beziehung).
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXX}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{analysiereText} & Löst die Analyse des Textes aus & keine \\ \cmidrule{1-3}
+			\texttt{setzeAutor} & Setzt den Autornamen des Romans & \emph{in}: Autor-Namen (Typ: \texttt{String}) \\ \cmidrule{1-3}
+			\texttt{setzeTitel} & Setzt den Titel des Romans & \emph{in}: Titel (Typ: \texttt{String}) \\ \cmidrule{1-3}
+			\texttt{setzeDatum} & Setzt das Erscheinungsdatum des Romans & \emph{in}: Erscheinungsdatum (Typ: \texttt{Date}) \\ \cmidrule{1-3}
+			\texttt{setzeAbsatzmenge} & Setzt die Absatzmenge des Romans & \emph{in}: Absatzmenge (Typ: \texttt{Integer}) \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Roman}
+	\label{tab:OperationenDerKlasseRoman}
+\end{table}
+
+\subsubsection{Klasse Text}
+Diese Klasse nimmt den eigentlichen Text eines Romans auf. Ein Text wird dabei als Menge von Sätzen angesehen; deshalb enthält die Klasse \texttt{Text} einen Verweis auf einen speziellen mengenbasierten Datencontainer (HashSet), in welchem  die einzelnen Sätze effizient abgelegt werden können.
+Die Klasse wird benutzt von der Klasse \texttt{Roman} und benutzt selbst die Klasse \texttt{Satz}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{analysiereNaechstenSatz} & Wird innerhalb der Klasse \texttt{Roman} aufgerufen und untersucht den nächsten Satz des Quelltextes & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Text}
+	\label{tab:OperationenDerKlasseText}
+\end{table}
+
+\subsubsection{Klasse TextDatei}
+Diese Klasse bietet einen Zugriff auf die Quelldatei des zu analysierenden Romans. Damit es in der Anwendung stets nur einen gleichzeitigen Zugriff auf eine Datei gibt, wird diese Klasse mithilfe des Singleton-Musters implementiert.
+Die Klasse wird benutzt von den Klassen \texttt{Wort} und \texttt{Analyse}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{getInstance} & Gibt aktuelle Instanz zurück (Typ: \texttt{TextDatei}). Wird innerhalb der Klasse \texttt{Wort} aufgerufen, um anschließend von der Datei lesen zu können & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse TextDatei}
+	\label{tab:OperationenDerKlasseTextDatei}
+\end{table}
+
+\subsubsection{Klasse Satz}
+Diese Klasse ist für die Speicherung von Sätzen zuständig. Ein Satz wird dabei als Menge von Wörtern angesehen; deshalb enthält die Klasse \texttt{Satz} einen Verweis auf einen speziellen mengenbasierten Datencontainer (HashSet), in welchem die einzelnen Wörter effizient abgelegt werden können. Weiterhin enthält sie Informationen über die Anzahl der Wörter sowie Anzahl der Satzteile innerhalb des Satzes.
+Die Klasse wird benutzt von der Klasse \texttt{Text} und benutzt selbst die Klassen \texttt{Wort} und \texttt{Satzstatistik}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{analysiereWoerter} & Wird innerhalb der Klasse \texttt{Text} aufgerufen und extrahiert solange Wörter aus dem Quelltext, bis das Satzende erreicht ist & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse TextSatz}
+	\label{tab:OperationenDerKlasseTextSatz}
+\end{table}
+
+\subsubsection{Klasse Wort}
+Diese Klasse bildet die kleinste im System bekannte Einheit eines Textes ab -- das Wort. Ein Wort besteht aus einer Menge von Zeichen, welche in der Klasse in einem \texttt{String}-Datencontainer gespeichert werden. Ebenso wird dasjenige Zeichen (Typ: \texttt{Char}) gespeichert, mit welchem das Wort beendet wurde, also z.B. ein Leerzeichen oder Komma. Um das Wort bei der Berechnung der Statistik auf Wunsch des Nutzers ignorieren zu können, gibt es ein enstprechendes Flag (\texttt{istAusgeblendet}). 
+
+Beim Einlesen eines Wortes aus dem Quelltext muss zunächst überprüft werden, ob das Wort bereits im Wörterbuch vorhanden ist und wenn dies der Fall ist, welchen Wortarten (s. Kapitel \ref{woerterbuch-wortart}) es zugeordnet ist. Dabei ist es vorteilhaft, stets die Verknüpfungen zwischen Wort und Wortarten präsent zu haben -- daher enthält ein Wort in einem entsprechenden Datencontainer (\texttt{wortarten}, HashSet) Referenzen auf die zugehörigen Wortarten.
+
+Die Klasse wird benutzt von der Klasse \texttt{Satz} und benutzt selbst die Klassen \texttt{TextDatei}, \texttt{Wörterbuch} und \texttt{Wortstatistik}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{liesEin} & Solange zeichen- bzw. wortweise aus der Quelldatei lesen, bis definiertes Trennzeichen erreicht ist, anschließend Selbstreferenz zurückgeben (Typ: \texttt{Wort}) & keine \\ \cmidrule{1-3}
+			\texttt{gibLaenge} & Länge des Wortes/Strings zurückgeben (Typ: \texttt{Integer}) & keine  \\ \cmidrule{1-3}
+			\texttt{gibTrennzeichen} & Gibt das Trennzeichen zurück (Typ: \texttt{Char}), anhand dessen die Klasse \texttt{Satz} erkennen kann, ob es sich um ein Satzende oder z.B. den Anfang eines Satzteils handelt & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Wort}
+	\label{tab:OperationenDerKlasseTextWort}
+\end{table}
+
+
+\subsection{Komponente Analyse}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=1.00\textwidth]{images/systementwurf-komponente-analyse}
+	\caption{Komponente Analyse}
+	\label{fig:systementwurf-komponente-analyse}
+\end{figure}
+
+\subsubsection{Klasse RomanVergleich}
+Diese Klasse dient als Schnittstelle zwischen der Benutzeroberfläche und der Klasse \texttt{Vergleichsanalyse}. Sie dient dazu, mehrere ausgewählte Roman-Analysen vergleichen zu können.
+Die Klasse benutzt die Klassen \texttt{VergleichsAnalyse} und \texttt{Analyse}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{liesAnalysenEin} & Liest für jeden der gewählten Romane die Analyse ein & \emph{in}: Romane (Typ: \texttt{Vector}) \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse RomanVergleich}
+	\label{tab:OperationenDerKlasseRomanVergleich}
+\end{table}
+
+\subsubsection{Klasse Wortanalyse}
+Diese Klasse dient als Schnittstelle zwischen der Benutzeroberfläche und der Klasse \texttt{Analyse}. Sie dient dazu, die Wortanalyse eines Romans geeignet aufzubereiten bzw. an die Oberfläche weiterzuleiten.
+Die Klasse benutzt die Klasse \texttt{Analyse}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{gibHaeufigkeitsStatistik} & Häufigkeits-Statistik zurückgeben (Typ: \texttt{HashMap}) & keine \\
+			\texttt{gibLaengenStatistik} & Längen-Statistik zurückgeben (Typ: \texttt{HashMap}) & keine \\
+			\texttt{gibText} & Text des Romans zurückgeben (Typ: \texttt{Text}), für die Anzeige in der Wortanalyse & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Wortanalyse}
+	\label{tab:OperationenDerKlasseWortanalyse}
+\end{table}
+
+\subsubsection{Klasse Satzanalyse}
+Diese Klasse dient als Schnittstelle zwischen der Benutzeroberfläche und der Klasse \texttt{Analyse}. Sie dient dazu, die Satzanalyse eines Romans geeignet aufzubereiten bzw. an die Oberfläche weiterzuleiten.
+Die Klasse benutzt die Klasse \texttt{Analyse}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{gibHaeufigkeitsStatistik} & Häufigkeits-Statistik zurückgeben (Typ: \texttt{HashMap}) & keine \\
+			\texttt{gibLaengenStatistik} & Längen-Statistik zurückgeben (Typ: \texttt{HashMap}) & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Satzanalyse}
+	\label{tab:OperationenDerKlasseSatzanalyse}
+\end{table}
+
+\subsubsection{Klasse Vergleichsanalyse}
+Diese Klasse dient dazu, mehrere Analysen verschiedener Romane zu vergleichen.
+Die Klasse benutzt daher die Klasse \texttt{Analyse}.
+
+\subsubsection{Klasse Analyse}
+Diese Klasse verwaltet die für die Textanalyse benötigten Elemente: den Roman sowie die Wort- und Satzstatistik.
+Die Klasse benutzt daher die Klassen \texttt{Roman}, \texttt{Wortstatistik} und \texttt{Satzstatistik} und wird benutzt von den Klassen \texttt{VergleichsAnalyse}, \texttt{RomanVergleich}, \texttt{Wortanalyse}, \texttt{Satzanalye} und \texttt{RomanVerwaltung}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{analysiereRoman} & Stößt die Erstellung der Text-Analyse des Romans an & keine \\
+			\texttt{gibWortstatistik} & Gibt die Wortstatistik zurück (Typ: \texttt{Wortstatistik}) & keine \\
+			\texttt{gibSatzstatistik} & Gibt die Satzstatistik zurück (Typ: \texttt{Satzstatistik}) & keine \\
+			
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Analyse}
+	\label{tab:OperationenDerKlasseAnalyse}
+\end{table}
+
+
+\subsection{Komponente Wörterbuch}\label{woerterbuch}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/systementwurf-komponente-woerterbuch}
+	\caption{Komponente Wörterbuch}
+	\label{fig:systementwurf-komponente-woerterbuch}
+\end{figure}
+
+\subsubsection{Klasse WoerterbuchVerwaltung}\label{woerterbuch-Woerterbuchverwaltung}
+Diese Klasse verwaltet alle vorhandenen Wortarten. Alle bei der Analyse nicht zugeordneten Wörter gehören der Wortart "`Sonstige Wörter"' an. Mit einer Textdatei mit Wörtern gleicher Wortart können die neuen Wörter in eine bestehende oder neue Wortart eingelesen werden.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXX}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{nimmWortAuf} & Wörter, die noch nicht spezifiziert sind, werden in die Wortart "`Sonstige Wörter"' gespeichert & \emph{in}:  Wort (Typ: \texttt{Wort}), Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{loescheWort} & Wort löschen, in jeder Wortart & \emph{in}: Wort (Typ: \texttt{Wort}), Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{listeWoerterAuf} & listet alle Wörter der Wortart auf & \emph{in}: Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{weiseWortZu} & Das Wort wird der Wortart zugeordnet & \emph{in}: Wort (Typ: \texttt{Wort}), Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{weiseTextdateiZu} & Durch Öffnen der gewünschten Textdatei werden die Wörter einer Wortart zugewiesen. Beim Einlesen müssen doppelte Wörter erkannt werden. & \emph{in}: Dateiname (Typ: \texttt{String}), Wortart (Typ: \texttt{Wortart}) \\ 
+						
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse WoerterbuchVerwaltung}
+	\label{tab:OperationenDerKlasseWoerterbuchVerwaltung}
+\end{table}
+
+\subsubsection{Klasse Woerterbuch}\label{woerterbuch-woerterbuch}
+Diese Klasse implementiert das Wörterbuch und stellt die entsprechenden Methoden und Datenstrukturen für das Verwalten der Wörter zur Verfügung.
+Die Klasse wird benutzt von den Klassen \texttt{WoerterbuchVerwaltung}, \texttt{Analyse} und \texttt{Wort}; sie benutzt selbst die Klasse \texttt{Wortart}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXX}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+
+			\texttt{initialisiere} & baut die Datenstruktur auf & \emph{in}: Dateiname (Typ: \texttt{String})  \\ \cmidrule{1-3}
+			\texttt{deinitialisiere} & löscht die Datenstruktur im Speicher und speichert sie (serialisiert) in der Datei ab & \emph{in}: Dateiname (Typ: \texttt{String}) \\ \cmidrule{1-3}			
+			\texttt{gibWort} & Gibt das vollständige Wort -- sofern im Datenbestand vorhanden -- zurück & \emph{in}: Wort (Typ: \texttt{Wort}) \\ \cmidrule{1-3}
+			\texttt{fuegeEin} & Wort der entsprechenden Wortart zuweisen & \emph{in}: Wort (Typ: \texttt{Wort}), Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{loesche} & lösche ein Wort (nur in der spezifizierten Wortart) & \emph{in}: Wort (Typ: \texttt{Wort}), Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{loesche} & lösche ein Wort (in allen Wortarten) & \emph{in}: Wort (Typ: \texttt{Wort}) \\ 
+						
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Woerterbuch}
+	\label{tab:OperationenDerKlasseWoerterbuch}
+\end{table}
+
+\subsubsection{Klasse Wortart}\label{woerterbuch-wortart}
+Mithilfe dieser Klasse wird die im Pflichtenheft festgelegte Klassifizierbarkeit von Wörtern des Wörterbuchs ermöglicht. Ein Wort kann beliebig vielen Wortarten (z.B. "`Substantiv"', "`Science-Fiction-Helden"') zugewiesen werden und einer Wortart können ebenso beliebig viele Wörter zugewiesen werden. Details zur Realisierung der Datenstruktur finden sich in Kapitel \ref{woerterbuch-datenstruktur}.
+
+Die Klasse wird benutzt von der Klasse \texttt{Woerterbuch} und benutzt selbst die Klasse \texttt{Wort}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+
+			\texttt{gibNaechstesWort} & Gibt das nächste zu dieser Wortart gehörige Wort zurück (Typ: \texttt{Wort}) & keine \\ \cmidrule{1-3}
+			\texttt{fuegeWortEin} & Stellt eine Zuordnung zwischen dieser Wortart und dem übergebenen Wort her & \emph{in}: Wort (Typ: \texttt{Wort}) \\ \cmidrule{1-3}
+			\texttt{loescheWort} & Entfernt die Zuordnung zwischen Wortart und übergebenem Wort & \emph{in}: Wort (Typ: \texttt{Wort}) \\
+						
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Wortart}
+	\label{tab:OperationenDerKlasseWortart}
+\end{table}
+
+\subsubsection{Datenstruktur der Wörterbuch-Komponente}\label{woerterbuch-datenstruktur}
+In diesem Abschnitt soll die für die Realisierung des Wörterbuchs verwendete Datenstruktur erläutert werden. Folgende Anforderungen werden an diese Datenstruktur gestellt:
+
+\begin{itemize}
+	\item Ein Wort kann beliebig vielen Wortarten zugewiesen werden
+	\item Einer Wortart können beliebig viele Wörter zugewiesen werden
+	\item Suche nach einem Wort soll möglichst effizient sein
+	\item Einfügen eines neuen Wortes soll möglichst effizient sein
+\end{itemize}
+
+Das Diagramm in Abbildung \ref{fig:datenstruktur-woerterbuch} soll die bereits im Klassendiagramm angedeutete Struktur verdeutlichen.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=1.0\textwidth]{images/datenstruktur-woerterbuch.eps}
+	\caption{Datenstruktur Wörterbuch}
+	\label{fig:datenstruktur-woerterbuch}
+\end{figure}
+
+Die Grafik stellt den "`Speicher-Auszug"' einiger Objekte dar, nachdem das Wörterbuch entsprechend initialisiert wurde. Folgende Elemente sind hier aufgeführt:
+
+\begin{enumerate}
+	\item \texttt{Woerterbuch}
+	\begin{itemize}
+		\item enthält in der Variablen \texttt{wortPool} eine Referenz auf eine Datenstruktur (HashMap), welche alle Wortarten aufnimmt (bzw. Referenzen auf \texttt{Wort}-Objekte)
+		\item enthält in der Variablen \texttt{wortartPool} eine Referenz auf eine Datenstruktur (HashMap), welche alle Wortarten aufnimmt (bzw. Referenzen auf \texttt{Wortart}-Objekte)
+	\end{itemize}
+	
+	\item \texttt{Wort}
+	\begin{itemize}
+		\item enthält in der Variablen \texttt{wort} das tatsächliche Wort als String ("`Haus"' und "`Gehen"')
+		\item enthält in der Variablen \texttt{wortarten} eine Referenz auf eine Datenstruktur\footnote{Hinweis: Aus Übersichtsgründen ist im Diagramm die Datenstruktur direkt in das \texttt{Wort}-Objekt integriert} (HashSet), welche Referenzen auf diejenigen \texttt{Wortart}-Objekte enthält, zu denen dieses Wort zugehörig ist. Im Beispiel ist also das Wort "`Haus"' der Wortart "`Substantiv"' zugeordnet; das Wort "`Gehen"' ist den Wortarten "`Substantiv"' und "`Verb"' zugeordnet.
+	\end{itemize}
+
+	\item \texttt{Wortart}
+	\begin{itemize}
+		\item enthält in der Variablen \texttt{name} die Bezeichnung der Wortart als String ("`Substantiv"' und "`Verb"')
+		\item enthält in der Variablen \texttt{woerter} eine Referenz auf eine Datenstruktur\footnote{Hinweis: Aus Übersichtsgründen ist im Diagramm die Datenstruktur direkt in das \texttt{Wortart}-Objekt integriert} (HashSet), welche Referenzen auf diejenigen \texttt{Wort}-Objekte enthält, welche dieser Wortart zugeordnet sind. Im Beispiel enthält also die Wortart "`Substantiv"' Referenzen auf die Wörter "`Haus"' und "`Gehen"' -- im Diagramm sind diese Referenzen aus Übersichtsgründen jedoch nur angedeutet (gestrichelte Ellipsen).
+	\end{itemize}	
+\end{enumerate}
+
+Mithilfe dieser Datenstruktur können die oben genannten Anforderungen erfüllt werden.
+
+\subsection{Komponente Statistik}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/systementwurf-komponente-statistik}
+	\caption{Komponente Statistik}
+	\label{fig:systementwurf-komponente-statistik}
+\end{figure}
+
+\subsubsection{Klasse Wortstatistik}
+Diese Klasse speichert statisch die Wort-Häufigkeiten (\texttt{wortHaeufigkeiten}), die Wort\-art-\-Häu\-fig\-kei\-ten (\texttt{wortartHaeufigkeiten}) und die Längen (\texttt{laengen}) aller Wörter in einer HashMap.
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{erhoeheWortartHaeufigkeit} & erhöhe die Anzahl der Wörter dieser Wortart um eins & \emph{in}: Wortart (Typ: \texttt{Wortart}) \\ \cmidrule{1-3}
+			\texttt{erhoeheWortHaeufigkeit} & erhöhe die Anzahl des Wortes um eins  & \emph{in}: Wort (Typ: \texttt{Wort}) \\ \cmidrule{1-3}
+			\texttt{erhoeheAnzahlMitLaenge} & erhöhe die Anzahl des Wortes gleicher Länge & \emph{in}: laenge (Typ: \texttt{int}) \\
+						
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Wortstatistik}
+	\label{tab:OperationenDerKlasseWortstatistik}
+\end{table}
+
+\subsubsection{Klasse Satzstatistik}
+Diese Klasse speichert statisch die Anzahl der Satzteile (\texttt{anzahlSatzteile}) und die Anzahl der jeweiligen Satzlängen (\texttt{laengen}) in einer HashMap.
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabularx}{\textwidth}{lXl}
+		  \toprule
+			\multicolumn{1}{@{}N}{Operation} & \multicolumn{1}{V{6em}@{}}{Aufgabe} & \multicolumn{1}{V{6em}@{}}{Parameter} \\
+			\midrule\addlinespace\addlinespace
+			
+			\texttt{erhoeheAnzahlSatzteile} & erhöhe die Anzahl der Satzteile & \emph{in}: keine \\ \cmidrule{1-3}
+			\texttt{erhoeheAnzahlMitLaenge} & erhöhe die Anzahl des Satzes mit gleicher Länge  & \emph{in}: laenge (Typ: \texttt{int}) \\ 
+									
+			\addlinespace
+			\bottomrule
+		\end{tabularx}
+	\caption{Operationen der Klasse Satzstatistik}
+	\label{tab:OperationenDerKlasseSatzstatistik}
+\end{table}
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Notice!
+%%% This file uses the outline-mode of emacs and the foldmethod of Vim.
+%%% Press 'zi' to unfold the file in Vim.
+%%% See ':help folding' for more information.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker

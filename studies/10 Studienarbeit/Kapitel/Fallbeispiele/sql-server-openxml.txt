@@ -1,0 +1,28 @@
+declare @idoc int
+declare @doc varchar(8000)
+set @doc ='
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Laender>
+	<Land Nr="136">
+    		<Name>Niger</Name>
+	</Land>
+	<Land Nr="137">
+    		<Name>Nigeria</Name>
+	</Land>
+	<Land Nr="138">
+		<Name>Niue</Name>
+	</Land>
+	...
+</Laender>'
+
+--Erstelle ein interne Repräsentation des XML-Dokuments
+exec sp_xml_preparedocument @idoc OUTPUT, @doc
+
+--Import mittels des OpenXML Rowset-Provider
+INSERT INTO xmldb.dbo.land
+SELECT *
+FROM   OPENXML (@idoc, '/Laender/Land',2)
+WITH (
+	id_land		int         	'@Nr',
+	name		varchar(100) 	'./Name'
+)

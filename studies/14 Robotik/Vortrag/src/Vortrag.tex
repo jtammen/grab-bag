@@ -1,0 +1,106 @@
+\documentclass{beamer}
+% Für schnelleres Kompilieren:
+%\documentclass[draft]{beamer}
+%\includeonlyframes{current}
+
+\mode<presentation>
+{
+  \usetheme{Luebeck}
+  % Pittsburgh, Dresden, Boadilla, Berlin, Goettingen, Luebeck, Rochester
+  \setbeamercovered{transparent}
+}
+
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{times}
+
+
+\title[ROBO WS 06/07]{Lernfähige autonome Roboter}
+\author[Kungel, Nägele, Tammen]{Christian Kungel, Kornelius Nägele, Jan Tammen}
+
+\institute{
+  Seminar Robotik WS 06/07\\
+  Fakultät Informatik,\\
+  HTWG Konstanz
+}
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={Lernfähige autonome Roboter},%
+  pdfauthor={Jan Tammen,%
+  			 Kornelius Nägele,%
+  			 Christian Kungel},%
+  pdfsubject={Robotik},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={Robotik, Lernfähige autonome Roboter, Reinforcement Learning, Q-Learning, Monte Carlo},
+  % pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+  pdfpagemode=FullScreen,
+%  pdfstartview=FitH,
+}
+
+\date{\today}
+\subject{Robotik - Lernfähige autonome Roboter}
+
+\pgfdeclareimage[height=1cm]{htwg-logo}{../images/htwg-logo}
+\logo{\pgfuseimage{htwg-logo}}
+
+% Folgendes sollte gelöscht werden, wenn man nicht am Anfang jedes
+% Unterabschnitts die Gliederung nochmal sehen möchte.
+\AtBeginSubsection[]
+{
+ \begin{frame}<beamer>
+   \frametitle{Gliederung}
+   \tableofcontents[currentsection,currentsubsection]
+ \end{frame}
+}
+
+% Falls Aufzählungen immer schrittweise gezeigt werden sollen, kann
+% folgendes Kommando benutzt werden:
+% mit highlight: <+- | alert@+>
+\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+% Frame: Titelseite
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+% Einführung über RoboCup, dann aufzeigen was gelernt werden muss,
+% danach das Lernen erklären, und die versch. Algorithmen
+% dann Bogen schlagen über Übertragbarkeit zu
+% Roboliga und Probleme und aktuelle Situation -> Fazit
+% Kapitel RoboCup bis SimuLiga - Lernen von Einzelfähigkeiten
+\input{RoboCup}
+
+% Kapitel Reinforcement Learning
+\section{Maschinelles Lernen}
+\input{ReinforcementLearning}
+
+% Kapitel Monte-Carlo
+\input{Monte-Carlo}
+
+% Kapitel Q-Learning
+\input{TDQLearning}
+
+% Kapitel Exploration vs. Exploitation
+\input{ExplorationvsExploitation}
+
+% Kapitel Neuronale Netze
+\input{NeuronaleNetze}
+
+% Kapitel RoboCup ab SimuLiga - Lernen von Einzelfähigkeiten
+\input{RoboCup_2}
+
+% Schluss-Folie
+\begin{frame}
+  \frametitle{Danke.}
+  Fragen?
+\end{frame}
+
+\end{document}

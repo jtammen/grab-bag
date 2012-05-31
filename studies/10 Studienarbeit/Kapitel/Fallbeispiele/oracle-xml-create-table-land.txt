@@ -1,0 +1,5 @@
+CREATE TABLE land(
+    id_land int, 
+    name varchar2(100), 
+    CONSTRAINT pk_id_land PRIMARY KEY(id_land)
+)

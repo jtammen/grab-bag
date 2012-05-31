@@ -1,0 +1,36 @@
+\subsection{Reinforcement Learning}
+\begin{frame}
+  \frametitle{Reinforcement Learning}
+    \begin{itemize}
+      \item (Verstärkendes) Lernprinzip "`Zuckerbrot und Peitsche"'
+    	\begin{itemize}
+          \item Kein Lehrer/keine Überwachung notwendig
+        \end{itemize}
+       \item Es wird keine Information über eine Lösungsstrategie vorausgesetzt
+      \item Eigenständiges Lernen einer Lösungsstrategie durch (geschickte)
+      Interaktion mit der Umwelt
+      \item Praktische Umsetzung:
+   		\begin{itemize}
+          \item Agent bekommt für jede ausgeführte Aktion (k)eine Belohnung (Reward)
+          \item Anhand dieser versucht er eine optimale Handlungsstrategie
+          (Policy) zu finden, die die Belohnung maximiert
+     	\end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reinforcement-Szenario}
+    \begin{center}
+	  \pgfimage[width=0.50\textwidth]{../images/Agent_Umwelt}
+    \end{center}
+
+    \begin{itemize}
+      \item Annahmen: deterministischer Fall, diskreter Zustandsraum mit
+      endlicher Anzahl von Aktionen
+      	\begin{itemize}
+           \item Zustandsübergangsfunktion $\delta(s,a)$
+           \item Rewardfunktion $r(s,a)$
+         \end{itemize}
+      \item Fundamentale Frage des RL Problems: "`Wie finde ich die optimale Wertefunktion?"'
+    \end{itemize}
+\end{frame}

@@ -1,0 +1,666 @@
+\documentclass[
+	a4paper,     		%% Papiergroesse: A4
+	twoside,     		%% Zweiseitiges Layout (alternativ: oneside)
+	headsepline, 		%% Horizontale Linie unter Kopfzeile
+	footsepline, 		%% Horizontale Linie ueber Fusszeile
+	titlepage,   		%% Eigenstaendige Titelseite (alternativ: notitlepage)
+%	halfparskip, 		%% Halbe Leerzeile zwischen zwei Abschnitten (alternativ: parskip, ...)
+	12pt,        		%% Schriftgroesse: 12pt (alternativ: 10pt, 11pt, ...)
+%	bibtotoc,			%% Bibliographie in's Inhaltsverzeichnis aufnehmen
+%	liststotoc,			%% Indexe in's Inhaltsverzeichnis aufnehmen
+%	smallheadings,		%% Kleine Ueberschriften
+%	DIV1,				%% Divisor, Zeilenlänge ca. 70 Zeichen
+%	draft			  	%% Entwurfsmodus, volle/leere Boxen markieren
+%	abstracton			%% Titel "`Zusammenfassung"' einschalten
+]{scrartcl}
+
+%%%
+%%% Pakete
+%%%
+
+%%% Grafik
+%\usepackage{pstricks}
+
+%%% Deutsche Sprache verwenden
+\usepackage{ngerman}
+
+%%% Kodierung der Eingabezeichen setzen (fuer dt. Umlaute etc.)
+\usepackage[ansinew]{inputenc}
+
+%%% Zeichen-Kodierung in PDF-Dokumenten
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl}
+
+\usepackage[T1]{url}
+%%% ... und in tt-Font
+\urlstyle{tt}
+
+%%% amsmath, amssymb, amstext: Unterstuetzung div. mathematischer Zeichen etc.
+%\usepackage{amsmath,amssymb,amstext}
+%\usepackage{eurosym}
+
+%%% pifont: "pifont Xs and Check Marks"
+%\usepackage{pifont}
+
+%%% PostScript-Fonts ersetzen
+\usepackage{psfrag}
+
+%%% Programmcode einbinden, Listings
+%\usepackage{listings}
+
+%%% Farb-Unterstuetzung
+\usepackage{color}
+
+%%% Tabellen
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{threeparttable}	% Fussnoten in table-Umgebung
+
+%%% Floats strikter positionieren (Option 'H'ere)
+\usepackage{float}
+
+%%%
+%%% Pakete konfigurieren, Definitionen
+%%%
+
+%%% Ueberschriften bis zur Ebene 3 nummerieren
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{3}
+
+%%% Neue Spaltentypen definieren
+\newcolumntype{N}{>{\bfseries\scriptsize}l}
+\newcolumntype{V}[1]{
+	>{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}
+}
+
+%%%
+%%% Seitenlayout, Schriften
+%%%
+
+%%% scrpage2: KOMA Kopf- und Fusszeile
+\usepackage[automark]{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Schrift fuer Ueberschriften umstellen
+%\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%% Schriften fuer Titel- und Fusszeile umstellen
+%\setkomafont{pagehead}{\normalfont\sffamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily\slshape}
+
+%%% Part-Ueberschrift nicht fett drucken
+%\addtokomafont{part}{\mdseries}
+%\addtokomafont{partnumber}{\mdseries}
+
+%%% Default-Platzierungsbeschraenkungen aendern,
+%%% s. http://www.dante.de/faq/de-tex-faq/html/makros2.html#1
+\makeatletter
+	\renewcommand{\fps@figure}{htbp}
+	\renewcommand{\fps@table}{htbp}
+\makeatother
+
+%%%
+%%% PDF-Einstellungen
+%%%
+
+%%% Fallunterscheidung: PDF- oder 'normale' Erstellung?
+\usepackage{ifpdf}
+
+%%% Falls wir PDF erzeugen...
+\ifpdf
+  %%% Serifenlose Schriften benutzen
+  \usepackage{mathpazo}
+  \usepackage[scaled=.95]{helvet}
+  \usepackage{courier}	
+  \renewcommand{\familydefault}{\sfdefault}
+  \usepackage[sf]{titlesec}
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[pdftex]{graphicx}
+ 
+  %%% Kompressionslevel: 0-9
+  \pdfcompresslevel=9
+
+  %%% Hyperlinks in PDF-Dokumenten
+  \usepackage[%
+  	pdftex,
+    pagebackref=false,		%% Seitenzahlen der Quellseite(n) in Bibliographie auflisten? (true|false) 
+    colorlinks=true,		%% Farblinks? (true -> Screen | false -> Print)    
+    %%% PDF-spezifische Optionen
+    bookmarks=true,			%% PDF-Bookmarks erstellen? (true|false)
+    bookmarksopen=true,		%% Anfangs alle Bookmarks ausgeklappt anzeigen? (true|false) 
+    bookmarksnumbered=true,	%% Abschnitt-Nummerierung in Bookmarks integrieren? (true|false)
+    pdfstartpage={1},		%% Startseite beim Oeffnen der Datei
+    pdfpagemode=UseOutlines,%% Anzeigemodus? (None|UseOutlines|UseThumbs|FullScreen)
+    a4paper=true,			%% A4-Format
+    breaklinks=false,
+    linkcolor=gray			%% Link-Farbe
+  ]{hyperref}
+
+	%%% Dateiendung fuer Grafiken setzen -- so kann beim Einbinden der Grafik
+	%%% auf die Endung verzichtet werden und es wird automatisch die korrekte 
+	%%% Datei ausgewaehlt (.eps / .pdf)
+  \DeclareGraphicsExtensions{.pdf}
+  
+  %%% Pfad fuer Bilder setzen
+  \graphicspath{{./images}}
+
+%%% ... oder im 'normalen' Modus sind
+\else
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[dvips]{graphicx}
+
+  %%% s.o.
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}
+
+  %%% Hyperlinks in PS-Dokumenten, Optionen s.o.
+  \usepackage[%
+    dvips,
+    colorlinks=false,
+    breaklinks=true,				%% Duerfen Links umbrochen werden? (true|false)
+  ]{hyperref}
+
+\fi
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={Praktische Aufgabe - Teil 1},%
+  pdfauthor={Holger Herbeck, Michael Litera, Jan Tammen},%
+  pdfsubject={System- und Software-Ergonomie},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={SERG, Praktische Aufgabe, Vereinsverwaltung},%
+%  pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+%  pdfstartview=FitH,
+}
+
+%%% Links im dvips-Mode auch umbrechen
+%\usepackage{breakurl}
+
+%%%
+%%% Layout der Titelseite
+%%%
+
+%%% Titelkopf, erscheint oberhalb des Titels
+\titlehead{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../images/htwg-logo}
+	\end{figure}
+}
+
+%%%% Subject, erscheint oberhalb des Titels
+\subject{System- und Software-Ergonomie, WS 06/07}
+
+%%% Titel
+\title{Praktische Aufgabe - Teil 1}
+
+%%%% Autor. Weitere Autoren mit \and{<Name>} hinzufuegen
+\author{%
+    Holger Herbeck
+    \and{Michael Litera}%
+    \and{Jan Tammen}
+}%
+
+%%% Datum setzen
+\date{\today}
+
+%%% Rueckseite der Titelseite
+\lowertitleback{%
+	\footnotesize%
+	Erstellt mit \LaTeXe\ unter Verwendung des \KOMAScript-Pakets.}
+
+%%%
+%%% Header und Footer
+%%%
+%\pagestyle{scrheadings}
+
+%%%
+%%% Beginn Hauptdokument
+%%%
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%%%
+%%% Beginn Inhalt
+%%%
+\section{Objektorientierte Analyse}
+\subsection{Anwendungsfälle}
+In Abbildung \ref{fig:uml-usecase-diagram} sind die für das
+Vereinsverwaltungssystem vorgesehenen Anwendungsfälle dargestellt.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth,bb=48 456 522 758,clip]{../images/uml-usecase-diagram}
+  \caption{UML-UseCase-Digramm}
+  \label{fig:uml-usecase-diagram}
+\end{figure}
+
+\subsubsection{Anwendungsfall "`Adressat anlegen"'}
+Die Tabelle \ref{tab:use-case-adressat-anlegen} stellt den Geschäftsprozess
+"`Adressat anlegen"' dar.
+
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{NX}
+		\toprule
+		
+		\multicolumn{2}{@{}N}{Beschreibung Geschäftsanwendungsfall} \\
+		\midrule
+		\addlinespace
+		
+		Geschäftsprozess 			& Adressat anlegen \\ \cmidrule{1-2}
+		Ziel 						& Neuen Adressaten im System speichern
+		\\ \cmidrule{1-2} 
+		Kategorie 					& primär \\ \cmidrule{1-2}
+		Vorbedingung 				& Der anzulegende Adressat ist noch nicht im System vorhanden
+		und die Daten liegen vor \\ \cmidrule{1-2} 
+		Nachbedingung Erfolg		& Adressat ist im System gespeichert \\ \cmidrule{1-2} 
+		Nachbedingung Fehlschlag	& Anwender des Systems ist über fehlgeschlagenes
+		Speichern informiert \\ \cmidrule{1-2} 
+		Akteure 					& Vereinsverwalter \\ \cmidrule{1-2}
+		Auslösendes Ereignis 		& Adressat muss erfasst werden, z.\,B.\ bei Neuaufnahme
+		eines Mitglieds \\ \cmidrule{1-2} 
+		Beschreibung 		        & Ablauf:
+									  \begin{enumerate} 
+                                        \item Eingabe der Daten
+                                        \item Überprüfung der Daten (Dubletten)
+                                        \item Speichern der Daten
+                                      \end{enumerate}
+		\\ \cmidrule{1-2} 
+		Alternativen 				& -- \\ \cmidrule{1-2} 
+		Erweiterungen 				& -- \\
+								
+		\addlinespace
+		\bottomrule
+		
+		\end{tabularx}
+	\caption{Geschäftsprozesbeschreibung "`Adressat anlegen"'}
+	\label{tab:use-case-adressat-anlegen}
+\end{table}
+
+\subsubsection{Anwendungsfall "`E-Mail-Ankündigung senden"'}
+Die Tabelle \ref{tab:use-case-email-senden} stellt den Geschäftsprozess
+"`E-Mail-Ankündigung senden"' dar.
+
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{NX}
+		\toprule
+		
+		\multicolumn{2}{@{}N}{Beschreibung Geschäftsanwendungsfall} \\
+		\midrule
+		\addlinespace
+		
+		Geschäftsprozess 			& E-Mail-Ankündigung senden \\ \cmidrule{1-2}
+		Ziel 						& Versand einer E-Mail-Ankündigung an einen einzelnen Adressaten,
+		eine Verteilerliste oder eine Kombination aus beiden \\ \cmidrule{1-2} 
+		Kategorie 					& primär \\ \cmidrule{1-2}
+		Vorbedingung 				& Es wurden Adressaten bzw.\ Verteilerlisten angelegt 
+		\\ \cmidrule{1-2} 
+		Nachbedingung Erfolg		& E-Mail an die gewählten Empfänger wurde verschickt 
+		\\ \cmidrule{1-2} 
+		Nachbedingung Fehlschlag	& Anwender des Systems ist über fehlgeschlagenes
+		Senden informiert \\ \cmidrule{1-2} 
+		Akteure 					& Vereinsverwalter \\ \cmidrule{1-2}
+		Auslösendes Ereignis 		& Eine anstehende Veranstaltung soll angekündigt werden
+		\\ \cmidrule{1-2} 
+		Beschreibung 		        & Ablauf:
+									  \begin{enumerate} 
+                                        \item Eingabe des Betreffs
+                                        \item Eingabe des Textes
+                                        \item Auswahl der Empfänger (Adressaten
+                                        und/oder Verteilerliste)
+                                        \item Versenden der E-Mail
+                                      \end{enumerate}
+		\\ \cmidrule{1-2}
+		Alternativen 				& -- \\ \cmidrule{1-2} 
+		Erweiterungen 				& -- \\
+								
+		\addlinespace
+		\bottomrule
+		
+		\end{tabularx}
+	\caption{Geschäftsprozesbeschreibung "`E-Mail-Ankündigung senden"'}
+	\label{tab:use-case-email-senden}
+\end{table}
+
+
+\subsection{Klassen}
+Im folgenden UML-Klassendiagramm (Abbildung \ref{fig:uml-class-diagram}) ist die
+Modellierung des Systems auf Klassenebene dargestellt.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth,bb=44 520 552 760,clip]{../images/uml-class-diagram}
+  \caption{UML-Klassendigramm}
+  \label{fig:uml-class-diagram}
+\end{figure}
+
+\subsubsection{Interface "`Empfaenger"'}
+Über das System sollen Veranstaltungsankündigungen sowohl an einzelne Adressaten
+als auch an spezielle Verteilerlisten verschickt werden können. Zur Modellierung
+dieser Gemeinsamkeit wird dieses Interface eingeführt. Es deklariert dabei die
+Methoden \texttt{getPostadresse()} sowie \texttt{getEmail()}, welche jeweils
+eine Menge von Post- bzw. E-Mail-Adressen zurückgeben, welche dann für den
+Versand einer Veranstaltungsankündigung genutzt werden.
+
+\subsubsection{Klasse "`Adressat"'}
+Diese Klasse implementiert das Interface \texttt{Empfaenger} und stellt neben 
+den Zugriffsmethoden der einzelnen Attribute die Methoden 
+\texttt{getPostadresse()} und \texttt{getEmail()} zur Verfügung.
+
+\subsubsection{Klasse "`Postadresse"'}
+Diese Klasse dient als Datentyp für die Verwaltung einer zu einem Adressaten
+gehörigen Postadresse. Ein Adressat kann dabei keine oder eine einzige Postadresse
+haben; eine Postadresse kann gleichzeitig mehreren Adressaten zugeordnet sein.
+
+\subsubsection{Klasse "`Verteilerliste"'}
+Diese Klasse implementiert das Interface \texttt{Empfaenger} und stellt zum 
+einen Methoden zur Verwaltung der Listenmitglieder, zum anderen die im 
+Interface deklarierten Methoden \texttt{getPostadresse()} und 
+\texttt{getEmail()} zur Verfügung.
+
+\subsubsection{Interface "`Veranstaltungsankuendigung"'}
+Eine Veranstaltungsankündigung kann sowohl per E-Mail an einzelne Adressaten 
+und bzw.\ oder Verteilerlisten, als auch per Post verschickt werden. Dieses 
+Interface deklariert zu diesem Zweck die Methode \texttt{execute()}, welche die 
+entsprechende durchzuführende Aktion startet.
+
+\subsubsection{Klasse "`Emailankuendigung"'}
+Diese Klasse implementiert das Interface \texttt{Veranstaltungsankuendigung} 
+und enthält zum einen Methoden zum Setzen des E-Mail-Textes und -Betreffs, zum 
+anderen die im Interface deklarierte Methode \texttt{execute()}.
+
+\subsubsection{Klasse "`Postankuendigung"'}
+Analog zur Klasse \texttt{Emailankuendigung}.
+
+\section{Entwurf der Benutzerschnitttelle}
+\subsection{Allgemeiner Aufbau der Benutzerschnittstelle}
+Die Benutzerschnittstelle des "`Fortissimo Verwaltungsprogramms"' ist grob in 
+zwei Bereiche aufgeteilt: Auf der linken Seite befinden sich in einer vertikal 
+angeordneten Navigationsleiste Icons, mit deren Hilfe die einzelnen Funktionen 
+des Programms aufgerufen sowie das Programm beendet werden kann. Im 
+rechtsseitigen Fensterbereich werden die zur jeweils aktivierten Funktion 
+gehörigen Formulare und Aktionsschaltflächen angezeigt.
+
+Alle Eingabeelemente der Oberfläche sind mit Tooltips versehen, die dem Nutzer
+einen kurzen Hinweistext zu dessen korrekten Nutzung anzeigen.
+Um zu verhindern, dass in den Formularen getätigte Eingaben beim Wechsel
+zwischen den einzelnen Modulen verloren gehen, wird bei einer vorliegenden
+Änderung und der Nutzung der Navigationsleiste eine Hinweismeldung an den Nutzer
+ausgegeben.
+
+\subsection{Verwaltung von Adressaten}
+Über das Icon "`Adressen"' der Navigationsleiste wird die Adressatsverwaltung 
+angesteuert. Diese ist aufgeteilt in einen Dialog zur Auflistung und 
+Bearbeitung (s.\ Abbildung \ref{fig:adressat-bearbeiten}) bestehender sowie 
+einen Dialog zur Erstellung eines neuen (s.\ Abbildung \ref{fig:adressat-neu}) 
+Adressaten. Standardmäßig gelangt der Anwender zum erstgenannten Dialog, 
+welcher die Bezeichnung "`Adressaten"' trägt. Ist bisher kein Adressat 
+angelegt, so wird der Benutzer direkt zum Dialog "`Neu"' geführt.
+
+\subsubsection{Auflisten und Bearbeiten von Adressaten}
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/screen_adressat_bearbeiten}
+  \caption{Auflisten und Bearbeiten von Adressaten}
+  \label{fig:adressat-bearbeiten}
+\end{figure}
+Der Dialog "`Adressaten"' besteht aus einer Auswahlliste auf der linken sowie 
+einem in drei Bereiche unterteilten Formular auf der rechten Seite. In der 
+Auswahlliste sind alle bereits angelegten Adressaten in alphabetischer 
+Reihenfolge aufgeführt. Über das Eingabefeld oberhalb der Liste können durch 
+Eingabe eines Filterbegriffs spezielle Adressaten schnell gefunden werden.
+
+Ist in der Auswahlliste kein Adressat selektiert, so sind die Felder des 
+Formulars deaktiviert und werden ausgegraut dargestellt. Bei Selektion eines 
+Adressaten werden dessen Daten im Formular eingetragen und alle Eingabefelder 
+aktiviert, sodass der Nutzer diese bearbeiten kann. Zusätzlich wird der Button 
+"`Löschen"' aktiviert, durch dessen Betätigung der gewählte Adressat gelöscht 
+werden kann. Der Nutzer muss diese Aktion in einem Pop-Up-Fenster bestätigen.
+
+\paragraph{Im Bereich "`Person"'} wird zum einen die Anrede des Adressaten über
+ein Radio-Button ausgewählt, zum anderen über zwei Texteingabefelder Vor- sowie
+Nachname erfasst. Alle Angaben dieses Bereichs sind Pflichtangaben.
+
+\paragraph{Der Bereich "`Anschrift"'} dient zur Erfassung der Post- und 
+E-Mail-Adresse sowie der Telefon- und Fax-Nummer des Adressaten. Für die Angaben
+"`Straße"', "`Nr"', "`PLZ"' und "`Ort"' sind jeweils Texteingabefelder
+vorgesehen; in den Feldern "`Nr"' und "`PLZ"' sind lediglich numerische Angaben
+zugelassen. 
+Das "`Land"' wird über eine Klappliste ausgewählt. In dieser sind bereits alle
+Länder hinterlegt sind, um Fehleingaben zu vermieden.
+Die Felder "`E-Mail"', "`Telefon"' und "`Fax"' sind wiederum Texteingabefelder,
+deren Eingaben durch entsprechende Plausibilitätstests auf Validität überprüft
+werden.
+
+Ein Adressat muss eine Postadresse oder eine E-Mail-Adresse oder beides haben;
+beim Speichern werden diese Einschränkungen überprüft.
+
+\paragraph{Im Bereich "`Verteilerlisten"'} kann der Adressat optional direkt zu 
+Verteilerlisten hinzugefügt bzw.\ aus diesen entfernt werden. Dazu werden in 
+der linksseitigen Auswahlliste "`Verfügbare Verteilerlisten"' diejenigen Listen 
+angezeigt, denen der Adressat nicht zugeordnet ist. Über den Button "`$>$"' 
+können nun ein oder mehrere selektierte Einträge dieser Auswahlliste in die 
+Liste "`Mitglied in"' transferiert werden. Analog dazu können gewählte 
+Zuordnungen über den Button "`$<$"' wieder entfernt werden.
+
+\paragraph{Änderungen an den Adressat-Daten} werden über die Markierung 
+(\texttt{*}-Symbol) des Namens in der linken Auswahlliste signalisiert. Dem 
+Nutzer wird dadurch angezeigt, dass Änderungen vorhanden sind und gespeichert 
+oder verworfen werden müssen. Zu diesem Zwecke werden die Buttons "`Speichern"' 
+und "`Verwerfen"' unterhalb des Bereichs "`Verteilerlisten"' aktiviert. 
+Erstgenannter löst das Speichern des Datensatzes aus, letztgenannter setzt die 
+Eingabemaske nach einer Sicherheitsabfrage in den ursprünglichen Zustand zurück.
+
+Erfolgreiches Speichern wird dem Nutzer ebenso über ein Pop-Up mitgeteilt wie 
+das Auftreten eines Fehlers wie z.\,B.: Pflichtfeld nicht ausgefüllt, 
+ungültige Eingabe in einem Feld, technischer Fehler. Wenn sinnvoll und 
+anwendbar, wird bei Auftreten eines Fehlers automatisch in das 
+Fehler verursachende Eingabefeld gewechselt.
+
+\subsubsection{Anlegen von Adressaten}
+Über den Dialog "`Neu"' kann ein neuer Adressat erfasst werden. Die
+Eingabefelder funktionieren analog zur Maske "`Adressaten"'. Es fehlen hier
+lediglich die Auswahlliste auf der linken Seite sowie der "`Löschen"'-Button.
+
+Nach erfolgreichem Speichern des Adressaten wird automatisch in die Maske
+"`Adressaten"' gewechselt und in der Auswahlliste ist der soeben angelegte
+Adressat selekiert.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/screen_adressat_neu}
+  \caption{Anlegen von Adressaten}
+  \label{fig:adressat-neu}
+\end{figure}
+
+\subsection{Verwaltung von Verteilerlisten}
+Durch Anklicken des Icons "`Verteilerlisten"' in der Navigationsleiste gelangt 
+der Anwender zu den Dialogen der Verteilerlistenverwaltung. Diese teilen sich 
+in einen Dialog zur Bearbeitung bestehender Listen (s.\ Abbildung 
+\ref{fig:verteilerliste-bearbeiten}) und einen Dialog zur Erstellung einer 
+neuen Liste (s.\ Abbildung \ref{fig:verteilerliste-neu}) auf. Standardmäßig 
+gelangt der Anwender zum erstgenannten Dialog, welcher die Bezeichnung 
+"`Verteilerlisten"' trägt. Ist keine einzige Liste angelegt, so wird der 
+Benutzer zum Dialog "`Neu"' geführt.
+
+\subsubsection{Auflisten und Bearbeiten von Verteilerlisten}
+Das Dialogfenster besteht aus einer Combo-Box zur Auswahl der gewünschten 
+Liste, direkt daneben befindet sich ein Button zum Löschen der ausgewählten 
+Liste. Im mMittleren Bereich befinden sich zwei große, nebeneinander 
+angeordnete, Multi-Auswahl-Listen, zwischen denen vier Buttons platziert sind. 
+Unter der rechten Liste befinden sich wiederum zwei Buttons, einer zum 
+Verwerfen der Änderungen, der andere zum Speichern.
+
+\paragraph{Die Combo-Box "`Liste auswählen"'} enthält die Liste aller bereits 
+erstellten Verteilerlisten, so dass der Benutzer mittels dieses Steuerelements 
+die Liste, die er bearbeiten möchte, auswählen kann. Zusätzlich kann der 
+Anwender aber auch den Listennamen direkt eintippen. Hat der Benutzer einen 
+Listennamen eingegeben den es nicht gibt, so wird er darüber mit einem Pop-Up 
+informiert und der Cursor zurück in die Combo-Box gesetzt.
+
+\paragraph{Der Button "`Liste löschen"'} ermöglicht das Löschen der aktuell 
+ausgewählten Verteilerliste. Der Benutzer muss das Löschen zusätzlich zum 
+Betätigen des Buttons noch in einem Pop-Up-Fenster bestätigen. Wurde noch keine 
+Liste ausgewählt, so ist dieser Button deaktiviert.
+
+\paragraph{Die Listenfelder} dienen dem Anwender zur Auswahl der Mitglieder für 
+die ausgewählte Verteilerliste. In der linken Liste befinden sich alle 
+Adressaten in alphabetischer Reihenfolge, welche noch nicht in der 
+Verteilerliste sind. Die rechte Liste zeigt alle Adressaten, die in der 
+Verteilerliste sind, ebenfalls alphabetisch sortiert. Beide Listen-Felder. sind 
+Multiauswahl-Listen, das bedeutet der Benutzer kann mehr als einen 
+Listeneintrag durch Anklicken auswählen.
+
+Die Buttons zwischen den beiden Listen dienen dem Anwender zu Hinzufügen und 
+zum Entfernen von Adressaten in die bzw.\ aus der Liste. Hat der Benutzer in 
+der linken Liste Einträge ausgewählt und drückt den Button "`$>$"', so werden 
+diese aus der linken Liste entfernt und in die rechte Liste eingefügt. 
+Umgekehrt werden markierte Einträge aus der rechten Liste in die Linke zurück 
+geschrieben, wenn der Anwender den "`$<$"'-Button drückt. Der Button "`$>>$"' 
+fügt alle Einträge aus der linken Liste in die rechte Liste ein, sprich in die 
+Verteilerliste. Der "`$<<$"'-Button löscht alle eingetragenen Listenmitglieder 
+wieder.
+
+\paragraph{Die Buttons "`Verwerfen"' und "`Speichern"'} werden aktiviert, 
+sobald der Anwender Änderungen an der ausgewählten Liste vorgenommen hat. Durch 
+Druck auf "`Verwerfen"' wird dem Benutzer die Möglichkeit gegeben alle bisher 
+getätigten Änderungen rückgängig zu machen, was er aber noch in einem Pop-Up 
+bestätigen muss. Drückt er den Button "`Speichern"' so werden die Änderungen an 
+der Liste gespeichert und es wird eine entsprechende Hinweismeldung ausgegeben.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/screen_verteilerliste_bearbeiten}
+  \caption{Auflisten und Bearbeiten von Verteilerlisten}
+  \label{fig:verteilerliste-bearbeiten}
+\end{figure}
+
+\subsubsection{Anlegen von Verteilerlisten}
+Über den Dialog "`Neu"' kann eine neue Verteilerliste angelegt werden. Der Aufbau 
+der Steuerelemente gestaltet sich analog zu dem des Reiters "`Verteilerlisten"'
+mit dem Unterschied, dass es anstatt der Combo-Box zur Auswahl der Liste nun 
+nur ein Standard-Texteingabefeld zur Erfassung des Listennamens gibt. Außerdem  
+fällt der Button "`Liste löschen"' weg.
+
+Schlägt das Speichern der neuen Liste (z.\,B.\ aufgrund eines bereits vergebenen
+Listennamens) fehl, so erhält der Nutzer in einem Pop-Up-Fenster eine
+entsprechende Fehlermeldung sowie einen Hinweis auf die Behebung der Fehlerursache.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/screen_verteilerliste_neu}
+  \caption{Anlegen von Verteilerlisten}
+  \label{fig:verteilerliste-neu}
+\end{figure}
+
+\subsection{Versenden von Veranstaltungsankündigungen}
+\subsubsection{Drucken von Adressetiketten}
+Über das Icon "`Benachrichtigen"' gelangt der Anwender zum 
+"`Postankündigung"'-Dialog (s.\ Abbildung \ref{fig:ankuendigung-etiketten}) der 
+Benachrichtigungen-Funktionalität. Der Dialog besteht aus einem Eingabefeld und 
+einer Multiauswahl-Liste auf der linken Seite, vier Buttons in der Mitte und 
+einer Mutliauswahl-Liste auf der rechten Seite.
+ 
+\paragraph{In der Liste "`Verteilerlisten und Adressaten"'} Liste befinden sich 
+alle Verteilerlisten sowie alle Adressaten. Zur Unterscheidung befindet sich 
+vor einer Verteilerliste der Ausdruck \texttt{[LISTE]} und vor einem Adressat 
+der Ausdruck \texttt{[PERS]}. Außerdem werden die Verteilerlisten zuerst 
+aufgeführt und im Anschluss die Adressaten. Sortiert sind die Einträge 
+innerhalb ihrer Kategorie nach dem Alphabet.
+ 
+Gibt der Benutzer etwas in das über der Liste positionierte Suchfeld ein, so
+wird der Inhalt der linken Auswahlliste parallel zur Eingabe nach dem 
+eingegebenen Suchbegriff gefiltert.
+ 
+\paragraph{In der Liste "`Ausgewählte Empfänger"'} befinden sich alle 
+Verteilerlisten und Adressaten für die eine Benachrichtigung erstellt werden 
+soll. Die Listeneinträge sind ebenfalls durch \texttt{[LISTE]} und 
+\texttt{[PERS]} gekennzeichnet und innerhalb ihrer Kategorie alphabetisch 
+sortiert.
+ 
+Die Buttons "`$>$"', "`$<$"', "`$>>$"' und "`$<<$"' haben wie gehabt die 
+Funktion einen bzw.\ alle Listeneinträge von der linken zur rechten Liste und 
+umgekehrt zu transferieren.
+ 
+\paragraph{Der Button "`Etiketten drucken"'} löst den Druck der Adressetiketten 
+aus. Das Format der Etiketten und der Drucker müssen zuvor in der Konfiguration 
+festgelegt worden sein, ansonsten ist dieser Button deaktiviert. Zudem ist der 
+Button nur aktiv, wenn mindestens ein Eintrag in der rechten Liste ist. Ist ein 
+Adressat doppelt vorhanden, weil er beispielsweise in zwei Listen aufgeführt 
+ist, so wird für diesen Adressaten trotzdem nur ein Etikett erstellt.
+Nach erfolgreichem Drucken wird der Nutzer über ein Pop-Up informiert. Trat ein 
+Problem beim Drucken auf, so wird dies dem Benutzer ebenfalls über ein Pop-Up 
+mitgeteilt.
+ 
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/screen_ankuendigung_etiketten}
+  \caption{Drucken von Adressetiketten}
+  \label{fig:ankuendigung-etiketten}
+\end{figure}
+
+\subsubsection{Versand von E-Mail-Ankündigungen}
+Durch Anwählen des Reiters "`E-Mail-Verteiler"' aus der Postankündigung heraus, 
+gelangt der Anwender zum gleichnamigen Dialog. Dieser ist im Wesentlichen in 
+zwei Bereiche aufgeteilt. Oben befindet sich der Bereich "`Nachricht"' und 
+unten der Bereich "`Empfänger"'. Außerdem befindet sich noch ein Button 
+("`E-Mails senden"') unter den beiden Bereichen.
+ 
+Grundvoraussetzung für diesen Dialog ist jedoch, dass der E-Mail-Server im 
+Konfigurationsmenü eingetragen wurde. Ist das nicht der Fall, so ist dieser 
+Dialog nicht anwählbar.
+ 
+\paragraph{Im Bereich "`Nachricht"'} bearbeitet der Anwender die E-Mail, die er 
+versenden möchte.
+ 
+Über die Drop-Down-Box mit der Beschriftung "`Veranstaltung auswählen"' kann der 
+Anwender aus allen Veranstaltungen wählen, die in der (fiktiven) 
+Veranstaltungsverwaltung eingepflegt wurden. Wählt er hier einen Eintrag aus, 
+so wird aus den Stammdaten der Veranstaltung eine Vorlage für E-Mail-Betreff 
+und E-Mail-Text generiert und in die beiden unteren Textfelder eingetragen.
+
+Im Textfeld "`Betreff"' kann der Anwender den Betreff der E-Mail bearbeiten und 
+im Feld "`Text"', welches ein mehrzeiliges Eingabefeld ist, kann er den Inhalt 
+der E-Mail bearbeiten. Beide Eingabefelder sind Pflichtfelder, in die etwas 
+eingetragen sein muss, ansonsten wird der Button "`E-Mail senden"' nicht 
+aktiviert.
+
+\paragraph{Im Bereich "`Empfänger"'} legt der Anwender analog zum Dialog 
+"`Postankündigungen"' über zwei Listen, von denen die linke eine Filterfunktion 
+besitzt, die Liste der Empfänger fest.
+ 
+Wurde mindestens ein Adressat oder eine Verteilerliste zu den Empfängern 
+hinzugefügt, so wird der Button "`E-Mail senden"' aktiviert und der Benutzer 
+kann über diese Schaltfläche das Versenden der E-Mails veranlassen. Ob die 
+E-Mails versendet werden konnten oder ob ein Fehler auftrat, wird dem Benutzer 
+über ein Pop-Up mitgeteilt.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/screen_ankuendigung_email}
+  \caption{Versand von E-Mail-Ankündigungen}
+  \label{fig:ankuendigung-email}
+\end{figure}
+
+\end{document}

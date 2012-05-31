@@ -1,0 +1,8 @@
+Noten im Format ganze,zehntel eingeben (Ende mit Strg-D):
+Unzulaessige Note 1,1 wird ignoriert!
+Unzulaessige Note 2-3 wird ignoriert!
+
+Anzahl beruecksichtigter Noten: 3
+Beste Note: 1,0
+Schlechteste Note: 3,7
+Durchschnitt: 2,3

@@ -1,0 +1,18 @@
+SELECT (SYS_XMLAGG( 	
+		XMLELEMENT("Wohnung",
+          		XMLATTRIBUTES(w.id_wohnung AS "Nr"),
+          		XMLELEMENT("Name", w.name),
+          		XMLELEMENT("Groesse", w.groesse),
+          		XMLELEMENT("Anzahl-Zimmer", w.anzahl_zimmer),
+          		XMLELEMENT("Preis-Pro-Tag", w.preis_pro_tag),
+          		w.ausstattung,
+          		XMLELEMENT("Land",
+              			XMLATTRIBUTES(w.id_land AS "Nr"),
+              			l.name)), XMLFORMAT('Wohnungen') )).getClobVal()
+FROM wohnung w, land l
+WHERE w.id_land = l.id_land
+AND w.name like '%Max%')
+AND w.anzahl_zimmer = 3
+AND w.preis_pro_tag <= 450
+AND l.id_land = 23
+AND existsNode(ausstattung, '/Ausstattung/Telefon') = 1;

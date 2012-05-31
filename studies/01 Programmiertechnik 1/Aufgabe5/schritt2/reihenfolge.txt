@@ -1,0 +1,6 @@
+1. Notenspiegel::Notenspiegel
+2. FachNotenListe::FachNotenListe
+3. Note eingebene -> FachNote::FachNote
+4. Eingabeende
+5. FachNote::~FachNote -> Notenspiegel::~Notenspiegel -> FachNote::~FachNote, ...
+6. FachNotenListe::~FachNotenListe

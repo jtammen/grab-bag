@@ -1,0 +1,109 @@
+\section{RoboCup Fortsetzung}
+\subsection{Lernen von Teamfähigkeiten}
+\begin{frame}
+  \frametitle{"`Mindstormers"': Lernen von Teamfähigkeiten}
+
+  \begin{itemize}
+    \item Problem: Anzahl der Spieler wirkt sich exponentiell auf Aktionsmenge
+    aus 
+    \item Kooperation erreichen durch: gemeinsames Reinforcement-Signal
+    \item Ablauf der Lernphase: (überwachtes Lernen)
+	  \begin{enumerate}
+        \item Ermittlung der erfolgreichen Aktionen
+        \item Berechnung des Folgezustands (approximativ)
+        \item Bewertung des Folgezustands über neuronales Netz
+        \item Auswahl der Aktion mit geringstem Wert
+	  \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\subsection{Middle-Size-Liga}
+\begin{frame}
+  \frametitle{Middle-Size-Liga: "`Tribots"'}
+
+  \begin{columns}[b]
+    \column{.5\textwidth}
+	  \begin{block}{Regeln der Middle-Size-Liga}
+	      \begin{itemize}
+	        \item<2-> bis zu 4 Roboter pro Team
+	        \item<2-> max. 50\,cm Durchmesser
+	        \item<2-> Spielfeld: 12 x 8\,m
+	        \item<2-> Dauer: 2 x 10 Minuten
+	      \end{itemize}
+	  \end{block}
+    \column{.5\textwidth}
+      \pgfimage<2->[height=3.40cm]{../images/robocup-middle}
+  \end{columns}
+  
+  Herausforderungen:  
+  \begin{itemize}
+    \item Selbstlokalisation durch Kamera
+    \item kooperatives Spiel
+    \item begrenzte Rechenkapazität (onboard-Rechner)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Verarbeitung von Sensorinformationen}
+  
+  \begin{itemize}
+    \item Sammeln von Daten über Sensoren (Kamera und Odometrie)
+    \item Bestimmen der Position über Spielfeldmarkierungen
+    \item Bestimmen der Ballposition und -geschwindigkeit
+    \item begrenzte Rechenleistung erfordert sehr simple Bildverarbeitung
+    (Farberkennung)
+    \item Erstellen eines Umweltbildes aus den Sensordaten, darauf basierend
+    Entscheidung fällen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lernen von Einzelfähigkeiten und Regelungsaufgaben}
+  
+  \begin{itemize}
+    \item Verfahren aus Simulation nicht direkt übertragbar
+    \item Ansatz: Training an simuliertem Roboter, dann übertragen auf realen
+    \item Allerdings geht optimale Eigenschaft verloren
+    \item Lösung: optimierter Q-Learning-Algorithmus, erlaubt Training am realen
+    Roboter mit geringem Aufwand
+    \item Ansteuerung der Fahrwerksmotoren auch durch RL lernbar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fazit Reinforcement Learning}
+  
+  \begin{itemize}
+    \item Koexistenz von handprogrammierten und gelernten Modulen möglich.
+    \item Erlernte Fähigkeiten waren den handgefertigten anfangs überlegen.
+    \item Zunehmend Ersetzen der erlernten durch handprogrammierte, optimierte
+    Module. 
+    \item Mögliche Anwendungsgebiete: Regelungstechnik in der Industrie,
+    reaktives Scheduling.
+  \end{itemize}
+\end{frame}
+
+% \begin{frame}
+%   \begin{itemize}
+%     \item<1-> First point, shown on all slides.
+%     \item<2-> Second point, shown on slide 2 and later.
+%     \item<2-> Third point, also shown on slide 2 and later.
+%     \item<3-> Fourth point, shown on slide 3.
+%   \end{itemize}
+% \end{frame}
+% \begin{frame}
+%   \begin{enumerate}
+%     \item<3-| alert@3>[0.] A zeroth point, shown at the very end.
+%     \item<1-| alert@1> The first and main point.
+%     \item<2-| alert@2> The second point.
+%   \end{enumerate}
+% \end{frame}
+
+% \begin{frame}<1>[label=zooms]
+%   \frametitle<1>{A Complicated Picture}
+%   \framezoom<1><2>[border](0cm,0cm)(2cm,1.5cm)
+%   \framezoom<1><3>[border](1cm,3cm)(2cm,1.5cm)
+%   \framezoom<1><4>[border](3cm,2cm)(3cm,2cm)
+%   \pgfimage[height=8cm]{complicatedimagefilename}
+% \end{frame}
+% \againframe<2->[plain]{zooms}

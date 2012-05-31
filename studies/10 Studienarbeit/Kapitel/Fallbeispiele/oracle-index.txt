@@ -1,0 +1,5 @@
+CREATE INDEX i_kunde
+ON kunde(adresse.extract('/Adresse/Land/@Nr').getNumberVal());
+
+CREATE INDEX i_wohunung
+ON wohnung(ausstattung.extract('/Ausstattung').getStringVal());

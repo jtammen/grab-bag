@@ -1,0 +1,142 @@
+		\setlength\umlSymbolHeightDefault{.6em}
+		\setlength\umlSymbolWidthDefault{.3em}
+	  \umlDiagram[box=,border,sizeX=17.0cm,sizeY=16.5cm,ref=ClassDiagram]{%
+	  \footnotesize%
+			\umlClass[pos=\umlTop{ClassDiagram},%
+					  		refpoint=t,%
+					  		posDelta={2em, -4em},%
+					  		reference=B]{Bestellung}{%
+				\umlAttribute[visibility=-, type=Date]{datum}%
+				\umlAttribute[visibility=-, type=Time]{zeit}%
+				\umlAttribute[visibility=-, type=Int]{anzahlArtikel}%
+				\umlAttribute[visibility=-, type=Double]{gesamtpreis}%
+				\umlAttribute[visibility=-, type=vector<Position>]{positionen}%
+			}{%
+				\umlMethod[visibility=+, returntype=vector<Position>]{getPosition}{String typ}%
+				\umlMethod[visibility=+, returntype=vector<Position>]{getPosition}{void}%
+				\umlMethod[visibility=+, returntype=void]{addPosition}{Position pos}%
+				\umlMethod[visibility=+, returntype=void]{delPosition}{Position pos}%
+			}%
+			%
+			\umlClass[pos=\umlTopLeft{ClassDiagram},%
+							  posDelta={1em,-4em},%
+							  refpoint=tl,%
+								reference=K]{Kunde}{%
+				\umlAttribute[visibility=-, type=String]{name}%
+				\umlAttribute[visibility=-, type=String]{adresse}%
+			}{}%
+			%
+			\umlClass[pos=\umlBottomLeft{B},%
+					  		posDelta={-4em,-4em},%
+					  		refpoint=tl,%
+					  		reference=P]{Position}{%
+				\umlAttribute[visibility=-, type=Int]{anzahl = 0}%
+				\umlAttribute[visibility=-, type=Artikel*]{artikel}%
+			}{}%
+			%
+			\umlClass[pos=\umlTopRight{P},%
+							  posDelta={4em,0},%
+							  refpoint=tl,%
+							  reference=A,%
+							  abstract=]{Artikel}{%
+				\umlAttribute[visibility=-, type=Double]{einzelpreis}%
+				\umlAttribute[visibility=-, type=String]{typ}%
+			}{}%
+			%
+			\umlClass[pos=\umlBottomLeft{A},%
+							  posDelta={-20em,-6em},%
+							  refpoint=tl,%
+							  reference=PP]{Pizza}{%
+				\umlAttribute[visibility=-, type=Char]{größe}%
+				\umlAttribute[visibility=-, type=String]{belag1}%
+				\umlAttribute[visibility=-, type=String]{belag2}%
+			}{}%
+			%
+			\umlClass[pos=\umlTopRight{PP},%
+							  posDelta={.5em,0},%
+							  refpoint=tl,%
+							  reference=PE]{Eis}{%
+				\umlAttribute[visibility=-, type=Int]{anzKugeln}%
+				\umlAttribute[visibility=-, type=vector<Eiskugel>]{kugeln}%
+			}{}%
+			%
+			\umlClass[pos=\umlTopRight{PE},%
+							  posDelta={.5em,0},%
+							  refpoint=tl,%
+							  reference=PN]{Nudeln}{%
+				\umlAttribute[visibility=-, type=String]{art}%
+				\umlAttribute[visibility=-, type=String]{zubereitung}%
+			}{}%
+			%	
+			\umlClass[pos=\umlTopRight{PN},%
+							  posDelta={.5em,0},%
+							  refpoint=tl,%
+							  abstract=,%
+							  reference=PG]{Getraenk}{}{}%
+			%
+			\umlClass[pos=\umlBottomLeft{PG},%
+							  posDelta={-4em,-6em},%
+							  refpoint=tl,%
+							  reference=PGL]{Limo}{%
+			 \umlAttribute[visibility=-, type=Float]{inhalt}%
+			 \umlAttribute[visibility=-, type=String]{art}%
+			}{}%
+			%
+			\umlClass[pos=\umlTopRight{PGL},%
+							  posDelta={.5em,0},%
+							  refpoint=tl,%
+							  reference=PGB]{Bier}{%
+				\umlAttribute[visibility=-, type=String]{marke}%
+			}{}%
+			%
+			\umlClass[pos=\umlBottomLeft{PE},%
+							  posDelta={0em,-6em},%
+							  refpoint=tl,%
+							  reference=PEK]{Eiskugel}{%
+				\umlAttribute[visibility=-, type=String]{sorte}%
+			}{}%
+			%
+			\umlClass[pos=\umlBottomLeft{K},%
+							  posDelta={0em,-4em},%
+							  refpoint=tl,%
+							  reference=App]{Anwendung}{%
+				\umlAttribute[visibility=-, type=Bestellung]{b}%
+				\umlAttribute[visibility=-, type=Kunde]{k}%
+			}{}%
+		}%
+		\umlAssociation[ref=relBK,armB=10pt,armA=-10pt,angleA=180,offset=0]{B}{K}%
+		{%
+		 	\umlLabel[fraction=A,height=0,offset=1ex]{relBK}{*}%
+			\umlLabel[fraction=B,height=.3,offset=1ex]{relBK}{1}%
+			\umlLabel[fraction=0.5,height=-1.1,offset=0]{relBK}{tätigt{\scriptsize$\blacktriangleright$}}
+		}%			
+		\umlComposition[ref=relPB,armB=1,armA=1,angleA=15,armAngleB=270,angleB=236.80,offset=0]{P}{B}
+		{%
+	   	\umlLabel[fraction=A, offset=1.0ex, height=0]{relPB}{*}%
+			\umlLabel[fraction=B, offset=2.0ex, height=-.7]{relPB}{1}
+		}%	
+		\umlAggregation[ref=relAP,armB=0,armA=0,angleA=184.40,angleB=354.4,offset=0]{A}{P}
+		{%
+	   	\umlLabel[fraction=A, height=1.4,  offset=1ex]{relAP}{*}%
+			\umlLabel[fraction=B, height=-1.2, offset=1ex]{relAP}{1}
+		}%				
+		\umlSubclass[ref=relPPA,armB=3.50,armA=1.47,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{PP}{A}
+		{%
+			\umlLabel[fraction=1.07, height=0.4, offset=2ex]{relPPA}{ist ein}
+		}%	
+								
+		\umlSubclass[ref=relPEA,armB=3.50,armA=1.50,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{PE}{A}{}%
+		\umlSubclass[ref=relPNA,armB=3.50,armA=1.54,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{PN}{A}{}%
+		\umlSubclass[ref=relPGA,armB=3.50,armA=1.58,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{PG}{A}{}%
+		\umlComposition[ref=relPEKPE,armB=0,armA=0,angleA=78.00,angleB=224.80,offset=0]{PEK}{PE}
+		{%
+	   	\umlLabel[fraction=A, offset=0ex, height=-.8]{relPEKPE}{*}%
+			\umlLabel[fraction=B, offset=2.3ex]{relPEKPE}{1}
+		}%
+		\umlSubclass[ref=relPGLPG,armB=2.99,armA=1.98,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{PGL}{PG}
+		{%
+			\umlLabel[fraction=1.3, height=0.4, offset=2ex]{relPGLPG}{ist ein}
+		}%
+		\umlSubclass[ref=relPGBPG,armB=2.99,armA=2.02,angleA=90,angleB=270,armAngleA=90,armAngleB=270,offset=0]{PGB}{PG}{}%
+		\umlAssociation[ref=relAK,armB=0,armA=0,angleA=90,angleB=265.40,offset=0]{App}{K}{}%
+		\umlAssociation[ref=relAB,armB=-44pt,armA=44.50pt,angleA=0,angleB=190.00,offset=0]{App}{B}{}%

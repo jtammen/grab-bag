@@ -1,0 +1,24 @@
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		Elemente	& \ding{51} & Werden im \emph{Struktur-Index} gespeichert, welcher automatisch vom System verwaltet und von den meisten XPath/XQuery-Ausdrücken verwendet wird.\\ \cmidrule{1-3}
+	  Attribute	& \ding{51} & Werden ebenfalls im \emph{Struktur-Index} gespeichert. \\ \cmidrule{1-3}
+	  Text			& \ding{51} & Werden im \emph{Volltext-Index} gespeichert. Es werden standardmäßig \textit{alle} Text-Knoten indiziert, was sich jedoch durch eine entsprechende Konfiguration ändern lässt. Der Volltext-Index wird von den zusätzlichen XQuery-Operatoren \texttt{\&=} und \texttt{|=} sowie von den Textfunktionen \texttt{match-all()}, \texttt{near()} usw. verwendet.\\ 
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Indexierung}
+	\label{tab:exist-bewertung-indexierung}
+\end{table}
+
+Tabelle \ref{tab:exist-bewertung-indexierung} zeigt die von eXist indizierten Entitäten. Zusätzlich können manuell \emph{typisierte}, sog. "`Bereichsindexe"' erstellt werden. Deren Verwendung wird in Kapitel \ref{fallbeispiel-exist-indexe} angesprochen.

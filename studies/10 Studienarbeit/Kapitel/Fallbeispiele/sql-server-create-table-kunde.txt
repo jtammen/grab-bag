@@ -1,0 +1,7 @@
+CREATE TABLE [kunde] (
+  [id_kunde] int NOT NULL,
+  [name] xml,
+  [adresse] xml,
+  [bankverbindung] xml
+)
+ON [PRIMARY]

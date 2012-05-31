@@ -1,0 +1,21 @@
+SELECT 
+	id_wohnung 	AS '@Nr',
+	name		AS 'Name',
+	anzahl_zimmer	AS 'Anzahl-Zimmer',
+	preis_pro_tag	AS 'Preis-Pro-Tag',
+	ausstattung	AS '*'
+FROM
+	wohnung
+FOR XML PATH('Wohnung'), ROOT('Wohnungen')
+
+<Wohnungen>
+  <Wohnung Nr="15">
+    <Name>Jake</Name>
+    <Anzahl-Zimmer>5</Anzahl-Zimmer>
+    <Preis-Pro-Tag>551</Preis-Pro-Tag>
+    <Ausstattung>
+      <Telefon />
+    </Ausstattung>
+  </Wohnung>
+	...
+</Wohnungen>

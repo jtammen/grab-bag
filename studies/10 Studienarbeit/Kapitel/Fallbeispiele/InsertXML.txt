@@ -1,0 +1,11 @@
+INSERT INTO kunde
+VALUES(1, 
+       XMLTYPE('<Name> <Vorname>Max</Vorname>
+      		 <Nachname>Mustermann</Nachname> </Name>'),
+       XMLTYPE('<Adresse> <PLZ>12345</PLZ>
+      		<Stadt>Test-Stadt</Stadt>
+      		<Straﬂe Haus-Nr="1">Test-Straﬂe</Straﬂe>
+      		<Land Nr="28" /> </Adresse>'),
+       XMLTYPE('<Bankverbindung> <Bankname>Testbank</Bankname>
+      		<BLZ>123456</BLZ>
+      		<Konto-Nr>1234567</Konto-Nr> </Bankverbindung>'));

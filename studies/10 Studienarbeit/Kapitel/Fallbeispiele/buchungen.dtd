@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Buchung (Rechnungsdatum, Zeitraum, Kunde, Wohnung)>
+<!ATTLIST Buchung
+	Nr CDATA #REQUIRED
+>
+<!ELEMENT Buchungen (Buchung)>
+<!ELEMENT Kunde EMPTY>
+<!ATTLIST Kunde
+	Nr CDATA #REQUIRED
+>
+<!ELEMENT Rechnungsdatum (#PCDATA)>
+<!ELEMENT Wohnung EMPTY>
+<!ATTLIST Wohnung
+	Nr CDATA #REQUIRED
+>
+<!ELEMENT Zeitraum EMPTY>
+<!ATTLIST Zeitraum
+	von CDATA #REQUIRED
+	bis CDATA #REQUIRED
+>

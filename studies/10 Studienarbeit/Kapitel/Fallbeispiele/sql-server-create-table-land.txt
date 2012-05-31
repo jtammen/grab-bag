@@ -1,0 +1,5 @@
+CREATE TABLE [land] (
+  [id_land] int NOT NULL,
+  [name] varchar(100) COLLATE Latin1_General_CI_AS
+)
+ON [PRIMARY]

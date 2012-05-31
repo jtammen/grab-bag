@@ -1,0 +1,16 @@
+CREATE TABLE [buchung] (
+  [id_buchung] int NOT NULL,
+  [rechnungsdatum] datetime,
+  [zeitraum] xml,
+  [id_kunde] int,
+  [id_wohnung] int
+CONSTRAINT [FK_buchung_wohnung] FOREIGN KEY ([id_wohnung]) 
+  REFERENCES [wohnung] ([id_wohnung])
+  ON UPDATE NO ACTION
+  ON DELETE SET NULL,
+CONSTRAINT [FK_buchung_kunde] FOREIGN KEY ([id_kunde]) 
+  REFERENCES [kunde] ([id_kunde])
+  ON UPDATE NO ACTION
+  ON DELETE SET NULL
+)
+ON [PRIMARY]

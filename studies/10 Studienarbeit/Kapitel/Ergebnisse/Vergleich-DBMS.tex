@@ -1,0 +1,45 @@
+\section{Allgemeines}
+\subsection{Speicherung}
+Bei Oracle werden \acr{xml}-Fragmente als "`XMLType"' gespeichert und bei dem SQL-Server als "`XML"'-Datentyp. Bei beiden können vollständige Dokumente eingelesen werden, jedoch wird der Vorspann entfernt. Die Kommentare bleiben bei beiden erhalten.
+Im Gegensatz zu Oracle bietet der SQL-Server kein objekt-relationales Datenmodell. Bei Oracle lassen sich, da es sich beim Datentyp "`XMLType"' um einen objekt-relationalen Typ handelt, auch Tabellen dieses Typs anlegen.
+Beide \acr{dbms} unterstützen die kombinierte Speicherung von relationalen und \acr{xml}-Daten. 
+Die Speicherungstechnik von eXist lässt sich mit den von relationalen \acr{dbms} nicht direkt vergleichen, da es speziell für die effiziente Speicherung und Abfrage von \acr{xml}-Daten entwickelt wurde.
+
+Während Oracle die im \acr{sql}-\acr{xml}-Standard definierten Funktionen (s. Kapitel \ref{einführung-sqlxml-funktionen}) sowie den Datentyp "`XML"' größtenteils umgesetzt hat, arbeitet Microsoft mit eigenen, ähnliche Funktionalität bietenden Operationen und Datentyp.
+
+\subsection{Abfragen}
+Zur Abfrage von \acr{xml}-Daten bieten die drei \acr{dbms} die Abfragesprache XPath an. XQuery hingegen wird (mit Einschränkungen im Funktionsumfang) nur vom SQL-Server 2005 sowie von eXist angeboten; Oracle hingegen unterstützt XQuery erst ab Version 10g, welche für das Fallbeispiel nicht zur Verfügung stand.
+
+Zur Bearbeitung von \acr{xml}-Daten stellen Oracle und SQL-Server eigene Funktionen zur Verfügung. Es lassen sich damit Updates auf Attribut-, Element- und Textebene durchführen. Die \acr{xml}-Daten werden in beiden \acr{dbms} als Stringtyp zurückgegeben -- datenbankintern können sie in andere Datentypen konvertiert werden, \zB um Datumsfunktionen zu benutzen.
+Die Transaktionssicherheit kann bei Oracle und SQL-Server auf Spalten angewendet werden, nicht auf Teilbereiche von XML-Daten.
+
+Zur Durchführung von Änderungsoperationen implementiert eXist einige XQuery-Erweiterungen, mit denen sich ebenfalls Attribut-, Element- und Textknoten bearbeiten lassen. Im Fallbeispiel werden die Anfrageergebnisse von eXist mittels XQuery als \acr{xml}-String zurückgegeben.
+
+\subsection{Indexierung}
+
+Wie in Kap. \ref{sql-server-xml-index} beschrieben, unterstützt der SQL-Server die Indexierung des gesamten \acr{xml}-Dokumentes und spezifisch auf Pfade, Element- und Attributwerte sowie für Operationen auf die Werte.
+
+Standardmäßig werden bei eXist alle Textknoten automatisch indiziert, zusätzlich kann man benutzerdefinierte Indexe erstellen.
+
+In Oracle lassen sich manuell Indexe auf Elemente, Attribute und Textknoten setzen. 
+
+\section{Gegenüberstellung einiger Abfragen}
+\subsection{Suchen von Ferienwohnungen}
+
+\lstinputlisting[language=SQLORA,caption={Suchen von Ferienwohnungen, Oracle},label=listing:vergleich-ferienwohnung-suchen-oracle]{Kapitel/Fallbeispiele/oracle-xml-suche-wohnung.txt}
+
+\lstinputlisting[language=SQL05,caption={Suchen von Ferienwohnungen, SQL-Server},label=listing:vergleich-ferienwohnung-suchen-sql-server]{Kapitel/Fallbeispiele/sql-server-wohnung-suchen.txt}
+
+\lstinputlisting[language=XQuery,caption={Suchen von Ferienwohnungen, eXist},label=listing:vergleich-ferienwohnung-suchen-exist]{Kapitel/Fallbeispiele/exist-suche-naiv.xql}
+
+In der Formulierung der Abfragebedingungen unterscheiden sich die drei Beispiele kaum; lediglich bei der Zusammenstellung der Ausgabe gibt es große Differenzen. Das Ausgabeergebnis zu formulieren ist bei eXist mittels XQuery deutlich weniger aufwendig.
+
+\subsection{Hinzufügen von Ferienwohnungen}
+\lstinputlisting[language=SQLORA,caption={Hinzufügen von Ferienwohnungen, Oracle},label=listing:vergleich-ferienwohnung-hinzufuegen-oracle]{Kapitel/Fallbeispiele/oracle-xml-insert.txt}
+
+\lstinputlisting[language=SQL05,caption={Hinzufügen von Ferienwohnungen, SQL-Server},label=listing:vergleich-ferienwohnung-hinzufuegen-sql-server]{Kapitel/Fallbeispiele/sql-server-wohnung-einfuegen.txt}
+
+Wie aus den obigen Beispielen ersichtlich ist, unterscheiden sich die Einfügeoperationen allein durch den Aufruf des \acr{xml}-Konstruktors bei Oracle. Der \acr{sql}-Server nimmt den Typ implizit an.
+
+\lstinputlisting[language={[eXist]XQuery},caption={Hinzufügen von Ferienwohnungen, eXist},label=listing:vergleich-ferienwohnung-hinzufuegen-exist]{Kapitel/Fallbeispiele/exist-einfuegen.xql}
+

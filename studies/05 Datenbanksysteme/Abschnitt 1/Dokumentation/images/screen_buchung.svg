@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docbase="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images"
+   sodipodi:docname="screen_buchung.svg"
+   inkscape:version="0.40+cvs"
+   sodipodi:version="0.32"
+   id="svg2343"
+   viewBox="15 8 30 33"
+   height="841.88976pt"
+   width="595.27559pt">
+  <metadata
+     id="metadata2502">
+    <rdf:RDF
+       id="RDF2504">
+      <cc:Work
+         id="Work2506"
+         rdf:about="">
+        <dc:format
+           id="format2508">image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+           id="type2510" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs2500" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg2343"
+     inkscape:window-y="-4"
+     inkscape:window-x="-4"
+     inkscape:cy="451.83051"
+     inkscape:cx="473.09264"
+     inkscape:zoom="1.1792255"
+     inkscape:window-height="1153"
+     inkscape:window-width="1600"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     showborder="true"
+     inkscape:document-units="px"
+     showgrid="true" />
+  <rect
+     id="rect2347"
+     height="17.067852"
+     width="18.690247"
+     y="14.345181"
+     x="20.833889"
+     style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.066281751"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000" />
+  <text
+     id="text2349"
+     y="15.183896"
+     x="21.211279"
+     style="font-size:0.63478965;font-style:normal;font-weight:700;fill:#000000;font-family:sans;text-anchor:start"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">Buchung Ferienwohnung</text>
+  <line
+     id="line2373"
+     y2="20.112705"
+     x2="39.114632"
+     y1="20.112705"
+     x1="21.212116"
+     style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.068242624;stroke-dasharray:0.13648526 "
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000" />
+  <g
+     id="g1422"
+     transform="matrix(1.000008,0.000000,0.000000,1.000000,-1.480843,3.381646)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">
+    <rect
+       id="rect2473"
+       height="0.63478714"
+       width="0.63478714"
+       y="23.966747"
+       x="29.100060"
+       style="fill:#e6e6e6" />
+    <rect
+       id="rect2475"
+       height="0.63478714"
+       width="0.63478714"
+       y="23.966747"
+       x="29.100060"
+       style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.063478716" />
+  </g>
+  <g
+     transform="translate(8.543513e-16,0.604761)"
+     id="g1469">
+    <g
+       transform="matrix(1.696606,0.000000,0.000000,1.000000,-22.67817,-4.487132)"
+       id="g1380">
+      <rect
+         id="rect2477"
+         height="0.63478714"
+         width="1.9043615"
+         y="27.521557"
+         x="26.783087"
+         style="fill:#e6e6e6" />
+      <rect
+         id="rect2479"
+         height="0.63478714"
+         width="1.9043615"
+         y="27.521557"
+         x="26.783087"
+         style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.048734818" />
+    </g>
+    <text
+       transform="scale(1.000004,0.999996)"
+       id="text2481"
+       y="23.532585"
+       x="22.927593"
+       style="font-size:0.50783175;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start">02.11.2004</text>
+  </g>
+  <text
+     id="text2351"
+     y="9.725956"
+     x="18.150921"
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start" />
+  <text
+     id="text2353"
+     y="9.1546488"
+     x="19.547453"
+     style="font-size:0.50782973;font-style:normal;font-weight:700;fill:#000000;font-family:sans;text-anchor:start" />
+  <text
+     id="text2375"
+     y="22.167786"
+     x="16.373516"
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start" />
+  <text
+     id="text2385"
+     y="25.976509"
+     x="17.643091"
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start" />
+  <text
+     id="text2389"
+     y="26.611298"
+     x="17.643091"
+     style="font-size:0.50782973;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start" />
+  <rect
+     style="fill:none;fill-opacity:1.0000000;fill-rule:evenodd"
+     id="rect2174"
+     width="2.0158730"
+     height="2.5635643"
+     x="36.327938"
+     y="17.310635" />
+  <text
+     sodipodi:linespacing="120%"
+     id="text1346"
+     y="16.587803"
+     x="21.626802"
+     style="line-height:4.8380953%;writing-mode:lr;font-variant:normal;font-stretch:normal;text-anchor:start;font-family:Sans;fill:#000000;font-weight:normal;font-style:normal;font-size:0.48380953"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">Sie haben sich für eine Wohnung entschieden. Bitte geben Sie<tspan
+   y="16.587803"
+   x="21.626802"
+   id="tspan1348"
+   sodipodi:role="line"></tspan><tspan
+   y="17.168374"
+   x="21.626802"
+   id="tspan1350"
+   sodipodi:role="line">in den folgenden Eingabefeldern den gewünschten Zeitraum</tspan><tspan
+   y="17.748946"
+   x="21.626802"
+   id="tspan1352"
+   sodipodi:role="line">Ihres Aufenthaltes ein.</tspan><tspan
+   y="18.329517"
+   x="21.626802"
+   id="tspan1356"
+   sodipodi:role="line"></tspan><tspan
+   y="18.910089"
+   x="21.626802"
+   id="tspan1358"
+   sodipodi:role="line">Das System wird dann prüfen, ob die Wohnung in dieser Zeit</tspan><tspan
+   y="19.490660"
+   x="21.626802"
+   id="tspan1360"
+   sodipodi:role="line">frei ist.</tspan></text>
+  <text
+     sodipodi:linespacing="100%"
+     id="text1453"
+     y="21.9807"
+     x="21.211279"
+     style="font-size:0.48380953;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">Gewählte Wohnung:</text>
+  <text
+     id="text1459"
+     y="21.983204"
+     x="32.182266"
+     style="font-size:0.50783175;font-style:normal;font-weight:700;fill:#000000;font-family:monospace;text-anchor:middle"
+     transform="scale(1.000004,0.999996)">Frankreich, 3 Zimmer, 80,50 € / Tag</text>
+  <text
+     sodipodi:linespacing="100%"
+     id="text1461"
+     y="23.101004"
+     x="21.211279"
+     style="font-size:0.48380953;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">Gewünschter Zeitraum:</text>
+  <text
+     sodipodi:linespacing="100%"
+     id="text1463"
+     y="24.108946"
+     x="21.412867"
+     style="font-size:0.48380953;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">vom</text>
+  <text
+     sodipodi:linespacing="100%"
+     id="text1475"
+     y="24.108946"
+     x="26.334692"
+     style="font-size:0.48380953;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">bis zum</text>
+  <g
+     transform="matrix(1.696606,0.000000,0.000000,1.000000,-16.90226,-3.882371)"
+     id="g1479">
+    <rect
+       id="rect1481"
+       height="0.63478714"
+       width="1.9043615"
+       y="27.521557"
+       x="26.783087"
+       style="fill:#e6e6e6" />
+    <rect
+       id="rect1483"
+       height="0.63478714"
+       width="1.9043615"
+       y="27.521557"
+       x="26.783087"
+       style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.048734818" />
+  </g>
+  <text
+     transform="scale(1.000004,0.999996)"
+     id="text1485"
+     y="24.137348"
+     x="28.703484"
+     style="font-size:0.50783175;font-style:normal;font-weight:normal;fill:#000000;font-family:sans;text-anchor:start">14.11.2004</text>
+  <text
+     sodipodi:linespacing="120%"
+     id="text1491"
+     y="25.935095"
+     x="22.110609"
+     style="font-size:0.48380953;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">Sollen wir Ihnen im Falle einer Belegung einen<tspan
+   y="25.935095"
+   x="22.110609"
+   id="tspan1493"
+   sodipodi:role="line"></tspan><tspan
+   y="26.515666"
+   x="22.110609"
+   id="tspan1505"
+   sodipodi:role="line">alternativen Terminvorschlag machen?</tspan></text>
+  <text
+     sodipodi:linespacing="100%"
+     id="text1513"
+     y="27.805298"
+     x="26.786844"
+     style="font-size:0.48380953;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;font-family:Sans;text-anchor:start;writing-mode:lr-tb"
+     transform="scale(1.000004,0.999996)"
+     inkscape:export-filename="D:\jan\studium\4. Semester\Datenbanksysteme\Praktikum\Abschnitt 1\Dokumentation\images\text1394.png"
+     inkscape:export-xdpi="7.2700000"
+     inkscape:export-ydpi="7.2700000">ja</text>
+  <g
+     transform="translate(-1.780831,-0.239069)"
+     id="g1556">
+    <rect
+       id="rect1527"
+       height="0.66470319"
+       width="8.1703272"
+       y="29.543903"
+       x="32.451454"
+       style="fill:#e6e6e6" />
+    <rect
+       id="rect1529"
+       height="0.69139427"
+       width="8.2414484"
+       y="29.546728"
+       x="32.415897"
+       style="fill:none;fill-opacity:0.00000000;stroke:#000000;stroke-width:0.063478976" />
+    <text
+       id="text1531"
+       y="30.040598"
+       x="36.591843"
+       style="font-size:0.50783175;font-style:normal;font-weight:700;fill:#000000;font-family:monospace;text-anchor:middle"
+       transform="scale(1.000004,0.999996)">Verfügbarkeit jetzt prüfen</text>
+  </g>
+</svg>

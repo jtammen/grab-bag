@@ -1,0 +1,6 @@
+FOR XML (
+	RAW |
+ 	AUTO [, ELEMENTS, TYPE] |
+	EXPLICIT |
+	PATH(name) [, ROOT(name)]
+) [,XMLDATA]

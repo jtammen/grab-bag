@@ -1,0 +1,428 @@
+\section{Was ist XML?} \label{xml-einfuehrung-was-ist}
+Die erweiterbare Markup-Sprache \acr{xml} wurde im Jahre 1998 vom \acr{w3c} als Standard empfohlen und sollte den bereits seit den 80er Jahren existierenden Dokumentationsstandard \acr{sgml} vereinfachen und insbesondere für den Einsatz im Internet nutzbar machen.
+
+\acr{xml} ist als echte Teilmenge von \acr{sgml} definiert -- sie wird daher auch als \acr{sgml}-Anwendungsprofil bezeichnet -- und bietet trotz starker Vereinfachungen eine große Mächtigkeit bei der Definition neuer Dokumenten-Markups. \acr{xml} ist daher als \emph{Metasprache} -- also eine Sprache zur Definition anderer Sprachen -- zu bezeichnen, es handelt sich also weder um eine Programmiersprache noch ein Dateiformat.
+
+Im Gegensatz zu \acr{html} (ebenfalls ein \acr{sgml}-Anwendungsprofil) ist das Markup bei \acr{xml} in seiner Semantik nicht statisch -- es können eigene Elemente definiert werden, die ihre Bedeutung erst bei Auswertung durch eine entsprechende Anwendung erhalten.
+
+Zusammen mit den anderen um \acr{xml} entstandenen Architekturstandards (\zB \acr{xsd}, \acr{svg}, \acr{xslt}, oder XPath) bietet \acr{xml} heute eine breite und gut unterstützte Basis für webbasierte Technologien wie \acr{xhtml}, \acr{svg}, \acr{soap} oder auch \acr{rdf}.
+
+
+\subsection{Geschichte}
+Um die Entwicklung bis hin zum heutigen \acr{xml}-Standard aufzuzeigen, sind im folgenden einige der wichtigen chronologischen Eckdaten aufgeführt.
+
+\begin{labeling}[~---]{\usekomafont{descriptionlabel}1980}%
+	\item[\usekomafont{descriptionlabel}1980] 
+		Erster Entwurf von \acr{sgml} durch die \acr{ansi} veröffentlicht
+	\item[\usekomafont{descriptionlabel}1986] 
+		\acr{iso} verabschiedet \acr{sgml} (\acr{iso} 8879:1986)
+	\item[\usekomafont{descriptionlabel}1990] 
+		Inbetriebnahme des "`World Wide Web"' -- erste einfache Versionen von \acr{html} und \acr{http}
+	\item[\usekomafont{descriptionlabel}1992] 
+		Erster Entwurf zu \acr{html}
+	\item[\usekomafont{descriptionlabel}1994] 
+		Gründung des \acr{w3c}
+	\item[\usekomafont{descriptionlabel}1996] 
+		Erster Entwurf von \acr{xml} vorgestellt
+	\item[\usekomafont{descriptionlabel}1998] 
+		Erste Version von \acr{xml} durch das \acr{w3c} als "`Recommendation"' freigegeben
+\end{labeling}
+
+Im weiteren Verlauf wurden vom \acr{w3c} zahlreiche weitere Architekturstandards der \acr{xml}-Familie entwickelt und veröffentlicht.
+
+\subsection{Entwurfsziele}
+Die Entwickler -- die sog. \acr{xml} Working Group, eine Arbeitsgruppe unter der Schirmherrschaft des \acr{w3c} -- der \acr{xml}-Spezifikation \citep{url:W3C-XML-Spec} definierten die folgenden zehn Entwurfsziele \citep{url:W3C-XML-10P} für \acr{xml}:
+
+\begin{enumerate}
+	\item Einfache Nutzbarkeit über das/im Internet. \acr{sgml} als Ausgangspunkt wurde im Gegensatz dazu haupsächlich für den lokalen Einsatz (\zB für das Erstellen technischer Dokumentation) verwendet.
+	\item Unterstützung eines breiten Anwendungsspektrums. Das oben bereits erwähnte Haupteinsatzgebiet von SGML sollte durch \acr{xml} auf verschiedene Gebiete ausgeweitet werden.
+	\item Kompatibilität zu \acr{sgml}. \acr{xml} ist als echte Untermenge des \acr{sgml}-Standards definiert, somit stellt jedes \acr{xml}-Dokument auch ein gültiges \acr{sgml}-Dokument dar und kann \zB über entsprechende Werkzeuge verarbeitet werden.
+	\item Einfache Entwicklung \acr{xml}-verarbeitender Applikationen.
+	\item Wenn möglich, vollständige Vermeidung optionaler Sprachelemente. Auf diese Weise soll die Komplexitätsreduktion weiter gefördert werden, was wiederum der einfachen Benutzerbarkeit zugute kommt.
+	\item \acr{xml}-Dokumente sollen menschenlesbar und hinreichend verständlich sein.
+	\item Zügiger Entwurf der \acr{xml}-Spezifikation. Dabei wurde der Umfang der \acr{sgml}-Spezifikation von ca. 600 auf 30 Textseiten deutlich reduziert.
+	\item Formaler sowie präziser Sprachentwurf. Dadurch sollte die schnelle und einfache Implementierung der \acr{xml}-Spezifikation in die entsprechenden Werkzeuge gewährleistet werden.
+	\item Einfache Dokumentenerstellung. Im Normalfall soll für die Erstellung von \acr{xml}-Dokumenten kein spezielles Software-Werkzeug notwendig sein.
+	\item Kompaktheit des Markups hat eine untergeordnete Priorität.
+\end{enumerate}
+
+
+\section{XML-Dokumente}
+Im Sinne der \acr{xml}-Spezifikation wird ein Datenobjekt als \acr{xml}-\textbf{Dokument} bezeichnet, wenn es \emph{wohlgeformt} ist.
+
+\subsection{Aufbau und Struktur}
+Die Struktur eines \acr{xml}-Dokumentes lässt sich in die Kategorien \emph{physisch} und \emph{logisch} aufteilen. Physisch gesehen besteht das Dokument aus einer Menge von Elementen. Ein Element kann dabei weitere Elemente enthalten; das Dokument beginnt mit dem sog. Dokument-Element.
+
+Die logische Struktur eines Dokumentes besteht aus Elementen, Kommentaren, Deklarationen, Zeichenreferenzen und Verarbeitungsanweisungen. Es muss dabei darauf geachtet werden, dass die physischen und logischen Strukturen korrekt verschachtelt sind.
+
+Ein \acr{xml}-Dokument besteht also aus den folgenden, teilweise optionalen Komponenten:
+
+\begin{itemize}
+	\item Prolog (optional): enthält \zB die verwendete \acr{xml}-Version (\zB \texttt{1.0}) sowie die Zeichenkodierung (\zB \texttt{UTF-8} oder \texttt{iso-8859-1})
+	\item \acr{dtd}, Document Type Definition (optional): Verweis auf externe (bzw. direkte Angabe im Dokument) von Markup-Deklarationen
+	\item Dokument-Element: Einzelnes Element, welches weitere Elemente enthalten darf.
+	\item Kommentare an beliebiger Stelle außerhalb des Markups
+	\item Verarbeitungsanweisungen (PIs, Processing Instructions)
+	\item \acr{cdata}-Abschnitte als Alternative zu Zeichendaten; Schutz ganzer Textblöcke vor Interpretation als Markup
+\end{itemize}
+
+Der Grundbaustein eines Dokumentes ist also das \emph{Element}. Ein Element wird entweder durch Start- und End-Tags oder -- bei einem leeren Element -- durch ein Leeres-Element-Tag begrenzt. Weiterhin hat ein Element einen benannten Typ und kann eine Menge von Attributspezifikationen haben. Diese bestehen jeweils aus dem Komponenten \emph{Name} und \emph{Wert}. Abbildung \ref{fig:xml-strukturprimitive} veranschaulicht nochmals den Aufbau eines Elements.
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=0.70\textwidth,hiresbb=true]{images/xml-strukturprimitive}
+	\caption{XML-Strukturkomponenten}
+	\label{fig:xml-strukturprimitive}
+\end{figure}
+
+Aus logischer Sicht wird zwischen \textbf{analysierten} (parsed) und \textbf{nicht analysierten} (unparsed) Entities unterschieden. Analysierte Entities werden dabei über \emph{Entity-""Referenzen} angesprochen, nicht-analysierte direkt über ihren Namen.
+
+\subsection{Wohlgeformtheit und Validität}
+Ein \acr{xml}-Dokument wird als \textbf{wohlgeformt} bezeichnet, wenn es alle Wohlgeformtheitsbeschränkungen \citep{url:W3C-XML-Spec} einhält:
+
+\begin{itemize}
+	\item Der Name im End-Tag eines Elements muss mit dem Elementtyp im Start-Tag übereinstimmen
+	\item Attribute müssen eindeutig spezifiziert sein, d.h. kein Attribut darf mehrmalig im Start-Tag oder Leeres-Element-Tag vorkommen
+	\item Elemente müssen sowohl Start- als auch End-Tag besitzen (ausgenommen leere Elemente: schließender Schrägstrich vor Tag-Ende)
+	\item Attributwerte dürfen keine direkten bzw. indirekten Referenzen auf externe Entities enthalten
+	\item Attributwerte dürfen das Zeichen \texttt{<} nicht enthalten
+	\item Attributwerte müssen in Anführungszeichen eingeschlossen sein
+	\item Standalone-Dokumente ohne entsprechende \acr{dtd} müssen alle verwendeten Entities deklarieren (mit Ausnahme der vordefinierten)
+\end{itemize}
+
+Ein \acr{xml}-Dokument wird zudem als \textbf{valide} bezeichnet, wenn es die Eigenschaft erfüllt, eine Dokumenttyp-Deklaration zu besitzen und dieser zu entsprechen.
+
+\section{Meta-Beschreibung von XML}
+Um valide Dokumente erzeugen zu können, müssen die in einem Dokument zugelassenen Entity-Typen (samt deren Inhalten und zulässigen Attributen) definiert werden. Dazu gibt es die in den folgenden Abschnitten kurz beschriebenen Techniken.
+
+\subsection{DTD -- Document Type Definition}
+Eine \acr{dtd} ist eine schematische Beschreibung (mit eigenständiger Syntax) eines \acr{xml}-Dokumentes und deklariert alle Elemente und Entities (definierte Kürzel wie \zB \texttt{\&amp;} in \acr{html}). Durch die Verknüpfung eines Dokumentes mit einer \acr{dtd} kann erzwungen werden, dass sich das Dokument an eine gewünschte Struktur hält (sog. \emph{Validierung}). 
+Weiterhin lassen sich in einer \acr{dtd} Werte für Attribute oder Entities vorbelegen, sodass diese Werte zwischen verschiedenen Dokumenten geteilt und somit modular wiederverwendbar gemacht werden können.
+Die konkrete Beschreibung des Aufbaus einer \acr{dtd} findet sich in der \acr{xml}-Spezifikation \citep{url:W3C-XML-Spec}.
+
+\subsection{XSD -- XML Schema Definition} \label{einfuehrung-xml-xsd}
+Als Nachfolger zu \acr{dtd} wurde \acr{xsd} als Schemasprache standardisiert. Gegenüber \acr{dtd} bietet es u.a. folgende Vorteile (wobei bei \acr{xsd} alle Funktionalitäten von \acr{dtd} eingeschlossen sind):
+
+\begin{itemize}
+	\item Syntax entspricht der eines \acr{xml}-Dokuments (kann also leicht validiert oder geparst werden)
+	\item umfangreicher Vorrat an Datentypen
+	\item Unterstützung für \acr{xml}-Namespaces
+\end{itemize}
+
+Ein Nachteil ist jedoch die relativ hohe Komplexität des \acr{xsd}-Konzeptes.
+
+\section{Beispieldokument}
+Ein wohlgeformtes, valides \acr{xml}-Beispieldokument zeigt Listing \ref{listing:xml-beispiel}. Die \acr{dtd} wird dabei nicht extern referenziert sondern ist direkt im oberen Teil des Dokumentes enthalten.
+
+\lstinputlisting[language=XML,caption={XML-Beispieldokument},label=listing:xml-beispiel]{Kapitel/Einfuehrung/beispiel.xml}
+
+\section{Verarbeitung von XML-Dokumenten}
+Um ein \acr{xml}-Dokument zu verarbeiten, muss zunächst eine Analyse der Dokumentenstruktur (\emph{Parsing}) vorgenommen werden. Die zwei Standardansätze dazu sind in den nachfolgenden Unterabschnitten beschrieben.
+
+\subsection{DOM -- Document Object Model} \label{xml-einfuehrung-dom}
+Bei dem Document Object Model handelt es sich um eine vom \acr{w3c} standardisierte \citep{url:W3C-DOM-Core}, plattform- und sprachunabhängige Zugriffsmethode für \acr{xml}-Dokumente. Eine ganze Reihe von Empfehlungen definieren dabei u.a. Funktionen zur Navigation innerhalb von \acr{xml}-Dokumenten oder deren Manipulation.
+
+Das \acr{dom} basiert auf einem \textbf{Baummodell} des Dokumentes -- dabei gibt es verschiedene Knotentypen, die \zB das Dokument-Element, andere Elemente oder Attribute darstellen. Auf diese Knoten können dann verschiedene Operationen durchgeführt werden; so lassen sich \zB alle Kindknoten, der Elternknoten oder der Wert eines Attributes ermitteln.
+
+Das Beispieldokument aus Listing \ref{listing:xml-beispiel} ließe sich \zB durch den Baum in Abbildung \ref{fig:xml-beispiel-baumdarstellung} darstellen.
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{images/xml-beispiel-baumdarstellung}
+	\caption{Baumdarstellung des Beispiel-Dokumentes}
+	\label{fig:xml-beispiel-baumdarstellung}
+\end{figure}
+
+
+\subsection{SAX -- Simple API for XML} \label{xml-einfuehrung-sax}
+Im Gegensatz zur baumbasierten Verarbeitung beim \acr{dom} wird mit \acr{sax} \emph{ereignisorientiert} auf ein \acr{xml}-Dokument zugegriffen. Das bedeutet, dass beim Auftreten bestimmter Analysergebnisse (\zB Beginn oder Ende eines Elements) Ereignisse ausgelöst werden. Somit kann \zB über einen Callback-Mechanismus je nach Ereignis eine geeignete Methode aufgerufen werden, welche die Daten dann entsprechend verarbeiten muss.
+
+Ein Vorteil dieses Ansatzes ist die sequentielle Verarbeitung der Daten, wodurch nicht das komplette Dokument im Speicher gehalten werden muss. Zum Nachteil wird diese Tatsache jedoch dann, wenn zur Verarbeitung viele über das Dokument verstreute Informationen benötigt werden und somit die Anzahl der Zugriffe stark ansteigt.
+
+Die Verarbeitung des Beispieldokumentes würde nacheinander die folgenden \acr{sax}-Ereignisse (vereinfachte Darstellung: es wird u.a. die DTD ignoriert) erzeugen:
+
+\begin{enumerate}
+	\item \texttt{startDocument}
+	\item \texttt{startElement}("`Studienarbeit"')
+	\item \texttt{startElement}("`Thema"')
+	\item \texttt{characters}("`Untersuchung und Bewertung..."')
+	\item \texttt{startElement}("`Betreuer"', AttributeList(length = 1, {name = 'Name', type = 'PCDATA', value = 'Oliver Eck'}))
+	\item \texttt{startElement}("`Titel"')
+	\item \texttt{characters}("`Prof. Dr."')
+	\item \texttt{endElement}("`Titel"')
+	\item \texttt{startElement}("`Email"')
+	\item \texttt{characters}("`eck@fh-konstanz.de"')
+	\item \texttt{endElement}("`Email"')
+	\item \texttt{endElement}("`Betreuer"')
+	\item \ldots
+	\item \texttt{endDocument}
+\end{enumerate}
+
+\section{Anwendungsfälle für den XML-Einsatz}
+\begin{itemize}
+	\item Datentransfer innerhalb einer Applikation
+	\item Integration von bestehenden Applikationen in neue Systeme
+	\item E-Commerce, B2B (\zB bietet das Internetversandhaus Amazon.com einige seiner Dienste über WebServices an \citep{url:amazon})
+	\item Content-Management und -Publishing
+	\item Datenspeicherung, \zB Konfigurationsdaten oder auch als Dateiformat (s. OpenDocument)
+	\item Datenspeicherung in Datenbanken, \zB Bestelldaten, Reservierungen
+\end{itemize}
+
+\section{Stärken von XML}
+Laut \citep[Kap. 22]{Ambler2003} und \citep[Kap. 3]{Schoening2003} sind es vor allem die folgenden Punkte, welche für den Einsatz von \acr{xml} sprechen.
+
+\begin{itemize}
+	\item \acr{xml} ist plattform- sowie programmiersprachenunabhängig und kann somit auf den unterschiedlichsten Computersystemen gelesen und geschrieben werden
+	\item Beim Einsatz von \acr{xml} entstehen keine Lizenzkosten. Die \acr{xml}-""Spezifikation wird kostenlos vom \acr{w3c} über das Internet zur Verfügung gestellt und kann auch in kommerziellen Produkten weiterverwendet werden.
+	\item Weiterhin existiert eine große Anzahl von (kostenlosen oder gar quelloffenen) Werkzeugen für die Arbeit mit \acr{xml}, wie \zB Editoren, Parser oder Datenbanken.
+	\item Ein großer Vorteil für die Internationalisierung von Software ist die Tatsache, dass \acr{xml} auf Unicode basiert.
+	\item Die Familie der \acr{xml}-Technologien ist (weitgehend) standardisiert und wird laufend aktualisiert und erweitert.
+	\item \acr{xml} ist in der Industrie bereits weit verbreitet und akzeptiert
+	\item \acr{xml}-Dokumente \emph{können} von Menschen gelesen werden -- dies ist vor allem bei Fehlersuchen o.ä. Szenarien von Vorteil.
+	\item Über \zB \acr{xsl} können Inhalt und Darstellung von \acr{xml}-Dokumenten leicht getrennt werden. Dies entspricht dem allgemeinen Trend zur Separation von Struktur und Darstellung (s. "`semantisches Web"').
+%	\item Bei sehr komplex strukturierten Geschäftsdaten bedeutet der Einsatz \acr{xml} oftmals eine Verkürzung der Entwicklungszeit.
+\end{itemize}
+
+
+\section{Schwächen von XML}
+Offensichtlich gibt es auch einige Nachteile beim Einsatz von \acr{xml} -- \citep[Kap. 22]{Ambler2003} erwähnt dazu die folgenden Themen:
+
+\begin{itemize}
+	\item \acr{xml}-Dokumente neigen dazu, sehr ausführlich zu werden (\zB durch die Benutzung langer Elementnamen. Dies wirkt sich negativ auf den Speicherbedarf aus. Bei dem heutigen Entwicklungsstand der Speichermedien (hohe Kapazität zu geringen Preisen) ist dieser Punkt jedoch vernachlässigbar und wird durch den Vorteil, dass Dokumente durch die größere Ausführlichkeit auch leichter verständlich werden, noch weniger bedeutsam.
+	\item \acr{xml}-Dokumente müssen ständig, um \zB in einer Software-""Applikation in ein Objekt überführt oder in einer Datenbank gespeichert werden zu können, geparst werden. Andere Speicherformen können somit u.U. performanter sein.
+	\item Einige der \acr{xml}-Standards sind z.Z. noch in der Entwicklung und man kann sich nicht darauf verlassen, dass diese Standards überhaupt allgemeingültig akzeptiert werden. Dies ist jedoch stets eine Gefahr im Zusammenhang mit Standards und somit kein \acr{xml}-spezifisches Problem.
+\end{itemize}
+
+
+\section{Die XML-Sprachfamilie}
+In Tabelle \ref{tab:xml-standards} sind einige der zur \acr{xml}-Familie gehörenden Sprachen und Standards aufgeführt.
+\input{Kapitel/Einfuehrung/table-xml-sprachfamilie}
+
+Im Zusammenhang mit Datenbanken sind \emph{XPath} sowie \emph{XQuery} von besonderer Bedeutung, deshalb wird auf diese Standards in den folgenden Abschnitten näher eingegangen.
+
+\subsection{XPath} \label{einfuehrung-xml-xpath}
+Mit XPath lassen sich die Elemente eines \acr{xml}-Dokuments adressieren. XPath ist keine eigenständige Sprache. Vielmehr bauen andere Sprachen wie etwa \acr{xslt} oder XQuery darauf auf. 
+
+XPath wurde vom \acr{w3c} in der Version 1.0 standardisiert. Es existiert bereits eine Empfehlung für XPath 2.0, die mindestens bis zum 28. Januar 2006 bestehen bleiben soll. Anschließend soll XPath 2.0 verabschiedet werden \citep{url:heise-online}.
+
+Bei XPath wird jedes \acr{xml}-Dokument als Baum angesehen \citep{url:obqo}. Mit XPath kann jeder Knoten dieses Baumes angesprochen werden. Jeder sogenannte Lokalisierungspfad besteht aus drei Teilen:
+\begin{itemize}
+	\item Einer Achse
+	\item Einem Knotentest
+	\item Einem Prädikat
+\end{itemize}
+
+In XPath werden eine Reihe von verschiedenen Knotentypen unterschieden:
+\begin{itemize}
+	\item Wurzelknoten (root node)
+	\item Elementknoten (element node)
+	\item Kommentarknoten (command node)
+	\item Textknoten (text node)
+	\item Namensraumknoten (namespace node)
+	\item Verarbeitungsanweisungsknoten (processing instruction node)
+\end{itemize}
+
+Jeder Knoten kann über einen Lokalisierungspfad angesprochen werden. Der Lokalisierungspfad ist immer relativ zu dem momentanen Knoten. Dieser momentane Knoten wird als Kontextknoten bezeichnet.
+
+Im Folgenden einige Beispiele für Lokalisierungspfade:
+\begin{itemize}
+	\item \texttt{child::b} - wählt den Knoten \texttt{b} des Kontextknotens aus.
+	\item \texttt{child::*} - wählt alle Knoten des Kontextknotens aus.
+	\item \texttt{attribut:c} - wählt das Attribut \texttt{c} des Kontextknotens aus.
+	\item \texttt{/} - wählt die Wurzel des Dokuments aus.
+\end{itemize}
+
+\subsubsection{Achsen}
+Als Achsen wird in XPath eine bestimmte Gruppe von Knoten bezeichnet. Es werden die folgenden Achsen unterschieden:
+\begin{itemize}
+	\item Child (Kind): Alle Knoten, die unmittelbar unter dem Kontextknoten liegen
+  \item Descendant (Nachkomme): Alle dem Kontextknoten nachfolgenden Knoten. Im Gegensatz zum Child umfasst der Descendant nicht nur die Knoten der nächsten Ebene, sondern alle unter dem Kontextknoten liegenden Knoten.
+	\item Parent (Eltern): Der Knoten, der dem Kontextknoten unmittelbar übergeordnet ist. Der Wurzelknoten besitzt als einziger aller Knoten keinen Parent.
+	\item Ancestor (Vorfahre): Ancestor sind alle Elternknoten des Kontextknoten, also den Elternknoten des Kontextknotens sowie den Elternknoten des Elternknotens und wiederum dessen Elternknoten usw.
+	\item Following-sibling (Nachfolgende Geschwisterknoten): Alle nachfolgenden Knoten, die nach dem Kontextkonten im Dokument auftreten, jedoch ohne At"-tri"-but- und Namensraumknoten und ohne die Nachkommen.
+	\item Preceding-sibling (Vorherige Geschwisterknoten): Alle vorherigen Geschwisterknoten des Kontextknotens.
+	\item Following (nachfolgende Knoten): Alle nachfolgenden Knoten, die nach dem Kontextkonten im Dokument auftreten, jedoch ohne Attribut- und Namensraumknoten.
+	\item Preceding (vorherige Knoten): Alle vorherigen Knoten, dir vor dem Kontextkonten im Dokument auftreten, jedoch ohne Vorfahren, Attribut- und Namensraumknoten.
+	\item Attribute (Attribut): Attributknoten
+	\item Namespace (Namensraum): Namensraumknoten
+	\item Self (aktueller Knoten): Ist der Kontextknoten selbst.
+	\item Descendant-or-self (Nachkomme und aktueller Knoten): Erhält alle Nachkommen sowie den Kontextknoten.
+	\item Ancestor-or-self (Vorfahre und aktueller Knoten): Erhält die Vorfahren des Kontextknoten sowie den Kontextknoten selbst. 
+\end{itemize}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics{images/baum_xpath.eps}
+	\caption{XPath Baumstruktur}
+	\label{fig:baum_xpath}
+\end{figure}
+
+
+\subsubsection{Knotentests}
+Achsen besitzen sogenannte Hauptknotentypen. Eine Achse, die aus Elementen besteht, hat als Hauptknotentyp den Elementtyp; eine Achse, die aus Attributen besteht, hat als Hauptknotentyp den Attributtyp usw.
+
+Beim Knotentest werden diejenigen Knoten untersucht, die vom Typ Knotentest sind. Mit dem Knotentest werden die Knoten, die über die Achsen ausgewählt wurden, noch weiter eingeschränkt. Es gibt die folgenden Knotentests:
+
+\begin{itemize}
+	\item \texttt{*} - Der Knotentest ist für jede Bedingung des Hauptknotentyps erfüllt.
+	\item \texttt{text()} - Der Knotentest ist für jeden Textknoten erfüllt.
+	\item \texttt{comment()} - Der Knotentest ist für jeden Kommentarknoten erfüllt.
+	\item \texttt{processing-instruction()} - Der Knotentest ist für jede Processing Instruction gültig.
+	\item \texttt{node()} - Der Knotentest ist für jeden Knoten gültig.
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+	\item \texttt{child::*} - wählt alle Kindknoten des Hauptknotentyps bezogen auf den Kontextknoten aus 
+	\item \texttt{child::text()} - wählt alle Kindknoten des Typs \texttt{text} bezogen auf den Kontextknoten aus
+\end{itemize}
+
+\subsubsection{Prädikate}
+
+Bei Prädikaten handelt es sich um eine weitere Einschränkung der Knoten. Die Prädikate werden in eckige Klammern geschrieben.
+
+\paragraph{Beispiele}
+\begin{itemize}
+	\item \texttt{//Studienarbeit/Autoren/Autor[@Name = ''Jan Tammen'']}: Wählt denjenigen Knoten aus, bei dem das Attribut \texttt{Name} den entsprechenden Wert besitzt: \texttt{<Autor Name=''Jan Tammen''>...</Autor>}.
+	\item \texttt{//Studienarbeit/Autoren/Autor[1]}: Wählt das erste Element vom Typ \texttt{Autor} im Dokument aus: \texttt{<Autor Name=''Christoph Eck''>...</Autor>}.
+\end{itemize}
+
+\subsubsection{Kurzschreibweisen}
+Tabelle \ref{tab:Kurzschreibweisen} zeigt häufig verwendete Kurzschreibweisen in XPath (nach \citep{url:tu-chemniz}).
+\begin{table}
+	\sffamily
+	\centering
+	
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Zeichen} & \multicolumn{1}{V{6em}@{}}{Abkürzung für} & \multicolumn{1}{V{6em}@{}}{Bedeutung} \\
+		\midrule\addlinespace\addlinespace
+		
+		\texttt{//}	& \texttt{/descendant-or-self::node()/} 	& Alle Nachkommen und Kontextknoten \\  %\cmidrule{1-3}
+		\texttt{.}	& \texttt{self::node()} 									& Der Kontextknoten \\  %\cmidrule{1-3}
+		\texttt{..}	& \texttt{parent::node()} 								& Eltern des Kontextknoten \\  %\cmidrule{1-3}
+		\texttt{@} 	& \texttt{attribute::} 										& Attribut auswählen	\\
+		
+		\addlinespace
+		\bottomrule
+		\end{tabularx}
+	\caption{Kurzschreibweisen}
+	\label{tab:Kurzschreibweisen}
+\end{table}
+
+\subsection{XQuery} \label{einfuehrung-xml-xquery}
+XQuery ist ein Abfragesprache, die vom \acr{w3c} entworfen wurde. Mindestens bis zum 28. Februar 2006 soll XQuery als Empfehlung stehen bleiben, anschließend soll der Standard verabschiedet werden \citep{url:heise-online}.
+
+XQuery basiert auf XPath, das heißt, es verwendet für die Bezeichnung der Elemente innerhalb des \acr{xml}-Dokumentes XPath.
+
+\subsubsection{FLWOR-Ausdrücke}
+Umfangreichere XQuery-Abfragen arbeiten mit sogenannten FLWOR-Ausdrücken. FLWOR (ausgesprochen 'flower') steht für "`For-Let-Where-Order by-Return"':
+
+\begin{itemize}
+	\item \texttt{for}: Bindet eine Liste von Werte an Variablen.
+	\item \texttt{let}: Bindet einen einzelnen Wert an eine Variable.
+	\item \texttt{where}: Nach \texttt{where} - erfolgt ein Ausdruck, der \texttt{true} oder \texttt{false} sein kann.
+	\item \texttt{order by}: Sortiert die Liste aufsteigend (Voreinstellung) oder absteigend.
+	\item \texttt{return}: Definiert den Rückgabewert des Ausdruckes. Die Klausel wird für jedes Tupel des Ergebnisstroms einmal evaluiert.
+\end{itemize}
+
+\paragraph{Beispiel}
+Das folgende Beispiel eines FLWOR-Ausdruckes benutzt einige der in XQuery integrierten Funktionen und ermittelt diejenigen Studenten, bei denen der Nachname mit einem "`B"' beginnt.
+
+\lstinputlisting[language=XQuery,caption={XQuery Beispielabfrage},label=listing:xquery-flwor-beispiel]{Kapitel/Einfuehrung/beispiel.xql}
+
+Das konstruierte Ergebnis sieht wie folgt aus:
+\lstinputlisting[language=SQL,caption={Ergebnis der XQuery Beispielabfrage},label=listing:xquery-flwor-beispiel-ergebnis,language=XML]{Kapitel/Einfuehrung/beispiel-ergebnis.xql.xml}
+
+Joins lassen sich erstellen, indem zwei Listen von Werten mit \texttt{for} gebunden werden.
+Neben dem FLWOR-Audruck beherrscht XQuery eine \texttt{if-then-else} Konstruktion:
+
+\lstinputlisting[language=XQuery,caption={If-then-else Konstruktion in XQuery},label=listing:xquery-if-then-else]{Kapitel/Einfuehrung/if-then-else.xql}
+
+Wenn \texttt{expr1} wahr ist, wird \texttt{expr2} zurückgeliefert, ist \texttt{expr1} falsch, so wird \texttt{expr3} zurückgeliefert.
+
+\subsubsection{Funktionen}
+XQuery besitzt über 100 vordefinierte Funktionen. Tabelle \ref{tab:xquery-funktionen} zeigt einige Beispiele für solche Funktionen -- dabei wird auf die Angabe der exakten Funktions-Signaturen verzichtet.
+
+\begin{table}
+	\sffamily
+	\centering
+	\begin{tabularx}{\textwidth}{lX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Funktionsbezeichnung} & \multicolumn{1}{V{6em}@{}}{Beschreibung} \\
+		\midrule\addlinespace\addlinespace
+
+		\texttt{string-join()}	& Verbindet zwei Zeichenketten miteinander. \\ \cmidrule{1-2}
+		\texttt{compare()} 			& Vergleicht zwei Zeichenketten. \\ \cmidrule{1-2}
+		\texttt{substring()} 		& Prüft, ob die Zeichenkette in einer zweiten Zeichenkette erhalten ist. \\ \cmidrule{1-2}
+		\texttt{document()}			& Datei öffnen \\ \cmidrule{1-2}
+		\texttt{tokenize()}			& Trennt den Übergabestring anhand eines regulären Ausdrucks in mehrere Teile auf. \\ \cmidrule{1-2}
+		\texttt{starts-with()}	& Prüft, ob ein übergebener String mit einer bestimmten Zeichenkette beginnt. \\
+		
+		\addlinespace
+		\bottomrule
+		\end{tabularx}
+	\caption{Einige XQuery-Funktionen}
+	\label{tab:xquery-funktionen}
+\end{table}
+
+
+\subsection{XSLT}
+Mithilfe der \acr{xslt}-Programmiersprache, die Teil von \acr{xsl} ist, können \acr{xml}-""Dokumente in beliebige Strukturen (\zB \acr{xhtml}, \acr{wml}, VoiceXML, \ldots) transformiert werden. Dazu werden einem \acr{xslt}-""Prozessor über \acr{xslt}-""Dokumente, sog. "`Stylesheets"' (bzw. richtiger "`Transformationssheets"', s. \citep{Herpers2002}), mitgeteilt, wie die einzelnen \acr{xml}-Elemente transformiert werden sollen.
+Ähnlich wie beim \acr{dom} wird das Dokument als Baum interpretiert; über XPath (s. \ref{einfuehrung-xml-xpath}) können die einzelnen Baum-Elemente angesprochen bzw. selektiert werden.
+
+\subsubsection{Beispieldokument}
+In Listing \ref{listing:xslt-beispiel} ist ein Beispiel für ein \acr{xslt}-Transformationssheet aufgeführt. Es dient dazu, das \acr{xml}-Dokument aus Listing \ref{listing:xml-beispiel} in ein \acr{xhtml}-Dokument zu transformieren, sodass es über einen Webbrowser angezeigt werden kann. Anhand dieses Beispiels wird dann der allgemeine Aufbau eines \acr{xslt}-Dokuments beschrieben.
+
+\lstinputlisting[language=XSLT,caption={XSLT-Beispieldokument},label=listing:xslt-beispiel]{Kapitel/Einfuehrung/beispiel.xsl}
+
+\subsubsection{Aufbau eines XSLT-Dokuments}
+Da es sich bei einem \acr{xslt}-Dokument um eine \acr{xml}-Anwendung handelt, beginnt das Dokument zunächst mit der entpsrechenden \acr{xml}-Deklaration. Anschließend folgt das eigentliche "`Stylesheet"' im Element \texttt{<xsl:transform>}.
+Hauptbestandteil eines \acr{xslt}-Dokuments sind die sog. Transformationsregeln (Template Rules), die wie folgt aufgebaut sind: 
+
+\begin{lstlisting}[language=XSLT,numbers=none]
+<xsl:template match="/ein/XPath/Ausdruck"> [...] </xsl:template>
+\end{lstlisting}
+
+Über das Attribut \texttt{match} wird mithilfe eines XPath-Ausdruckes bestimmt, für welchen Knoten diese Regel gilt. Innerhalb des Elements wird dann \zB das auszugebende Markup sowie weitere Anweisungen eingetragen.
+
+Mittels der Anweisung \texttt{<xsl:attribute name=.../>} kann ein Attribut für das aktuelle Element hinzugefügt werden, in unserem Beispiel das \texttt{href}-Attribut des \texttt{<a>}-Elements.
+
+Die Anweisung \texttt{<xsl:apply-templates select=.../>} veranlasst den \acr{xslt}-""Prozessor dazu, entsprechende Templates für alle Kindknoten des aktuellen Knotens zu suchen und anzuwenden. Über die optionale Angabe des Attributs \texttt{select} kann ein spezielles Template angesteuert werden.
+
+Weitere Sprachelemente wie Bedingungen (\texttt{<xsl:if>, <xsl:choose>}), Sortierungen (\texttt{<xsl:sort>}) oder Schleifen (\texttt{<xsl:for-each>}) sind in unserem einfachen Beispiel nicht enthalten; deren Funktionsweise kann bei Bedarf \zB in der \acr{xslt}-Spezifikation \citep{url:Clark1999} nachgelesen werden.
+
+Nach Anwendung des \acr{xslt}-""Transformationssheets auf unser Quell-Dokument (entweder serverseitig durch einen externen oder einen in den Webbrowser integrierten \acr{xslt}-Prozessor) ergibt sich der folgende \acr{xhtml}-Code:
+
+\lstinputlisting[language=HTML,caption={Ergebnis der Transformation},label=listing:xslt-ergebnis]{Kapitel/Einfuehrung/beispiel.xhtml}
+
+\section{Änderungsoperationen auf XML-Dokumente}
+Im Gegensatz zu \acr{sql} -- mit seinen \acr{dml}-Befehlen \texttt{INSERT}, \texttt{DELETE} und \texttt{UPDATE} -- bietet XQuery im derzeitigen Stadium \emph{keine} Möglichkeit, Änderungsoperationen an Dokumenten durchzuführen \citep{url:Champion2004, url:Klettke2005}.
+Da aber \zB das Einfügen bzw. Abändern einzelner Elemente oder Attribute eines \acr{xml}-Dokumentes durchaus wünschenswerte Funktionen sind, haben sich eine Reihe von entsprechenden Erweiterungen verbreitet. 
+
+\subsection{XUpdate}
+Eine dieser Erweiterungen -- genannt "`XUpdate"' -- wurde von der \acr{xml}:DB-Initiative\footnote{\url{http://xmldb-org.sourceforge.net/}} vorgeschlagen und liegt derzeit als "`Working Draft"' aus dem Jahre 2000 vor \citep{url:Laux2000}. Einige der wichtigsten für XUpdate definierten Anwendungsfälle \citep{url:Staken} sind:
+
+\begin{itemize}
+	\item Einfügen eines neuen Elements vor/nach einem Element
+	\item Einfügen eines Attributs
+	\item Text-Inhalt in ein Element einfügen
+	\item Element/Attribut aktualisieren
+	\item Element/Attribut umbenennen, löschen
+	\item usw.
+\end{itemize}
+
+Die XUpdate-Syntax wird z.Z. von einigen nativen \acr{xml}-\acr{dbms} wie \zB dbXML oder eXist unterstützt.
+
+\subsection{XQuery-Erweiterungen}
+Die XQuery-Spezifikation wurde so entwickelt, dass die geforderten Update-""Funktionen prinzipiell später noch ergänzt werden können. Es liegt ein entsprechender Working Draft \citep{url:Chamberlin2005} vor, welcher ähnliche Anwendungsfälle für eine mögliche XQuery-Erweiterung wie bei XUpdate definiert, diese aber etwas allgemeiner formuliert:
+
+\begin{itemize}
+	\item Aktualisierung von \acr{xml}-Dokumenten in persistenten Speichermedien
+	\item Hinzufügen neuer Daten zu \acr{xml}-Dokumenten
+	\item Erzeugen editierter Dokumenten-Kopien
+	\item Transaktionssicherheit (\acr{acid}-Prinzip)
+\end{itemize}
+
+Da nicht damit gerechnet wird, dass entsprechende Erweiterungen in der nächsten Zeit in die XQuery-Spezifikation einfließen werden, haben sich diverse Vorschläge entwickelt, die teilweise auf der Arbeit von \citep{Lehti2001} aufbauen.

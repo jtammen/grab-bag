@@ -1,0 +1,9 @@
+Abschließend können wir feststellen, dass die \acr{xml}-Unterstützung der untersuchten \acr{dbms} sehr umfangreich ist und viele Möglichkeiten für die Verarbeitung von \acr{xml}-Daten bietet. Die für das Anwendungsbeispiel aufgestellten Anforderungen konnten mit allen drei \acr{dbms} umgesetzt werden.
+
+Auf der anderen Seite ist die breite Unterstützung von \acr{xml}-Funktionalitäten auch ein Nachteil, da sich der Einarbeitungsaufwand dadurch erhöht. Bei den "`\acr{xml}-enabled"' Datenbanken steigert sich die Komplexität der Anfragen durch Benutzung der \acr{xml}-Funktionen erwartungsgemäß.
+
+Die Umsetzung des \acr{sql}/\acr{xml}-Standards ist sowohl bei Oracle 9i wie auch beim SQL-Server 2005 nicht vollständig, wobei Oracle sich wesentlich näher am Standard orientiert. XPath und XQuery sind beim SQL-Server und eXist vollständiger umgesetzt als bei Oracle. 
+
+Unserer Ansicht nach war der größte Nachteil bei der Umsetzung der Anwendung, dass bisher keine Modellierungssprache bei der Verwendung von \acr{xml} existiert. Folglich wird ein strukturiertes Vorgehen bei der Analyse deutlich erschwert. Dieses Problem tritt besonders bei der hybriden Speicherung von \acr{xml}-Daten auf. Wir haben das Problem dadurch umgangen, indem wir uns am bestehenden relationalen Datenmodell orientiert haben.
+
+In unserem Fallbeispiel wurden durch die Benutzung von \acr{xml} keine Möglichkeiten geschaffen, die nicht auch durch die Benutzung von rein relationalen Daten bestanden hätten. Vorteile hätten sich ergeben, wenn ein Datenaustausch zwischen den \acr{dbms} existiert hätte. Beispielsweise wenn die Wohnungsdaten bereits in \acr{xml} vorgelegen hätten oder ein \acr{xml}-Export der Rechnungsdaten nötig gewesen wären.

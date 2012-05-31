@@ -1,0 +1,436 @@
+%%% File-Information {{{
+%%% Filename: template_bericht.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2004-06-30 18:19:32 mp>
+%%% Authors: The LaTeX@TUG-Team [http://latex.tugraz.at/]:
+%%%          Karl Voit (vk), Michael Prokop (mp), Stefan Sollerer (ss)
+%%% History:
+%%%   20040630 (mp) added comments to foldmethod at end of file
+%%%   20040625 (vk,ss) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+% twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+headsepline, %% add a horizontal line below the column title
+footsepline, %% add a horizontal line above the page footer
+titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+halfparskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+% fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+%draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+11pt,         %% set default font size to 11 point
+DIV16
+]{scrartcl}  %% article, see KOMA documentation (scrguide.dvi)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% packages
+%%%
+
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-uml}
+\let\umlClass\pstumlClass	%%% workaround: pst-uml und uml kollidieren
+\usepackage{uml}
+
+%%%
+%%% encoding and language set
+%%%
+
+%%% ngerman: language set to new-german
+\usepackage{ngerman}
+
+%%% inputenc: coding of german special characters
+\usepackage[latin1]{inputenc}
+%%% fontenc, ae, aecompl: coding of characters in PDF documents
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl,aeguill}
+\usepackage{zefonts}
+
+%%%
+%%% technical packages
+%%%
+
+%%% amsmath, amssymb, amstext: support for mathematics
+\usepackage{amsmath,amssymb,amstext}
+
+%%% psfrag: replace PostScript fonts
+\usepackage{psfrag}
+
+%%% listings: include programming code
+\usepackage{listings}
+\usepackage{moreverb}
+
+%%% units: technical units
+%\usepackage{units}
+
+%%% color: support for ... colors, yes!
+\usepackage{color}
+
+%%% graphs and automata (has to be loaded _before_ ngerman)
+%\usepackage{pstricks}
+%\usepackage{vaucanson-g}
+
+%%% table-stuff
+\usepackage{booktabs}
+%\usepackage{array}
+\usepackage{multirow}
+
+%\newcolumntype{N}{>{\bfseries\scriptsize}l}
+%\newcolumntype{V}[1]{%
+	%>{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}%
+%}
+
+%%% some color-definitions (see http://texnik.de/listings/listing0.pdf)
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{hellgrau}{rgb}{0.9,0.9,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% configuration of the listings-package
+\lstset{%
+	float=hbp,%
+	basicstyle=\ttfamily\footnotesize, %
+	identifierstyle=\color{colIdentifier}, %
+	keywordstyle=\color{colKeys}, %
+	stringstyle=\color{colString}, %
+	commentstyle=\color{colComments}, %
+	columns=flexible, %
+	tabsize=4, %
+	frame=tb, %
+	extendedchars=true, %
+	showspaces=false, %
+	showstringspaces=false, % 
+	numbers=left, %
+	numberstyle=\tiny, %
+	breaklines=true, %
+	backgroundcolor=\color{hellgrau}, %
+	breakautoindent=true, %
+	captionpos=b%
+}
+
+%%%
+%%% layout
+%%%
+
+%%% scrpage2: KOMA heading and footer
+%%% Note: if you don't use this package, please remove 
+%%%       \pagestyle{scrheadings} and corresponding settings
+%%%       below too.
+\usepackage{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Float
+\usepackage{float}
+
+%%%
+%%% PDF
+%%%
+
+\newif\ifpdf
+  \ifx\pdfoutput\undefined
+     \pdffalse
+  \else
+     \pdfoutput=1
+     \pdftrue
+  \fi
+
+%%% Should be LAST usepackage-call!
+%%% For docu on that, see reference on package ``hyperref''
+\ifpdf{%   (definitions for using pdflatex instead of latex)
+
+	%%% for screen (PDF), we use sans-serif-fonts
+	\usepackage{mathpazo}
+	\usepackage[scaled=.95]{helvet}
+	\usepackage{courier}	
+	\renewcommand{\familydefault}{\sfdefault}
+	\usepackage[sf]{titlesec}
+
+  %%% graphicx: support for graphics
+  \usepackage[pdftex]{graphicx}
+ 
+  \pdfcompresslevel=9
+
+  %%% hyperref (hyperlinks in PDF): for more options or more detailed
+  %%%          explanations, see the documentation of the hyperref-package
+  \usepackage[%
+    %%% general options
+    pdftex=true,      %% sets up hyperref for use with the pdftex program
+    %plainpages=false, %% set it to false, if pdflatex complains: ``destination with same identifier already exists''
+    %
+    %%% extension options
+    backref=section,   %% if true, adds a backlink text to the end of each item in the bibliography
+    pagebackref=false, %% if true, creates backward references as a list of page numbers in the bibliography
+    colorlinks=true,   %% turn on colored links (true is better for on-screen reading, false is better for printout versions)
+    %
+    %%% PDF-specific display options
+    bookmarks=true,          %% if true, generate PDF bookmarks (requires two passes of pdflatex)
+    bookmarksopen=false,     %% if true, show all PDF bookmarks expanded
+    bookmarksnumbered=false, %% if true, add the section numbers to the bookmarks
+    %pdfstartpage={1},        %% determines, on which page the PDF file is opened
+    pdfpagemode=None,	       %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+    breaklinks=true         
+  ]{hyperref}
+
+  %%% provide all graphics (also) in this format, so you don't have
+  %%% to add the file extensions to the \includegraphics-command
+  %%% and/or you don't have to distinguish between generating
+  %%% dvi/ps (through latex) and pdf (through pdflatex)
+  \DeclareGraphicsExtensions{.pdf}
+  \graphicspath{{./images}}
+
+\else    %(definitions for using latex instead of pdflatex)
+
+  \usepackage[dvips]{graphicx}
+
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}  
+
+  \usepackage[%
+    dvips,            %% sets up hyperref for use with the dvips driver
+    colorlinks=false, %% better for printout version; almost every hyperref-extension is eliminated by using dvips
+    breaklinks=true 
+  ]{hyperref}
+
+\fi %ifpdf
+
+%%% sets the PDF-Information options
+%%% (see fields in Acrobat Reader: ``File -> Document properties -> Summary'')
+%%% Note: this method is better than as options of the hyperref-package (options are expanded correctly)
+\hypersetup{
+  pdftitle={Pizza-Service}, %%
+  pdfauthor={Christoph Eck <ceck@fh-konstanz.de>, Jan Tammen <foobar@fh-konstanz.de>}, %%
+  pdfsubject={Objektorientierte Programmierung, Übungsaufgabe 3}, %%
+  pdfcreator={Jan Tammen <foobar@fh-konstanz.de>}, %% 
+  pdfproducer={}, %%
+  pdfkeywords={} %%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[3]{
+  \begin{center}
+    \includegraphics[width=#1, keepaspectratio=true]{#2} \\
+    \textbf{#3}
+  \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% define the titlepage
+%%%
+
+% \subject{}   %% subject which appears above titlehead
+% \titlehead{} %% special heading for the titlepage
+
+%%% title
+\title{Pizza-Service}
+\subject{Objektorientierte Programmierung, Übungsaufgabe 3}
+
+%%% author(s)
+\author{Christoph Eck \href{mailto:ceck@fh-konstanz.de}{<ceck@fh-konstanz.de>}
+					\and{%
+						{\em Jan Tammen} \href{mailto:foobar@fh-konstanz.de}{<foobar@fh-konstanz.de>}
+					}%
+				}%
+
+%\publishers{Ort der Durchführung: EDC-Labor, FH Konstanz.\\
+%						Datum: 16.12.2004}
+
+\date{\today}
+
+% \thanks{} %% use it instead of footnotes (only on titlepage)
+
+% \dedication{} %% generates a dedication-page after titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% set heading and footer
+%%%
+
+%%% scrheadings default: 
+%%%      footer - middle: page number
+\pagestyle{scrheadings}
+
+%%% user specific
+%%% usage:
+%%% \position[heading/footer for the titlepage]{heading/footer for the rest of the document}
+
+%%% heading - left
+% \ihead[]{}
+
+%%% heading - center
+% \chead[]{}
+
+%%% heading - right
+% \ohead[]{}
+
+%%% footer - left
+% \ifoot[]{}
+
+%%% footer - center
+% \cfoot[]{}
+
+%%% footer - right
+% \ofoot[]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+\begin{document}
+
+% \pagenumbering{roman} %% small roman page numbers
+
+%%% include the title
+%\thispagestyle{empty}  %% no header/footer (only) on this page
+\maketitle
+
+%%% start a new page and display the table of contents
+%\newpage
+%\tableofcontents
+
+%%% start a new page and display the list of figures
+%\newpage
+%\listoffigures
+
+%%% start a new page and display the list of tables
+% \newpage
+% \listoftables
+
+%%% display the main document on a new page 
+\newpage
+
+% \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+
+\section{Einleitung}
+Für einen Lieferservice soll ein Programm erstellt werden, welches Bestelldaten aus einer
+Textdatei einliest und diese in einer internen Tabelle speichert. Diese Daten können
+dann vom Benutzer komplett bzw. nach Artikelgruppen getrennt ausgegeben werden.
+
+\section{Musterbestellung}
+Als Beispiel für spätere Tests im Programm wird folgende Musterbestellung verwendet werden:
+\lstinputlisting{../beispiel.txt}
+
+\section{Anwendungsfalldiagramm}
+
+\begin{figure}[H]
+	\centering
+		\input usecasediag%
+	\caption{UML-Anwendungsfalldiagramm}
+	\label{fig:usecase}
+\end{figure}
+
+
+%%% workaround: \psset{...} kollidiert mit pst-uml, daher erst hier setzen!
+\psset{xunit=1em}
+\psset{yunit=1em}
+\psset{runit=1em}
+\section{Klassendiagramm}
+
+{\em\footnotesize Aus Übersichtsgründen sind allgemeine Accessor-Methoden der Klassen nicht mit aufgeführt.}
+
+\begin{figure}[H]
+	\centering
+		\input klassendiagramm%
+	\caption{UML-Klassendiagramm}
+	\label{fig:classdiagram}
+\end{figure}
+
+\subsection{Beschreibung der Klassen}
+Nachfolgend eine kurze Beschreibung der aufgeführten Klassen und deren besondere Merkmale.
+
+\begin{description}
+	\item[Kunde] Repräsentiert eine Person welcher eine Bestellung zugeordnet wird.
+	\item[Bestellung] Enthält die Daten zu einer Bestellung. Einzelne Bestellpositionen werden durch die Klasse 
+										\textbf{Position} repäsentiert. Die Methode \textit{getPosition(String typ)} liefert
+										alle zu einer Bestellung gehörenden Positionen, welche einen Artikel des Typs {\em typ}
+										enthalten, zurück.
+										
+										Die Methode \textit{getPosition(void)} hingegen liefert alle Positionen zurück.
+										
+										Über die Methoden \textit{addPosition(Position pos)} und \textit{delPosition(Position pos)}
+										lassen sich einzelnen Bestellpositionen hinzufügen bzw. löschen.
+	\item[Position] Eine Bestellung besteht aus beliebig vielen Bestellpositionen, welche jeweils eine Verbindung zu
+									einem konkreten Artikel sowie die entsprechende Anzahl enthalten.
+	\item[Artikel] Abstrakte Klasse. Dient als Basis für alle weiteren Artikel-Klassen.
+	\item[Pizza] Konkrete Artikel-Klasse.
+	\item[Eis] Konkrete Artikel-Klasse. Enthält beliebig viele Eiskugeln.
+	\item[Eiskugel] Enthält String-Attribut zur Speicherung der Sorte (z.B. "`Erdbeere"', "`Schoko"').
+	\item[Nudeln] Konkrete Artikel-Klasse.
+	\item[Getraenk] Abstrakte Artikel-Klasse. Bildet die Basis-Klasse für weitere Getränke-Klassen.
+	\item[Limo] Konkrete \textbf{Getraenk}-Klasse.
+	\item[Bier] Konkrete \textbf{Getraenk}-Klasse.        
+\end{description}
+
+
+%%%
+%%% end main document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\appendix  %% include it, if something (bibliography, index, ...) follows below
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% bibliography
+%%%
+%%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+%%%
+% \bibliographystyle{plain}
+
+%%% name of the bibliography file without .bib
+%%% e.g.: literatur.bib -> \bibliography{literatur}
+% \bibliography{FIXXME}
+
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Notice!
+%%% This file uses the outline-mode of emacs and the foldmethod of Vim.
+%%% Press 'zi' to unfold the file in Vim.
+%%% See ':help folding' for more information.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker

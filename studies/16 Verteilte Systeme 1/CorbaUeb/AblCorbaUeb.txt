@@ -1,0 +1,29 @@
+CORBA - Übung
+1.  \\merkur\lehre\lehreleibsch\CORBAUeb kopieren ins 
+eigene HOME - Verzeichnis auf Z Laufwerk
+2. Netzlaufwerk Y verbinden mit jdk1.2.2 auf Merkur
+3. Wechseln nach Z:\CorbaUeb
+
+4. i2j aufrufen
+
+5. Client Code vervollstaendigen
+
+6. javac client-source.java    aufrufen
+
+7. java client-programm -ORBInitialHost 141.37.122.2 -ORBInitialPort 2050
+
+
+
+8. Termine koennen unter 
+
+http://sputnik.htwg-konstanz.de:82/UE-Termine.html
+
+eingesehen werden
+
+
+
+
+
+
+
+

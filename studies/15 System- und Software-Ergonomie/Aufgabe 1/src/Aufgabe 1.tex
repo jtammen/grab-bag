@@ -1,0 +1,400 @@
+\documentclass[
+	a4paper,     		%% Papiergroesse: A4
+	twoside,     		%% Zweiseitiges Layout (alternativ: oneside)
+	headsepline, 		%% Horizontale Linie unter Kopfzeile
+	footsepline, 		%% Horizontale Linie ueber Fusszeile
+	titlepage,   		%% Eigenstaendige Titelseite (alternativ: notitlepage)
+%	halfparskip, 		%% Halbe Leerzeile zwischen zwei Abschnitten (alternativ: parskip, ...)
+	12pt,        		%% Schriftgroesse: 12pt (alternativ: 10pt, 11pt, ...)
+%	bibtotoc,			%% Bibliographie in's Inhaltsverzeichnis aufnehmen
+%	liststotoc,			%% Indexe in's Inhaltsverzeichnis aufnehmen
+%	smallheadings,		%% Kleine Ueberschriften
+%	DIV1,				%% Divisor, Zeilenlänge ca. 70 Zeichen
+%	draft			  	%% Entwurfsmodus, volle/leere Boxen markieren
+%	abstracton			%% Titel "`Zusammenfassung"' einschalten
+]{scrartcl}
+
+%%%
+%%% Pakete
+%%%
+
+%%% Grafik
+%\usepackage{pstricks}
+
+%%% Deutsche Sprache verwenden
+\usepackage{ngerman}
+
+%%% Kodierung der Eingabezeichen setzen (fuer dt. Umlaute etc.)
+\usepackage[ansinew]{inputenc}
+
+%%% Zeichen-Kodierung in PDF-Dokumenten
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl}
+
+%%% Web-Addressen auch mit T1-Encoding
+\usepackage[T1]{url}
+%%% ... und in tt-Font
+\urlstyle{tt}
+
+%%% amsmath, amssymb, amstext: Unterstuetzung div. mathematischer Zeichen etc.
+%\usepackage{amsmath,amssymb,amstext}
+\usepackage{eurosym}
+
+%%% pifont: "pifont Xs and Check Marks"
+%\usepackage{pifont}
+
+%%% PostScript-Fonts ersetzen
+\usepackage{psfrag}
+
+%%% Programmcode einbinden, Listings
+%\usepackage{listings}
+
+%%% Farb-Unterstuetzung
+\usepackage{color}
+
+%%% Tabellen
+% \usepackage{booktabs}
+% \usepackage{array}
+% \usepackage{multirow}
+% \usepackage{tabularx}
+% \usepackage{threeparttable}	% Fussnoten in table-Umgebung
+
+%%% Floats strikter positionieren (Option 'H'ere)
+\usepackage{float}
+
+%%%
+%%% Pakete konfigurieren, Definitionen
+%%%
+
+%%% Ueberschriften bis zur Ebene 3 nummerieren
+\setcounter{secnumdepth}{3}
+
+%%%
+%%% Seitenlayout, Schriften
+%%%
+
+%%% scrpage2: KOMA Kopf- und Fusszeile
+\usepackage[automark]{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Schrift fuer Ueberschriften umstellen
+%\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%% Schriften fuer Titel- und Fusszeile umstellen
+%\setkomafont{pagehead}{\normalfont\sffamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily\slshape}
+
+%%% Part-Ueberschrift nicht fett drucken
+%\addtokomafont{part}{\mdseries}
+%\addtokomafont{partnumber}{\mdseries}
+
+%%% Default-Platzierungsbeschraenkungen aendern,
+%%% s. http://www.dante.de/faq/de-tex-faq/html/makros2.html#1
+\makeatletter
+	\renewcommand{\fps@figure}{htbp}
+	\renewcommand{\fps@table}{htbp}
+\makeatother
+
+%%%
+%%% PDF-Einstellungen
+%%%
+
+%%% Fallunterscheidung: PDF- oder 'normale' Erstellung?
+\usepackage{ifpdf}
+
+%%% Falls wir PDF erzeugen...
+\ifpdf
+  %%% Serifenlose Schriften benutzen
+  \usepackage{mathpazo}
+  \usepackage[scaled=.95]{helvet}
+  \usepackage{courier}	
+  \renewcommand{\familydefault}{\sfdefault}
+  \usepackage[sf]{titlesec}
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[pdftex]{graphicx}
+ 
+  %%% Kompressionslevel: 0-9
+  \pdfcompresslevel=9
+
+  %%% Hyperlinks in PDF-Dokumenten
+  \usepackage[%
+  	pdftex,
+    pagebackref=false,		%% Seitenzahlen der Quellseite(n) in Bibliographie auflisten? (true|false) 
+    colorlinks=true,		%% Farblinks? (true -> Screen | false -> Print)    
+    %%% PDF-spezifische Optionen
+    bookmarks=true,			%% PDF-Bookmarks erstellen? (true|false)
+    bookmarksopen=true,		%% Anfangs alle Bookmarks ausgeklappt anzeigen? (true|false) 
+    bookmarksnumbered=true,	%% Abschnitt-Nummerierung in Bookmarks integrieren? (true|false)
+    pdfstartpage={1},		%% Startseite beim Oeffnen der Datei
+    pdfpagemode=UseOutlines,%% Anzeigemodus? (None|UseOutlines|UseThumbs|FullScreen)
+    a4paper=true,			%% A4-Format
+    breaklinks=false,
+    linkcolor=gray			%% Link-Farbe
+  ]{hyperref}
+
+	%%% Dateiendung fuer Grafiken setzen -- so kann beim Einbinden der Grafik
+	%%% auf die Endung verzichtet werden und es wird automatisch die korrekte 
+	%%% Datei ausgewaehlt (.eps / .pdf)
+  \DeclareGraphicsExtensions{.pdf}
+  
+  %%% Pfad fuer Bilder setzen
+  \graphicspath{{./images}}
+
+%%% ... oder im 'normalen' Modus sind
+\else
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[dvips]{graphicx}
+
+  %%% s.o.
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}
+
+  %%% Hyperlinks in PS-Dokumenten, Optionen s.o.
+  \usepackage[%
+    dvips,
+    colorlinks=false,
+    breaklinks=true,				%% Duerfen Links umbrochen werden? (true|false)
+  ]{hyperref}
+
+\fi
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={1. Aufgabenblatt},%
+  pdfauthor={Jan Tammen (jan.tammen@htwg-konstanz.de)},%
+  pdfsubject={System- und Software-Ergonomie},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={SERG, 1. Aufgabenblatt},%
+%  pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+%  pdfstartview=FitH,
+}
+
+%%% Links im dvips-Mode auch umbrechen
+%\usepackage{breakurl}
+
+%%%
+%%% Layout der Titelseite
+%%%
+
+%%% Titelkopf, erscheint oberhalb des Titels
+\titlehead{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../images/htwg-logo}
+	\end{figure}
+}
+
+%%%% Subject, erscheint oberhalb des Titels
+\subject{System- und Software-Ergonomie, WS 06/07}
+
+%%% Titel
+\title{1. Aufgabenblatt}
+
+
+%%%% Autor. Weitere Autoren mit \and{<Name>} hinzufuegen
+\author{%
+	Jan Tammen, 277143
+}%
+
+%%% Datum setzen
+\date{\today}
+
+%%%
+%%% Header und Footer
+%%%
+%\pagestyle{scrheadings}
+
+%%%
+%%% Beginn Hauptdokument
+%%%
+\begin{document}
+
+%%% Titelseite erstellen
+\maketitle
+
+%%%
+%%% Beginn Inhalt
+%%%
+\section{Aufgabe 1}
+\subsection{Teilaufgabe 1a}
+Ich möchte in dieser Aufgabe die Entwicklungsumgebung \textsl{Eclipse} (Version
+3.1, Windows) auf ergonomische Aspekte hin untersuchen. Bei Eclipse handelt es
+sich um eine Open-Source Entwicklungsplattform, mit Hilfe derer komplexe
+Anwendungsprogramme entwickelt werden können.
+
+Am häufigsten ist jedoch die Verwendung von Eclipse als Java-IDE
+(\textsl{Integrated Development Environment}) und daher möchte ich mich auf 
+diesen Teilbereich beschränken. Eclipse bietet dabei umfassende Features für die
+Java-Entwicklung, beginnend mit dem Syntax-Highlighting, Code-Folding und -Completion,
+Debugging bis hin zu umfangreichen Refactoring-Möglichkeiten.
+
+\subsection{Teilaufgabe 1b}
+In den folgenden Unterabschnitten möchte ich nun jeweils gut und weniger gut
+umgesetzte Aspekte der Benutzung aufzeigen.
+
+\subsubsection{Positive Aspkete}
+\paragraph{Effektivität} Für die Verwaltung allgemeiner bzw.\ pluginspezifischer
+Einstellungen bietet Eclipse eine zentrale Einstellungsverwaltung
+("`Preferences"') an. Dieser Dialog enthält eine baumartige Darstellung
+(s. Screenshot \ref{fig:eclipse-preferences}) aller Konfigurationskategorien,
+diese ist leicht zugänglich und der Anwender kann die gewünschten Änderungen
+schnell durchführen. Außerdem lassen sich gezielt Einstellungen durch eine
+Suchfunktion in der oberen linken Dialogecke ("`type filter text"') finden.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.50\textwidth]{../images/eclipse-preferences}
+  \caption{Eclipse: Preferences-Dialog, baumartige Darstellung mit Suchfunktion}
+  \label{fig:eclipse-preferences}
+\end{figure}
+
+\paragraph{Effizienz} Eclipse bietet mit dem \textsl{Refactoring}-Paket eine
+effiziente Lösung, um Änderungen am Quellcode an einer bestimmten Stelle
+automatisch im gesamten Projekt nachzuziehen. Beispielsweise können Klassen
+umbenannt, Methoden extrahiert oder Signaturen geändert (s. Screenshot 
+\ref{fig:eclipse-refactoring}) werden, ohne dass der Nutzer ggf.\ mühsam durch
+alle Projektdateien suchen muss, um die Änderungen dort ebenfalls durchzuführen.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.50\textwidth]{../images/eclipse-refactoring}
+  \caption{Eclipse: Refactoring, Methodensignatur ändern}
+  \label{fig:eclipse-refactoring}
+\end{figure}
+
+\paragraph{Anwenderzufriedenheit} Eclipse gibt dem Anwender mit den sog.\ 
+"`Perspectives"' und "`Views"' die Möglichkeit, je nach aktuell zu bearbeitender
+Aufgabe (z.B. Schreiben eines Java-Programms oder Debuggen eines Java-Programms)
+das Layout der Fensterelemente individuell anzupassen. Auf diese Weise lässt
+sich z.B. in der Programmieransicht (Java-Perspective) eine Strukturansicht
+("`Outline"') des Quellcodes anzeigen, welche dann beim Wechsel in die
+Debugansicht automatisch ausgeblendet oder z.B. durch die Anzeige der
+Breakpoints ersetzt wird. In jeder Perspective lassen sich beliebig viele
+Views (z.B. Strukturansicht, Paketbrowser, Fehleransicht) anzeigen und 
+positionieren.
+
+\subsubsection{Negative Aspkete}
+\paragraph{Effektivität} Der oben beschriebene Dialog zur Einstellungsverwaltung
+hat leider einen kleinen Mangel, welcher meiner Meinung nach die Effektivität
+deutlich einschränkt: öffnet man diesen Dialog und es gibt in der Baumansicht
+viele Knoten, so ist die Fenstergröße u.\,U.\ zu klein, sodass in der Liste
+unnötig gescrollt werden muss. Ändert man die Fenstergröße, bleibt diese
+Einstellung auch nicht permanent erhalten, sondern wird nach Schließen des 
+Dialogs wieder zurückgesetzt. Dieses Verhalten zeigt sich auch bei anderen Dialogen.
+
+\paragraph{Effizienz} Die Suchfunktion von Eclipse bietet dem Nutzer meiner
+Meinung nach eine nicht vollständig effiziente Suchmöglichkeit. Im
+Suchdialog muss die Suchrichtung (auf- oder abwärts) explizit ausgewählt werden.
+Startet der Nutzer nun eine Suche, wird ab der aktuellen Cursorposition in der
+gewählten Richtung gesucht. Wird der Suchbegriff nicht gefunden, so erhält der
+Benutzer lediglich die Meldung "`String not found"' (s. Abbildung
+\ref{fig:eclipse-search}). Er wird hier nicht darauf hingewiesen, dass sich der
+gesuchte Begriff evtl. in der \textsl{anderen Suchrichtung} befindet - er muss
+dies also selbstständig realisieren und die Suchrichtung umstellen.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.70\textwidth]{../images/eclipse-search}
+  \caption{Eclipse: Suchdialog mit aktueller Cursorposition}
+  \label{fig:eclipse-search}
+\end{figure}
+
+\paragraph{Anwenderzufriedenheit} Die Tastaturkürzel der Windows-Eclipse-Version
+sind teilweise nicht mit den für diese Plattform üblichen Kommandos belegt. So
+ist z.\,B.\ das für den "`Datei öffnen"'-Dialog übliche Kürzel
+\texttt{STRG+O} in Eclipse nicht belegt. Über die
+Konfigurationsverwaltung kann der Nutzer diese Einstellungen jedoch anpassen.
+
+\subsection{Teilaufgabe 1c}
+Abgesehen von den o.\,a.\ kleineren Unannehmlichkeiten halte ich die Eclipse-IDE
+insgesamt für sehr benutzertauglich. Zu diesem Eindruck tragen einerseits die
+umfangreichen  Einstellungsmöglichkeiten - mit denen sich ein versierter Anwender
+die Oberfläche an seine Bedürfnissen anpassen kann - bei, zum anderen die
+zahlreichen Wizards und Hilfsfunktionen zur Vermeidung von Wiederholungen.
+
+Insgesamt stellte sich heraus, dass es schwieriger ist, aussagekräftige
+\textsl{negative} als ebensolche \textsl{positive} Bewertungspunkte zu finden.
+
+
+\section{Aufgabe 2}
+\subsection{Teilaufgabe 2a}
+Im folgenden Abschnitt möchte ich die Computerarbeitsplätze im PC-Labor F033 der
+HTWG Konstanz unter ergonomischen Gesichtspunkten betrachten. Diese
+Arbeitsplätze dienen hauptsächlich den Studierenden der Informatikstudiengänge
+für Arbeiten an Projekten bzw.\ der Durchführung von Übungen im Rahmen von
+Lehrveranstaltungen. Ein Arbeitsplatz besteht dabei aus einem Desktop-PC,
+TFT-Monitor, Tastatur, Maus sowie Bürostuhl. Im Arbeitsraum befinden sich
+mehrere Schreibtische, auf denen jeweils ein bis zwei Rechner positioniert sind.
+
+Ich persönlich nutze diesen Arbeitsraum regelmäßig, zum einen um die dort
+installierten Anwendungsprogramme sowie den Internetzugang zu nutzen, andererseits für
+Gruppenarbeiten an Referaten oder Projekten.
+
+\subsection{Teilaufgabe 2b}
+\subsubsection{Computerhardware}
+Der Arbeitsplatz ist ausgestattet mit einem \textsl{TFT-Bildschirm}, der sowohl
+dreh- als auch höhenverstellbar ist. Dadurch lässt sich der optimale Blickwinkel
+für den Benutzer individuell anpassen. Durch die gewählte Positionierung zu den
+Fenstern sowie die vorhandenen Jalousien ist das Bild frei von Gegenlicht und
+Lichtspiegelungen. Der Monitor bietet ein gutes, scharfes und flimmerfreies Bild.
+
+Die \textsl{Tastatur} ist frei auf dem Tisch bewegbar und bietet spiegelfreie,
+matte Tasten. Das Schreibgefühl ist angenehm, wobei der Druckpunkt etwas schwach
+gewählt ist. Bei der Farbgebung weicht die Tastatur von den
+Ergonomieempfehlungen ab - sie ist nicht hell mit dunkler Beschriftung,
+sondern weist eine invertierte Farbgebung auf. Auch bietet sie einige
+zusätzliche Funktionstasten, deren Funktion mir als Standardanwender ohne
+Anweisung bzw.\ Blick in die Bedienungsanleitung verborgen bleibt - die
+aufgedruckten Symbole sind meines Erachtens nicht sehr aussagekräftig. Für
+längere Schreibarbeiten ist diese Tastatur vermutlich nicht geeignet, da eine
+Handballenauflage nicht vorhanden ist.
+
+Als weiteres Eingabegerät gibt es eine optische \textsl{Maus}. Diese bietet
+neben den zwei Standard-Tasten ein Mausrad für das vereinfachte Scrollen z.\,B.\
+innerhalb von Dokumenten. Für das normale Arbeiten mit Anwendungsprogrammen 
+bietet die Maus eine hinreichend große Auflösung.
+
+\subsubsection{Möbel}
+Der \textsl{Schreibtisch}, auf welchem der PC untergebracht ist, bietet zur Wand
+hin ausreichend Beinfreiheit. Auch gibt es - im Gegensatz zu manch anderem
+Laborarbeitsplatz - viel seitliche Freiheit zu den Tischnachbarn, was
+insbesondere beim Arbeiten mit weiteren Papierunterlagen auf dem Tisch von
+Bedeutung ist. Die Tischoberfläche ist hell und matt, außerdem spiegelfrei.
+
+Negativ aufgefallen sind mir die \textsl{Bürostühle}, deren Rückenlehnen
+teilweise defekt sind oder die sich nicht mehr höhenverstellen lassen und somit
+nicht mehr an die jeweiligen Bedürfnisse des Benutzers angepasst werden können. 
+Auch gibt es keine Fußstützen, sodass entsprechend kleine Personen evtl.\ keine
+optimale Sitzposition einnehmen können.
+
+\subsubsection{Sonstiges}
+Ein weiteres Kriterium für einen angenehmen Abeitsplatz stellt für mich die
+ausreichende \textsl{Beleuchtung} sowie \textsl{Frischluftzufuhr} dar. Beide
+Voraussetzung sind für den beschriebenen Arbeitsplatz erfüllt - die
+Deckenbeleuchtung ist kräftig und die Fenster lassen sich zwecks Lüftung öffnen.
+Weiterhin gibt es am Arbeitsplatz keine nennenswerten akustischen Störungen,
+wenn man von im selben Raum arbeitenden Komillitonen einmal absieht.
+
+\subsection{Teilaufgabe 2c}
+Insgesamt betrachtet würde ich den beschriebenen Bildschirmabeitsplatz als
+akzeptabel beschreiben. Er erfüllt größtenteils die Kriterien, welche für einen
+ergonomischen Arbeitsplatz erforderlich sind und ermöglicht angenehmes Arbeiten.
+
+Die Tatsache, dass die Stühle leichte Mängel aufweisen fällt in diesem Falle
+nicht übermäßig ins Gewicht. Die Arbeitsplätze sind nicht auf stundenlanges
+Arbeiten ausgelegt, sondern auf durchschnittliche Nutzungsdauern einer
+Vorlesungsveranstaltung, also ca. 90 Minuten bzw.\ im Falle von Projektarbeiten
+auch teilweise länger. Für diese Zeit ist die vorhandene Bestuhlung m.\,E.\ nach
+ausreichend.
+
+\end{document}

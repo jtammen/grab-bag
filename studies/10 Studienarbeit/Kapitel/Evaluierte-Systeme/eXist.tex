@@ -1,0 +1,45 @@
+\section{Einführung in eXist}
+eXist ist eine unter der \acr{gnu} \acr{lgpl} Open Source-Lizenz veröffentlichte native \acr{xml}-Datenbank \citep{url:Meier2005b}. Sie ist in Java implementiert und speichert die Daten in einem proprietären, vom dbXML-Projekt\footnote{\url{http://www.sleepycat.com/products/bdbxml.html}} abgeleiteten Format.
+
+Für die Abfrage von Daten werden die \acr{w3c}-Standards XPath 2.0 sowie XQuery 1.0 (erweitert um einige spezielle Funktionen und Operatoren) unterstützt. Zugriff auf die Datenbank ist über \acr{http}/\acr{rest}, \acr{xml-rpc}, \acr{soap} sowie das Java-\acr{xml}:DB-\acr{api} möglich. Außerdem sind über XUpdate sowie (auf dem Entwurf von \citep{Lehti2001} basierenden) XQuery-Erweiterungen Manipulationen auf Dokumenten- und Knoten-Ebene durchführbar. Weitere technische Details finden sich auf der entsprechenden Webseite des Projekts \citep{url:Meier}.
+
+Obwohl es derzeit noch einige Einschränkungen gibt, die einen Einsatz im professionellen High-End-Bereich nicht empfehlenswert machen würden, bietet eXist bereits zahlreiche gute Features und eine für kleinere Anwendungen ausreichende Performanz.
+
+Für die Evaluierung in dieser Arbeit wird eine aktuelle Entwicklungsversion vom 06.01.2006 verwendet.
+
+\section{Funktionsweise}
+In den folgenden Abschnitten soll die Funktionsweise der einzelnen Komponenten kurz beschrieben werden.
+
+\subsection{Datenspeicherung}
+Intern werden Dokumente in sog. \emph{Collections} (entsprechen dem "`Datenbank"'-""Konzept bei relationalen \acr{dbms}) zusammengefasst. Diese Collections können wiederum andere Collections enthalten, dadurch entsteht eine hierarchische, dateisystemähnliche Struktur der Dokumente.
+
+Die Datenablage erfolgt auf der Basis von \emph{B+-Bäumen}. Diese Datenstruktur bietet aufgrund ihrer Selbst-Balanciertheit eine garantierte obere Schranke für die Operationen \emph{Suchen}, \emph{Einfügen} sowie \emph{Löschen} (s. \citep{url:Papakonstantinou1999}). Besonders vorteilhaft ist die Verwendung der B-Bäume für die Verwaltung von großen Datenmengen, die evtl. teilweise in einen Hintergrundspeicher ausgelagert werden müssen -- insbesondere die gewählte Sonderform der B+-Bäume minimiert die nötigen (teuren) Zugriffe auf diesen Hintergrundspeicher (\zB eine Festplatte).
+
+\subsection{Dokumenten-Parsing und Indexierung}
+Zum Parsen der Dokumente verwendet eXist die bereits vorgestellte \acr{sax}, mithilfe derer eine interne Baum-Repräsentation des Dokumentes erstellt wird. Der so erstellte Baum sowie evtl. vorhandene Namensraum-Definitionen werden in (nach Namensräumen) getrennten Dateien abgelegt. 
+
+Die Speicherung der verschiedenen Knoten-Typen wird dabei unterschiedlich gehandhabt:
+\begin{itemize}
+	\item Elemente sowie dazugehörige Attributnamen werden im \emph{Struktur-Index} abgelegt
+	\item Attributwerte werden im \emph{Volltext-Index} gespeichert
+	\item Der Inhalt von Text-Knoten wird ebenfalls im \emph{Volltext-Index} abgelegt
+\end{itemize}
+
+Neben den genannten Indizes verwaltet eXist weiterhin einen \emph{Bereichsindex}, der im Gegensatz zu den o.g. jedoch manuell angelegt werden muss. Der Bereichsindex wird dabei typspezifisch für einzelne Dokumenten-Knoten definiert.
+
+\subsection{Abfrage-Auswertung}
+Abfragen können an einzelne Dokumente oder auch komplette Collections gestellt werden. Dabei wird die Abfrage intern zunächst auf eine Reihe von Grundoperationen (Un-/Gleichheit, Größenvergleich, Mengenoperation) zurückgeführt, für welche die B-Baum-Implementierung Abfragefunktionen zur Verfügung stellt.
+
+Der Dokumenten-Baum wird nun rekursiv abgestiegen, dabei wird in jedem Rekursionsschritt die Menge der noch zu durchsuchenden Knoten soweit wie möglich eingeschränkt. Bei Erreichen eines Blattes (in welchen die eigentlichen Daten referenziert sind), werden die dort gefundenen Werte mittels der entsprechenden Testfunktion überprüft -- bei erfolgreichem Test wird der Wert in die Ergebnismenge übernommen.
+
+\section{Einschränkungen und aktuelle Entwicklungen}
+Aufgrund der Tatsache, dass es sich bei eXist um ein kleines Open Source-Projekt handelt, sind einige wichtige Features noch nicht verfügbar bzw. existieren noch einige Einschränkungen -- diese sind aber teilweise bereits Bestandteil der aktuellen Entwicklungsarbeit (s. \citep{url:Meier2005}).
+
+\begin{itemize}
+	\item Keine Unterstützung für \emph{Transaktionen}, Crash-Recovery, Journalling-Log (erste Ansätze in der aktuellen Entwicklungsversion)
+	\item Beschränkung der \emph{Dokumentenanzahl} auf $2^{31}$
+	\item Beschränkung der \emph{XML-Knoten pro Dokument} auf $2^{63}$ (Ansätze zur Umgehung dieses Limits in
+ Diskussion)
+	\item XQuery 1.0/XPath 2.0 - Spezifikationen noch nicht komplett implementiert (wird stetig erweitert)
+	\item Keine Unterstützung für \emph{Trigger} (undokumentiert vorhanden in der aktuellen Entwicklungsversion)
+\end{itemize}

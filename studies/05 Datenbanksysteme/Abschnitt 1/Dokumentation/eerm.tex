@@ -1,0 +1,110 @@
+\newif\ifblackwhite 
+\blackwhitefalse
+\blackwhitetrue
+\ifblackwhite
+  \newgray{veryverylightgray}{0.95}
+  \newgray{verylightgray}{0.85}
+  \seticonparams{entity}{shadow=true,shadowsize=2pt,fillcolor=lightgray,fillstyle=solid}
+  \seticonparams{attribute}{fillcolor=verylightgray,fillstyle=solid}
+  \seticonparams{relationship}{shadow=true,shadowsize=1pt,fillcolor=veryverylightgray,fillstyle=solid}
+\else
+  \newrgbcolor{lightblue}{0.68 0.85 0.95}
+  \newrgbcolor{verylightblue}{0.34 0.42 0.5}
+  \newrgbcolor{lightgreen}{0.00 0.98 0.60}
+  \newrgbcolor{verylightgreen}{0.00 0.5 0.30}
+  \newrgbcolor{lightred}{1.00 0.71 0.76}
+  \newrgbcolor{verylightred}{0.50 0.351 0.38}
+  \seticonparams{entity}{shadow=true,fillcolor=lightred,fillstyle=solid}
+  \seticonparams{attribute}{fillcolor=lightblue,fillstyle=solid}
+  \seticonparams{relationship}{shadow=true,fillcolor=lightgreen,fillstyle=solid}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{3em}
+
+\psset{nodesep=0pt}
+\attrdist{3em}	%% Standard-Entf. der Attribute, default: 2em
+\cardpos{0.40}		%% Standard-Pos. der Kardinalitaeten, default: 0.85
+
+%%% Entities
+\begin{tabular}{ccc}
+	\begin{tabular}{c}
+	\entity{Buchung} \\[6em]
+	\entity{Ferienwohnung} \\[6em]
+	\entity{Entfernung}
+	\end{tabular}
+	
+	\hspace{6em}
+ 
+	\begin{tabular}{c}
+	\entity{Rechnung} \\[6em]
+	\entity{Land} \\[6em]
+	\entity{Attraktion}
+	\end{tabular}
+	
+	\hspace{6em}
+ 
+	\begin{tabular}{c}
+	\entity{Kunde} \\[9em]
+	\entity{Fluglinie}
+	\end{tabular}
+\end{tabular}
+
+\nodeconnections{\footnotesize
+	\relationshipbetween{Ferienwohnung}[n]{Land}[1]{FinL}[in]
+	\relationshipbetween{Ferienwohnung}[1]{Entfernung}[n]{FhatE}[]
+	\annote{FhatE}{von/nach}(8pt,10)
+%
+	\relationshipbetween{Buchung}[n]{Ferienwohnung}[1]{BreserviertF}[]
+	\annote{BreserviertF}{reserviert}(8pt,10)
+%	
+	\relationshipbetween{Entfernung}[n]{Attraktion}[1]{AhatE}[]
+	\annote{AhatE}{von/nach}(6pt,90)
+%	
+	\relationshipbetween{Attraktion}[n]{Land}[1]{AhatE}[in]
+%	
+	\relationshipbetween{Buchung}[1]{Rechnung}[1]{BstelltinR}[]	
+	\annote{BstelltinR}{stellt in Rechnung}(6pt,90)
+%	
+	\relationshipbetween{Kunde}[n]{Land}[1]{KinL}[]
+	\annote{KinL}{wohnt in}(8pt,100)
+%	
+	\relationshipbetween{Fluglinie}[n]{Land}[m]{FfliegtanL}[]
+	\annote{FfliegtanL}{fliegt an}(8pt,80)
+%
+	\attributeof{Ferienwohnung}{140}[mv]{Zusatzausst.}
+	\attributeof{Ferienwohnung}[5.5em]{170}{Zimmer}
+	\attributeof{Ferienwohnung}[6em]{190}{Gr"osse}
+	\attributeof{Ferienwohnung}[7em]{205}{Preis}
+	\attributeof{Ferienwohnung}[8.0em]{220}[mv]{Bild}
+%
+	\attributeof{Buchung}[2em]{90}[key]{Nr}
+	\attributeof{Buchung}[3em]{140}{Datum}
+	\attributeof{Buchung}[3.5em]{180}{Zeitraum}
+%
+	\attributeof{Entfernung}[2em]{270}{km}
+%
+	\attributeof{Attraktion}[4.5em]{10}[key]{Name}
+	\attributeof{Attraktion}[5em]{345}{Typ}
+	\attributeof{Attraktion}[2em]{270}{Beschrieb}
+%
+	\attributeof{Land}[2em]{60}[key]{Code}
+	\attributeof{Land}[2em]{120}{Name}
+%
+	\attributeof{Fluglinie}[2em]{90}{Name}	
+%
+	\attributeof{Kunde}[3em]{90}{Adresse}
+		\attributeof{Adresse}[3em]{160}{PLZ}
+		\attributeof{Adresse}[2em]{110}{Stadt}
+		\attributeof{Adresse}[2em]{50}{Strasse}
+		\attributeof{Adresse}[3em]{10}{Hausnr.}
+	\attributeof{Kunde}[3em]{20}{Vorname}
+	\attributeof{Kunde}[3em]{340}{Nachname}	
+	\attributeof{Kunde}[3em]{270}{Bankverb.}
+	\attributeof{Kunde}[3em]{160}[key]{KdNr.}
+%
+	\attributeof{Rechnung}[2em]{90}{Eingang}
+}
+
+\vspace{3em}

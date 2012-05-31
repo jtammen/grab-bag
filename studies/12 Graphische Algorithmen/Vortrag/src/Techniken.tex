@@ -1,0 +1,259 @@
+\begin{frame}{Einsatzebenen}
+  \textbf{Non-Photorealistic Rendering (NPR)} kann auf drei Ebenen eingesetzt werden:
+  \begin{itemize}
+    \item Geometrieraum
+    \item Projektionsraum
+    \item Bildraum
+  \end{itemize}
+\end{frame}
+
+\subsection{Techniken im Geometrieraum}
+\begin{frame}{Techniken im Geometrieraum}
+  \begin{itemize}
+    \item direkter Einfluss auf die 3D-Geometrie der Objekte
+    \item Nachteil: erfordert einen hohen Zeitaufwand
+    \item wird daher selten bevorzugt
+    \item Techniken:
+    \begin{itemize}
+      \item Computer Sketching
+      \item Noise Modifier
+      \item Level of Detail
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Computer Sketching}
+  \begin{itemize}
+    \item Paul Bourk, 1990
+    \item Frage: Können CAD-Anwendungen auch unscharfe,
+    an menschliche Skizzen erinnernde Entwürfe
+    ausgeben?
+    \item Kriterien für Skizzen:
+    \begin{itemize}
+      \item Linien enden nicht exakt an Schnittpunkten (Kreuzungen)
+      \item Linien sind nicht gradlinig sondern "`verwackelt"'
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Computer Sketching}
+  \begin{itemize}
+    \item Hauptansatz: direkte Manipulation der 3D-Geometrie
+    \item Umsetzung:
+    \begin{itemize}
+      \item Linien werden um randomisierte Faktoren verlängert
+      \item Aufspalten der Linien und Mittelpunktverschiebung
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Computer Sketching}
+  \includegraphics[width=0.5\textwidth]{../images/haus.jpg}
+\end{frame}
+
+\begin{frame}{Noise Modifier}
+  \begin{itemize}
+    \item "`Rauschen"' in 3D-Modellen
+    \item Geometriepunkte werden um einen zufälligen Faktor
+    verschoben
+    \item meist Anwendung auf glatte Flächen, um
+    "`natürliche"' Flächen zu erzeugen (Landschaften)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Level of Detail}
+  \begin{itemize}
+    \item Einsatz in vielen Bereichen:
+    \begin{itemize}
+      \item Kartographie: angezeigte Detailstufe in Abhängigkeit vom
+      Maßstab (Generalisierung)
+      \item photorealistische Darstellungen: angezeigte Detailstufe der
+      Szene in Abhängigkeit von der Betrachterposition
+      \item NPR: Detailstufe in Abhängigkeit zur "`Wichtigkeit"' der
+      Objekte
+      \begin{itemize}
+        \item Eine Möglichkeit ist die Meshsimplifizierung
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Level of Detail}
+  \begin{itemize}
+    \item Meshsimplifizierung:
+    \begin{itemize}
+      \item reduziert die Anzahl der Polygone eines 3D Modells
+      \item äußere Form wird dabei approximiert
+      \item Dadurch: schnellere Verarbeitung in Echtzeitsystemen möglich
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Techniken im Projektionsraum}
+\begin{frame}{Techniken im Projektionsraum}
+  \begin{itemize}
+    \item meistens Kombination aus Projektions- und
+    Bildraumverfahren
+    \item dadurch leichteres Arbeiten mit 3D-Modellen und
+    Erhöhung der grafischen Qualität der Ausgabe
+    \item Techniken:
+    \begin{itemize}
+      \item G-Buffer
+      \item Line-Rendering
+      \item Stroke Textures
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{G-Buffer}
+  \begin{itemize}
+    \item "`Geometrie-Buffer"' Saito \& Takahashi, 1990
+    \item in den meisten kommerziellen Cartoon-Render-Paketen implementiert
+    \item Prinzip: zusätzliche Speicherung von geometrischen
+    Daten zur Informationsgewinnung im Bildraum
+    \begin{itemize}
+      \item Flächen-Normalen des 3D-Modells
+      \item UV-Koordinaten des 3D-Modells
+      \item Z-Buffer des 3D-Modells
+    \end{itemize}
+    \item Grundidee: Informationen zur Bilderzeugung aus dem G-Buffer
+    extrahieren, analysieren und zusammenfügen.  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Line-Rendering}
+  \begin{itemize}
+    \item Simulation der Semantik von Linien
+    \item geometrische Semantik:
+    \begin{itemize}
+      \item Begrenzungen, Silhouetten, Diskontinuitäten (Falten)
+    \end{itemize}
+    \item stilistische Semantik:
+    \begin{itemize}
+      \item Stärke der Linien, Transparenz, Linientyp (durchgezogen,
+      gestrichelt, etc.)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Line-Rendering}
+  \begin{itemize}
+    \item Abspeicherung dieser zusätzlichen Attribute in
+    geeigneter Form
+    \begin{itemize}
+      \item Eine Möglichkeit: Speicherung in Matrixform
+    \end{itemize}
+    \item Generierung der Attribute
+    \begin{itemize}
+      \item z.B. durch Inferenzregeln zu Bestimmung der
+      Charakteristika der einzelnen Linien
+    \end{itemize}
+    \item Gute Kombinationsmöglichkeiten mit anderen
+    NPR-Techniken (etwa G-Buffer)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Stroke Textures}
+  \begin{itemize}
+    \item Winkenbach \& Salesin, 1994
+    \item Prinzip basiert auf konventionellen 2D-Malsystem
+    \begin{itemize}
+      \item "`strichbasierte"' Texturen werden angefertigt
+      \item mittels Texturemapping auf 3D-Objekte aufgebracht
+      \item Dabei: Anwendung des LOD-Prinzips auf die Textur
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Stroke Textures}
+  \includegraphics[width=\textwidth]{../images/strokes.jpg}
+  \begin{itemize}
+    \item Linienstärken und "`Detail Tags"' sind durch den
+    Benutzer spezifizierbar
+  \end{itemize}
+\end{frame}
+
+\subsection{Techniken im Bildraum}
+\begin{frame}{Techniken im Bildraum}
+  \begin{itemize}
+    \item vorhandenes Bild wird analysiert und neu
+    gezeichnet
+    \item Techniken:
+    \begin{itemize}
+      \item Texture Elements
+      \item Hairy brushes
+      \item Iterated Function System (IFS)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Texture Elements}
+  \begin{itemize}
+    \item Mezei et al., 1974
+    \item Ursprünglich: Synthese sehr "`naturalistischer"' Bilder
+    \item Beobachtung: in der Natur kommen sich oft
+    wiederholende Muster vor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Texture Elements}
+  \begin{itemize}
+    \item Umsetzung: vorgefertigte grafische Subelemente
+    werden zusammengefügt, um neue Bilder zu
+    erzeugen
+    \item Variationen durch Skalierung, Rotation und andere
+    Verzerrungen
+    \item Erzielt werden Verallgemeinerungen der
+    Oberflächeneigenschaften, die wie menschliche
+    Illustrationen wirken
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hairy Brushes}
+  \begin{itemize}
+    \item Strassmann, 1986
+    \item Verhalten von Pinsel und Farbe soll simuliert werden
+    \item Ansatz: Pinsel als 1D-Abdruck der Pinselborsten
+    \item Borsten laufen an einer parametrischen Kurve
+    entlang, die durch Knoten definiert ist
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hairy Brushes}
+  \begin{itemize}
+    \item Knoten enthalten Informationen über Position und
+    Druck des Pinsels
+    \item jeder "`Strich"' wird mit einer speziellen Menge an
+    Farbe gezeichnet
+    \item Menge nimmt mit der Länge der Linie ab
+    \item erneutes "`Eintunken"' des Pinsels ist möglich
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Iterated Function Systems (IFS)}
+\begin{itemize}
+ \item IFS: Systeme von Funktionen die wiederholt
+ ausgeführt werden
+ \item Einsatz: zur Beschreibung von Fraktalen
+ \item Fraktale sind selbstbezüglich (rekursiv)
+ \begin{itemize}
+   \item Beispiel: Barnsley-Farn
+     \begin{columns}
+    \column{.2\textwidth}
+	\includegraphics[width=\textwidth]{../images/BarnsleyFarn.jpg}
+	\column{.2\textwidth}
+    \includegraphics[width=\textwidth]{../images/BarnsleyFarnDetail.jpg}
+  \end{columns}
+ \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Iterated Function Systems (IFS)}
+  \begin{itemize}
+    \item Nutzung des Prinzips zur fraktalen Kompression von
+    Bildern (Barnsley, 1988)
+    \item Kompressionstechnik basiert auf dem "`Collage-
+    Theorem"' (Selbstähnlichkeit von Bildern)
+  \end{itemize}
+\end{frame}

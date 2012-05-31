@@ -1,0 +1,11 @@
+CREATE TABLE [dbo].[wohnung] (
+  [id_wohnung] int NOT NULL,
+  [name] varchar(50) COLLATE Latin1_General_CI_AS,
+  [groesse] int,
+  [anzahl_zimmer] int,
+  [preis_pro_tag] int,
+  [ausstattung] xml,
+  [id_land] int
+)
+ON [PRIMARY]
+GO

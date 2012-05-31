@@ -1,0 +1,3 @@
+<FROM1 SELECT_FROM1 ... >
+  <FROM2 SELECT_FROM2 ... />
+</FROM1>

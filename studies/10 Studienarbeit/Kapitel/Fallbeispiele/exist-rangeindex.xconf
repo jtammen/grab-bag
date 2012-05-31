@@ -1,0 +1,6 @@
+<collection xmlns="http://exist-db.org/collection-config/1.0">
+    <index>
+        <create path="//Land/@Nr" type="xs:integer" />
+        <create path="//Buchung/@Nr" type="xs:integer" />
+    </index>
+</collection>

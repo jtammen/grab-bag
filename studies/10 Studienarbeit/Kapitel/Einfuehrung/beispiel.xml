@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<!-- Beginn Document Type Definition -->
+<!DOCTYPE Studienarbeit [
+  <!ELEMENT Studienarbeit (Thema, Betreuer+, Autoren)*>
+  <!ELEMENT Thema (#PCDATA)>
+  <!ELEMENT Betreuer (Titel, Email)>
+  <!ATTLIST Betreuer Name CDATA #REQUIRED>
+  <!ELEMENT Titel (#PCDATA)>
+  <!ELEMENT Email (#PCDATA)>
+  <!ELEMENT Autoren (Autor)*>
+  <!ELEMENT Autor (Email)>
+  <!ATTLIST Autor Name CDATA #REQUIRED>
+]>
+<!-- Ende Document Type Definition -->
+
+<!-- Beginn der Daten -->
+<Studienarbeit>
+  <Thema>Untersuchung und Bewertung der XML-Funktionalität heutiger DBMS</Thema>
+
+  <Betreuer Name="Oliver Eck">
+    <Titel>Prof. Dr.</Titel>
+    <Email>eck@fh-konstanz.de</Email>
+  </Betreuer>
+
+  <Autoren>
+    <Autor Name="Christoph Eck">
+      <Email>christoph.eck@...</Email>
+    </Autor>
+    <Autor Name="Daniel Beerstecher">
+      <Email>beerstec@...</Email>
+    </Autor>
+    <Autor Name="Jan Tammen">
+      <Email>jan.tammen@...</Email>
+    </Autor>
+  </Autoren>
+</Studienarbeit>
+<!-- Ende der Daten -->

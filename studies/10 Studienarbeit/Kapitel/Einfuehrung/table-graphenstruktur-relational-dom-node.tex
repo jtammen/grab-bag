@@ -1,0 +1,21 @@
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+		\begin{tabularx}{\textwidth}{*{5}{|l}|X|}
+			\hline
+			\multicolumn{1}{|l}{node\_id} & \multicolumn{1}{l}{node\_type} & \multicolumn{1}{l}{doc\_id} & \multicolumn{1}{l}{parent} & \multicolumn{1}{l}{p\_sibling} & f\_sibling \\ 
+			\hline\addlinespace\hline
+		001 & element & i0001 & - & - & - \\ 
+		002 & element & i0001 & 001 & - & 003 \\ 
+		003 & element & i0001 & 001 & 002 & 004 \\ 
+		004 & element & i0001 & 001 & 003 & 007 \\ 
+		005 & element & i0001 & 004 & - & 006 \\ 
+		006 & element & i0001 & 004 & 005 & - \\ 
+		007 & element & i0001 & 001 & 004 & - \\ 
+		008 & attribut & i0001 & 001 & - & - \\ 
+			\hline
+		\end{tabularx}
+	\caption{DOM-Abbildung auf eine relationale Datenbank der Klasse Node}
+	\label{tab:xml-dom-node}
+\end{table}

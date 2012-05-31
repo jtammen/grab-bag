@@ -1,0 +1,85 @@
+\section{Einleitung}
+In den folgenden Abschnitten sollen zunächst die nötigen Schritte zur Speicherung der \acr{xml}-Daten sowie anschließend die für die Umsetzung der Beispiel-Applikation verwendeten Abfragetypen aufgezeigt und erläutert werden.
+In unserem Beispiel kommen hauptsächlich dynamisch generierte XQuery-Abfragen zum Einsatz, welche über das \acr{http}-\acr{rest}-\acr{api} an den Server geschickt werden. Als Alternative dazu bietet eXist außerdem die Möglichkeit, bereits vorgefertigte Abfragen in Dateien auf dem Server abzulegen und diese dann von außen aufzurufen.
+
+Wie bereits beschrieben, werden in eXist komplette \acr{xml}-Dokumente in Collections abgelegt. Bevor also Anfragen bzw. Manipulationen an einem Dokument vorgenommen werden können, muss es \zB über \acr{http} oder \acr{xml-rpc} in der Datenbank abgelegt werden. Dabei wird das Dokument geparst und es werden die Indexe aktualisiert. Zusätzlich ist beim Speichern die Validierung gegen eine \acr{dtd} bzw. ein \acr{xsd} möglich; diese Option wurde hier jedoch nicht genutzt.
+%Um jedoch die für die Speicherung der \acr{xml}-Daten verwendete Struktur zu verdeutlichen, sind in den Listings \ref{listing:dtd-wohnungen}, \ref{listing:dtd-länder}, \ref{listing:dtd-kunden} sowie \ref{listing:dtd-buchungen} die \acr{dtd}s der einzelnen Dokumente aufgeführt.
+
+\section{Erstellung von Indexen} \label{fallbeispiel-exist-indexe}
+Der von eXist automatisch verwaltete Volltextindex verringert die Zugriffszeit auf die entsprechenden Text-Knoten. Zusätzlich können \zB pro Collection spezielle typisierte sog. "`Range"'-Indexe erstellt werden. Auf diese Weise können für nicht-String-Daten aufwendige Konversionen gespart werden.
+Für die Beispiel-Applikation wurde ein "`Range"'-Index vom Typ "`xs:integer"' auf das Attribut \texttt{Nr} der \texttt{Land}-Elemente erstellt, wovon die Abfragen auf dieses Attribut in Listing \ref{listing:exist-xquery-suche-optimiert} profitieren. Das Attribut \texttt{Nr} der \texttt{Buchung}-Elemente wird ebenfalls mit einem Index vom Typ "`xs:integer"' versehen. Listing \ref{listing:exist-rangeindex-xconf} zeigt die für die Erstellung der Indexe verwendete Konfiguration.
+
+\lstinputlisting[language=XML,caption={Konfigurationsdatei für Range-Index-Erstellung},label=listing:exist-rangeindex-xconf]{Kapitel/Fallbeispiele/exist-rangeindex.xconf}
+
+\section{Abfragetypen}
+\subsection{Suchen von Ferienwohnungen}
+Hierbei handelt es sich -- im Sinne relationaler Datenbanken -- um eine klassische \texttt{SELECT}-Anfrage. Im Gegensatz zu relationalen Datenbanken arbeitet eXist natürlich nicht mit \acr{sql}, sondern mit XQuery (s. Kapitel \ref{einfuehrung-xml-xquery}). Mithilfe der bereits vorgestellten FLWOR-Ausdrücken lassen sich einfache \acr{sql}-\texttt{SELECT}-Anfragen mühelos, teilweise sogar intuitiver nachbilden. Kommen Abfragen über mehrere Tabellen bzw. Dokumente hinzu, so muss der Aufwand ein wenig erhöht werden.
+Nachfolgend in Listing \ref{listing:exist-xquery-suche-naiv} das XQuery-Statement für die Selektion von Ferienwohnungen mit bestimmten Kriterien, in einer ersten "`naiven"' Variante.
+
+\lstinputlisting[language={[eXist]XQuery},caption={XQuery-FLWOR-Statement, Variante 1},label=listing:exist-xquery-suche-naiv]{Kapitel/Fallbeispiele/exist-suche-naiv.xql}
+
+In dieser Abfrage werden zunächst durch die Aufrufe der \texttt{doc}-Funktion die beteiligten Dokumente ausgewählt. In einer \acr{sql}-Abfrage auf einer relationalen Datenbank entspricht dies dem \lstinline[language=SQL]{... FROM <Tabelle 1>, ...}-Teil. Über die anschließenden XPath-Ausdrücke (\texttt{//Wohnung} und \texttt{//Land}) werden die gewünschten Knoten selektiert und an die Variablen \texttt{\$w} und \texttt{\$l} gebunden.
+
+Anschließend wird die Ergebnismenge durch Angabe einiger Bedingungen eingeschränkt:
+\begin{itemize}
+	\item Vergleich von Werten, \zB \texttt{\$w/Anzahl-Zimmer = 3}
+	\item Nutzung des Volltext-Indexes mittels einer eXist-Funktion: \texttt{match-all(\$w/Name, ''Max'')}. Es werden alle Schlüsselwörter aus dem Index selektiert, die auf den angegebenen Ausdruck \texttt{Max} passen. Anschließend werden diejenigen Knoten in das Ergebnis übernommen, welche alle selektierten Schlüsselwörter enthalten.
+	\item Nutzung einer XQuery-Funktion: \texttt{exists(\$w/Ausstattung/Telefon)}. Überprüft, ob das übergebene Argument nicht die leere Sequenz ist.
+\end{itemize}
+
+Analog zu \acr{sql} erfolgt die Angabe von Bedinungen über das Konstrukt \texttt{where <Bedingung 1> [and <Bedingung 2> ...] [or <Bedingung 3> ...]}.
+
+Schließlich wird im \texttt{return}-Teil angegeben, wie das Ergebnis der Abfrage aussehen soll. Hier zeigt sich besonders die große Mächtigkeit von XQuery: Es können beliebig komplexe \acr{xml}-Fragmente konstruiert und zurückgeliefert werden. Auf diese Weise könnte XQuery \zB auch zur Generierung dynamischer Webseiten (und damit als Ersatz für \zB \acr{php} oder \acr{asp}) dienen.
+
+\subsubsection{Optimierte Anfrage}
+Wie man sieht, wurde mit der vorherigen Abfrage ein aus \acr{sql} bekannter \texttt{INNER JOIN} imitiert -- es wird das kartesische Kreuzprodukt aus beiden Element-Sequenzen gebildet und dann über den Vergleich des "`Fremdschlüssels"' (das Attribut \texttt{Nr} des \texttt{Land}-Elementes) eingeschränkt. Bei Verwendung dieser Abfrage mit eXist gab es allerdings Probleme mit der Ausführungszeit. Da XQuery und inbesonders die XQuery-Implementierung in eXist nicht für derartige "`relationale"' Abfragearten konzipiert sind, erzeugt diese Abfrage einen entsprechend hohen Aufwand: in unserem Beispiel existieren ca. 300 \texttt{Wohnung}-Elemente und 200 \texttt{Land}-Elemente -- es werden also zunächst 60000 teilweise unnötige Ergebnis-Elemente kreiert.
+
+Stellt man die Abfrage wie in Listing \ref{listing:exist-xquery-suche-optimiert} gezeigt etwas um, lässt sich eine deutlich bessere Laufzeit erreichen.
+
+\lstinputlisting[language={[eXist]XQuery},caption={XQuery-FLWOR-Statement, Variante 2},label=listing:exist-xquery-suche-optimiert]{Kapitel/Fallbeispiele/exist-suche-optimiert.xql}
+
+Die \texttt{let}-Anweisung weist der Variablen \texttt{\$l} alle \texttt{Land}-Elemente zu. Anschließend wird mittels \texttt{for} wieder über alle \texttt{Wohnung}-Elemente iteriert -- dabei wird nun allerdings bereits im XPath-Ausdruck der Vergleich des "`Fremdschlüssels"' vorgenommen. Die \texttt{where}- und \texttt{return}-Klausel ist analog zur Abfrage in Listing \ref{listing:exist-xquery-suche-naiv}.
+
+Dies macht deutlich, dass \acr{sql}-Anfragen mitunter nicht einfach in XQuery gewandelt werden können. Es müssen u.U. Optimierungen vorgenommen werden -- dies ist jedoch bei \acr{sql}-Anfragen auch der Fall.
+
+\subsection{Buchen von Ferienwohnungen}
+Zur Realisierung dieses Anwendungsfalls müssen zwei separate Anfragen an die Datenbank gestellt werden. Bevor eine neue Buchung gespeichert werden kann, muss überprüft werden, ob für die zu buchende Wohnung im gewählten Zeitraum bereits eine Buchung existiert. Ist dies der Fall, so muss der Vorgang abgebrochen und der Benutzer informiert werden. Listing \ref{listing:exist-xquery-wohnung-frei} zeigt den für die Überprüfung der Buchung verwendeten XQuery-Ausdruck.
+
+\lstinputlisting[language={[eXist]XQuery},caption={XQuery-FLWOR-Statement: Überprüfung auf bereits vorhandene Buchung},label=listing:exist-xquery-wohnung-frei]{Kapitel/Fallbeispiele/exist-wohnung-frei.xql} 
+
+In dieser Abfrage wurde eine eXist-spezifische XQuery-Funktion benutzt. Über die \texttt{request:request-parameter}-Funktion lassen sich einzelne Parameter aus dem Request extrahieren. Dies deutet bereits darauf hin, dass diese Abfrage auf dem Server gespeichert ist und extern (über einen \acr{http}-Request) mit den Parametern \texttt{Zeitraum-Von}, \texttt{Zeitraum-Bis} und \texttt{Wohnung-Nr} aufgerufen wird. Diese Parameter werden an Variablen gebunden, um sie später nutzen zu können. Außerdem werden die Datums-Parameter in den Datentyp "`xs:date"' konvertiert -- so lassen sich mit den durch XQuery definierten Operationen einzelne Datumswerte miteinander vergleichen.
+
+Nun wird versucht, \texttt{Buchung}-Elemente zu selektieren, bei denen das Attribut \texttt{Wohnung-Nr} mit dem aus dem Requets extrahierten Wert übereinstimmt, sowie die Zeitintervalle sich mit den übergebenen Parametern überschneiden. Rückgabewert ist die Anzahl der selektierten Knoten; nur wenn diese 0 ist, so existiert noch keine Buchung für diesen Zeitraum.
+
+Das anschließende Einfügen des Buchungs-Datensatzes erfolgt analog zum Anwendungsfall "`Hinzufügen von Ferienwohnungen"' und wird daher hier nicht näher erläutert.
+
+\subsection{Hinzufügen von Ferienwohnungen}
+Analog zu \acr{sql}-\texttt{INSERT}-Statements können mit eXists XQuery-Erweiterungen neue Elemente in ein bestehendes Dokument eingefügt werden. Die XQuery-Abfrage in Listing \ref{listing:exist-xquery-einfügen} zeigt beispielhaft die Verwendung dieser Erweiterung.
+
+\lstinputlisting[language={[eXist]XQuery},caption={XQuery-Insert-Statement},label=listing:exist-xquery-einfügen]{Kapitel/Fallbeispiele/exist-einfuegen.xql}
+
+Es wird hier ein neues \texttt{Wohnung}-Element -- mit den vom Benutzer eingegebenen Daten -- an das Ende des \texttt{Wohnungen}-Element eingefügt. Alternativ ließe sich die Einfügeposition mithilfe des XPath-Ausdruckes genauer festlegen (\zB nach dem sechsten \texttt{Wohnung}-Element \mbox{o.\,ä}\xdot).
+
+\subsection{Ändern von Ferienwohnungen}
+Analog zu \acr{sql}-\texttt{UPDATE}-Statements können mit eXists XQuery-Erweiterungen beliebige Elemente eines Dokumentes bearbeitet werden. Nachfolgendes Listing \ref{listing:exist-xquery-bearbeiten} enthält ein Beispiel dafür.
+
+\lstinputlisting[language={[eXist]XQuery},caption={XQuery-Replace-Statement},label=listing:exist-xquery-bearbeiten]{Kapitel/Fallbeispiele/exist-bearbeiten.xql}
+
+Der mittels des XPath-Ausdruckes \lstinline[language={[eXist]XQuery}]{//Wohnung[@Nr = 304]} selektierte Knoten wird durch das angegebene Fragment ersetzt. Alternativ ließen sich mittels der verfügbaren \lstinline[language={[eXist]XQuery}]{update value ... with ...}-Syntax auch Werte einzelner Attribut- bzw. Textknoten ändern. Dies würde allerdings zu einem erhöhten Aufwand bei der Generierung des Statements in der Applikation führen, weshalb hier schlicht das komplette Element \texttt{Wohnung} überschrieben wird. Bei größeren, komplexeren Dokumenten hingegen würde man wohl bevorzugterweise nur diejenigen Elemente aktualisieren, welche auch tatsächlich verändert wurden.
+
+\subsection{Löschen von Ferienwohnungen}
+Analog zu \acr{sql}-\texttt{DELETE}-Statements können mit eXists XQuery-Erweiterungen beliebige Elemente eines Dokumentes gelöscht werden. Listing \ref{listing:exist-xquery-löschen} zeigt ein Beispiel dafür.
+
+\lstinputlisting[language={[eXist]XQuery},caption={XQuery-Delete-Statement},label=listing:exist-xquery-löschen]{Kapitel/Fallbeispiele/exist-loeschen.xql}
+
+Der mittels des XPath-Ausdruckes \lstinline[language=XML]{//Wohnung[@Nr = 304]} selektierte Knoten wird aus dem Dokument entfernt.
+
+\section{Bewertung}
+\subsection{Speicherung}
+\input{Kapitel/Fallbeispiele/table-exist-bewertung-speicherung}
+
+\subsection{Abfragen}
+\input{Kapitel/Fallbeispiele/table-exist-bewertung-abfragen}
+
+\subsection{Indexierung}
+\input{Kapitel/Fallbeispiele/table-exist-bewertung-indexierung}

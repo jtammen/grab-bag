@@ -1,0 +1,20 @@
+SELECT 
+	w.id_wohnung 	AS '@Nr',
+	w.name		AS 'Name',
+	w.anzahl_zimmer	AS 'Anzahl-Zimmer',
+	w.preis_pro_tag	AS 'Preis-Pro-Tag',
+	w.ausstattung	AS '*',
+	l.id_land	AS 'Land/@Nr'
+FROM
+	xmldb.dbo.wohnung w
+JOIN
+	xmldb.dbo.land l
+ON
+	w.id_land = l.id_land
+WHERE 
+    w.name LIKE '%Max%'
+AND w.anzahl_zimmer = '3'
+AND w.preis_pro_tag <= '450'
+AND l.id_land = '23'
+AND w.ausstattung.exist('/Ausstattung/Telefon') = 1
+FOR XML PATH('Wohnung'), ROOT('Wohnungen')

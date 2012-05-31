@@ -1,0 +1,159 @@
+\section{Einführung in MS SQL-Server}
+Im diesem Kapitel wird die Datenbank Microsoft \acr{sql}-Server (kurz \acr{sql}-Server) vorgestellt. Die Möglichkeiten der Version 2000 erweitern sich mit der neuen Version 2005. Diese wird im Frühjahr 2006 erhältlich sein. Das Testsystem läuft mit einem "`June Community Technology Preview Readiness Kit"' von Microsoft. 
+
+\section{XML-Unterstützung}
+Der \acr{sql}-Server unterstützt Import sowie Export von \acr{xml}-Daten. Mit XPath-Ausdrücken über \acr{xml}-Dokumente, mittels der Funktion von \emph{OpenXML}, können \acr{sql}-Anweisungen mit einbezogen werden. Für das Anzeigen der Ergebnisse als \acr{xml}-Dokument wird mit \emph{FOR XML} gearbeitet. Darüber hinaus können relationale Daten über sogenannte \acr{xml}-Sichten abgefragt und manipuliert werden. 
+Die \acr{xml}-Sichten werden mit \emph{XDR} definiert, einer Microsoft-spezifischen Schemabeschreibungssprache, auf die wir aber nicht weiter eingehen.
+
+In der neuen Version 2005 (\citep{url:SQLSERV05_XML_SUPPORT}) wird XPath 2.0, XQuery (FLWOR-Ausdrücke) und der \acr{xml}-Datentyp \emph{XML} unterstützt. Ein Index über die \acr{xml}-Daten kann erstellt werden und Microsoft stellt neue Funktionen bereit für \emph{FOR XML}, die die Ausgabe von \acr{xml}-Dokumenten deutlich vereinfacht.
+
+\subsection{Anfrageergebnisse als XML-Dokument}
+Die \emph{FOR XML}-Klausel wird nach jeder \acr{sql}-Anweisung angehängt. Damit erhalten wir ein \acr{xml}-Dokument, dass wir jedoch mit vier Möglichkeiten noch verändern können. Die vier Modifikationen heißen:
+\begin{enumerate}
+	\item \emph{RAW}: Jedes Tupel ist ein eigenes Element
+	\item \emph{AUTO}: Jedes Tupel wird im \acr{xml}-Dokument automatisch geschachtelt
+	\item \emph{EXPLICIT}: Die Verschachtelung des \acr{xml}-Dokumentes lässt sich individuell festlegen
+	\item \emph{PATH}: Die Verschachtelung des \acr{xml}-Dokumentes lässt sich mit XPath definieren
+\end{enumerate}
+
+Die Syntax für \emph{FOR XML} lautet:
+
+\lstinputlisting[language=SQL05,caption={SQL-Server FOR XML},label=listing:for-xml]{Kapitel/Evaluierte-Systeme/for-xml.txt}
+
+%Mit \emph{XMLDATA} können wir ein \emph{XDR}-Schema ausgeben.
+
+\subsubsection{RAW-Modus}
+Jedes Tupel wird mit dem Elementnamen "`row"' zurückgegeben. Jeder Spaltenname wird als Attributname und der jeweilige Wert als Attributwert definiert. Die folgende Form entspricht der Funktionsweise von \emph{FOR XML RAW}:
+
+\lstinputlisting[language=SQL05,caption={SQL-Server RAW-Modus},label=listing:sql-server-raw-modus]{Kapitel/Evaluierte-Systeme/raw-modus.txt}
+
+\subsubsection{AUTO-Modus}
+Das Ergebnis wird in einer geschachtelten Elementstruktur zurückgegeben. Anhand der Abfolge der \emph{FROM}-Klausel in der \acr{sql}-Anfrage wird die Verschachtelung festgelegt. Es empfiehlt sich nach \citep[Kap. 11.3.1]{KlettkeMeyer} die Umbenennung der Element- und Attributnamen mit der \emph{AS}-Klausel, weil die Elementnamen eindeutig sein müssen.
+Die folgende Form entspricht der Funktionsweise von \emph{FOR XML AUTO}.
+
+\lstinputlisting[language=SQL05,caption={SQL-Server Auto-Modus},label=listing:sql-server-auto-modus]{Kapitel/Evaluierte-Systeme/auto-modus.txt}
+
+Mit dem Befehl \emph{FOR XML AUTO, ELEMENTS} können wir das \acr{xml}-Dokument in reiner Elementen-Schachtelung (ohne Attribute) zurückgeben.
+Weiter wird mit dem Befehl \emph{FOR XML AUTO, TYPE} eine \acr{xml}-Instanz zurückgegeben, auf die \acr{xml}-Abfragen erfolgen können.
+
+\subsubsection{EXPLICIT-Modus}
+Mit diesem Modus sind wir in der Lage, das \acr{xml}-Dokument individuell auszugeben. Die Generierung der \acr{xml}-Dokumente folgt nach \citep[Kap. 11.3.1]{KlettkeMeyer} in zwei Schritten,
+\begin{enumerate}
+	\item der Bearbeitung einer Anfragesicht und
+	\item einem Serialisierungsprozess zur Ergebnisaufbereitung
+\end{enumerate}
+
+Der Modus erwartet das Ergebnis im \emph{Universal-Relation}-Format. Aus dem Format geht hervor, dass wir zwei spezielle Spalten (\emph{Tag}, \emph{Parent}) bilden müssen, mit kodierten Spaltennamen und einer speziellen Ordnung im Ergebnis.
+
+\subsubsection{Universal-Relation-Format (Anfragesicht)}
+Die Spalten haben in diesem Format folgende Bedeutung:
+\begin{itemize}
+	\item \emph{Tag}: Identifiziert mit einer Nummer und ordnet das auszugebende Element in die Hierarchieebene.
+	\item \emph{Parent}: Identifiziert mit einer Nummer den Elternknoten in der Hierarchiestruktur. Mit NULL oder 0 ordnen wir das Element in die höchste Hierarchieebene.
+	\item Weiter muss der Spalte ein Attribut- oder Elementname, eine Position in der Hierarchieebene und der Knotentyp (Element oder Attribut) gegeben werden.
+\end{itemize}
+
+Die folgende Form nutzen wir für die Kodierung der Spaltennamen:
+\lstinputlisting[language=SQL05,caption={SQL-Server Universal-Relation-Format},label=listing:sql-server-universal-relation-format]{Kapitel/Evaluierte-Systeme/universal-relation.txt}
+
+Mit \emph{Name} und \emph{Ebene} spezifizieren wir die Ordnung im \acr{xml}-Dokument. Weiter wird mit \emph{Subname} der Name des Attributes oder Elementes festgelegt. Und ist zum Schluss die Typangabe (\emph{Type}) mit angegeben, so wird nicht ein Attributknoten erzeugt, sondern spezielle Knotentypen, wie IDREFS, CDATA oder Subelemente.
+
+\subsubsection{Universal-Relation-Format (Serialisierungsprozess)}
+Die Seralisierung erwartet eine korrekte Reihenfolge bei der Auswertung der Informationen in der Datenbank. Die erreichen wir durch die Verwendung der \emph{ORDER BY}-Klausel.
+
+Zum Schluss werden die einzelnen Tabellen mit \emph{UNION} verknüpft und als \acr{xml}-Dokument zurückgegeben. 
+
+%wäre noch Ausbau fähig.
+
+\subsubsection{PATH-Modus}
+Mit dem Modus \emph{PATH} (\citep{url:SQLSERV05_NEW_FOR_XML}) geben wir die Struktur des \acr{xml}-Dokuments in einer Abfrage mit \emph{XPath} direkt an. Bei \emph{PATH} legen wir den Namen der Elemente fest und bei \emph{ROOT} den Namen des obersten Elements (Dokumentname).
+
+Erstes \emph{PATH} Beispiel:
+\lstinputlisting[language=SQL05,caption={SQL-Server PATH},label=listing:sql-server-path]{Kapitel/Evaluierte-Systeme/path-modus.txt}
+
+Mit dem Wildcard Zeichen (*) wird der Inhalt so eingefügt, wie er in der Spalte gespeichert ist. Dies wird im zweiten Beispiel  für den XML-Datentyp verwendet.
+
+Zweites \emph{PATH} Beispiel:
+\lstinputlisting[language=SQL05,caption={SQL-Server PATH},label=listing:sql-server-path2]{Kapitel/Evaluierte-Systeme/path-modus2.txt}
+
+\subsection{XML-Dokument-Sicht relational auf Datenbank abbilden}
+Microsoft hat sich eine eigene Funktion überlegt, wie sie einen Ausschnitt aus einem \acr{xml}-Dokument in eine Datenbank speichern können. \emph{OpenXML} ist nach \citep[Kap. 11.3.2]{KlettkeMeyer} ein so genannter "`Rowset Provider"', eine Funktion, die eine Tupelmenge in Tabellenform liefert.
+
+\emph{OpenXML} hat die folgende Befehlsform:
+\lstinputlisting[language=SQL05,caption={SQL-Server OpenXML},label=listing:sql-server-openxml-syntax]{Kapitel/Evaluierte-Systeme/openxml.txt}
+
+Liefert das Ergebnis in den zwei folgenden Darstellungen zurück.
+\begin{itemize}
+	\item \emph{Edge Table}: Graphdarstellung der \acr{xml}-Knotenhierarchie.
+	\item \emph{Shredded Rowset}: Mit dem Flag und der \emph{WITH}-Klausel steuern wir eine gezielte Extraktion der Elemente und Attribute aus dem \acr{xml}-Dokument.
+\end{itemize}
+
+Die \emph{Docid} in der Funktionsbeschreibung von \emph{OpenXML} verweist auf das gewünschte Dokument. Mit der Funktion \emph{sp\_xml\_preparedocument} erstellen wir einen Verweis und mit \emph{sp\_xml\_removedocument} wird er wieder gelöscht. Der \emph{Pfadausdruck} ist ein \emph{XPath}-Ausdruck, der die zu extrahierenden Informationen definiert. Und mit der \emph{WITH}-Klausel können wir Datentypen-Deklarationen definieren wie beim Erstellen von Tabellen. Weiter ist es möglich, das Attribut oder Element im Dokument gleich an den Datentyp anhängend zu referenzieren (\emph{XPath}-Syntax). Zuletzt entspricht das Flag = 1 der Abbildung von Attributen auf den Spaltennamen und das Flag = 2 der Abbildung von Elementnamen auf den Spaltennamen.
+Ein Beispiel dazu findet sich in Listing \ref{listing:sql-server-openxml}.
+
+\subsubsection{Edge Table-Format}
+Die Ausgabe stellt, wie oben schon erwähnt, eine Graphdarstellung dar. Somit ist es notwendig, das Ergebnis weiter zu verarbeiten. Tabelle \ref{tab:edge-table-format} beschreibt die zurückgegebenen Spalten.
+\input{Kapitel/Evaluierte-Systeme/table-edge-table}
+% ist eigentlich überflüssig
+
+\subsubsection{Shredded Rowset}
+Mit Shredded Rowset können wir zwei Abbildungen erzeugen. Mit dem Flag = 1 in der \emph{OpenXML}-Funktion bilden wir nach \citep[Kap. 11.3.2]{KlettkeMeyer} eine attributzentrierte Abbildung von Attributen auf Datenbankattribute und mit Flag 2 eine elementzentrierte Abbildung von Elementen verschiedener Hierarchieebenen auf Datenbankattribute.
+
+\subsection{XML-Datentyp}
+Der \acr{sql}-Server 2005 bietet erstmals den \acr{xml}-Datentyp an. Intern werden die \acr{xml}-Daten nach \citep{url:SQLSERV05_XML_SUPPORT} als \acr{blob} gespeichert und bei der Ein- / Ausgabe der \acr{xml}-Informationen, soweit nicht festgelegt, in UTF-16 codiert gespeichert bzw. ausgegeben. Microsoft orientiert sich nach dem neuen \acr{iso}-\acr{sql}-Standard 2003. Bei der Deklaration der Datenbanktabelle unterscheidet man zwischen nicht typisierten (\emph{untyped}), ohne ein entsprechendes \acr{xml}-Schema, und typisierten (\emph{typed}) \acr{xml}-Daten. Somit können nicht nur wohlgeformte \acr{xml}-Informationen, sondern auch \acr{xml}-Fragmente gespeichert werden. Bei typisierten \acr{xml}-Daten wird die Eingabe anhand des \acr{xml}-Schema validiert.
+
+\subsection{XML-spezifische Abfragen}
+Die folgenden Methoden können, wie unter \citep{url:SQLSERV05_XML_SUPPORT} beschrieben, auf \acr{xml}-Daten angewendet werden:
+%\begin{itemize}
+%	\item query(): Der Ausdruck evaluiert eine Liste von XML-Knoten und extrahiert die XML-Fragmente in der Reihenfolge des XML-Dokumentes in der Datentabelle. 
+%	\item value(): Der Ausdruck wirft einen skalaren Wert zurück, der in dem gesuchtem Knoten vorhanden ist.
+%	\item exist(): Der Ausdruck gibt 1 zurück falls der Knoten existiert und 0 im Falle er nicht vorhanden ist.
+%	\item nodes(): Der Ausdruck gibt eine Instanz als XML-Datentyp zurück auf den weitere Abfragen folgen können.
+%	\item modify(): Mit dem Ausdruck können XML-Informationen geändert, gelöscht oder neue Informationen hinzugefügt werden.
+%\end{itemize}
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+	
+		\begin{tabularx}{\textwidth}{lXX}
+			\toprule
+				\multicolumn{1}{@{}N}{Name} & \multicolumn{1}{V{6em}@{}}{Syntax} &	 \multicolumn{1}{V{6em}@{}}{Anwendung} \\
+				\midrule\addlinespace\addlinespace
+				
+				\texttt{exist} & bit = X.exist(string xquery) & Der Ausdruck gibt 1 zurück, falls der Knoten existiert, und 0, wenn er nicht vorhanden ist. \\
+				\cline{1-3}
+				\texttt{value} & scalar = X.value(string xquery, string \acr{sql}-Typ) & Der Ausdruck wirft einen skalaren Wert zurück, der in den gewünschten \acr{sql}-Typ konvertiert wird (cast). \\
+				\cline{1-3}
+				\texttt{query} & \acr{xml} = X.query(string xquery) & Der Ausdruck evaluiert eine Liste von \acr{xml}-Knoten und extrahiert die \acr{xml}-Fragmente in der Reihenfolge des \acr{xml}-Dokumentes in der Datentabelle. \\
+				\cline{1-3}
+				\texttt{nodes} & X.nodes(string xquery) & Konvertiert ein \acr{xml}-Dokument in ein relationales Datenmodell. \\
+				\cline{1-3}
+				\texttt{modify} & X.modify(string xml-dml) & Mit dem Ausdruck können \acr{xml}-""Informationen geändert, gelöscht oder neue Informationen hinzugefügt werden. \\
+				\bottomrule
+		\end{tabularx}
+		\caption{XML-Datentyp Funktionen, \citep{url:SQLSERV05_XML_INDEX}, \citep{url:SQLSERV05_XQUERY}}
+  
+	\label{tab:xml-datentyp-funktionen}
+\end{table}
+
+\subsection{XML-Index} \label{sql-server-xml-index}
+Um die Abfragen zu optimieren, stehen Indexe (\citep{url:SQLSERV05_XML_INDEX}) vom \acr{xml}-Datentyp zur Verfügung.
+Es können zwei Indexe erstellt werden. Der erste primäre Index indexiert den gesamten Inhalt der \acr{xml}-Daten, d.h. über die Elemente, Attributnamen, Knotenwerte und Knotentypen. Weiter wird die Reihenfolge und Struktur des \acr{xml}-Dokumentes, und der Pfad von der Wurzel bis zum Element von der Datenbanktabelle gespeichert. In Listing \ref{listing:sql-xml-index} beschreiben wir den primären Index.
+
+\lstinputlisting[language=SQL05,caption={SQL XML-Index, Primär},label=listing:sql-xml-index]{Kapitel/Evaluierte-Systeme/sql-xml-index.txt}
+
+Mit \texttt{PATH} erhalten wir den Wert zum Pfad und mit \texttt{VALUE} den Pfad zum Wert. \texttt{PROPERTY} ermöglicht Vergleichsoperationen auf \acr{xml}-Daten zu beschleunigen. Diese sekundären Indexe werden in Listing \ref{listing:sql-xml-index-sekundar} beschrieben.
+
+\lstinputlisting[language=SQL05,caption={SQL XML-Index, Sekundär},label=listing:sql-xml-index-sekundar]{Kapitel/Evaluierte-Systeme/sql-xml-index-sekundar.txt}
+
+\section{Einschränkungen und aktuelle Entwicklungen} \label{einschraenkungen-und-aktuelle-entwicklungen}
+In der aktuellen Testversion vom \acr{sql}-Server 2005 sind noch nicht alle Funktionen implementiert. Die wichtigsten in dieser Version \textbf{nicht} enthaltenen XQuery-Funktionen (\citep{url:SQLSERV05_XQUERY}) sind:
+\begin{itemize}
+	\item Der Ausdruck \texttt{let}
+	\item Typ-Konvertierung und -Validierung
+	\item String-Funktionen
+	\item Zeit- und Datumsfunktionen
+	\item Die Funktion \texttt{nodes()}
+\end{itemize}

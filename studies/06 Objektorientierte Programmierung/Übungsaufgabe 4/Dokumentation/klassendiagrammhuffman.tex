@@ -1,0 +1,21 @@
+		\setlength\umlSymbolHeightDefault{.6em}
+		\setlength\umlSymbolWidthDefault{.3em}
+	  \umlDiagram[box=,border,sizeX=9.0cm,sizeY=6.0cm,ref=ClassDiagram]{%
+	  \footnotesize%
+			\umlClass[pos=\umlTop{ClassDiagram},%
+					  		refpoint=t,%
+					  		posDelta={0em, -1em},%
+					  		reference=Huffman]{Huffman}{%
+				\umlAttribute[visibility=-, type=vector<Int>]{zeichenHaeufigkeiten}%
+				\umlAttribute[visibility=-, type=map<Char; Int>]{codeTabelle}%
+				\umlAttribute[visibility=-, type=Knoten*]{wurzelKnoten}%
+			}{%
+				\umlMethod[visibility=+, returntype=void]{codiereDatei}{String file}%
+				\umlMethod[visibility=+, returntype=void]{decodiereDatei}{String file}%
+				\umlMethod[visibility=-, returntype=void]{zaehleZeichen}{}%
+				\umlMethod[visibility=-, returntype=void]{erstelleBaum}{}%
+				\umlMethod[visibility=-, returntype=void]{erstelleCodeTabelle}{}%
+				\umlMethod[visibility=-, returntype=void]{schreibeCodeTabelle}{String filename}%
+				\umlMethod[visibility=-, returntype=void]{traversiereBaum}{Knoten* p}%
+			}%
+		}%

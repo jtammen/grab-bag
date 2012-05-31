@@ -1,0 +1,1080 @@
+Neurons: 5 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 781
+MSE: 3.239147e-003
+Goal met: 0
+
+Neurons: 5 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 268
+MSE: 3.237180e-003
+Goal met: 0
+
+Neurons: 5 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 2001
+MSE: 1.390480e-003
+Goal met: 0
+
+Neurons: 5 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 887
+MSE: 2.027749e-002
+Goal met: 0
+
+Neurons: 5 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 2001
+MSE: 1.708763e-003
+Goal met: 0
+
+Neurons: 5 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 664
+MSE: 1.756893e-002
+Goal met: 0
+
+Neurons: 5 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 1610
+MSE: 9.666874e-005
+Goal met: 1
+
+Neurons: 5 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 655
+MSE: 2.314696e-003
+Goal met: 0
+
+Neurons: 5 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 1737
+MSE: 1.851531e-003
+Goal met: 0
+
+Neurons: 5 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 338
+MSE: 3.238135e-003
+Goal met: 0
+
+==================================
+
+Neurons: 10 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 888
+MSE: 4.634935e-004
+Goal met: 0
+
+Neurons: 10 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 656
+MSE: 1.387676e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 464
+MSE: 1.387833e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 842
+MSE: 1.389022e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 397
+MSE: 2.312784e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 943
+MSE: 4.632418e-004
+Goal met: 0
+
+Neurons: 10 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 783
+MSE: 1.388752e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 390
+MSE: 9.971061e-005
+Goal met: 1
+
+Neurons: 10 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 646
+MSE: 8.934171e-005
+Goal met: 1
+
+Neurons: 10 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 890
+MSE: 2.313500e-003
+Goal met: 0
+
+==================================
+
+Neurons: 15 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 614
+MSE: 4.635440e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 649
+MSE: 9.258415e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 874
+MSE: 1.387883e-003
+Goal met: 0
+
+Neurons: 15 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 299
+MSE: 2.774302e-003
+Goal met: 0
+
+Neurons: 15 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 286
+MSE: 9.880801e-005
+Goal met: 1
+
+Neurons: 15 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 272
+MSE: 9.980816e-005
+Goal met: 1
+
+Neurons: 15 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 471
+MSE: 1.849771e-003
+Goal met: 0
+
+Neurons: 15 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 495
+MSE: 1.388622e-003
+Goal met: 0
+
+Neurons: 15 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 514
+MSE: 9.256400e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 251
+MSE: 2.312371e-003
+Goal met: 0
+
+==================================
+
+Neurons: 20 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 579
+MSE: 9.255319e-004
+Goal met: 0
+
+Neurons: 20 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 624
+MSE: 1.388075e-003
+Goal met: 0
+
+Neurons: 20 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 227
+MSE: 1.849922e-003
+Goal met: 0
+
+Neurons: 20 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 668
+MSE: 1.388092e-003
+Goal met: 0
+
+Neurons: 20 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 468
+MSE: 9.252909e-004
+Goal met: 0
+
+Neurons: 20 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 312
+MSE: 9.843334e-005
+Goal met: 1
+
+Neurons: 20 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 390
+MSE: 4.629309e-004
+Goal met: 0
+
+Neurons: 20 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 307
+MSE: 9.923719e-005
+Goal met: 1
+
+Neurons: 20 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 500
+MSE: 1.387959e-003
+Goal met: 0
+
+Neurons: 20 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 558
+MSE: 1.388004e-003
+Goal met: 0
+
+==================================
+
+Neurons: 25 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 386
+MSE: 1.388502e-003
+Goal met: 0
+
+Neurons: 25 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 398
+MSE: 1.387796e-003
+Goal met: 0
+
+Neurons: 25 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 383
+MSE: 9.256290e-004
+Goal met: 0
+
+Neurons: 25 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 835
+MSE: 9.260386e-004
+Goal met: 0
+
+Neurons: 25 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 266
+MSE: 1.849754e-003
+Goal met: 0
+
+Neurons: 25 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 381
+MSE: 9.259159e-004
+Goal met: 0
+
+Neurons: 25 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 193
+MSE: 9.864749e-005
+Goal met: 1
+
+Neurons: 25 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 379
+MSE: 4.637125e-004
+Goal met: 0
+
+Neurons: 25 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 440
+MSE: 4.634174e-004
+Goal met: 0
+
+Neurons: 25 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 250
+MSE: 9.693256e-005
+Goal met: 1
+
+==================================
+
+Neurons: 30 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 427
+MSE: 4.629813e-004
+Goal met: 0
+
+Neurons: 30 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 575
+MSE: 2.312520e-003
+Goal met: 0
+
+Neurons: 30 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 259
+MSE: 9.689261e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 496
+MSE: 1.849975e-003
+Goal met: 0
+
+Neurons: 30 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 345
+MSE: 9.989103e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 202
+MSE: 9.815291e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 305
+MSE: 9.895323e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 335
+MSE: 9.782864e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 408
+MSE: 9.252296e-004
+Goal met: 0
+
+Neurons: 30 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 472
+MSE: 9.256822e-004
+Goal met: 0
+
+==================================
+
+Neurons: 35 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 517
+MSE: 1.387730e-003
+Goal met: 0
+
+Neurons: 35 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 458
+MSE: 1.387865e-003
+Goal met: 0
+
+Neurons: 35 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 227
+MSE: 9.960445e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 487
+MSE: 8.321814e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 278
+MSE: 9.989134e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 273
+MSE: 9.988776e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 340
+MSE: 9.256864e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 457
+MSE: 9.253446e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 348
+MSE: 1.850327e-003
+Goal met: 0
+
+Neurons: 35 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 433
+MSE: 9.746573e-005
+Goal met: 1
+
+==================================
+
+Neurons: 40 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 289
+MSE: 9.905136e-005
+Goal met: 1
+
+Neurons: 40 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 398
+MSE: 4.630985e-004
+Goal met: 0
+
+Neurons: 40 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 455
+MSE: 1.850291e-003
+Goal met: 0
+
+Neurons: 40 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 357
+MSE: 9.255061e-004
+Goal met: 0
+
+Neurons: 40 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 407
+MSE: 4.628354e-004
+Goal met: 0
+
+Neurons: 40 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 485
+MSE: 1.387976e-003
+Goal met: 0
+
+Neurons: 40 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 378
+MSE: 9.251744e-004
+Goal met: 0
+
+Neurons: 40 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 222
+MSE: 9.473387e-005
+Goal met: 1
+
+Neurons: 40 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 324
+MSE: 2.312314e-003
+Goal met: 0
+
+Neurons: 40 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 478
+MSE: 1.387905e-003
+Goal met: 0
+
+==================================
+
+Neurons: 45 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 433
+MSE: 5.085630e-003
+Goal met: 0
+
+Neurons: 45 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 362
+MSE: 1.387586e-003
+Goal met: 0
+
+Neurons: 45 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 450
+MSE: 4.632879e-004
+Goal met: 0
+
+Neurons: 45 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 259
+MSE: 9.751716e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 283
+MSE: 9.913719e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 433
+MSE: 9.252124e-004
+Goal met: 0
+
+Neurons: 45 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 263
+MSE: 9.864474e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 463
+MSE: 1.388228e-003
+Goal met: 0
+
+Neurons: 45 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 334
+MSE: 9.506414e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 516
+MSE: 2.312180e-003
+Goal met: 0
+
+==================================
+
+Neurons: 50 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 287
+MSE: 9.935444e-005
+Goal met: 1
+
+Neurons: 50 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 231
+MSE: 2.311899e-003
+Goal met: 0
+
+Neurons: 50 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 401
+MSE: 4.632254e-004
+Goal met: 0
+
+Neurons: 50 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 326
+MSE: 4.632154e-004
+Goal met: 0
+
+Neurons: 50 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 197
+MSE: 2.312269e-003
+Goal met: 0
+
+Neurons: 50 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 356
+MSE: 9.256350e-004
+Goal met: 0
+
+Neurons: 50 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 442
+MSE: 3.237088e-003
+Goal met: 0
+
+Neurons: 50 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 353
+MSE: 9.253416e-004
+Goal met: 0
+
+Neurons: 50 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 377
+MSE: 9.252163e-004
+Goal met: 0
+
+Neurons: 50 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 180
+MSE: 9.998948e-005
+Goal met: 1
+
+==================================
+
+Neurons: 10 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 259
+MSE: 2.774010e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 515
+MSE: 9.248320e-004
+Goal met: 0
+
+Neurons: 10 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 261
+MSE: 9.310971e-005
+Goal met: 1
+
+Neurons: 10 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 316
+MSE: 4.623553e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 380
+MSE: 9.248073e-004
+Goal met: 0
+
+Neurons: 10 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 218
+MSE: 1.387113e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 265
+MSE: 1.849632e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 380
+MSE: 1.387328e-003
+Goal met: 0
+
+Neurons: 10 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 290
+MSE: 9.247812e-004
+Goal met: 0
+
+Neurons: 10 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 395
+MSE: 9.250536e-004
+Goal met: 0
+
+==================================
+
+Neurons: 15 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 265
+MSE: 9.767590e-005
+Goal met: 1
+
+Neurons: 15 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 204
+MSE: 9.898538e-005
+Goal met: 1
+
+Neurons: 15 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 419
+MSE: 4.624996e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 503
+MSE: 4.625809e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 352
+MSE: 9.250557e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 350
+MSE: 1.387285e-003
+Goal met: 0
+
+Neurons: 15 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 334
+MSE: 1.387311e-003
+Goal met: 0
+
+Neurons: 15 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 280
+MSE: 9.687376e-005
+Goal met: 1
+
+Neurons: 15 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 292
+MSE: 9.249384e-004
+Goal met: 0
+
+Neurons: 15 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 271
+MSE: 9.738256e-005
+Goal met: 1
+
+==================================
+
+Neurons: 30 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 233
+MSE: 4.625165e-004
+Goal met: 0
+
+Neurons: 30 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 323
+MSE: 4.624943e-004
+Goal met: 0
+
+Neurons: 30 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 155
+MSE: 9.342268e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 233
+MSE: 4.045192e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 249
+MSE: 1.387241e-003
+Goal met: 0
+
+Neurons: 30 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 159
+MSE: 5.687293e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 173
+MSE: 4.626375e-004
+Goal met: 0
+
+Neurons: 30 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 220
+MSE: 9.248109e-004
+Goal met: 0
+
+Neurons: 30 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 195
+MSE: 9.825787e-005
+Goal met: 1
+
+Neurons: 30 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 164
+MSE: 9.289212e-005
+Goal met: 1
+
+==================================
+
+Neurons: 35 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 159
+MSE: 9.501217e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 245
+MSE: 4.625222e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 252
+MSE: 9.249386e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 260
+MSE: 4.627453e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 186
+MSE: 7.873142e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 190
+MSE: 9.410855e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 209
+MSE: 9.247359e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 210
+MSE: 9.248426e-004
+Goal met: 0
+
+Neurons: 35 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 236
+MSE: 2.922299e-005
+Goal met: 1
+
+Neurons: 35 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 206
+MSE: 4.625201e-004
+Goal met: 0
+
+==================================
+
+Neurons: 45 @ Run: 1 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 136
+MSE: 8.963777e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 2 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 226
+MSE: 9.248259e-004
+Goal met: 0
+
+Neurons: 45 @ Run: 3 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 153
+MSE: 8.114699e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 4 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 209
+MSE: 9.247629e-004
+Goal met: 0
+
+Neurons: 45 @ Run: 5 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 169
+MSE: 9.907632e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 6 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 203
+MSE: 9.604871e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 7 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 132
+MSE: 9.905153e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 8 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 189
+MSE: 7.529654e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 9 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 149
+MSE: 9.367488e-005
+Goal met: 1
+
+Neurons: 45 @ Run: 10 ### BTF: trainrp
+TF: logsig
+PF: mse, Goal: 1.000000e-004
+Epoche: 173
+MSE: 9.250669e-004
+Goal met: 0
+
+==================================
+

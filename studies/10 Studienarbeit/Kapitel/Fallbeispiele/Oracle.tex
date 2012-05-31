@@ -1,0 +1,61 @@
+\section{Einleitung}
+
+Die Umsetzung des Studienprojekts erfolgte auf der Basis von Oracle 9i. Da das Oracle-\acr{dbms} in dieser Version noch kein XQuery unterstützt, wurden alle Abfragen in \acr{sql}/\acr{xml} erstellt. Die \acr{sql}/\acr{xml}-Anweisungen werden darüber hinaus -- wo nötig -- mit XPath-Anweisungen kombiniert. 
+
+\section{Erstellen von Indexen}
+Bei Oracle lässt sich ein Index sowohl auf ein Attribut wie auf ein einzelnes Element anwenden. Es ließ sich im Rahmen der Studienarbeit allerdings nicht feststellen, ob damit eine beschleunige Suche möglich ist.
+
+\lstinputlisting[language=SQLORA,caption={Erstellen von Indexen},label=listing:oracle-index]{Kapitel/Fallbeispiele/oracle-index.txt}
+
+\section{Abfragetypen}
+\subsection{Suchen von Ferienwohnungen}
+
+Das folgende Beispiel zeigt die Suche nach einer Wohnung:
+
+\lstinputlisting[language=SQLORA,caption={Insert-Anweisung mit dem Datentyp XMLType in Oracle},label=listing:oracle-xml-suche-wohnung]{Kapitel/Fallbeispiele/oracle-xml-suche-wohnung.txt}
+
+\texttt{XMLELEMENT()} und \texttt{XMLATTRIBUTES()} sind aus dem \acr{sql}-""Standard und erzeugen ein \acr{xml}-""Element bzw. ein \acr{xml}-""Attribut. Die Oracle-eigene Anweisung \texttt{SYS\_XMLAGG()} dient dazu, das umschließende \acr{xml}-Element \texttt{<Wohnungen>} zu erstellen. Standardmäßig besitzt das umschließende Element den Namen \texttt{<ROWSET>}. Um dies zu ändern, wird \texttt{XMLFORMAT()} benutzt.
+
+Das Vorhandensein einer Ausstattung (wie beispielsweise eines Telefons) wird über die XPath-Funktion \texttt{existsNode()} ermittelt. Sie liefert eine 1 zurück, wenn -- wie im Beispiel -- das Element \texttt{<Telefon>} vorhanden ist. Andernfalls liefert die Funktion eine 0 zurück.
+
+Schließlich sorgt die Methode \texttt{getClobVal()} dafür, dass das resultierende Ergebnis als \acr{clob} zurückgegeben wird. 
+
+\subsection{Buchen von Ferienwohnungen}
+Bevor die Wohnung gebucht wird, muss zunächst ermittelt werden, ob die Wohnung im entsprechenden Zeitraum überhaupt verfügbar ist. Dies wird mit der folgenden Abfrage durchgeführt:
+
+\lstinputlisting[language=SQLORA,caption={Create Table Anweisung mit dem Datentyp XMLType in Oracle},label=listing:oracle-xml-buche-ferienwohnung]{Kapitel/Fallbeispiele/oracle-xml-buche-ferienwohnung.txt}
+
+Mit \texttt{extract()} wird der Attributknoten \texttt{von} bzw. \texttt{bis} ausgewählt und mittels der Funktion \texttt{getStringVal()} als String zurückgegeben. Diese Umwandlung ist nötig, damit die Daten mit der Funktion \texttt{TO\_DATE()} in das Format YYYY-MM-DD umgewandelt werden können. 
+
+Die vom Benutzer in der Applikation eingegebenen Daten werden ebenfalls mithilfe der Funktion \texttt{TO\_DATE()} in das Format YYYY-MM-DD umgewandelt, um die Daten dann anschließend im gleichen Format vergleichen zu können. 
+
+\subsection{Hinzufügen von Ferienwohnungen}
+%Das folgende Beispiel zeigt die Erstellung der Tabelle Wohnung. Der einzige Unterschied zwischen Standard-\acr{sql} und \acr{sql}/\acr{xml} besteht in der Benutzung des Datentyps \texttt{XMLType}:
+
+%\lstinputlisting[language=SQLORA,caption={Create Table Anweisung mit dem Datentyp XMLType in Oracle},label=listing:oracle-xml-create-tabel]{Kapitel/Fallbeispiele/oracle-xml-create-tabel.txt}
+
+Das folgende Beispiel zeigt einen INSERT in die Tabelle Wohnung. Beim Einfügen von \acr{xml}-Daten muss das Schlüsselwort \texttt{XMLType} vorangestellt werden. Oracle überprüft beim Einfügen, ob die Daten wohlgeformt sind:
+
+\lstinputlisting[language=SQLORA,caption={Insert mit XML-Daten},label=listing:oracle-xml-insert]{Kapitel/Fallbeispiele/oracle-xml-insert.txt}
+
+\subsection{Ändern von Ferienwohnungen}
+
+Für das Update des \acr{xml}-Typs wird die Funktion \texttt{XMLUpdate()} benutzt. Die Funktion verlangt als ersten Parameter eine Instanz des Typs \texttt{XMLType}, als zweiten Parameter einen XPath-String, der das zu ändernde Element selektiert und als letzten Parameter den zu ändernden Wert.
+
+\lstinputlisting[language=SQLORA,caption={Ändern einer Ferienwohnung},label=listing:oracle-xml-update]{Kapitel/Fallbeispiele/oracle-xml-update.txt}
+
+\subsection{Löschen von Ferienwohnungen}
+
+Da das Löschen der Daten über die ID der Wohnung erfolgt, ist dafür keine \acr{xml}-Funktionalität erforderlich.
+
+\lstinputlisting[language=SQLORA,caption={Löschen einer  Ferienwohnung},label=listing:oracle-xml-delete]{Kapitel/Fallbeispiele/oracle-xml-delete.txt}
+
+\section{Bewertung}
+\subsection{Speicherung}
+\input{Kapitel/Fallbeispiele/table-oracle-bewertung-speicherung}
+
+\subsection{Abfragen}
+\input{Kapitel/Fallbeispiele/table-oracle-bewertung-abfragen}
+
+\subsection{Indexierung}
+\input{Kapitel/Fallbeispiele/table-oracle-bewertung-indexierung}

@@ -1,0 +1,232 @@
+%%Created by jPicEdt 1.4.1: mixed JPIC-XML/LaTeX format
+%%Sun May 20 11:37:52 CEST 2007
+%%Begin JPIC-XML
+%<?xml version="1.0" standalone="yes"?>
+%<jpic x-min="0" x-max="160" y-min="10.86" y-max="165" auto-bounding="true">
+%<circle closure= "plain"
+%	 p3= "(5,155)"
+%	 p1= "(5,135)"
+%	 p2= "(25,155)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(45,155)"
+%	 p1= "(45,135)"
+%	 p2= "(65,155)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(85,155)"
+%	 p1= "(85,135)"
+%	 p2= "(105,155)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(125,155)"
+%	 p1= "(125,135)"
+%	 p2= "(145,155)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(5,115)"
+%	 p1= "(5,95)"
+%	 p2= "(25,115)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(45,115)"
+%	 p1= "(45,95)"
+%	 p2= "(65,115)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(85,115)"
+%	 p1= "(85,95)"
+%	 p2= "(105,115)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(5,75)"
+%	 p1= "(5,55)"
+%	 p2= "(25,75)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(45,75)"
+%	 p1= "(45,55)"
+%	 p2= "(65,75)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(85,75)"
+%	 p1= "(85,55)"
+%	 p2= "(105,75)"
+%	 fill-style= "none"
+%	 />
+%<circle closure= "plain"
+%	 p3= "(5,35)"
+%	 p1= "(5,15)"
+%	 p2= "(25,35)"
+%	 fill-style= "none"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 stroke-style= "dashed"
+%	 fill-style= "none"
+%	 points= "(0,45);(0,45);(115,45);(115,45)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 stroke-style= "dashed"
+%	 fill-style= "none"
+%	 points= "(115,160);(115,160);(115,45);(115,45)"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(15,145)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 stroke-style= "dotted"
+%	 fill-style= "none"
+%	 >
+%(0, 0)
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(12,145)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 stroke-style= "dotted"
+%	 fill-style= "none"
+%	 >
+%
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(15,145)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 stroke-style= "dotted"
+%	 fill-style= "none"
+%	 >
+%
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(55,145)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 stroke-style= "dotted"
+%	 fill-style= "none"
+%	 >
+%(1, 0)
+%</text>
+%<multicurve fill-style= "none"
+%	 points= "(15,130.88);(15,130.88);(15,119.19);(15,119.19)"
+%	 />
+%<multicurve fill-style= "none"
+%	 points= "(29.21,145);(29.21,145);(40.72,144.97);(40.72,144.97)"
+%	 />
+%<multicurve fill-style= "none"
+%	 points= "(24.01,134.01);(24.01,134.01);(45.92,116.12);(45.92,116.12)"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(160,145)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%...
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(155.66,145.26)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(15,105)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%(0, 1)
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(15,165)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%(x, y)
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(55,165)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%(x', y')
+%</text>
+%<text text-rotation= "90"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(135,85)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%...
+%</text>
+%<text text-rotation= "-45"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(135,35)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%...
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(55,25)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%...
+%</text>
+%</jpic>
+%%End JPIC-XML
+%PSTricks content-type (pstricks.sty package needed)
+%Add \usepackage{pstricks} in the preamble of your LaTeX file
+%You can rescale the whole picture (to 80% for instance) by using the command \def\JPicScale{0.8}
+\ifx\JPicScale\undefined\def\JPicScale{1}\fi
+\psset{unit=\JPicScale mm}
+\psset{linewidth=0.3,dotsep=1,hatchwidth=0.3,hatchsep=1.5,shadowsize=1,dimen=middle}
+\psset{dotsize=0.7 2.5,dotscale=1 1,fillcolor=black}
+\psset{arrowsize=1 2,arrowlength=1,arrowinset=0.25,tbarsize=0.7 5,bracketlength=0.15,rbracketlength=0.15}
+\begin{pspicture}(0,0)(160,165)
+\rput{0}(15,145){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(55,145){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(95,145){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(135,145){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(15,105){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(55,105){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(95,105){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(15,65){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(55,65){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(95,65){\psellipse[](0,0)(14.14,14.14)}
+\rput{0}(15,25){\psellipse[](0,0)(14.14,14.14)}
+\psline[linestyle=dashed,dash=1 1](0,45)(115,45)
+\psline[linestyle=dashed,dash=1 1](115,160)(115,45)
+\rput(15,145){(0, 0)}
+\rput(12,145){}
+\rput(15,145){}
+\rput(55,145){(1, 0)}
+\psline(15,130.88)(15,119.19)
+\psline(29.21,145)(40.72,144.97)
+\psline(24.01,134.01)(45.92,116.12)
+\rput(160,145){...}
+\rput(155.66,145.26){}
+\rput(15,105){(0, 1)}
+\rput(15,165){(x, y)}
+\rput(55,165){(x', y')}
+\rput{90}(135,85){...}
+\rput{-45}(135,35){...}
+\rput(55,25){...}
+\end{pspicture}

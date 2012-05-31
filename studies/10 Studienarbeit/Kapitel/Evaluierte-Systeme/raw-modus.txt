@@ -1,0 +1,1 @@
+<row SPALTE1="WERT1" SPALTE2="WERT2" ... />

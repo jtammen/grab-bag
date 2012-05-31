@@ -1,0 +1,95 @@
+\section{RoboCup}
+\subsection{Einführung}
+\begin{frame}
+  \frametitle{Das RoboCup-Projekt}
+  
+  \begin{itemize}
+    \item internationales Forschungs- und Bildungsprojekt
+    \item Ziel: Förderung der Erforschung von KI und mobilen autonomen Robotern
+    \item Veranstaltung von Wettbewerben
+  \end{itemize}
+  
+  \begin{quote}
+  By the year 2050, develop a team of fully autonomous humanoid robots that
+  can win against the human world soccer champion team.
+  \end{quote}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Der RoboCup}
+  Internationale Wettbewerbs- und Konferenzveranstaltung
+
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{block}{Ligen}
+      \begin{itemize}
+        \item Simulation (2D und 3D)
+        \item Small-Size
+        \item Middle-Size
+        \item Four-Legged
+        \item Humanoid
+      \end{itemize}
+    \end{block}
+    
+    \column{.5\textwidth}
+    \pgfimage<5>[height=3.90cm]{../images/robocup-small}
+    \pgfimage<6>[height=3.90cm]{../images/robocup-middle}
+    \pgfimage<7>[height=3.90cm]{../images/robocup-4legged}
+    \pgfimage<8>[height=3.90cm]{../images/robocup-humanoid}
+  \end{columns}
+  
+  \begin{itemize}
+    \item RoboCupRescue: Rescue Robots und Simulation
+    \item RoboCupJunior: Soccer, Rescue, Dance
+  \end{itemize}
+\end{frame}
+
+\subsection{Die "`Mindstormers Tribots"'}
+\begin{frame}
+  \frametitle{Simulationsliga: "`Mindstormers"'}
+  
+  \begin{block}{Funktionsweise der Simulation}
+      Client-Server-Architektur\\
+      Server simuliert Weltmodell und liefert Sensordaten an Clients\\
+      11 Clients (eigener Thread) pro Team\\
+      pro Zyklus (6000 à 100\,ms) Ausführen eines Kommandos
+  \end{block}
+
+  Herausforderungen:  
+  \begin{itemize}
+    \item verrauschte Sensorinformationen, nur indirekte Kommunikation möglich
+    \item kooperatives Spiel
+    \item begrenzte Kondition
+  \end{itemize}
+  
+%   \movie[label=cells,width=4cm,height=3cm,poster,showcontrols,duration=5s]{}{../images/2vs2.mpeg}
+%   \hyperlinkmovie[start=5s,duration=7s]{cells}{%
+%     \beamerbutton{Show the middle stage}%
+%   }
+%   \hyperlinkmovie[start=12s,duration=5s]{cells}{% 
+%   \beamerbutton{Show the late stage}%
+%   }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Visualisierung der Simulation}
+  \begin{center}
+	  \pgfimage[width=0.80\textwidth]{../images/rcssmonitor_classic}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lernen von Einzelfähigkeiten}
+  
+  \begin{itemize}
+    \item Beispiele: Abfangen eines Balls, ballhalten, dribbeln.
+    \item zusammengesetzt aus Elementaraktionen wie \textsl{kick()} oder
+    \textsl{dash()}. 
+    \item Ablauf des Trainings:
+	\begin{enumerate}
+      \item zufälliger Startzustand
+      \item Auswahl einer Elementaraktion mit niedrigen Kosten
+      \item nach Kostenvergabe: Aktualisieren der Wertefunktion
+    \end{enumerate}
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,10 @@
+CREATE TABLE Lieferant
+{
+  Lieferanten-ID   NUMBER,
+  Bezeichnung      VARCHAR2(30),
+  Ort              VARCHAR2(30),
+  Plz              NUMBER,
+  Strasse          VARCHAR2(30),
+  Hausnummer       NUMBER,
+  Bemerkungen      XML
+}

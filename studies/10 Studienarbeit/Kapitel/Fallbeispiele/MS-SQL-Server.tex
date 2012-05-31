@@ -1,0 +1,125 @@
+\section{Einleitung}
+Das Testsystem läuft mit der Version 2005 "`June Community Technology Preview Readiness Kit"' von Microsoft. Die Anfragen und Ergebnisse werden über eine Middleware namens \acr{odbtp}\footnote{\url{http://odbtp.sourceforge.net}} versendet bzw. empfangen. Dies erst ermöglicht uns die Verarbeitung mit dem \acr{xml}-Datentyp. Mit den bereitgestellten \acr{php}-Funktionen war dies vorher nicht möglich.
+
+\section{Erstellung von Indexen}
+Die XQuery-Abfragen können mit einem primären und sekundären Index optimiert werden. Für die Tabelle Wohnung sieht das folgendermaßen aus:
+\lstinputlisting[language=SQL05,caption={SQL XML primärer Index},label=listing:sql-server-index-primar]{Kapitel/Fallbeispiele/sql-server-xml-index-primar.txt}
+\lstinputlisting[language=SQL05,caption={SQL XML sekundärer Index},label=listing:sql-server-index-sekundar]{Kapitel/Fallbeispiele/sql-server-xml-index-sekundar.txt}
+
+Weitere Informationen dazu unter Kapitel \ref{sql-server-xml-index}.
+
+\section{Abfragetypen}
+\subsection{Suchen von Ferienwohnungen}
+
+Suchen von Ferienwohnungen erfolgt im Fallbeispiel folgendermaßen:
+\lstinputlisting[language=SQL05,caption={SQL-Server Suchen von Ferienwohnungen},label=listing:sql-server-su-ferienw]{Kapitel/Fallbeispiele/sql-server-wohnung-suchen.txt}
+
+In der SELECT-Anweisung weisen wir in der \emph{FOR XML PATH}-Syntax die Spalten den gewünschten Element- bzw. Attributnamen zu. Da der \acr{xml}-Datentyp in der Spalte \texttt{ausstattung} bereits \acr{xml}-Fragmente enthält, müssen mit dem Wildcard \texttt{*} die \acr{xml}-Daten direkt in das Ergebnis-Dokument eingefügt werden.
+
+\newpage
+\subsection{Buchen von Ferienwohnungen}
+\lstinputlisting[language=SQL05,caption={SQL-Server Buchen von Ferienwohnungen},label=listing:sql-server-bu-ferienw]{Kapitel/Fallbeispiele/sql-server-wohnung-buchen.txt}
+
+Beim Buchen einer Ferienwohnung selektiert man im \acr{xml}-Feld \texttt{zeitraum} mit der XQuery-Funktion \texttt{value()} einen Wert und konvertiert ihn in den Typ \emph{VARCHAR}. Mit \texttt{CAST()} konvertiert der SQL-Server den Text in ein Datumsformat. Die Datumsfunktionen von XQuery werden in der von uns verwendeten Version 2005 noch nicht unterstützt.
+
+\subsection{Hinzufügen von Ferienwohnungen}
+\lstinputlisting[language=SQL05,caption={SQL-Server Einfügen einer Ferienwohnung},label=listing:sql-server-einf-ferienw]{Kapitel/Fallbeispiele/sql-server-wohnung-einfuegen.txt}
+
+Die Daten in die Datenbank zu speichern erreichen wir mit einem einfachen \texttt{INSERT}-Befehl. Falls das \acr{xml}-Dokument als Datei vorliegt, ist es über \emph{OpenXML} möglich, die Daten zu importieren. Dies wird in der folgenden Form am Beispiel des \acr{xml}-Dokuments "`Länder"' umgesetzt:
+\lstinputlisting[language=SQL05,caption={SQL-Server OpenXML},label=listing:sql-server-openxml]{Kapitel/Fallbeispiele/sql-server-openxml.txt}
+
+Das \acr{xml}-Dokument wird in diesem Fall direkt eingefügt und darf den Speicher von 8000 Zeichen nicht überschreiten. Um größere \acr{xml}-Dokumente in die Datenbank einzulesen, könnte das \acr{com} Objekt \emph{Bulk Load} (\citep{url:SQLSERV05_BULK_LOAD}) verwendet werden. Mit einer Programmiersprache wie \acr{php} ist es möglich, auf diese \acr{com}-Schnittstelle (\citep{url:PHP_COM}) zuzugreifen und \acr{xml}-Daten in die Datenbank einzufügen. 
+
+\subsection{Ändern von Ferienwohnungen}
+\lstinputlisting[language=SQL05,caption={SQL-Server Ändern einer Ferienwohnung},label=listing:sql-server-bearb-ferienw]{Kapitel/Fallbeispiele/sql-server-update-ferienwohnung.txt}
+
+Das Update erfolgt einfach durch Überschreiben der \acr{xml}-""Spalte \texttt{ausstattung}. Mit der XQuery-""Funktionen \texttt{modify()} wäre es möglich, gezielt die \acr{xml}-Informationen zu bearbeiten.
+
+\subsection{Löschen von Ferienwohnungen}
+\lstinputlisting[language=SQL05,caption={SQL-Server Löschen einer Ferienwohnung},label=listing:sql-server-delete-ferienw]{Kapitel/Fallbeispiele/sql-server-delete.txt}
+Anhand der ID des Datensatzes wird dieser aus der Datenbank gelöscht.
+
+\section{Bewertung}
+\subsection{Speicherung}
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		Unterstützte Speicherformen 			& 					& \acr{xml}-Dokument wird relational als \acr{xml}-Datentyp 
+																										gespeichert, internes Format \acr{blob} \\ \cmidrule{1-3}
+	  Komplette \acr{xml}-Dokumente 		& \ding{51} & ja, bis auf den Vorspann als \acr{xml}-Datentyp \\ \cmidrule{1-3}
+	  Tabelle von \acr{xml}-Typ 				& \ding{55} & \textit{nicht zutreffend} \\ \cmidrule{1-3}
+		Hybride Speicherung							 	& \ding{51} & ja, als \acr{xml} und relational \\ \cmidrule{1-3}	  
+		\acr{sql}/\acr{xml}-Standard 			& \ding{55} & die \acr{xml}-Funktionen werden nicht unterstützt \\ 
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Speicherung}
+	\label{tab:sql-server-bewertung-speicherung}
+\end{table}
+
+Wie in Tabelle \ref{tab:sql-server-bewertung-speicherung} beschrieben ist es möglich, komplette \acr{xml}-Dokumente zu speichern. Jedoch mit der Einschränkung, dass der Vorspann gelöscht wird. Mit dem Datentyp \texttt{NVARCHAR} oder \texttt{VARBINARY} ist es möglich, vollständige \acr{xml}-Dokumente zu speichern. Indexe oder XQuery-Funktionen können darauf nicht angewendet werden.
+
+\subsection{Abfragen}
+
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		XPath 									& \ding{51} & XPath 2.0, \acr{w3c} Working Draft aus dem November 2003. Standard-Funktionen nicht vollständig implementiert. \\ \cmidrule{1-3}
+	  XQuery 									& \ding{51} & XQuery 1.0, \acr{w3c} Working Draft aus dem November 2003. Standard-Funktionen nicht vollständig implementiert. \\ \cmidrule{1-3}
+	  Änderungsoperationen		& \ding{51}	& Mittels \texttt{modify()} und den XQuery-Funktionen (insert, delete, into, after, before, usw.). \acr{xml}-Daten werden auf Wohlgeformtheit hin überprüft. \\ \cmidrule{1-3}
+		Ergebnis-Darstellung		&  					& Mit \emph{FOR XML} Rückgabe des \acr{xml}-Dokuments als String. \\ \cmidrule{1-3}
+		Transaktionssicherheit	& \ding{51}	& Unterstützt werden Transaktionssicherheiten (\citep{url:SQLSERV05_XML_BEST_PRAC05}) auf Spalten mit dem \acr{xml}-Datentyp \\
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Abfragen}
+	\label{tab:sql-server-bewertung-abfragen}
+\end{table}
+
+Wie in der Tabelle \ref{tab:sql-server-bewertung-abfragen} beschrieben, sind die XPath- und XQuery-Funktionen nicht vollständig implementiert. Die im Fallbeispiel verwendete Datenbankversion 2005 ist nicht auf dem aktuellsten Stand der Entwicklung. Welche Funktionen in der endgültigen Version implementiert werden, ist zum Zeitpunkt der Erstellung dieser Studienarbeit noch offen. Weitere Informationen dazu unter Kapitel \ref{einschraenkungen-und-aktuelle-entwicklungen} und \citep{url:SQLSERV05_XQUERY}.
+
+\subsection{Indexierung}
+\begin{table}[H]
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		Elemente	& \ding{51} & wird unterstützt mit dem sekundären \emph{PATH}-Index \\ \cmidrule{1-3}
+	  Attribute	& \ding{51} & wird unterstützt mit dem sekundären \emph{PROPERTY}-Index und \emph{VALUE}-Index \\ \cmidrule{1-3}
+	  Text			& \ding{51} & wird unterstützt mit dem primären Volltextindex \\ 
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Indexierung}
+	\label{tab:sql-server-bewertung-indexierung}
+\end{table}
+
+Die Indexe können Zugriffe mittels XQuery-Funktionen auf die \acr{xml}-Felder beschleunigen. Genauere Informationen dazu unter Kap. \ref{sql-server-xml-index} und \citep{url:SQLSERV05_XML_INDEX}.

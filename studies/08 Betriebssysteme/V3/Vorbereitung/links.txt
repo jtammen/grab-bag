@@ -1,0 +1,12 @@
+socket:
+http://www.christians-software.de/uni/proseminar/SocketServer.c
+http://www.zeroaltitude.org/BlogPost/BlogPost.widget/Contents/Resources/BlogPost/SocketServer/socketserver.c
+http://www.zotteljedi.de/doc/socket-tipps/index.html
+http://www-128.ibm.com/developerworks/linux/library/l-sockpit/?ca=dgr-lnxw06SocketPitfalls
+http://beej.us/guide/bgnet/output/htmlsingle/bgnet.html
+
+sempahor:
+http://www4.informatik.uni-erlangen.de/Lehre/WS00/V_SP1/Uebung/10-A6.pdf
+http://www.willemer.de/informatik/unix/unprfork.htm#sema
+http://www.e-technik.fh-kiel.de/~felten/van/sema.c
+http://www.galileocomputing.de/openbook/unix_guru/node394.html

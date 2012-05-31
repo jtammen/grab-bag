@@ -1,0 +1,6 @@
+CREATE TABLE kunde(
+    id_kunde int,
+    name XMLType,
+    adresse XMLType,
+    bankverbindung XMLType,
+    CONSTRAINT pk_id_kunde PRIMARY KEY(id_kunde));

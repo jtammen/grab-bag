@@ -1,0 +1,33 @@
+%\resizebox{0.9\linewidth}{!}{%
+	\begin{pspicture}(0,0)(15,8)
+	%\psgrid
+	\psset{framesep=0}
+	%
+	\psframe[linewidth=0.2pt, linestyle=solid](3,8)(12,0)
+	\rput(4.5,7.5){Lieferservice}
+	%
+	\rput(1,05.5)		{\rnode{acKD}	{\umlActor{Kunde}}}
+	\rput(14,04.0)	{\rnode{acAB}	{\umlActor{Anbieter}}}
+	%
+	%
+	\umlPutCase{5.0,05.5}	{BA}{Bestellung\\aufgeben}
+	\umlPutCase{9.5,06.5}	{BE}{Bestellung\\aufnehmen}
+	\umlPutCase{9.5,03.0}	{BS}{Bestellung\\speichern}
+	\umlPutCase{9.5,01.0}	{LE}{Lieferschein\\erstellen} 
+	\umlPutCase{5.0,01.0}	{AA}{Auszug\\anzeigen} 
+	%
+	\ncline{acKD}{BA}
+	\ncline{acAB}{BE}
+	%\ncline{acAB}{BS}
+	\ncline{acAB}{LE}
+	%\ncline{acAB}{AA}
+	
+	\ncline[linestyle=dashed]{BS}{BE}
+	\nbput[nrot=:R]{\umlStereoType{include}}
+	\ncputicon{umlV}
+	
+	\ncline{LE}{AA}
+	\ncputicon{umlHerit}
+		
+	\end{pspicture}
+%}%end resizebox

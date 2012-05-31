@@ -1,0 +1,11 @@
+CREATE XML INDEX [wohnungpathidx] ON [dbo].[wohnung]([ausstattung])
+ USING XML INDEX [wohnungidx] FOR PATH
+GO
+
+CREATE XML INDEX [wohnungpropertyidx] ON [dbo].[wohnung]([ausstattung])
+ USING XML INDEX [wohnungidx] FOR PROPERTY
+GO
+
+CREATE XML INDEX [wohnungvalueidx] ON [dbo].[wohnung]([ausstattung])
+ USING XML INDEX [wohnungidx] FOR VALUE
+GO

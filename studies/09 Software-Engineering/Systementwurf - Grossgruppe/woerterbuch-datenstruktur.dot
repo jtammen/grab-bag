@@ -1,0 +1,184 @@
+digraph g {
+    graph [
+        rankdir = "LR"
+        //rotate = "0"
+        //ranksep = "0.5"
+        //nodesep = "0.3"
+        //size = "5.00,5.00"
+        //ratio = "auto"
+        //pack = "true"
+        ];
+    node [
+        fontsize = "10"
+        fontname = "Times-Roman"
+        shape = "record"
+        width = "0.1"
+        height = "0.1"
+        style="filled"
+        fillcolor="white"
+        ];
+    edge [
+        arrowsize = "0.4"
+        arrowhead = "normal"
+        ];
+  
+    //Woerterbuch [label="<f0>wortPool|<f1>wortartPool|<f2>..." fillcolor="#AAAAAA"];
+    Woerterbuch [shape="plaintext" label=<
+    <TABLE BORDER="0" BGCOLOR="#AAAAAA" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR>
+            <TD BGCOLOR="#FFFFFF" COLSPAN="1" BORDER="0" ALIGN="LEFT">Woerterbuch</TD>
+        </TR>    
+        <TR>
+            <TD ALIGN="LEFT" PORT="f0">wortPool</TD>
+        </TR>
+        <TR>
+            <TD ALIGN="LEFT" PORT="f1">wortartPool</TD>
+        </TR>
+        <TR>
+            <TD ALIGN="LEFT" PORT="f2">...</TD>
+        </TR>            
+    </TABLE>>];      
+   
+    {
+        //HashMapWoerter [label="<f0>'Haus'|<f1>'Gehen'|<f2>..."];
+        HashMapWoerter [shape="plaintext" label=<
+        <TABLE BORDER="0" BGCOLOR="#DDDDDD" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR>
+                <TD BGCOLOR="#FFFFFF" COLSPAN="1" BORDER="0" ALIGN="LEFT">HashMap</TD>
+            </TR>    
+            <TR>
+                <TD ALIGN="LEFT" PORT="f0">'Haus'</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="LEFT" PORT="f1">'Gehen'</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="LEFT" PORT="f2">...</TD>
+            </TR>
+        </TABLE>>];
+        //Wort1 [label="<f0>wort: 'Haus'|{wortarten: |{<f1>0|<f2>1|...}}" fillcolor="#CCCCCC"];
+        Wort1 [shape="plaintext" label=<
+        <TABLE BORDER="0" BGCOLOR="#DDDDDD" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR>
+                <TD BGCOLOR="#FFFFFF" COLSPAN="2" BORDER="0" ALIGN="LEFT">Wort</TD>
+            </TR>    
+            <TR>
+                <TD COLSPAN="2" ALIGN="LEFT" PORT="f0">wort: 'Haus'</TD>
+            </TR>
+            <TR>
+                <TD VALIGN="TOP" ROWSPAN="3" WIDTH="1">wortarten:</TD>
+                <TD PORT="f1">0</TD>
+            </TR>
+            <TR>
+                <TD PORT="f2">1</TD>
+            </TR>
+            <TR>
+                <TD PORT="f3">...</TD>
+            </TR>
+        </TABLE>>];
+        //Wort2 [label="<f0>wort: 'Gehen'|{wortarten: |{<f1>0|<f2>1|...}}" fillcolor="#CCCCCC"];
+        Wort2 [shape="plaintext" label=<
+        <TABLE BORDER="0" BGCOLOR="#DDDDDD" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR>
+                <TD BGCOLOR="#FFFFFF" COLSPAN="2" BORDER="0" ALIGN="LEFT">Wort</TD>
+            </TR>    
+            <TR>
+                <TD COLSPAN="2" ALIGN="LEFT" PORT="f0">wort: 'Gehen'</TD>
+            </TR>
+            <TR>
+                <TD VALIGN="TOP" ROWSPAN="3" WIDTH="1">wortarten:</TD>
+                <TD PORT="f1">0</TD>
+            </TR>
+            <TR>
+                <TD PORT="f2">1</TD>
+            </TR>
+            <TR>
+                <TD PORT="f3">...</TD>
+            </TR>
+        </TABLE>>];
+
+        Woerterbuch:f0:e        -> HashMapWoerter:f0:nw [weight = "1.00"];
+        HashMapWoerter:f0:e     -> Wort1:f0:nw [weight = "1.00"];
+        HashMapWoerter:f1:e     -> Wort2:f0:nw [weight = "1.00"];
+    }
+
+    {
+        //rank = "sink";
+        //HashMapWortarten [label="<f1>'Substantiv'|<f0>'Verb'|<f2>..." fillcolor="#EEEEEE"];
+        HashMapWortarten [shape="plaintext" label=<
+        <TABLE BORDER="0" BGCOLOR="#EEEEEE" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR>
+                <TD BGCOLOR="#FFFFFF" COLSPAN="1" BORDER="0" ALIGN="LEFT">HashMap</TD>
+            </TR>    
+            <TR>
+                <TD ALIGN="LEFT" PORT="f0">'Substantiv'</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="LEFT" PORT="f1">'Verb'</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="LEFT" PORT="f2">...</TD>
+            </TR>            
+        </TABLE>>];        
+        //Wortart2 [label="<f0>name: 'Verb'|{woerter: |{<f1>0|<f2>1|...}}" fillcolor="#EEEEEE"];
+        Wortart2 [shape="plaintext" label=<
+        <TABLE BORDER="0" BGCOLOR="#EEEEEE" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR>
+                <TD BGCOLOR="#FFFFFF" COLSPAN="2" BORDER="0" ALIGN="LEFT">Wortart</TD>
+            </TR>    
+            <TR>
+                <TD COLSPAN="2" ALIGN="LEFT" PORT="f0">name: 'Verb'</TD>
+            </TR>
+            <TR>
+                <TD VALIGN="TOP" ROWSPAN="3" WIDTH="1">woerter:</TD>
+                <TD PORT="f1">0</TD>
+            </TR>
+            <TR>
+                <TD PORT="f2">1</TD>
+            </TR>
+            <TR>
+                <TD PORT="f3">...</TD>
+            </TR>
+        </TABLE>>];
+        //Wortart1 [label="<f0>name: 'Substantiv'|{woerter: |{<f1>0|<f2>1|...}}" fillcolor="#EEEEEE"];
+        Wortart1 [shape="plaintext" label=<
+        <TABLE BORDER="0" BGCOLOR="#EEEEEE" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+            <TR>
+                <TD BGCOLOR="#FFFFFF" COLSPAN="2" BORDER="0" ALIGN="LEFT">Wortart</TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="2" ALIGN="LEFT" PORT="f0">name: 'Substantiv'</TD>
+            </TR>
+            <TR>
+                <TD VALIGN="TOP" ROWSPAN="3" WIDTH="1" PORT="f4">woerter:</TD>
+                <TD PORT="f1">0</TD>
+            </TR>
+            <TR>
+                <TD PORT="f2">1</TD>
+            </TR>
+            <TR>
+                <TD PORT="f3">...</TD>
+            </TR>
+        </TABLE>>];
+
+        Woerterbuch:f1:e        -> HashMapWortarten:f0:nw [weight = "1.00"];
+        HashMapWortarten:f0:e   -> Wortart1:f0:nw [weight = "1.00"];
+        HashMapWortarten:f1:e   -> Wortart2:f0:nw [weight = "1.00"];
+    }
+
+    {
+        rank = "sink";
+        node[fontsize="8" shape="ellipse" style="dashed"];
+        Gehen [label="Wort: 'Gehen'"];
+        Gehen2 [label="Wort: 'Gehen'"];
+        Haus [label="Wort: 'Haus'"];
+    }
+
+    Wort1:f1:e      -> Wortart1:f0:n;
+    Wort2:f1:e      -> Wortart1:f4;
+    Wort2:f2:e      -> Wortart2:f0:w;
+
+    Wortart1:f1:e   -> Gehen2;
+    Wortart1:f2:e   -> Haus;
+    Wortart2:f1:e   -> Gehen;
+}

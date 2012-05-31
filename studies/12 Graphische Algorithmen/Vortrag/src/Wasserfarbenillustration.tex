@@ -1,0 +1,266 @@
+\section{Wasserfarben}
+\subsection{Einführung}
+\begin{frame}{Einführung Wasserfarben}
+  \begin{itemize}
+    \item Moderne Wasserfarbentradition: zweite Hälfte des 18. Jahrhunderts
+    \item Ermöglicht zahlreiche künstlerische Effekte
+    \item Computer-Erzeugung durch zwei Ansätze (nach Curtis et al.): 
+    realistische physikalische Simulation (hoher Aufwand) oder Annäherung durch 
+    geeignete Filter (echtzeitgeeignet)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Materialien}
+  \begin{itemize} 
+    \item Papier: meist nicht aus Zellstoff, sondern Leinen bzw.\ Baumwolle;
+    grobe Struktur, dadurch Wasserabsorption und Diffusion möglich
+    \item Bestandteile der Wasserfarbe: in Wasser gelöstes Pigment, Bindemittel
+    sowie Tensid (oberflächenaktiver Stoff)
+    \item Pigment: festes Material, besteht aus einzelnen Partikeln; oftmals in
+    Puderform; kann in das Papier einsickern und dort anhaften bzw.\ durch das
+    Wasser transportiert werden
+    \item Bindemittel: Pigment kann an das Papier anhaften
+    \item Tensid: Wasser kann in das Papier eindringen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Haupt-Pinseltechniken}
+  \begin{itemize}
+    \item "`wet-on-wet painting"': Malen mit nassem, farbgetränkten Pinsel auf
+    nassem Papier
+    \item "`wet-on-dry painting"': Malen auf trockenem Papier
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Effekte}
+  \centering\pgfimage[width=1.0\textwidth]
+    {../images/Curtis1997-real-watercolor-effects}
+  
+  \begin{itemize}
+    \item \textsl{Dry-brush}: trockener Pinsel/Papier; unregelmäßige Lücken
+    \item \textsl{Edge darkening}: Pigmente von innen n.\ außen; dunkle Kanten
+    \item \textsl{Backruns}: Wasser läuft in nasse Region zurück
+    \item \textsl{Granulation} u.\ \textsl{Separation}: körnige Struktur, Farbtrennung
+    \item \textsl{Flow patterns}: freies Ausbreiten der Pinselstriche
+    \item \textsl{Color glazing}: Übereinanderlegen von dünnen Farbschichten
+  \end{itemize}
+\end{frame}
+
+\subsection{Computererzeugte Wasserfarben}
+\begin{frame}{Simulation}
+  \begin{itemize}
+    \item Wichtig: nicht nur physikalische Eigenschaften, sondern auch
+    künstlerische Effekte berücksichtigen!
+    \item Bestandteile: Papierschicht, geordnete Menge von Farbschichten
+    \item Für jede Farbschicht wird Flüssigkeitssimulation separat durchgeführt
+    \item Zusätzlich: "`wet-area"'-Maske
+    \item Nach der Simulation: Komposition mit Kubelka-Munk-Farbmodell erzeugt 
+    finale Darstellung
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Simulation: Papier}
+  \begin{itemize}
+    \item Vereinfachtes Papier-Modell: Textur wird als Höhenfeld und
+    Flüssigkeitskapazitätsfeld abgebildet
+    \item Höhe: $0 < h < 1$
+    \item Steigung wird zur Berechnung der Fließgeschwindigkeit in der
+    Simulation benutzt
+    \item Kapazität: $c = h(c_{max} - c_{min}) + c_{min}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Simulation: 3-Schichten-Modell}
+  \begin{columns}
+    \column{.6\textwidth}
+	    \begin{enumerate}
+	      \item "`shallow-water layer"': Wasser fließt über die Oberfläche und
+	      transportiert ggf.\ Pigmente
+	      \item "`pigment-deposition layer"': Pigmente werden hier abgelagert und
+	      von hier weitertransportiert
+	      \item "`capillary layer"': Absorbiertes Wasser diffundiert durch
+	      Kapillarwirkung
+	    \end{enumerate}
+
+	\column{.4\textwidth}
+		\pgfimage<3->[width=0.5\textwidth]{../images/Curtis1997-layer-shallow-water}\par
+		\pgfimage<4->[width=0.5\textwidth]{../images/Curtis1997-layer-pigment-deposition}\par
+		\pgfimage<5->[width=0.5\textwidth]{../images/Curtis1997-layer-capillary}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Simulation: Haupt-Schleife}
+  Eingabewerte: (Anfangswerte)
+  \begin{itemize}
+    \item Wet-Area-Maske $M$
+    \item Geschwindigkeit des Wassers $u$ und $v$
+    \item Wasserdruck $p$
+    \item Pigmentkonzentration $g^k$
+    \item Wassersättigung des Papiers $s$
+  \end{itemize}
+  
+  \pause
+  Simuliert werden über einen definierten Zeitraum: Wasser- und Pigmentbewegungen,
+  Pigmentablagerungen, Kapillarfluss.
+\end{frame}
+
+\begin{frame}{Simulation: Rendering und Pigmente}
+  \begin{itemize}
+    \item Verwendung des Kubelka-Munk-Farbmodells
+    \item Jedem RGB-Farbkanal jeden Pigments sind zwei Koeff. zugewiesen:
+    \begin{itemize}
+      \item Absorptionskoeff. $K$
+      \item Streuungskoeff. $S$
+    \end{itemize}
+  \end{itemize}
+  
+  \begin{block}{Synthetische Pigmente}
+    \pgfimage<5->[width=0.8\textwidth]{../images/Curtis1997-pigments}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Simulation: Vergleich der Ergebnisse}
+  \centering\pgfimage[width=1.0\textwidth]
+  {../images/Curtis1997-real-watercolor-effects}\par
+  \centering\pgfimage[width=1.0\textwidth]
+  {../images/Curtis1997-simulated-watercolor-effects}
+\end{frame}
+
+\begin{frame}{Anwendungen}
+  \begin{itemize}
+    \item Interaktives Malen: Benutzer kann Startzustand der Simulation
+    "`malen"' durch Erstellung der Schichten mit Unterschichten für Pigmente,
+    Wasser und die Wet-Area-Maske. Zusätzlich: globales Referenzbild sowie
+    Papiertextur
+    \item "`Watercolorization"': Konvertierung eines Farbbilds in eine
+    Wasserfarben-Illustration.
+    \item 3D-Szenen: Erweiterung der "`Watercolorization"'
+    \item Aufbauende Ansätze: Darstellung in Echtzeit
+  \end{itemize}
+\end{frame}
+
+\subsection{Echtzeit-Wasserfarben-Animationen}
+\begin{frame}{Echtzeit-Animationen}
+  \begin{itemize}
+    \item Ansatz nach O. Deussen und T. Luft: keine exakte physikalische 
+    Simulation, sondern Mittelweg zwischen Qualität und Rechenaufwand mit Ziel: 
+    Echtzeit-Rendering von 3D-Szenen
+    \item Aspekte: \textbf{Abstraktion und Vereinfachung},
+    \textbf{Wasserfarben-Effekte}, \textbf{Licht und Schatten}
+    \item Grobe Vorgehensweise: Erzeugung einzelner abstrakter 
+    Wasserfarben-Layer, die mithilfe der Grafikkarte zusammengefügt werden
+  \end{itemize}
+\end{frame}
+
+\subsubsection{Vorgehensweise}
+\begin{frame}{Abstraktion und Vereinfachung}
+  \begin{columns}[t]
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Jeder Layer enthält jeweils ein oder mehrere gleichartige Objekte
+        \item Segmentieren der 3D-Szene anhand eindeutiger Identifikatoren
+        (Ergebnis: "`intensity images"')
+        \item Low-Pass-Filter erzeugt abstrakte, weiche Formen mit definierbarem
+        Detaillierungsgrad
+        \item Layer enthalten außerdem Farb- sowie Transparenzinformation
+      \end{itemize}
+    \column[T]{0.4\textwidth}
+      \pgfimage<4->[width=1.0\textwidth]{../images/Luft2006-tree-segmentation}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Formextraktion und Fließmuster}
+  \begin{columns}[t]
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Form ergibt sich aus den Intensitäts-Werten der \textsl{intensity
+        images}
+        \item Fließmuster beschreibt das Pigment-Verhalten am Rand des Layers; 
+        \textsl{wet-on-dry}: harte Kanten, \textsl{wet-on-wet}: weiche, 
+        federartige Kanten
+      \end{itemize}
+    \column[T]{0.4\textwidth}
+      \pgfimage<4->[width=1.0\textwidth]{../images/Luft2006-tree-shape-extraction-flow-pattern}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[label=current]{Edge darkening}
+  \begin{columns}[t]
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Pigmente werden beim Trocknen zum Rand transportiert
+        \item Imitation durch Anwendung eines Gauss-Filters, erzeugt weichen
+        Intensitäts-Übergang an den Rändern
+        \item Erzeugung eines Gradienten, der dem Wasserfarbenfluss folgt und
+        die Transparenz an den Rändern verblassen lässt
+      \end{itemize}
+    \column[T]{0.4\textwidth}
+      \pgfimage<4->[width=0.8\textwidth]{../images/Luft2006-tree-edge-darkening}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Pigment-Granulation und Transparenz}
+  \begin{columns}[t]
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Struktur des Papiers beeinflusst Wasserverlauf und erzeugt so Pigment-Granulation
+        \item Imitation durch Verwendung einer zusätzlichen Papier-Textur
+        \item Mit entsprechenden Texturen lassen sich auch ausgefranste Kanten erzeugen
+      \end{itemize}
+    \column[T]{0.4\textwidth}
+      \pgfimage<3->[width=1.0\textwidth]{../images/Luft2006-tree-granulation-transparency}
+  \end{columns}
+\end{frame}
+
+\subsubsection{Komposition von Wasserfarben-Layern}
+\begin{frame}{Licht (1)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Verwendung der Beleuchtungs-Informationen aus dem 3D-Modell zur
+        Anpassung der erzeugten bzw.\ zur Erstellung neuer Layer
+        \item Phong-Beleuchungsmodell, Komponenten: ambiente (hier konstant), 
+        diffuse und spiegelnde Reflexion
+        \item Diffuse und spiegelnde Reflexion werden auf zwei \textsl{lighting-maps} gerendert
+      \end{itemize}
+    \column{0.4\textwidth}
+      \pgfimage<4->[width=1.0\textwidth]{../images/Luft2006-still-life-light-shadow}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Licht (2)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item spiegelnde Reflexion: erzeugt hervorgehobene Region, wird erreicht
+        durch Ausmaskieren der \textsl{intensity-images} vor Erstellung des
+        Layers (Bild 3 und 4)
+        \item diffuse Reflexion: Erzeugung zusätzlicher Layer, z.\,B.\
+        Hervorhebung dunkler Stellen (Bild 3); weiterhin Anpassung aller Layer,
+        zwei Farbwerte für unbeleuchtete und beleuchtete Regionen (Bild 2)
+      \end{itemize}
+    \column{0.4\textwidth}
+      \pgfimage<2->[width=1.0\textwidth]{../images/Luft2006-still-life-light-shadow}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Komposition}
+  \begin{columns}[t]
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Layer werden mit Standard-Funktion zur Überblendung
+        transparenter Objekte zusammengesetzt
+        \item Farbe an der Position $(x,y)$ ergibt sich zu: $R_{rgb} = C_a \cdot
+        C_{rgb} + (1-C_a) \cdot B_{rgb}$
+        \item $C_{rgb}$ = Farbe, $C_a$ = Transparenz, $B_{rgb}$ = Hintergrundfarbe
+      \end{itemize}
+    \column[T]{0.4\textwidth}
+      \pgfimage<4->[width=1.0\textwidth]{../images/Luft2006-tree-result}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Demo}
+  \begin{center}
+	  \movie[autostart, height=6cm, width=8cm]{}{../tree_cover.avi}
+  \end{center}
+\end{frame}

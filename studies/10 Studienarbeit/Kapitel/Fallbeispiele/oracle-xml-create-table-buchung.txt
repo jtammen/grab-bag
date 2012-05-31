@@ -1,0 +1,10 @@
+CREATE TABLE buchung(
+    id_buchung int,
+    rechnungsdatum date,
+    zeitraum XMLType,
+    id_kunde int,
+    id_wohnung int,
+    CONSTRAINT pk_id_buchung PRIMARY KEY(id_buchung),
+    CONSTRAINT fk_id_kunde FOREIGN KEY(id_kunde) REFERENCING kunde(id_kunde),
+    CONSTRAINT fk_wohnung FOREIGN KEY(id_wohnung) REFERENCING wohnung(id_wohnung)
+)

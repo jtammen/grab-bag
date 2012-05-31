@@ -1,0 +1,82 @@
+module corbatermin {
+                         
+       interface Termin {
+       
+       typedef sequence <string> teilnehmer;
+       string  getPrimaryKey();
+       string  getTerminname();
+       string  getInitiator();
+       string  getBeschreibung();
+       string  getRaumname();
+       teilnehmer getTeilnehmer();
+       
+       void setTerminname(in string terminname);
+       void setInitiator(in string initiator);
+       void setBeschreibung(in string beschreibung);
+       void setRaumname(in string raum);
+       void setTeilnehmer(in teilnehmer teiln);
+       };
+      
+       
+       // Termin der einem Zeitpunkt zugeortnet ist
+       interface KonkreterTermin : Termin {
+       
+       //Prueft den Typ und die Formatierung der Attribute
+       //beim Speichern
+       exception validierungsFehler{ };
+       
+       //UhrzeitFormat: 24.12.1999
+       string getDatum();
+       void setDatum(in string datum);
+       
+       //DatumFormat 15:30
+       string getUhrzeit();
+       void setUhrzeit(in string uhrzeit);
+        
+       //Dauer 01:30
+       string getDauer();
+       void setDauer(in string dauer);
+       
+       void speichern() raises (validierungsFehler);
+          
+       };
+      
+       // Termin welcher einer Vorlage(Template) zugeortnet ist
+       interface Terminvorlage : Termin {
+       string getVorlagenname();
+       void   setVorlagenname(in string name);
+         
+       };
+                         
+       
+       interface Tag {     
+       typedef sequence < KonkreterTermin > konkreteTermine;
+       konkreteTermine getTermine();
+       };
+       
+       interface CallbackClient {
+       void beobachter(in string message);
+       };
+     
+       interface TerminFactory {
+       //Exception welche Auftritt, wenn das Datum nicht das Format
+       // TT.MM.JJJJ hat. 
+       exception falschesDatumsformat{ };
+       
+       KonkreterTermin createKonkreterTermin(in string mandant);
+         
+       //Die Methode dient zum Registrieren von Clients,
+       //welche beim Eintragen eines Termins benachrichtigt werden.
+       void register(in CallbackClient objRef);
+       
+       //Gibt ein Array von Terminen zurück
+       Tag findTag(in string datum, in string mandant) raises (falschesDatumsformat);
+      
+       KonkreterTermin findKonkreterTermin(in string primaryKey);
+ 
+       void removeTermin(in string primaryKey);       
+       };
+
+      
+      
+ };

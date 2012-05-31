@@ -1,0 +1,8 @@
+CREATE TABLE xmldb.dbo.tb_index (
+	id INT PRIMARY KEY,
+	xmldata XML
+)
+GO
+
+CREATE PRIMARY XML INDEX xmldataidx ON xmldb.dbo.tb_index(xmldata)
+GO

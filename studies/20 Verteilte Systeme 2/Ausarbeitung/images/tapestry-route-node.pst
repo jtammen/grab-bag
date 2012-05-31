@@ -1,0 +1,260 @@
+%%Created by jPicEdt 1.4.1: mixed JPIC-XML/LaTeX format
+%%Thu May 31 12:46:43 CEST 2007
+%%Begin JPIC-XML
+%<?xml version="1.0" standalone="yes"?>
+%<jpic x-min="3.68" x-max="188.68" y-min="2.64" y-max="137.11" auto-bounding="true">
+%<g>
+%<ellipse shadow= "true"
+%	 closure= "open"
+%	 p3= "(43.68,17.11)"
+%	 fill-color= "#999999"
+%	 shadow-color= "#666666"
+%	 p1= "(3.68,37.11)"
+%	 angle-end= "0"
+%	 fill-style= "solid"
+%	 stroke-width= "0.5"
+%	 p2= "(43.68,37.11)"
+%	 angle-start= "0"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(23.68,27.11)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%5230
+%</text>
+%</g>
+%<g>
+%<ellipse shadow= "true"
+%	 closure= "open"
+%	 p3= "(188.68,52.11)"
+%	 fill-color= "#999999"
+%	 shadow-color= "#666666"
+%	 p1= "(148.68,72.11)"
+%	 angle-end= "0"
+%	 fill-style= "solid"
+%	 stroke-width= "0.5"
+%	 p2= "(188.68,72.11)"
+%	 angle-start= "0"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(168.68,62.11)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%42AD
+%</text>
+%</g>
+%<g>
+%<ellipse shadow= "true"
+%	 closure= "open"
+%	 p3= "(63.68,62.11)"
+%	 fill-color= "#cccccc"
+%	 shadow-color= "#666666"
+%	 p1= "(23.68,82.11)"
+%	 angle-end= "0"
+%	 fill-style= "solid"
+%	 p2= "(63.68,82.11)"
+%	 angle-start= "0"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(43.68,72.11)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%400F
+%</text>
+%</g>
+%<g>
+%<ellipse shadow= "true"
+%	 closure= "open"
+%	 p3= "(178.68,117.11)"
+%	 fill-color= "#cccccc"
+%	 shadow-color= "#666666"
+%	 p1= "(138.68,137.11)"
+%	 angle-end= "0"
+%	 fill-style= "solid"
+%	 p2= "(178.68,137.11)"
+%	 angle-start= "0"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(158.68,127.11)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%42A2
+%</text>
+%</g>
+%<g>
+%<ellipse shadow= "true"
+%	 closure= "open"
+%	 p3= "(123.68,87.11)"
+%	 fill-color= "#cccccc"
+%	 shadow-color= "#666666"
+%	 p1= "(83.68,107.11)"
+%	 angle-end= "0"
+%	 fill-style= "solid"
+%	 p2= "(123.68,107.11)"
+%	 angle-start= "0"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(103.68,97.11)"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 >
+%4227
+%</text>
+%</g>
+%<multicurve left-arrow= "head"
+%	 fill-style= "none"
+%	 points= "(85.26,93.29);(85.26,93.29);(59.86,77.9);(59.86,77.9)"
+%	 />
+%<multicurve left-arrow= "head"
+%	 fill-style= "none"
+%	 points= "(140.92,122.5);(140.92,122.5);(113.15,105.79);(113.15,105.79)"
+%	 />
+%<multicurve left-arrow= "head"
+%	 fill-style= "none"
+%	 points= "(166.71,71.98);(166.71,71.98);(163.68,117.11);(163.68,117.11)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 left-arrow= "head"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 points= "(58.68,37.5);(58.68,37.5);(43.68,27.5);(43.68,27.5)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 left-arrow= "head"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 points= "(15,2.64);(15,2.64);(20,17.64);(20,17.64)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 left-arrow= "head"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 points= "(83.68,122.11);(83.68,122.11);(93.55,105.79);(93.55,105.79)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 left-arrow= "head"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 points= "(18.68,92.11);(18.68,92.11);(33.02,80.66);(33.02,80.66)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 left-arrow= "head"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 points= "(168.68,52.11);(168.68,52.11);(173.68,37.11);(173.68,37.11)"
+%	 />
+%<multicurve stroke-dasharray= "1;1"
+%	 left-arrow= "head"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 points= "(128.68,57.11);(128.68,57.11);(148.68,62.11);(148.68,62.11)"
+%	 />
+%<multicurve left-arrow= "head"
+%	 fill-style= "none"
+%	 points= "(37.1,62.5);(37.1,62.5);(23.68,37.11);(23.68,37.11)"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(37.89,48.16)"
+%	 stroke-dasharray= "1;1"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 >
+%$l=1$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(78.42,81.19)"
+%	 stroke-dasharray= "1;1"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 >
+%$l=2$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(134.21,110.79)"
+%	 stroke-dasharray= "1;1"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 >
+%$l=3$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(174.47,94.35)"
+%	 stroke-dasharray= "1;1"
+%	 text-hor-align= "center-h"
+%	 text-frame= "noframe"
+%	 fill-style= "none"
+%	 stroke-style= "dashed"
+%	 >
+%$l=4$
+%</text>
+%<pscurve curvature= "1;0.1;0"
+%	 right-arrow= "head"
+%	 stroke-color= "#ff0000"
+%	 fill-style= "none"
+%	 closed= "false"
+%	 stroke-width= "0.5"
+%	 points= "(19.21,26.98);(16.05,32.5);(13.94,50);(31.57,75.79);(66.84,89.74);(95.52,101.85);
+%	(121.05,116.58);(146.97,124.61);(160,104.22);(162.63,70);(164.21,66.32);(168.68,56.32)"
+%	 />
+%</jpic>
+%%End JPIC-XML
+%PSTricks content-type (pstricks.sty package needed)
+%Add \usepackage{pstricks} in the preamble of your LaTeX file
+%You can rescale the whole picture (to 80% for instance) by using the command \def\JPicScale{0.8}
+\ifx\JPicScale\undefined\def\JPicScale{1}\fi
+\psset{unit=\JPicScale mm}
+\psset{linewidth=0.3,dotsep=1,hatchwidth=0.3,hatchsep=1.5,shadowsize=1,dimen=middle}
+\psset{dotsize=0.7 2.5,dotscale=1 1,fillcolor=black}
+\psset{arrowsize=1 2,arrowlength=1,arrowinset=0.25,tbarsize=0.7 5,bracketlength=0.15,rbracketlength=0.15}
+\begin{pspicture}(0,0)(188.68,137.11)
+\newrgbcolor{userFillColour}{0.6 0.6 0.6}
+\newrgbcolor{userShadowColour}{0.4 0.4 0.4}
+\rput{0}(23.68,27.11){\psellipse[linewidth=0.5,fillcolor=userFillColour,fillstyle=solid,shadow=true,shadowcolor=userShadowColour](0,0)(20,-10)}
+\rput(23.68,27.11){5230}
+\newrgbcolor{userFillColour}{0.6 0.6 0.6}
+\newrgbcolor{userShadowColour}{0.4 0.4 0.4}
+\rput{0}(168.68,62.11){\psellipse[linewidth=0.5,fillcolor=userFillColour,fillstyle=solid,shadow=true,shadowcolor=userShadowColour](0,0)(20,-10)}
+\rput(168.68,62.11){42AD}
+\newrgbcolor{userFillColour}{0.8 0.8 0.8}
+\newrgbcolor{userShadowColour}{0.4 0.4 0.4}
+\rput{0}(43.68,72.11){\psellipse[fillcolor=userFillColour,fillstyle=solid,shadow=true,shadowcolor=userShadowColour](0,0)(20,-10)}
+\rput(43.68,72.11){400F}
+\newrgbcolor{userFillColour}{0.8 0.8 0.8}
+\newrgbcolor{userShadowColour}{0.4 0.4 0.4}
+\rput{0}(158.68,127.11){\psellipse[fillcolor=userFillColour,fillstyle=solid,shadow=true,shadowcolor=userShadowColour](0,0)(20,-10)}
+\rput(158.68,127.11){42A2}
+\newrgbcolor{userFillColour}{0.8 0.8 0.8}
+\newrgbcolor{userShadowColour}{0.4 0.4 0.4}
+\rput{0}(103.68,97.11){\psellipse[fillcolor=userFillColour,fillstyle=solid,shadow=true,shadowcolor=userShadowColour](0,0)(20,-10)}
+\rput(103.68,97.11){4227}
+\psline{<-}(85.26,93.29)(59.86,77.9)
+\psline{<-}(140.92,122.5)(113.15,105.79)
+\psline{<-}(166.71,71.98)(163.68,117.11)
+\psline[linestyle=dashed,dash=1 1]{<-}(58.68,37.5)(43.68,27.5)
+\psline[linestyle=dashed,dash=1 1]{<-}(15,2.64)(20,17.64)
+\psline[linestyle=dashed,dash=1 1]{<-}(83.68,122.11)(93.55,105.79)
+\psline[linestyle=dashed,dash=1 1]{<-}(18.68,92.11)(33.02,80.66)
+\psline[linestyle=dashed,dash=1 1]{<-}(168.68,52.11)(173.68,37.11)
+\psline[linestyle=dashed,dash=1 1]{<-}(128.68,57.11)(148.68,62.11)
+\psline{<-}(37.1,62.5)(23.68,37.11)
+\rput(37.89,48.16){{\tiny $l=1$}}
+\rput(78.42,81.19){\tiny {$l=2$}}
+\rput(134.21,110.79){\tiny {$l=3$}}
+\rput(174.47,94.35){{\tiny $l=4$}}
+\psecurve[linewidth=0.5,linecolor=red,curvature=1.0 0.1 0.0]{->}(19.21,26.98)(16.05,32.5)(13.94,50)(31.57,75.79)(66.84,89.74)(95.52,101.85)(121.05,116.58)(146.97,124.61)(160,104.22)(162.63,70)(164.21,66.32)(168.68,56.32)
+\end{pspicture}

@@ -1,0 +1,48 @@
+%Created by jPicEdt 1.x
+%Standard LaTeX format (emulated lines)
+%Wed Jun 22 17:12:55 CEST 2005
+\unitlength 1mm
+\begin{picture}(55.00,20.00)(0,0)
+
+\put(35.00,-5.00){\makebox(0,0)[cc]{}}
+
+\put(20.00,5.00){\makebox(0,0)[cc]{1 Byte}}
+
+\linethickness{0.15mm}
+%Rectangle(30.00,10.00)(50.00,20.00)  
+\put(30.00,10.00){\line(1,0){20.00}}
+\put(30.00,10.00){\line(0,1){10.00}}
+\put(50.00,10.00){\line(0,1){10.00}}
+\put(30.00,20.00){\line(1,0){20.00}}
+%End Rectangle
+
+\linethickness{0.15mm}
+%Rectangle(10.00,10.00)(30.00,20.00)  
+\put(10.00,10.00){\line(1,0){20.00}}
+\put(10.00,10.00){\line(0,1){10.00}}
+\put(30.00,10.00){\line(0,1){10.00}}
+\put(10.00,20.00){\line(1,0){20.00}}
+%End Rectangle
+
+\linethickness{0.15mm}
+%Polygon 0 0(50.00,20.00)(50.00,10.00) shade
+\put(50.00,10.00){\line(0,1){10.00}}
+%End Polygon
+
+\put(40.00,5.00){\makebox(0,0)[cc]{1 Byte}}
+
+\put(55.00,-5.00){\makebox(0,0)[cc]{}}
+
+\put(5.00,15.00){\makebox(0,0)[cc]{...}}
+
+\put(5.00,15.00){\makebox(0,0)[cc]{}}
+
+\put(20.00,15.00){\makebox(0,0)[cc]{00100011}}
+
+\put(40.00,15.00){\makebox(0,0)[cc]{10011011}}
+
+\put(55.00,15.00){\makebox(0,0)[cc]{...}}
+
+\put(55.00,15.00){\makebox(0,0)[cc]{}}
+
+\end{picture}

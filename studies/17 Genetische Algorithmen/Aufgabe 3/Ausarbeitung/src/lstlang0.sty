@@ -1,0 +1,89 @@
+%%
+%% Pseudo definition (c) 2001 Gerd Schleupen
+%%                            <schleupen@gmx.de>
+%%
+\lst@definelanguage{Pseudo}%
+  {keywords={function,return,val,ref,if,then,else,elseif,foreach,while,end,stop,exit,%
+        for,do,to,each,class,properties,method,methods,form,to,in,%
+        add,Entry},%
+   literate=
+        {unsignedint}{{$\mathbb{N}$}}1 %
+        {int}{{$\mathbb{Z}$}}1 %
+        {real}{{$\mathbb{R}$}{}}1 %Die leere Klammer ist zwingend erforderlich -
+        {complex}{{$\mathbb{C}$}{}}1 %sonst wird R und C ohne Doppelstrich angezeigt.
+        {unsignedint0}{{$\mathbb{N}$}{$_{0}$}}2 %
+        {unsignedreal}{{$\mathbb{R}$}{$^{+}$}}2 %
+        {unsignedreal0}{{$\mathbb{R}$}{$^{+}_{0}$}}2 %
+        {boolean}{Boolean}6 %
+        {string}{Text}3 %
+        {empty}{\O}1 %
+        {anything}{Anything}7 %
+        {nicht-typisiert}{Anything}7 %
+        %
+        %----------------------------
+        %
+        %Operatoren
+        %
+        {mapsto}{$\longmapsto$}1 %
+        {=}{$\longleftarrow$}1 %Zuweisungsoperator
+        {zuweisungsoperator}{$\longleftarrow$}1 %Zuweisungsoperator
+        %----------------------------
+        % Anfang Neu 23/02/2001
+        %----------------------------
+        {addition}{$+$}1 %
+        {subtraktion}{$-$}1 %
+        {multiplikation}{$\ast$}1 %
+        {division}{$/$}1 %
+        %
+        %----------------------------
+        % Ende Neu 23/02/2001
+        %----------------------------
+        %
+        %Mengenoperatoren
+        %
+        {union}{$\bigcup$}1 %
+        {vereinigt}{$\bigcup$}1 %
+        {intersect}{$\bigcap$}1 %
+        {geschnitten}{$\bigcap$}1 %
+        {without}{$\setminus$}1 %
+        {ohne}{$\setminus$}1 %
+        %
+        %
+        %Element (von)
+        %
+        {element}{$\epsilon$}1 %
+        {elementvon}{$\epsilon$}1 %
+        %
+        %Vergleichsoperatoren
+        %
+        {==}{$=$}1 %
+        {<=}{$\leq$}1 %
+        {>=}{$\geq$}1 %
+        {!=}{$\neq$}1 %
+        %
+        %logische Operatoren
+        {und}{$\bigwedge$}1 %
+        {ungleich}{$\bigwedge$}1 %
+        {oder}{$\bigvee$}1 %
+        {auch}{$\bigvee$}1 %
+        %
+        %
+        % Deklaration von Mengen
+        %
+        {mengevonelementen}{$\subset$}1 %
+        %
+        %
+        % Andere Umwandlugen die noch nicht sortiert sind
+        %
+        {pi}{$\Pi$}1 %
+        {summe}{$\Sigma$}1 %
+        {unendlich}{$\infty$}1 %
+        {infinity}{$\infty$}1 %
+        %
+        %
+        ,
+   sensitive=false,%
+%   commentline=\#,%
+%   singlecomment={'''}{'''}% used for documentation text
+%   stringizer={'"}%
+  }%

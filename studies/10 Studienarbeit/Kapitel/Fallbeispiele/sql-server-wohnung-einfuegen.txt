@@ -1,0 +1,12 @@
+INSERT INTO 
+	wohnung 
+VALUES
+	(
+		304,
+		'Test-Wohnung',
+		132,
+		4,
+		499,
+		'<Ausstattung><Sauna/><Schwimmbad/><Telefon/></Ausstattung>',
+		11
+	)

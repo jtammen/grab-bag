@@ -1,0 +1,12 @@
+SELECT
+	id_land as "@Nr",
+	name as "Name"
+FROM
+	xmldb.dbo.land
+FOR XML PATH('Land'), ROOT('Laender')
+
+<Laender>
+	<Land Nr="202">Rumänien</Land>
+	<Land Nr="203">Bulgarien</Land>
+	...
+</Laender>

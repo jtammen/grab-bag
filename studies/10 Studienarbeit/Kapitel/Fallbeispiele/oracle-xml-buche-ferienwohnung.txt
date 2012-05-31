@@ -1,0 +1,23 @@
+SELECT COUNT(*) FROM buchung
+WHERE id_wohnung = 1 AND
+(
+    TO_DATE( 
+             (extract 
+                  (zeitraum, '/Zeitraum/@von').getStringVal() ), 
+             'YYYY-MM-DD') < TO_DATE('2006-02-15', 'YYYY-MM-DD')
+    AND TO_DATE( 
+             (extract 
+                  (zeitraum, '/Zeitraum/@bis').getStringVal() ), 
+             'YYYY-MM-DD') > TO_DATE('2006-01-15', 'YYYY-MM-DD')
+)
+OR
+(
+    TO_DATE( 
+             (extract 
+                  (zeitraum, '/Zeitraum/@von').getStringVal() ), 
+             'YYYY-MM-DD') > TO_DATE('2006-02-15', 'YYYY-MM-DD')
+AND TO_DATE( 
+             (extract 
+                  (zeitraum, '/Zeitraum/@bis').getStringVal() ), 
+             'YYYY-MM-DD') < TO_DATE('2006-01-15', 'YYYY-MM-DD')
+)

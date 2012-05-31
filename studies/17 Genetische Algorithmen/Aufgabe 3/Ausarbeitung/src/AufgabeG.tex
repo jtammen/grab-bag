@@ -1,0 +1,66 @@
+\subsection{Optimale Parameter}
+Durch die in dieser Arbeit durchgeführten Testläufe ergeben sich für uns die
+optimalen Parameter wie folgt:
+
+\begin{description}
+  \item[Anzahl Generationen:] 100
+  \item[Anzahl Subpopulationen:] 12
+  \item[Anzahl Individuen:] 60
+  \item[Selektionsoperator:] Tournament Selection, \texttt{seltour}
+  \item[Rekombinationsoperator:] Recombination Partial Matching, \texttt{recpm}
+  \item[Mutationsoperator:] Kombination aus \texttt{mutswap}, \texttt{mutmove} 
+	und \texttt{mutinvert}
+\end{description}
+
+\subsection{Testläufe mit variierenden TSP-Problemen}
+Abschließend führen wir jeweils 20 Testläufe mit den o.g. Parametern und drei
+verschiedenen TSP-Problemen durch; die Ergebnisse sind in Tabelle
+\ref{tbl:aufgabeG-ergebnisse} aufgezeigt.
+\begin{table}
+	\sffamily
+	\centering
+	\footnotesize
+	
+	\begin{threeparttable}
+	\begin{tabularx}{\textwidth}{TXlllp{7em}p{7em}}
+		\toprule
+		\multicolumn{1}{@{}N}{TSP-Bsp.} &
+		\multicolumn{1}{V{3em}@{}}{Subpop.} &
+		\multicolumn{1}{V{3em}@{}}{Indiv.} &
+		\multicolumn{1}{V{5em}@{}}{Mittelwert $\bar{x}$} &
+		\multicolumn{1}{V{6.5em}@{}}{Standardabw. $\sigma_x$} &
+		\multicolumn{1}{V{8em}@{}}{Minimalwert in Lauf $r$, Generation $g$} &
+		\multicolumn{1}{V{8em}@{}}{Maximalwert in Lauf $r$, Generation $g$} \\
+		\midrule\addlinespace
+		bays29 & 12 & 60 & 2140,65 & 87,39 & 2028, $r = 13$, $g = 96$ & 2375, $r = 6$, $g = 95$ \\
+		\midrule
+		bayg29 & 12 & 60 & 1692,90 & 39,54 & 1610, $r = 16$, $g = 89$ & 1746, $r = 13$, $g = 97$ \\
+		\midrule
+		berlin52 & 12 & 60 & 11218,55 & 660,23 & 9854, $r = 20$, $g = 100$ & 12326, $r = 2$, $g = 99$ \\ \cmidrule(rl){1-7}
+		berlin52\tnote{1} & 12 & 60 & 8262,10& 278,77 & 7786, $r = 18$, $g = 362$ & 8931, $r = 7$, $g = 394$ \\ \cmidrule(rl){1-7}
+		berlin52\tnote{1} & 20 & 100 & \textbf{8110,45} & \textbf{193,89} & \textbf{7734}, $r = 1$, $g = 336$ & 8424, $r = 8$, $g = 330$ \\
+
+		\addlinespace\bottomrule
+	\end{tabularx}
+	\begin{tablenotes}
+	  \footnotesize\normalfont
+    	\item [1] Anzahl der Generationen: 400
+ 	\end{tablenotes}
+	\end{threeparttable}
+	\caption{Ergebnisse der Testreihe}
+	\label{tbl:aufgabeG-ergebnisse}
+\end{table}
+
+\subsubsection{Interpretation der Ergebnisse}
+Der erreichte Wert für \texttt{bays29} erschien uns mit 2028 nahe genug am
+Idealwert 2020. Für \texttt{bayg29} konnte sogar der bestbekannte Wert von 1610
+(vgl. \cite[Appendix]{Reinelt94}) erreicht werden.Für diese beiden TSP-Beispiele scheinen unsere gefunden Einstellungen demnach
+sehr gut zu funktionieren. Im Gegensatz dazu verfehlten wir bei dem Problem mit
+52 Knoten den Optimalwert 7542 um Längen. Daher versuchten wir, durch
+Heraufsetzen der Generationen hier noch Verbesserungen zu erlangen, was uns in
+Maßen auch gelang. Durch Einsatz von 400 Generationen wurden die Ergebnisse
+deutlich verbessert, wie die Tabelle zeigt. 
+
+Durch die Erhöhung der Subpopulationen sowie der Anzahl der Individuen im letzten
+Testlauf konnten weitere leichte Verbesserungen erreicht werden. So ergibt sich
+der von uns erreichte Minimalwert zu 7734.

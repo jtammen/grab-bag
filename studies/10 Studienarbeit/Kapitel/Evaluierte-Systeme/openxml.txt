@@ -1,0 +1,4 @@
+OpenXML(Docid,
+	Pfadausdruck,
+	[Flags])
+[WITH (Schemadeklaration | Tabellenname)]

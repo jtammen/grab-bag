@@ -1,0 +1,28 @@
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{llX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{Kriterium} & 
+		\multicolumn{1}{@{}N}{Erfüllt?} & 
+		\multicolumn{1}{@{}N}{Beschreibung} \\
+		\midrule\addlinespace
+		
+		Unterstützte Speicherformen 			& 					& \acr{xml}-Dokument wird in Baumdarstellung
+																										gewandelt, Speicherung mittels B+-Bäumen \\ \cmidrule{1-3}
+	  Komplette \acr{xml}-Dokumente 		& \ding{51} & einzig sinnvolle Speicherungsform, da bei eXist kein
+	  																								"`Tabellen"'-Konzept vorhanden ist \\ \cmidrule{1-3}
+	  Tabelle von \acr{xml}-Typ 				& \ding{55} & \textit{nicht zutreffend} \\ \cmidrule{1-3}
+		Hybride Speicherung 	& \ding{55} & \textit{nicht zutreffend} \\ \cmidrule{1-3}	  
+		\acr{sql}/\acr{xml}-Standard 			& \ding{55} & \textit{nicht zutreffend} \\ 
+								
+		\addlinespace\bottomrule
+		
+  \end{tabularx}
+	\caption{Bewertung: Speicherung}
+	\label{tab:exist-bewertung-speicherung}
+\end{table}
+
+Wie Tabelle \ref{tab:exist-bewertung-speicherung} schon andeutet, ist eXist als natives \acr{xml}-\acr{dbms} nicht in jeder Hinsicht mit relationalen \acr{dbms} vergleichbar: Da die Daten nicht in "`Tabellenform"' gespeichert werden, sind die darauf bezogenen Bewertungspunkte nicht anwendbar.

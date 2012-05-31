@@ -1,0 +1,115 @@
+\begin{quote}
+"`\textbf{Pastry} is a generic, scalable and efficient substrate for peer-to-peer 
+applications. Pastry nodes form a decentralized, self-organizing and 
+fault-tolerant overlay network within the Internet. Pastry provides efficient 
+request routing, deterministic object location, and load balancing in an 
+application-independent manner. Furthermore, Pastry provides mechanisms that 
+support and facilitate application-specific object replication, caching, and 
+fault recovery."'
+\end{quote}
+
+\section{Grundlagen}
+Jeder Knoten erhält eine eindeutige 128 bit Adresse (NodeID).
+Dies geschieht entweder zufällig, oder durch eine Verschlüsselungsfunktion, die
+auf die IP Adresse angewendet wird. Die NodeID's bilden also einen Ring von
+$0-2^{128}$ (vgl. \cite{Schindelhauer2004}).
+
+\section{Struktur}
+\label{struktur}
+Pastry verwaltet drei unterschiedliche Informations-Mengen. Das
+sind: 
+\begin{itemize}
+  \item Routing Tabelle
+  \item Leaf Set
+  \item Neighbourhood Set
+\end{itemize}
+In der Routing Tabelle sind Einträge der Art NodeID $\rightarrow$ (IP)Adresse
+vorhanden. 
+\begin{quote}
+''Jeder Peer kennt für jeden Präfix $p$ der NodeID über dem Alphabet
+$2^b$ und für jeden Buchstaben $x \epsilon \{0, . . . , 2^{b - 1}\}$ einen
+Repräsentanten der mit $px$ anfängt''\cite{Schindelhauer2004}. 
+\end{quote}  
+Ist beispielsweise $b=2$ und $2^b=4$, werden also $2^{2}-1 = 3$ Einträge für
+jeden Präfix des Knotens gespeichert (siehe Abb. \ref{pastryPointer}).
+\newline Das Leaf
+Set enthält NodeIDs numerisch naheliegender Knoten, also
+den benachbarten Knoten gemäß der Anordnung auf dem Ring. Ist $l$ die Größe des
+Leaf Sets, werden $l/2$ linke Nachbarn und $l/2$ rechte Nachbarn gespeichert
+\cite{Schindelhauer2004}(siehe Abb. \ref{pastryPointer}). Beim
+Einfügen neuer Knoten wird das Leaf Set stets aktualisiert. 
+
+\begin{figure}[H]
+  \centering 
+  \includegraphics[width=0.5\textwidth]{../images/pastryPointer}
+  \caption[Pastry Pointer]{Leaf Set(gestrichelt) und Routing Tabelle
+  (durchgezogen) des Knotens $001$ für $b=2$ und $l=4$ \cite{Schindelhauer2004}}
+  \label{pastryPointer}
+\end{figure}
+Im Neighbourhood Set werden Knoten gehalten, die
+netzwerk-topologisch naheliegen. Dies wird durch heuristische Ansätze wie
+PING-Zeit etc. realisiert.
+
+\section{Routing}
+Sollen nun Datenpakete weitergeleitet (geroutet) werden, macht man sich die im
+vorangegangen Kapitel \ref{struktur} eingeführten Informationsmengen wie folgt
+zunutze: 
+\begin{enumerate}
+  \item Durchsuche das Leaf Set nach dem Zielknoten. Ist er enthalten, wird das
+  Paket dorthin weitergeleitet.
+  \item Ansonsten wird die übereinstimmende Präfixlänge bestimmt, um das Paket
+  anschließend an einen Knoten zu senden, dessen Präfix mindestens in einer
+  Stelle mehr mit dem Zielknoten übereinstimmt.
+  \item Schlägt dies ebenfalls fehl, werden alle 3 Komponenten auf den numerisch
+  naheliegendsten Knoten durchsucht, an den das Paket dann schließlich
+  weitergeleitet wird.
+\end{enumerate}
+
+\section{Organisation}
+\subsection{Einfügen eines Knotens}
+Zu Beginn sendet der Knoten, der in das bestehende Netzwerk eintreten möchte,
+einen Request an einen beliebigen Knoten, der bereits in das Netzwerk
+intergriert ist und fragt nach dessen Routingtabelle (vgl. Kapitel \ref{struktur})
+Anschließend prüft er, wieviele Stellen der NodeID mit seiner eigenen
+übereinstimmen und übernimmt genau so viele Zeilen aus der Routingtabelle.
+Der angefragte Knoten informiert den zum neuen Knoten naheliegendsten Knoten
+mit einer Nachricht. Jeder Zwischenknoten der die Nachricht
+erhält sendet ebenfalls eine Nachricht an den neuen Knoten. So kann dieser seine
+Routingtabelle vollständig ausfüllen. Der Empfängerknoten der Nachricht sendet
+abschließend sein Leaf Set (vgl. Kapitel \ref{struktur}), welches der
+neue Knoten übernimmt. 
+Das Neighbourhood Set (vgl. Kapitel \ref{struktur}) übernimmt der neue
+Knoten von dem initial gefragten Knoten. Dieses muss der neue Knoten
+anschließend sukzessive verbessern, da ihm die topologische Entfernung des
+initial gefragten Knotens natürlich nicht bekannt ist. (Vgl. \cite{Pastry})
+Abbildung \ref{fig:pastry-insert-node} zeigt den Ablauf beim Einfügen des
+Knotens mit der ID \texttt{1234}.
+
+\begin{figure}[H]
+  \centering 
+  \def\JPicScale{0.70}
+  \input{../images/pastry-insert-node}
+  \caption[Pastry: Knoten einfügen]{Einfügen des Pastry-Knotens \texttt{1234}.}
+  \label{fig:pastry-insert-node}
+\end{figure}
+
+\subsection{Austritt eines Knotens}
+Pastry unterscheidet nicht zwischen freiwilligem und unfreiwilligem Austreten 
+eines Knotens aus dem Netzwerk. Hierbei wird der Ansatz verfolgt, dass eine
+Fehlerbehandlung bei unfreiwilligem Austreten eines Knotens ohnehin unerlässlich
+ist. Wird ein Knoten gewollt aus dem Netzwerk entfernt, wird dies durch die
+Fehlerbehandlungs-Routine mit übernommen. Diese Fehlerbehandlungs-Routine
+muss 2 Fälle berücksichtigen:
+\begin{enumerate}
+  \item Tritt der Fehler im Leaf Set auf, schickt der Knoten einen Request an
+  den Knoten, den er auf der gleichen Seite im Leaf Set hält, um dessen Leaf Set
+  anzufordern. Anhand dessen ersetzt er den fehlerhaften Knoten in seinem Leaf
+  Set durch einen neuen Knoten.
+  \item Tritt der Fehler in der Routingtabelle auf, wird eine Nachricht an einen
+  Knoten aus der Routingtabelle gesendet, der die gleiche Präfixübereinstimmung
+  besitzt. Von diesem wird dann der Knoten angefordert, zu dem nicht geroutet
+  werden konnte. Besitzt dieser den Zielknoten ebenfalls nicht, wird der nächste
+  Knoten mit derselben Präfixübereinstimmung gefragt usw. Enthält kein Knoten
+  mit diesem Präfix den Knoten, über den geroutet werden soll, wird die Suche
+  um eine Ebene ausgedehnt, d. h. der Präfix wird verkürzt.  
+\end{enumerate}

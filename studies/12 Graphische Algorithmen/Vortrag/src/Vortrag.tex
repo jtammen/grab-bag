@@ -1,0 +1,101 @@
+\documentclass{beamer}
+% Für schnelleres Kompilieren:
+%\documentclass[draft]{beamer}
+%\includeonlyframes{toc,current}
+
+\mode<presentation>
+{
+  \usetheme{Berlin}
+  % Pittsburgh, Dresden, Boadilla, Berlin, Goettingen, Luebeck, Rochester
+  \setbeamercovered{transparent}
+}
+
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{times}
+\usepackage{multimedia}
+
+\title[GRAL WS 06/07]{Nichtrealistische Computergraphik}
+\author[Kungel, Nägele, Tammen]{Christian Kungel, Kornelius Nägele, Jan Tammen}
+
+\institute{
+  Seminar Graphische Algorithmen WS 06/07\\
+  Fakultät Informatik,\\
+  HTWG Konstanz
+}
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={Nichtrealistische Computergraphik},%
+  pdfauthor={Jan Tammen,%
+  			 Kornelius Nägele,%
+  			 Christian Kungel},%
+  pdfsubject={Graphische Algorithmen},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={Nichtrealistische Computergraphik, NPR},
+  % pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+  pdfpagemode=FullScreen,
+%  pdfstartview=FitH,
+}
+
+\date{\today}
+\subject{Nichtrealistische Computergraphik}
+
+\pgfdeclareimage[height=1cm]{htwg-logo}{../images/htwg-logo}
+\logo{\pgfuseimage{htwg-logo}}
+
+% Folgendes sollte gelöscht werden, wenn man nicht am Anfang jedes
+% Unterabschnitts die Gliederung nochmal sehen möchte.
+\AtBeginSubsection[]
+{
+ \begin{frame}<beamer>
+   \frametitle{Gliederung}
+   \tableofcontents[currentsection,currentsubsection]
+ \end{frame}
+}
+
+% Falls Aufzählungen immer schrittweise gezeigt werden sollen, kann
+% folgendes Kommando benutzt werden:
+% mit highlight: <+- | alert@+>
+\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+% Frame: Titelseite
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Frame: Gliederung
+\begin{frame}[label=toc]
+  \tableofcontents
+\end{frame}
+
+\section{Einleitung}
+\input{Einleitung}
+
+\section{Grundlegende Techniken}
+\input{Techniken}
+
+\section{Einsatzgebiete}
+\input{Einsatzgebiete}
+
+%\section{Wasserfarben}
+\input{Wasserfarbenillustration}
+
+% Schluss-Folie
+\begin{frame}
+  \frametitle{Danke.}
+  \begin{columns}
+    \column{.6\textwidth}
+	\includegraphics[width=\textwidth]{../images/wir.jpg}
+	\column{.4\textwidth}
+	Fragen?
+  \end{columns}
+\end{frame}
+
+\end{document}

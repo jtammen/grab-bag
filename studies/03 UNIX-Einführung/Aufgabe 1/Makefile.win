@@ -1,0 +1,29 @@
+# Project: textcopy
+# Makefile created by Dev-C++ 4.9.9.0
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = 
+OBJ  = textcopy.o $(RES)
+LINKOBJ  = textcopy.o $(RES)
+LIBS =  -L"C:/Programme/Dev-Cpp/lib"  -lgmon -pg  -g3 
+INCS =  -I"C:/Programme/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Programme/Dev-Cpp/include/c++/3.3.1"  -I"C:/Programme/Dev-Cpp/include/c++/3.3.1/mingw32"  -I"C:/Programme/Dev-Cpp/include/c++/3.3.1/backward"  -I"C:/Programme/Dev-Cpp/lib/gcc-lib/mingw32/3.3.1/include"  -I"C:/Programme/Dev-Cpp/include" 
+BIN  = textcopy.exe
+CXXFLAGS = $(CXXINCS)   -pg -g3
+CFLAGS = $(INCS)   -pg -g3
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before textcopy.exe all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "textcopy.exe" $(LIBS)
+
+textcopy.o: textcopy.cpp
+	$(CPP) -c textcopy.cpp -o textcopy.o $(CXXFLAGS)

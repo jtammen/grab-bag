@@ -1,0 +1,549 @@
+%%% File-Information {{{
+%%% Filename: template_bericht.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2004-06-30 18:19:32 mp>
+%%% Authors: The LaTeX@TUG-Team [http://latex.tugraz.at/]:
+%%%          Karl Voit (vk), Michael Prokop (mp), Stefan Sollerer (ss)
+%%% History:
+%%%   20040630 (mp) added comments to foldmethod at end of file
+%%%   20040625 (vk,ss) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+% twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+headsepline, %% add a horizontal line below the column title
+footsepline, %% add a horizontal line above the page footer
+titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+halfparskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+% fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+%draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+12pt,         %% set default font size to 11 point
+DIV16
+]{scrartcl}  %% article, see KOMA documentation (scrguide.dvi)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% packages
+%%%
+
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-uml}
+\let\umlClass\pstumlClass	%%% workaround: pst-uml und uml kollidieren
+\usepackage{uml}
+
+%%%
+%%% encoding and language set
+%%%
+
+%%% ngerman: language set to new-german
+\usepackage{ngerman}
+
+%%% inputenc: coding of german special characters
+\usepackage[latin1]{inputenc}
+
+%%% fontenc, ae, aecompl: coding of characters in PDF documents
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
+%%%
+%%% technical packages
+%%%
+
+%%% amsmath, amssymb, amstext: support for mathematics
+\usepackage{amsmath,amssymb,amstext}
+
+%%% psfrag: replace PostScript fonts
+\usepackage{psfrag}
+
+%%% listings: include programming code
+\usepackage{listings}
+\usepackage{moreverb}
+
+%%% units: technical units
+\usepackage{units}
+
+%%% color: support for ... colors, yes!
+\usepackage{color}
+
+%%% table-stuff
+%\usepackage{booktabs}
+%\usepackage{array}
+%\usepackage{multirow}
+
+%\newcolumntype{N}{>{\bfseries\scriptsize}l}
+%\newcolumntype{V}[1]{%
+	%>{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}%
+%}
+
+%%% some color-definitions (see http://texnik.de/listings/listing0.pdf)
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{hellgrau}{rgb}{0.9,0.9,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+%%% configuration of the listings-package
+\lstset{%
+	float=hbp,%
+	basicstyle=\ttfamily\small, %
+	identifierstyle=\color{colIdentifier}, %
+	keywordstyle=\color{colKeys}, %
+	stringstyle=\color{colString}, %
+	commentstyle=\color{colComments}, %
+	columns=flexible, %
+	tabsize=4, %
+	frame=tb, %
+	extendedchars=true, %
+	showspaces=false, %
+	showstringspaces=false, % 
+	numbers=left, %
+	numberstyle=\tiny, %
+	breaklines=true, %
+	backgroundcolor=\color{hellgrau}, %
+	breakautoindent=true, %
+	captionpos=b%
+}
+
+%%%
+%%% layout
+%%%
+
+%%% scrpage2: KOMA heading and footer
+%%% Note: if you don't use this package, please remove 
+%%%       \pagestyle{scrheadings} and corresponding settings
+%%%       below too.
+\usepackage{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Float
+\usepackage{float}
+
+%%%
+%%% PDF
+%%%
+
+\newif\ifpdf
+  \ifx\pdfoutput\undefined
+     \pdffalse
+  \else
+     \pdfoutput=1
+     \pdftrue
+  \fi
+
+%%% Should be LAST usepackage-call!
+%%% For docu on that, see reference on package ``hyperref''
+\ifpdf{%   (definitions for using pdflatex instead of latex)
+
+	%%% for screen (PDF), we use sans-serif-fonts
+	\usepackage{mathpazo}
+	\usepackage[scaled=.95]{helvet}
+	\usepackage{courier}	
+	\renewcommand{\familydefault}{\sfdefault}
+	\usepackage[sf]{titlesec}
+
+  %%% graphicx: support for graphics
+  \usepackage[pdftex]{graphicx}
+ 
+  \pdfcompresslevel=9
+
+  %%% hyperref (hyperlinks in PDF): for more options or more detailed
+  %%%          explanations, see the documentation of the hyperref-package
+  \usepackage[%
+    %%% general options
+    pdftex=true,      %% sets up hyperref for use with the pdftex program
+    %plainpages=false, %% set it to false, if pdflatex complains: ``destination with same identifier already exists''
+    %
+    %%% extension options
+    backref=section,   %% if true, adds a backlink text to the end of each item in the bibliography
+    pagebackref=false, %% if true, creates backward references as a list of page numbers in the bibliography
+    colorlinks=true,   %% turn on colored links (true is better for on-screen reading, false is better for printout versions)
+    %
+    %%% PDF-specific display options
+    bookmarks=true,          %% if true, generate PDF bookmarks (requires two passes of pdflatex)
+    bookmarksopen=false,     %% if true, show all PDF bookmarks expanded
+    bookmarksnumbered=false, %% if true, add the section numbers to the bookmarks
+    %pdfstartpage={1},        %% determines, on which page the PDF file is opened
+    pdfpagemode=None,	       %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+    breaklinks=true         
+  ]{hyperref}
+
+  %%% provide all graphics (also) in this format, so you don't have
+  %%% to add the file extensions to the \includegraphics-command
+  %%% and/or you don't have to distinguish between generating
+  %%% dvi/ps (through latex) and pdf (through pdflatex)
+  \DeclareGraphicsExtensions{.pdf}
+  \graphicspath{{./images}}
+
+\else    %(definitions for using latex instead of pdflatex)
+
+  \usepackage[dvips]{graphicx}
+
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}  
+
+  \usepackage[%
+    dvips,            %% sets up hyperref for use with the dvips driver
+    colorlinks=false, %% better for printout version; almost every hyperref-extension is eliminated by using dvips
+    breaklinks=true 
+  ]{hyperref}
+
+\fi %ifpdf
+
+%%% sets the PDF-Information options
+%%% (see fields in Acrobat Reader: ``File -> Document properties -> Summary'')
+%%% Note: this method is better than as options of the hyperref-package (options are expanded correctly)
+\hypersetup{
+  pdftitle={Pflichtenheft: Stilanalyse von Texten}, %%
+  pdfauthor={Jan Tammen (jan.tammen@fh-konstanz.de), Christoph Eck (christoph.eck@fh-konstanz.de)}, %%
+  pdfsubject={Praktikum: Software-Engineering}, %%
+  pdfcreator={Jan Tammen (jan.tammen@fh-konstanz.de)}, %% 
+  pdfproducer={}, %%
+  pdfkeywords={} %%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[3]{
+  \begin{center}
+    \includegraphics[width=#1, keepaspectratio=true]{#2} \\
+    \textbf{#3}
+  \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% define the titlepage
+%%%
+
+% \subject{}   %% subject which appears above titlehead
+% \titlehead{} %% special heading for the titlepage
+
+%%% title
+\title{Pflichtenheft: Stilanalyse von Texten}
+\subject{Praktikum Software-Engineering}
+
+%%% author(s)
+\author{Jan Tammen \href{mailto:foobar@fh-konstanz.de}{(jan.tammen@fh-konstanz.de)}
+					\and{
+						Christoph Eck \href{mailto:ceck@fh-konstanz.de}{(christoph.eck@fh-konstanz.de)}
+					}%
+				}%
+
+%\publishers{Ort der Durchführung: EDC-Labor, FH Konstanz.\\
+%						Datum: 16.12.2004}
+\date{\today}
+
+% \thanks{} %% use it instead of footnotes (only on titlepage)
+
+% \dedication{} %% generates a dedication-page after titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% set heading and footer
+%%%
+
+%%% scrheadings default: 
+%%%      footer - middle: page number
+\pagestyle{scrheadings}
+
+%%% user specific
+%%% usage:
+%%% \position[heading/footer for the titlepage]{heading/footer for the rest of the document}
+
+%%% heading - left
+% \ihead[]{}
+
+%%% heading - center
+% \chead[]{}
+
+%%% heading - right
+% \ohead[]{}
+
+%%% footer - left
+% \ifoot[]{}
+
+%%% footer - center
+% \cfoot[]{}
+
+%%% footer - right
+% \ofoot[]{}
+
+
+\renewcommand{\figureautorefname}{Abbildung}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+\begin{document}
+
+% \pagenumbering{roman} %% small roman page numbers
+
+%%% include the title
+%\thispagestyle{empty}  %% no header/footer (only) on this page
+\maketitle
+
+%%% start a new page and display the table of contents
+\newpage
+\tableofcontents
+
+%%% start a new page and display the list of figures
+%\newpage
+%\listoffigures
+
+%%% start a new page and display the list of tables
+% \newpage
+% \listoftables
+
+%%% display the main document on a new page 
+\newpage
+
+% \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+
+\section{Überblick und grobe Zielbestimmung}
+Für den Verlag "`\textsc{Froschkönig}"' soll eine Software entwickelt werden, mit dessen Hilfe die publizierten Romane verschiedenen Sprachstilanalysen unterzogen werden können. Die vom Programm ermittelten Kennzahlen können nach verschiedenen Gesichtspunkten ausgewertet werden, woraufhin der Anwender ggf. einen Zusammenhang zwischen den Absatzzahlen eines Romans und dessen textlichen Stil herstellen kann.
+
+\section{Benutzer des Produkts}
+Die Benutzer der Software verfügen über grundlegende Textverarbeitungs-Kenntnisse. Da das Programm zur Analyse von Arbeitsergebnissen verwendet wird, ist mindestens mit einer täglichen Anwendung zu rechnen.
+Die Menge der Nutzer teilt sich in die drei Benutzergruppen Autoren, Gruppenleiter sowie Geschäftsführer auf.
+
+\section{Produktvoraussetzungen und Produktumgebung}
+Die Software ist auf einer Windows-Plattform lauffähig, benötigt einen Hauptspeicher von mindestens 64 MB sowie einen 10 MB großen Festplattenspeicher. Das Speichern von bereits durchgeführten Analysen sowie anderen Daten kann weiteren Festplattenspeicher erfordern.
+
+\section{Aufgaben und Ziele des Systems}
+\subsection{Ziele}
+Die Software liest einen Text ein und ermittelt daraus die für die Analyse erforderlichen Kennzahlen. Der Anwender kann sich anschließend die verschiedenen Ergebnisse ggf. gefiltert anzeigen und sortieren lassen. 
+Das Programm ermittelt dabei keine Korrelation zwischen den erfassten Kennzahlen und den Absatzzahlen des Quellromans.
+
+Allen Nutzer des Systems stehen die selben Funktionalitäten zur Verfügung; d.h. es ist keine Unterscheidung der verschiedenen Gruppen hinsichtlich Zugriffsrechten etc. vorgesehen.
+
+\subsection{Aufgaben}
+Zur Analyse eines Textes wird zunächst die Quelldatei ausgewählt, anschließend zeichenweise eingelesen und dabei in Wörter und Sätze zerteilt.
+
+Es werden dabei folgende Kennzahlen ermittelt:
+\begin{itemize}
+	\item mittlere, maximale Wortlänge
+	\item Anzahl der einzelnen Wörter
+	\item Anzahl der Wörter verschiedener Wortarten
+	\item mittlere, maximale Satzlänge
+	\item Anzahl der Sätze gleicher Wortzahl
+	\item mittlere, maximale Anzahl der Satzteile pro Satz
+	\item Anzahl der Satzteile gleicher Wortzahl
+	\item Anzahl identischer Sätze
+\end{itemize}
+
+Die Zuordnung eines Wortes zu einer Wortart wird einem externen Wörterbuch entnommen. Sollte das Programm beim Einlesen des Textes auf ein noch unbekanntes Wort stoßen, so wird der Benutzer in einem Dialog aufgefordert das Wort einer Wortart zuzuordnen.
+
+Die vom Programm ermittelten Daten sind dem Benutzer nach der Analyse in verschiedenen Darstellungsformen zugänglich. Außerdem lassen sich bereits durchgeführte Analysen archivieren und zur späteren Einsicht erneut einlesen.
+
+\subsubsection{UML Use-Case-Diagramm}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.60\textwidth]{images/use-case-diagramm}
+	\caption{UML Use-Case-Diagramm: Stilanalyse}
+	\label{fig:usecasediagram}
+\end{figure}
+
+
+\subsection{Optionale Ziele und Aufgaben}
+Die folgenden Funktionalitäten wären in einer späteren Version der Software umsetzbar.
+
+\begin{itemize}
+	\item Die Software versucht eine Korrelation zwischen Stil und Absatzzahlen der Romane herzustellen. Voraussetzung hierfür ist das Vorhandensein der Verkaufszahlen in einem entsprechenden Datenformat sowie die Analysedaten mehrerer Romane.
+	\item Stapelverarbeitung. Es lassen sich mehrere Texte gleichzeitig öffnen und analysieren. Auf diese Weise könnte die für o.g. Punkt benötigte Datenbasis zügig erstellt werden.
+	\item Statistiken. Ermittlung bestimmter Kennzahlen (z.B. Durchschnittswerte) nach verschiedenen Kriterien, bspw. alle Romane eines Autors, einer Serie etc.
+	\item Bearbeitung der Zuordnungen von Wörter zu Wortarten.
+\end{itemize}
+
+
+\section{Nutzungsfälle}
+Die in \autoref{fig:usecasediagram} aufgeführten Nutzungsfälle sind in den folgenden Abschnitten detailliert beschrieben.
+
+\subsection{Textanalyse durchführen}
+Der Benutzer wählt in einer Maske die zu analysierende Textdatei aus und startet anschließend manuell die Verarbeitung. Während der Analyse durch das Programm wird dem Nutzer über eine grafische Fortschrittsanzeige die zu erwartende Restlaufzeit angezeigt.
+
+Nach Abschluss der Verarbeitung wird dem Nutzer eine Kurzübersicht mit den wichtigsten Kennzahlen präsentiert.
+
+\subsubsection{Entwürfe Benutzeroberfläche}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/assistent-start.eps}
+	\caption{GUI-Entwurf: Start des Assistenten}
+	\label{fig:assistent-start}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/assistent-datei-oeffnen.eps}
+	\caption{GUI-Entwurf: Quelldatei öffnen}
+	\label{fig:assistent-datei-oeffnen}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/assistent-analyse.eps}
+	\caption{GUI-Entwurf: Durchführung der Analyse, Fortschrittsanzeige}
+	\label{fig:assistent-analyse}
+\end{figure}
+
+\subsection{Unbekanntes Wort zuordnen}
+Sobald die Software während der Analyse ein Wort extrahiert dessen Wortart noch nicht im Wörterbuch gespeichert ist, wird der Benutzer in einem Dialog aufgefordert, dieses Wort zuzordnen. 
+Dazu wird dem Nutzer eine Auswahlliste der dem System bereits bekannten Wortarten angezeigt.
+
+Standardmäßig sind in der Software lediglich die Wortarten "`Konjunktion"' (Bindewort) und "`Fremdwort"' definiert. Um bei der Auswertung der Daten jedoch eine größere Flexibilität zu gewährleisten, kann der Nutzer im zuvor genannten Dialog auch eine neue Wortart eingeben. Diese wird nach Bestätigung durch den Benutzer in den Katalog der Wortarten aufgenommen und steht fortan in allen entsprechenden Auswahlmenüs zur Verfügung.
+
+\subsubsection{Entwurf Benutzeroberfläche}
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.80\textwidth]{images/assistent-woerterbuch.eps}
+	\caption{GUI-Entwurf: Unbekanntes Wort zuordnen, neue Wortart eingeben}
+	\label{fig:assistent-woerterbuch}
+\end{figure}
+
+
+\subsection{Detailanalysen anzeigen u. auswerten}
+Ausgehend von der Übersichtsanzeige, welche dem Nutzer nach Ende der Textanalyse präsentiert wird, gelangt er über ein Auswahlmenü in die jeweiligen Detailansichten. Die Analysen sind in die folgenden drei Kategorien eingeteilt.
+
+\subsubsection{Wörter}
+In dieser Kategorie stehen dem Nutzer folgende Angaben zur Verfügung:
+
+\begin{itemize}
+	\item Wortanzahl
+	\item Wortlängen
+		\begin{itemize}
+			\item durchschnittlich
+			\item maximal
+			\item minimal
+		\end{itemize}
+\end{itemize}
+
+Dabei werden außerdem alle von der Software extrahierten Wörter mit ihren Attributen -- \textit{Wort, relative/absolute Häufigkeit, Länge, Wortart} -- in einer tabellarischen Auflistung angezeigt. Die Auflistung läßt sich nach jedem der genannten Attribute auf- und absteigend sortieren.
+
+\subsubsection{Sätze}
+Analog zur Kategorie "`Wörter"' werden in dieser Ansicht die nachstehenden Angaben aufgeführt:
+
+\begin{itemize}
+	\item Satzanzahl
+	\item Satzlängen (Anzahl Wörter pro Satz)
+		\begin{itemize}
+			\item durchschnittlich
+			\item maximal
+			\item minimal
+		\end{itemize}
+	\item Anzahl Satzteile\footnote{\label{foot:satzteil}Als \textit{Satzteil} wird ein durch ein Satzzeichen (hier: Komma, Punkt, Semikolon) abgetrennter Abschnitt eines \textit{Satzes} bezeichnet. Ein \textit{Satz} besteht also mindestens aus einem \textit{Satzteil}.} pro Satz
+		\begin{itemize}
+			\item durchschnittlich
+			\item maximal
+			\item minimal
+		\end{itemize}
+	\item Anzahl identischer Sätze		
+\end{itemize}
+
+Dabei werden außerdem alle von der Software extrahierten Sätze mit ihren Attributen -- \textit{Satz, relative/absolute Häufigkeit, Anzahl Satzteile, Anzahl Wörter} -- in einer tabellarischen Auflistung angezeigt. Die Auflistung läßt sich nach jedem der genannten Attribute auf- und absteigend sortieren.
+
+Um einen bestimmten Satz im Quellroman zu lokalisieren, kann überdies dessen Fundort angezeigt werden.
+
+\subsubsection{Wortarten}
+Nach dem Öffnen dieser Kategorie wird dem Benutzer ein weiteres Auswahlmenü gezeigt, in welchem alle bisher vom System erfassten Wortarten aufgelistet sind. Nach Selektion eines oder mehrerer Einträge gelangt der Nutzer in eine zum Punkt "`Wörter"' identische Maske. 
+Allerdings sind dort nicht mehr die Daten \textsl{aller} Wörter aufgeführt, sondern nur diejenigen, welche sich auf Wörter der gewählten Wortart bzw. Wortarten beziehen.
+
+Somit lassen sich z.B. gezielt ...
+
+\begin{itemize}
+	\item ... nur die Daten für Fremdwörter anzeigen
+	\item oder Konjunktionen (bzw. andere für die Auswertung nicht interessante Wortarten) ausblenden
+\end{itemize}
+
+
+\subsection{Analyse archivieren}
+Um die Stilanalyse eines Textes nicht mehrfach durchführen zu müssen, bietet das Programm die Möglichkeit, die bereits ermittelten Kennzahlen zu speichern. Die Daten werden hierbei in einer externen Datei abgelegt.
+
+Über eine Eingabemaske kann der Anwender jederzeit eine zuvor gesicherte Analyse öffnen; die Daten stehen dann sofort im Programm zur Verfügung und können über die o.g. Detailansichten begutachtet werden.
+
+\section{Produktdaten}
+Nach der Ausführung der Analyse kann der Benutzer die ermittelten Kennzahlen zur späteren Ansicht in einer Datei speichern.
+
+Weiterhin wird ein Wörterbuch angelegt, in welchem die Zuordnungen zwischen Wörtern und Wortarten gespeichert werden.
+
+\section{Systemmodell}
+\subsection{UML Analyse-Klassendiagramm}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=1.00\textwidth]{images/analyse-klassendiagramm}
+	\caption{UML Analyse-Klassendiagramm}
+	\label{fig:analyse-klassendiagramm}
+\end{figure}
+
+
+%%%
+%%% end main document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\appendix  %% include it, if something (bibliography, index, ...) follows below
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% bibliography
+%%%
+%%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+%%%
+% \bibliographystyle{plain}
+
+%%% name of the bibliography file without .bib
+%%% e.g.: literatur.bib -> \bibliography{literatur}
+% \bibliography{FIXXME}
+
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Notice!
+%%% This file uses the outline-mode of emacs and the foldmethod of Vim.
+%%% Press 'zi' to unfold the file in Vim.
+%%% See ':help folding' for more information.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker

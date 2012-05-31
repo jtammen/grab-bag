@@ -1,0 +1,83 @@
+Mit der Revision des \acr{sql}-Standards 2003 wurde \acr{sql} unter anderem um \acr{xml}-Fähigkeiten erweitert. Diese Erweiterung wird häufig auch als \acr{sql}/\acr{xml} bezeichnet. Im Gegensatz zu z.B. XPath wurde \acr{sql}/\acr{xml} \emph{nicht} vom \acr{w3c} standardisiert, sondern von der ISO/ANSI. 
+
+Die Erweiterungen des Standards erlaubt es, \acr{xml}-Daten in einer relationalen Datenbank abzulegen oder aus Daten \acr{xml}-Dokumente zu generieren. 
+
+\section{Der Datentyp XML}
+Mit \acr{sql}/\acr{xml} wurde der neue Datentyp \texttt{XML} eingeführt, der in der Lage ist, \acr{xml}-Daten aufzunehmen \citep{Tuerker2003}.  Das folgende Beispiel zeigt eine Tabelle "`Lieferant"', die ein Feld "`Bemerkungen"' besitzt, in dem \acr{xml}-Daten eingefügt werden können:
+
+\lstinputlisting[language=SQL,caption={Create Table mit Datentyp XML},label=listing:xml-create-table,morekeywords={XML}]{Kapitel/Einfuehrung/CreateTable.txt}
+
+Der Datentyp \texttt{XML} erlaubt die Speicherung folgender Daten:
+\begin{itemize}
+	\item \texttt{NULL}
+	\item \acr{xml}-Inhalte
+	\item \acr{xml}-Dokumente (\acr{xml}-Daten mit Vorspann)
+\end{itemize}
+
+\section{XML-Funktionen} \label{einführung-sqlxml-funktionen}
+\acr{sql} wurde um die folgenden \acr{xml}-Funktionalitäten erweitert:
+\begin{itemize}
+	\item \texttt{XMLGEN}: Ermöglicht das Einfügen von XQuery-Abfragen.
+	\item \texttt{XMLELEMENT}: Erzeugt ein \acr{xml}-Element
+	\item \texttt{XMLATTRIBUTES}: Erzeugt ein \acr{xml}-Attribut
+	\item \texttt{XMLFOREST}: Erzeugt einen Wald von \acr{xml}-Elementen
+	\item \texttt{XMLCONCAT}: konkateniert \acr{xml}-Elemente
+	\item \texttt{XMLAGG}: Funktion zum Aggregieren oder gruppieren von \acr{xml}-Werten. 
+\end{itemize}
+
+Hinweis: Alle \texttt{XML}-Funktionen -- außer XMLAGG -- können über \texttt{XMLGEN} und XQuery nachgebildet werden.
+
+\section{Abbildung zwischen SQL und XML}
+\acr{sql} und \acr{xml} basieren auf unterschiedlichen Datenmodellen. Daher muss das \acr{sql}-Datenmodell auf das \acr{xml}-Datenmodell abgebildet werden und umgekehrt. Diese Abbildung zeigt Tabelle \ref{tab:abbildung-sql-xml}.
+
+\begin{table}
+	\sffamily
+	\centering
+	
+	\begin{tabularx}{\textwidth}{lX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{\acr{sql}-Datenmodell} & 	 \multicolumn{1}{V{6em}@{}}{\acr{xml}-Datenmodell} \\
+		\midrule\addlinespace\addlinespace
+
+		\acr{sql}-Bezeichner 		& \acr{xml}-Name \\ %\cmidrule{1-2}
+		\acr{sql}-Zeichensätze 	& \acr{xml}-Unicode \\ %\cmidrule{1-2}
+		\acr{sql}-Datentypen 		& \acr{xml}-Schema-Typen \\ %\cmidrule{1-2}
+		\acr{sql}-Tabelle 			& \acr{xml}-Dokument \\ %\cmidrule{1-2}
+		\acr{sql}-Schemata 			& \acr{xml}-Dokument + \acr{xml}-Schema-Dokument \\ %\cmidrule{1-2}
+		\acr{sql}-Katalog 			& \acr{xml}-Dokument + \acr{xml}-Schema-Dokument \\ 
+		\addlinespace
+		\bottomrule
+		\end{tabularx}
+	\caption{Abbildung \acr{sql} $\leftrightarrow$ \acr{xml}}
+	\label{tab:abbildung-sql-xml}
+\end{table}
+
+Tabelle \ref{tab:abbildung-sql-typen-xml-typen} zeigt die Abbildung von \acr{sql}-Datentypen in \acr{xml}-Schema-Typen.
+
+\begin{table}[H]
+	\sffamily
+	\centering
+	
+	\begin{tabularx}{\textwidth}{lX}
+		\toprule
+		
+		\multicolumn{1}{@{}N}{\acr{sql}-Datentyp} & 	 \multicolumn{1}{V{6em}@{}}{\acr{xml}-Schema-Typ} \\
+		\midrule\addlinespace\addlinespace
+
+		\texttt{BOOLEAN} & boolean \\ %\cmidrule{1-2}
+		\texttt{CHAR, VARCHAR, CLOB} & string \\ %\cmidrule{1-2}
+		\texttt{BIT, VARING BIT, BLOB} & base64Binary, hexBinary \\ %\cmidrule{1-2}
+		\texttt{SMALLINT, INT, BIGINT} &  integer \\ %\cmidrule{1-2}
+		\texttt{NUMERIC, DECIMAL} & decimal \\   %\cmidrule{1-2}
+		\texttt{FLOAT, REAL, DOUBLE PRECISION} & float, double \\ %\cmidrule{1-2}
+		\texttt{DATE} & date \\ %\cmidrule{1-2}
+		\texttt{TIME} & time \\ %\cmidrule{1-2}
+		\texttt{TIMESTAMP} & dateTime \\ %\cmidrule{1-2}
+		\texttt{INTERVAL} & duration \\
+		\addlinespace
+		\bottomrule
+		\end{tabularx}
+	\caption{Abbildung \acr{sql}-Datentypen $\leftrightarrow$ \acr{xml}-Schema-Typen}
+	\label{tab:abbildung-sql-typen-xml-typen}
+\end{table}

@@ -1,0 +1,133 @@
+%%% VCPicture
+% coordinates:	lower left:	 (x0, y0)
+% 							upper right: (x1, y1)
+% length of the box: x1 - x0
+% heigth of the box: y1 - y0
+% baseline point: middle of the height: (y1 - y0)/2
+%
+% Groesse: TinyPicture, SmallPciture, MediumPicture, LargePicture
+% Frame: \ShowFrame, Reset: \HideFrame
+% Grid:  \ShowGrid,  Reset: \HideGrid
+\FixVCScale{.7}
+%\ShowFrame
+%\ShowGrid
+\VCDraw{%
+	\begin{VCPicture}{(0,0)(15,16)}
+		%%% options
+		\FloatingLabel
+		\EdgeBorder
+		\FixStateDiameter{2.0cm}
+			
+		%%% states
+		% Groessen: \VSState, \SmallState, \MediumState, \LargeState
+		%
+		% \State[Label]{(x,y)}{Name}
+		% \StateVar[Label]{(x,y)}{Name}: variable Groesse
+		% \Initial[Dir]{Name}: Dir: n, s, e, w, ne, nw, se, sw
+		% \Final[Dir]{Name}
+		% \FinalState[Label]{(x,y)}{Name}
+		%
+		% Ausgrauen: \DimState, Reset: \RstState
+		\ChgStateFillColor{lightgray}
+		\DimState\DimEdge
+		\State[Basis]{(7.7,8.0)}{Basis}
+		\Initial[n]{Basis}
+		\RstStateFillColor
+		
+		\FixStateDiameter{1.5cm}
+		\ChgStateLabelScale{0.6}
+		
+		\renewcommand{\StateDblDimen}{outer}
+		\FinalState[Ende]{(7.3,1.0)}{Ende}
+		
+		\State[String]{(3.0,13.5)}	{String}		
+		\State[Name]	{(1.0,09.5)}	{Name}
+		\State[SZF]		{(1.0,05.5)}	{SZF}
+		\State[Zahl]	{(3.0,01.5)}	{Zahl}
+		
+		\State[ZK]		{(11.75,13.5)}	{ZK}
+		\SmallState
+		\State[w]			{(09.0,13.0)}	{ZK_alle}
+		\State[e]			{(09.0,14.0)}	{ZK_bslash}
+		\FixStateDiameter{1.5cm}				
+		
+		\State[Ko]		{(12.75,10.5)}	{Ko}
+		\State[Ko?]		{(13.75,07.5)}	{Ko?}
+		\State[*Ko]		{(12.75,04.5)}	{*Ko}
+		\State[Ko E?]	{(11.75,01.5)}	{Ko E?}
+		
+		%%% transitions 
+		% L|R: Label Links oder Rechts
+		% 
+		% \EdgeL[Pos]{Start}{End}{Label}: Pos: Position des Labels (0 <= Pos <= 1),
+		%																			 default: .45
+		% \EdgeR[Pos]{Start}{End}{Label}
+		%
+		% \Arc{L|R}[Pos]{Start}{End}{Label}:  Starting angle: 15°, Pos: default: .4
+		% \LArc{L|R}[Pos]{Start}{End}{Label}: Starting angle: 30°
+		%
+		% Y = {N, S, E, W, NE, NW, SE, SW}
+		% \LoopY[Pos]{Name}{Label}:  Opening: 60°, Pos: default: .25
+		% \CLoopY[Pos]{Name}{Label}: Opening: 44°
+		% 
+		% X = {R, L}
+		% \LoopX[Pos]{Direction}{Name}{Label}:  Opening: 60°, Pos: default: .25
+		% \CLoopX[Pos]{Direction}{Name}{Label}: Opening: 44°
+		%
+		%
+		% Edge ausgrauen: 	  \DimEdge, 	  	  Reset: \RstEdge
+		% Edge mit w. Rahmen: \EdgeBorder, 		  Reset: \EdgeBorderOff
+		% Abstand zw. Edges:  \ForthBackOffset, Reset: \RstEdgeOffset
+		% Labels alignen:		  \AlignedLabel,	  Reset: \FloatingLabel
+		\ChgCLoopAngle{10}
+		\ChgLoopOffset{1pt}
+		\ChgEdgeLabelScale{0.7}		
+		
+		\CLoopSE[.5]{Basis}{Wz}
+		\EdgeL[.5]{Basis}{Ende}{eof}
+		
+		\EdgeR{ZK}{ZK_bslash}{\backslash}
+		\EdgeL[.7]{ZK}{ZK_alle}{sonst.,{\color{red}S}}
+		\EdgeR{ZK_bslash}{ZK_alle}{sonst.,{\color{red}S}}
+		
+		\ForthBackOffset
+		\EdgeL{Basis}{Name}{Bu,{\color{red}S}}
+		\CLoopR[.6]{25}{Name}{Bu/Zi/Us,{\color{red}S}}
+		\EdgeL{Name}{Basis}{Wz,{\color{red}O}}
+		\EdgeL[.3]{Name}{SZF}{Sz,{\color{red}O; S}}
+		\ArcL{Name}{String}{'',{\color{red}O}}
+		
+		\EdgeL{Basis}{String}{''}
+		\CLoopNW[.5]{String}{sonst.,{\color{red}S}}
+		\EdgeL{String}{Basis}{'',{\color{red}O}}	
+		
+		\EdgeL[.6]{Basis}{SZF}{Sz,{\color{red}S}}
+		\CLoopW[.6]{SZF}{Sz/Wz,{\color{red}S}}		
+		\EdgeL[.4]{SZF}{Basis}{sonst.,{\color{red}O}}		
+		\EdgeL{SZF}{Name}{Bu,{\color{red}O;S}}
+		\EdgeL{SZF}{Zahl}{Zi,{\color{red}O;S}}
+		\VArcL[.5]{arcangle=80,ncurv=1.0}{SZF}{String}{'',{\color{red}O}}
+		
+		\EdgeL[.7]{Basis}{Zahl}{Zi,{\color{red}S}}
+		\CLoopSW[.7]{Zahl}{Zi,{\color{red}S}}
+		\EdgeL{Zahl}{Basis}{sonst.,{\color{red}O}}
+		\EdgeL{Zahl}{SZF}{Sz,{\color{red}O;S}}		
+		
+		\EdgeL{Basis}{Ko?}{/}
+		\EdgeL{Ko?}{*Ko}{*}
+		\CLoopE{*Ko}{sonst.}
+		\EdgeL{*Ko}{Ko E?}{*}
+		\EdgeL[.7]{Ko E?}{*Ko}{sonst.}
+		\EdgeL{Ko E?}{Basis}{/}
+		\EdgeL{Ko?}{Ko}{/}
+		\EdgeL{Ko?}{Basis}{sonst.}
+		\CLoopE[.3]{Ko}{sonst.}
+		\EdgeR{Ko}{Basis}{eol}
+		
+		\RstEdgeOffset
+			
+		\EdgeR[.4]{ZK_alle}{Basis}{',{\color{red}O}}
+		\EdgeR{Basis}{ZK}{'}
+				
+	\end{VCPicture}
+}

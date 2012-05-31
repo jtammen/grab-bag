@@ -1,0 +1,363 @@
+\documentclass[
+%	a4paper,     		%% Papiergroesse: A4
+	twoside,     		%% Zweiseitiges Layout (alternativ: oneside)
+	headsepline, 		%% Horizontale Linie unter Kopfzeile
+	footsepline, 		%% Horizontale Linie ueber Fusszeile
+	titlepage,   		%% Eigenstaendige Titelseite (alternativ: notitlepage)
+%	halfparskip, 		%% Halbe Leerzeile zwischen zwei Abschnitten (alternativ: parskip, ...)
+%	12pt,        		%% Schriftgroesse: 12pt (alternativ: 10pt, 11pt, ...)
+%	bibtotoc,			%% Bibliographie in's Inhaltsverzeichnis aufnehmen
+%	liststotoc,			%% Indexe in's Inhaltsverzeichnis aufnehmen
+%	smallheadings,		%% Kleine Ueberschriften
+%	DIV1,				%% Divisor, Zeilenlänge ca. 70 Zeichen
+%	draft			  	%% Entwurfsmodus, volle/leere Boxen markieren
+%	abstracton			%% Titel "`Zusammenfassung"' einschalten
+]{scrartcl}
+
+%%%
+%%% Pakete
+%%%
+
+%%% Grafik
+%\usepackage{pstricks}
+
+%%% Deutsche Sprache verwenden
+\usepackage{ngerman}
+
+%%% Kodierung der Eingabezeichen setzen (fuer dt. Umlaute etc.)
+\usepackage[ansinew]{inputenc}
+
+%%% Zeichen-Kodierung in PDF-Dokumenten
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl}
+
+\usepackage[T1]{url}
+%%% ... und in tt-Font
+\urlstyle{tt}
+
+%%% amsmath, amssymb, amstext: Unterstuetzung div. mathematischer Zeichen etc.
+%\usepackage{amsmath,amssymb,amstext}
+\usepackage{eurosym}
+
+%%% pifont: "pifont Xs and Check Marks"
+%\usepackage{pifont}
+
+%%% PostScript-Fonts ersetzen
+\usepackage{psfrag}
+
+%%% Programmcode einbinden, Listings
+%\usepackage{listings}
+
+%%% Farb-Unterstuetzung
+\usepackage{color}
+
+%%% Tabellen
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{threeparttable}	% Fussnoten in table-Umgebung
+
+%%% Floats strikter positionieren (Option 'H'ere)
+\usepackage{float}
+
+%%%
+%%% Pakete konfigurieren, Definitionen
+%%%
+
+%%% Ueberschriften bis zur Ebene 3 nummerieren
+\setcounter{secnumdepth}{3}
+
+%%% Neue Spaltentypen definieren
+\newcolumntype{N}{>{\bfseries\scriptsize}l}
+\newcolumntype{V}[1]{
+	>{\bfseries\scriptsize\raggedright\hspace{0pt}}p{#1}
+}
+
+%%%
+%%% Seitenlayout, Schriften
+%%%
+
+%%% scrpage2: KOMA Kopf- und Fusszeile
+\usepackage[automark]{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Schrift fuer Ueberschriften umstellen
+%\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%% Schriften fuer Titel- und Fusszeile umstellen
+%\setkomafont{pagehead}{\normalfont\sffamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily\slshape}
+
+%%% Part-Ueberschrift nicht fett drucken
+%\addtokomafont{part}{\mdseries}
+%\addtokomafont{partnumber}{\mdseries}
+
+%%% Default-Platzierungsbeschraenkungen aendern,
+%%% s. http://www.dante.de/faq/de-tex-faq/html/makros2.html#1
+\makeatletter
+	\renewcommand{\fps@figure}{htbp}
+	\renewcommand{\fps@table}{htbp}
+\makeatother
+
+%%%
+%%% PDF-Einstellungen
+%%%
+
+%%% Fallunterscheidung: PDF- oder 'normale' Erstellung?
+\usepackage{ifpdf}
+
+%%% Falls wir PDF erzeugen...
+\ifpdf
+  %%% Serifenlose Schriften benutzen
+  \usepackage{mathpazo}
+  \usepackage[scaled=.95]{helvet}
+  \usepackage{courier}	
+  \renewcommand{\familydefault}{\sfdefault}
+  \usepackage[sf]{titlesec}
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[pdftex]{graphicx}
+ 
+  %%% Kompressionslevel: 0-9
+  \pdfcompresslevel=9
+
+  %%% Hyperlinks in PDF-Dokumenten
+  \usepackage[%
+  	pdftex,
+    pagebackref=false,		%% Seitenzahlen der Quellseite(n) in Bibliographie auflisten? (true|false) 
+    colorlinks=true,		%% Farblinks? (true -> Screen | false -> Print)    
+    %%% PDF-spezifische Optionen
+    bookmarks=true,			%% PDF-Bookmarks erstellen? (true|false)
+    bookmarksopen=true,		%% Anfangs alle Bookmarks ausgeklappt anzeigen? (true|false) 
+    bookmarksnumbered=true,	%% Abschnitt-Nummerierung in Bookmarks integrieren? (true|false)
+    pdfstartpage={1},		%% Startseite beim Oeffnen der Datei
+    pdfpagemode=UseOutlines,%% Anzeigemodus? (None|UseOutlines|UseThumbs|FullScreen)
+    a4paper=true,			%% A4-Format
+    breaklinks=false,
+    linkcolor=gray			%% Link-Farbe
+  ]{hyperref}
+
+	%%% Dateiendung fuer Grafiken setzen -- so kann beim Einbinden der Grafik
+	%%% auf die Endung verzichtet werden und es wird automatisch die korrekte 
+	%%% Datei ausgewaehlt (.eps / .pdf)
+  \DeclareGraphicsExtensions{.pdf}
+  
+  %%% Pfad fuer Bilder setzen
+  \graphicspath{{./images}}
+
+%%% ... oder im 'normalen' Modus sind
+\else
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[dvips]{graphicx}
+
+  %%% s.o.
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}
+
+  %%% Hyperlinks in PS-Dokumenten, Optionen s.o.
+  \usepackage[%
+    dvips,
+    colorlinks=false,
+    breaklinks=true,				%% Duerfen Links umbrochen werden? (true|false)
+  ]{hyperref}
+
+\fi
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={3. Aufgabenblatt},%
+  pdfauthor={Jan Tammen (jan.tammen@htwg-konstanz.de)},%
+  pdfsubject={System- und Software-Ergonomie},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={SERG, 3. Aufgabenblatt},%
+%  pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+%  pdfstartview=FitH,
+}
+
+%%% Links im dvips-Mode auch umbrechen
+%\usepackage{breakurl}
+
+%%%
+%%% Layout der Titelseite
+%%%
+
+%%% Titelkopf, erscheint oberhalb des Titels
+\titlehead{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../images/htwg-logo}
+	\end{figure}
+}
+
+%%%% Subject, erscheint oberhalb des Titels
+\subject{System- und Software-Ergonomie, WS 06/07}
+
+%%% Titel
+\title{3. Aufgabenblatt}
+
+
+%%%% Autor. Weitere Autoren mit \and{<Name>} hinzufuegen
+\author{%
+	Jan Tammen, 277143
+}%
+
+%%% Datum setzen
+\date{\today}
+
+%%% Rueckseite der Titelseite
+\lowertitleback{%
+	\footnotesize%
+	Erstellt mit \LaTeXe\ unter Verwendung des \KOMAScript-Pakets.}
+
+%%%
+%%% Header und Footer
+%%%
+%\pagestyle{scrheadings}
+
+%%%
+%%% Beginn Hauptdokument
+%%%
+\begin{document}
+
+%%% Titelseite erstellen
+\maketitle
+
+%%%
+%%% Beginn Inhalt
+%%%
+\section{Aufgabe 4}
+\subsection{Teilaufgabe 4a}
+Die Tabelle \ref{tab:use-case-template} stellt den Geschäftsprozess "`Seminar 
+stornieren"' aus der in der Vorlesung besprochenen Beispielapplikation 
+"`Seminarverwaltung"' dar.
+
+\begin{table}
+	\sffamily
+	\centering
+	%\footnotesize
+	\begin{tabularx}{\textwidth}{NX}
+		\toprule
+		
+		\multicolumn{2}{@{}N}{Beschreibung Geschäftsanwendungsfall} \\
+		\midrule
+		\addlinespace
+		
+		Geschäftsprozess 			& Seminar stornieren \\ \cmidrule{1-2}
+		Ziel 						& Seminar abgesagt, bereits angemeldete Teilnehmer informiert
+		\\ \cmidrule{1-2} 
+		Kategorie 					& primär \\ \cmidrule{1-2}
+		Vorbedingung 				& mindestens ein Teilnehmer hat sich für das Seminar 
+		angemeldet \\ \cmidrule{1-2} 
+		Nachbedingung Erfolg		& Teilnehmer, Dozent und Sachbearbeiter sind informiert;
+		Raumbelegungen und andere Ressourcen sind freigegeben \\ \cmidrule{1-2} 
+		Nachbedingung Fehlschlag	& Initiator der Stornierung ist informiert \\ \cmidrule{1-2}
+		Akteure 					& Sachbearbeiter \\ \cmidrule{1-2}
+		Auslösendes Ereignis 		& Seminar muss storniert werden, z.\,B.\ wegen
+		Krankheit des Dozenten oder Teilnehmermangel \\ \cmidrule{1-2} 
+		Beschreibung 		        & Ablauf:
+									  \begin{enumerate} 
+                                         \item Ermitteln der betroffenen Kunden
+                                         und des Dozenten
+                                         \item Stornierung des Seminars
+                                         \item Versenden der
+                                         Stornierungsmitteilungen (postalisch
+                                         bzw.\ elektronisch)
+                                       \end{enumerate}
+		\\ \cmidrule{1-2} 
+		Alternativen 				& Alternativer Ablauf zu oben:
+									  \begin{itemize}
+                                        \item zu 1.: Überprüfen, ob Ersatzdozent
+                                        verfügbar ist
+                                        \item zu 3.: Anbieten eines
+                                        Ersatztermins bzw. eines thematisch verwandten Seminars
+                                      \end{itemize}
+		\\ \cmidrule{1-2} 
+		Erweiterungen 				& Falls das Seminar bereits bezahlt wurde: 
+								      \begin{itemize} 
+                                        \item zu 3.: Erstellen einer Gutschrift bzw.\ Rücklastschrift
+                                        \item zu 3.: Übergabe der Parameter für Gutschrift bzw.\ 
+                                        Rücklastschrift an die Buchhaltung
+                                      \end{itemize} \\
+								
+		\addlinespace
+		\bottomrule
+		
+		\end{tabularx}
+	\caption{Geschäftsprozesbeschreibung}
+	\label{tab:use-case-template}
+\end{table}
+
+In der Beschreibung des Geschäftsprozesses bin ich davon ausgegangen, dass ein 
+Seminar nur dann storniert werden kann, wenn tatsächlich Teilnehmer angemeldet 
+waren. War dies nicht der Fall, so kann das Seminar bzw. der Termin einfach aus 
+dem System entfernt werden und es müssen keine weiteren Aktionen durchgeführt 
+werden.
+
+\subsection{Teilaufgabe 4b}
+In den folgenden Abschnitten möchte ich die drei von mir vorgeschlagenen 
+Personas vorstellen.
+
+\subsubsection{Persona 1: Franziska, Fachabteilung}
+Franziska, 27 Jahre, arbeitet in der Abteilung "`Vertrieb"' und hat daher 
+teilweise außerhäusigen Kundenkontakt. Da sie hauptsächlich für die 
+Kontaktpflege und Neukundengewinnung zuständig ist, sind ihre 
+Computerkenntnisse auf die Bedienung der Spezial-Vertriebssoftware ihrer 
+Abteilung sowie einige anderen Anwendungen beschränkt.
+
+Aufgrund ihrer häufigen Geschäftsreisen hat sie die Papierformulare oft genutzt 
+und deren Unzulänglichkeiten bemerkt. Allerdings hat sie keine Lust, sich lange 
+in eine neue Software einzuarbeiten, sondern möchte diese ohne großen Aufwand 
+und Einarbeitungszeit nutzen können.
+
+Insgesamt ist sie verhalten optimistisch in Bezug auf die Neueinführung und 
+erhofft sich weniger Schreibarbeit und Formalitäten bei der Angabe ihrer Reise- 
+und Arbeitszeiten. Allerdings scheut sie die erwartete Einarbeitungszeit in das 
+System.
+
+\subsubsection{Persona 2: Siegfried, Sekretariat}
+Der 36jährige Siegfried hat erst vor kurzem zu unserer Firma gewechselt. Er 
+arbeitet im Sekretariat der Abteilung "`Forschung und Entwicklung"'. Er muss 
+dort unter anderem die Urlaubsanträge "`seiner"' Mitarbeiter mit seinem 
+Vorgesetzten abklären und bei eventuellen Konflikten vermitteln.
+
+Da Siegfried neu in der Firma ist, kennt er die internen Abläufe noch nicht so 
+genau und ist in vielen Bereichen noch etwas verunsichert durch die neue 
+Situation. Im Gegensatz zu seinen Kollegen, die die Arbeitszeiterfassung bisher 
+in Papierform erledigt haben, hat er in seiner alten Firma bereits 
+Erfahrungen mit einem solchen Softwaresystem gesammelt. Außerdem ist er 
+vertraut mit den Standard-Bürosoftwarekomponenten, welche er für seine 
+tägliche Arbeit benutzt.
+
+Aus diesen Gründen ist er zuversichtlich und motiviert, dass er sich relativ 
+schnell in das System einarbeiten kann und er so seine Arbeitsabläufe 
+vereinfachen kann.
+
+\subsubsection{Persona 3: Petra, Personalabteilung}
+Petra ist 48 Jahre und arbeitet seit 28 Jahren in der Personalabteilung unserer 
+Firma. Bisher lief die Verwaltung der Arbeits- und Urlaubszeiten über 
+Papierformulare, die Petra natürlich sehr vertraut sind und mit denen sie sich 
+eine vermeintlich effiziente Arbeitsweise angewöhnt hat.
+
+Sie ist nun ein wenig besorgt, ob sie sich ein weiteres zusätzliches 
+Softwaresystem aneignen und die komplexen Abläufe behalten kann. Damit 
+einhergehend ist eine allgemeine Unsicherheit im Umgang mit Computersystemen 
+vorhanden, weshalb sie den Computer auch nur für die nötigsten Aufgaben nutzt. 
+Die Einführung des neuen Systems verstärkt ihre latente Angst vor dem Verlust 
+ihres Arbeitsplatzes, da sie sich für nicht mehr lernfähig und anpassbar genug 
+hält. Schließlich hängt sie sehr an ihren alten Formularen und Arbeitsabläufen 
+und möchte diese am liebsten beibehalten.
+
+Diese Faktoren führen dazu, dass sie der Einführung des neuen Systems sehr 
+skeptisch gegenübersteht und sich davon keinerlei Vorteile davon vespricht.
+
+\end{document}

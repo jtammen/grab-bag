@@ -1,0 +1,380 @@
+\documentclass[
+	a4paper,     		%% Papiergroesse: A4
+	twoside,     		%% Zweiseitiges Layout (alternativ: oneside)
+	headsepline, 		%% Horizontale Linie unter Kopfzeile
+	footsepline, 		%% Horizontale Linie ueber Fusszeile
+	titlepage,   		%% Eigenstaendige Titelseite (alternativ: notitlepage)
+%	halfparskip, 		%% Halbe Leerzeile zwischen zwei Abschnitten (alternativ: parskip, ...)
+	12pt,        		%% Schriftgroesse: 12pt (alternativ: 10pt, 11pt, ...)
+%	bibtotoc,			%% Bibliographie in's Inhaltsverzeichnis aufnehmen
+%	liststotoc,			%% Indexe in's Inhaltsverzeichnis aufnehmen
+%	smallheadings,		%% Kleine Ueberschriften
+%	DIV1,				%% Divisor, Zeilenlänge ca. 70 Zeichen
+%	draft			  	%% Entwurfsmodus, volle/leere Boxen markieren
+%	abstracton			%% Titel "`Zusammenfassung"' einschalten
+]{scrartcl}
+
+%%%
+%%% Pakete
+%%%
+
+%%% Grafik
+%\usepackage{pstricks}
+
+%%% Deutsche Sprache verwenden
+\usepackage{ngerman}
+
+%%% Kodierung der Eingabezeichen setzen (fuer dt. Umlaute etc.)
+\usepackage[ansinew]{inputenc}
+
+%%% Zeichen-Kodierung in PDF-Dokumenten
+\usepackage[T1]{fontenc}
+%\usepackage{ae,aecompl}
+
+\usepackage[T1]{url}
+%%% ... und in tt-Font
+\urlstyle{tt}
+
+%%% amsmath, amssymb, amstext: Unterstuetzung div. mathematischer Zeichen etc.
+%\usepackage{amsmath,amssymb,amstext}
+\usepackage{eurosym}
+
+%%% pifont: "pifont Xs and Check Marks"
+%\usepackage{pifont}
+
+%%% PostScript-Fonts ersetzen
+\usepackage{psfrag}
+
+%%% Programmcode einbinden, Listings
+%\usepackage{listings}
+
+%%% Farb-Unterstuetzung
+\usepackage{color}
+
+%%% Tabellen
+% \usepackage{booktabs}
+% \usepackage{array}
+% \usepackage{multirow}
+% \usepackage{tabularx}
+% \usepackage{threeparttable}	% Fussnoten in table-Umgebung
+
+%%% Floats strikter positionieren (Option 'H'ere)
+\usepackage{float}
+
+%%%
+%%% Pakete konfigurieren, Definitionen
+%%%
+
+%%% Ueberschriften bis zur Ebene 3 nummerieren
+\setcounter{secnumdepth}{3}
+
+%%%
+%%% Seitenlayout, Schriften
+%%%
+
+%%% scrpage2: KOMA Kopf- und Fusszeile
+\usepackage[automark]{scrpage2}
+
+%%% EM unterstrichen darstellen
+%\usepackage{ulem}
+
+%%% Schrift fuer Captions verkleinern
+\setkomafont{captionlabel}{\scriptsize}
+\setkomafont{caption}{\usekomafont{captionlabel}}
+
+%%% Schrift fuer Ueberschriften umstellen
+%\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%% Schriften fuer Titel- und Fusszeile umstellen
+%\setkomafont{pagehead}{\normalfont\sffamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily\slshape}
+
+%%% Part-Ueberschrift nicht fett drucken
+%\addtokomafont{part}{\mdseries}
+%\addtokomafont{partnumber}{\mdseries}
+
+%%% Default-Platzierungsbeschraenkungen aendern,
+%%% s. http://www.dante.de/faq/de-tex-faq/html/makros2.html#1
+\makeatletter
+	\renewcommand{\fps@figure}{htbp}
+	\renewcommand{\fps@table}{htbp}
+\makeatother
+
+%%%
+%%% PDF-Einstellungen
+%%%
+
+%%% Fallunterscheidung: PDF- oder 'normale' Erstellung?
+\usepackage{ifpdf}
+
+%%% Falls wir PDF erzeugen...
+\ifpdf
+  %%% Serifenlose Schriften benutzen
+  \usepackage{mathpazo}
+  \usepackage[scaled=.95]{helvet}
+  \usepackage{courier}	
+  \renewcommand{\familydefault}{\sfdefault}
+  \usepackage[sf]{titlesec}
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[pdftex]{graphicx}
+ 
+  %%% Kompressionslevel: 0-9
+  \pdfcompresslevel=9
+
+  %%% Hyperlinks in PDF-Dokumenten
+  \usepackage[%
+  	pdftex,
+    pagebackref=false,		%% Seitenzahlen der Quellseite(n) in Bibliographie auflisten? (true|false) 
+    colorlinks=true,		%% Farblinks? (true -> Screen | false -> Print)    
+    %%% PDF-spezifische Optionen
+    bookmarks=true,			%% PDF-Bookmarks erstellen? (true|false)
+    bookmarksopen=true,		%% Anfangs alle Bookmarks ausgeklappt anzeigen? (true|false) 
+    bookmarksnumbered=true,	%% Abschnitt-Nummerierung in Bookmarks integrieren? (true|false)
+    pdfstartpage={1},		%% Startseite beim Oeffnen der Datei
+    pdfpagemode=UseOutlines,%% Anzeigemodus? (None|UseOutlines|UseThumbs|FullScreen)
+    a4paper=true,			%% A4-Format
+    breaklinks=false,
+    linkcolor=gray			%% Link-Farbe
+  ]{hyperref}
+
+	%%% Dateiendung fuer Grafiken setzen -- so kann beim Einbinden der Grafik
+	%%% auf die Endung verzichtet werden und es wird automatisch die korrekte 
+	%%% Datei ausgewaehlt (.eps / .pdf)
+  \DeclareGraphicsExtensions{.pdf}
+  
+  %%% Pfad fuer Bilder setzen
+  \graphicspath{{./images}}
+
+%%% ... oder im 'normalen' Modus sind
+\else
+
+  %%% Unterstuetzung fuer Grafiken
+  \usepackage[dvips]{graphicx}
+
+  %%% s.o.
+  \DeclareGraphicsExtensions{.eps}
+  \graphicspath{{./images}}
+
+  %%% Hyperlinks in PS-Dokumenten, Optionen s.o.
+  \usepackage[%
+    dvips,
+    colorlinks=false,
+    breaklinks=true,				%% Duerfen Links umbrochen werden? (true|false)
+  ]{hyperref}
+
+\fi
+
+%%% Informationen ueber das PDF-Dokument setzen
+\hypersetup{
+  pdftitle={1. Aufgabenblatt},%
+  pdfauthor={Jan Tammen (jan.tammen@htwg-konstanz.de)},%
+  pdfsubject={System- und Software-Ergonomie},%
+  pdfcreator={LaTeX with pdfeTeX},%
+  pdfproducer={LaTeX with pdfeTeX},%
+  pdfkeywords={SERG, 2. Aufgabenblatt},%
+%  pdfpagelayout=TwoColumnRight,
+  pdffitwindow=true,
+%  pdfstartview=FitH,
+}
+
+%%% Links im dvips-Mode auch umbrechen
+%\usepackage{breakurl}
+
+%%%
+%%% Layout der Titelseite
+%%%
+
+%%% Titelkopf, erscheint oberhalb des Titels
+\titlehead{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../images/htwg-logo}
+	\end{figure}
+}
+
+%%%% Subject, erscheint oberhalb des Titels
+\subject{System- und Software-Ergonomie, WS 06/07}
+
+%%% Titel
+\title{2. Aufgabenblatt}
+
+
+%%%% Autor. Weitere Autoren mit \and{<Name>} hinzufuegen
+\author{%
+	Jan Tammen, 277143
+}%
+
+%%% Datum setzen
+\date{\today}
+
+%%% Rueckseite der Titelseite
+\lowertitleback{%
+	\footnotesize%
+	Erstellt mit \LaTeXe\ unter Verwendung des \KOMAScript-Pakets. GUI-Entwürfe
+	erstellt mittels ConceptDraw VI Professional Trial.}
+
+%%%
+%%% Header und Footer
+%%%
+%\pagestyle{scrheadings}
+
+%%%
+%%% Beginn Hauptdokument
+%%%
+\begin{document}
+
+%%% Titelseite erstellen
+\maketitle
+
+%%%
+%%% Beginn Inhalt
+%%%
+\section{Aufgabe 3}
+\subsection{Einleitung}
+Das laut Aufgabenstellung zu erzeugende Formular habe ich in drei separate
+Unterformulare unterteilt. Die Unterteilung wird durch die Nutzung von Reitern
+(Tabs) erreicht, welche die gewünschte Funktionalität im unteren Formularbereich
+zur Verfügung stellen. Durch diese Unterteilung soll unnötige Komplexität durch
+ein überlanges Formular mit teilweise für die aktuelle Aufgabe irrelevanten
+Eingabeelementen vermieden werden. In den folgenden Unterabschnitten möchte ich
+die drei Unterformulare nun jeweils detailliert vorstellen.
+
+\subsection{Abwesenheit und Urlaubsanmeldung}
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/gui-mockup-abwesenheit_urlaub}
+  \caption{GUI-Entwurf: Abwesenheit und Urlaubsanmeldung}
+  \label{fig:gui-mockup-abwesenheit_urlaub}
+\end{figure}
+
+\subsubsection{Beschreibung des Formulars}
+Zunächst möchte ich den \textbf{Formularkopf} beschreiben, welcher allen drei
+Unterformularen gemein ist.
+Der Formularkopf (s. Abbildung \ref{fig:gui-mockup-abwesenheit_urlaub}) besteht
+aus zwei separaten Bereichen, den Feldern "`Personaldaten"' und 
+"`Mitarbeiter"'. Im ersteren gibt es für den Benutzer ein Eingabefeld für seine 
+Personalnummer sowie eine Auswahlliste aller im Betrieb vorhandenen 
+Kostenstellen. Diese Eingaben werden durch die Schaltfläche "`Eingaben 
+überprüfen"' an das Programm übergeben. Um dem Nutzer unnötige Schreibarbeit zu 
+ersparen, sollen seine persönlichen Angaben (Name, Stelle und Telefon) vom 
+System automatisch anhand der Personal-Nummer ermittelt und in das rechte Feld 
+eingetragen werden. Dort hat der Nutzer dann auch keine Eingabemöglichkeiten 
+mehr, es werden lediglich die ermittelten Daten angezeigt.
+
+Im Reiter zur Eingabe der Abwesenheits- und Urlaubsmeldungen gibt
+es die folgenden Eingabeelemente, verteilt auf die Felder "`Voraussichtliche
+Dauer und Grund der Abwesenheit"' und "`Urlaubsangaben"':
+
+\begin{itemize}
+  \item Eine Eingabemöglichkeit für das Anfangsdatum der Abwesenheit bzw. des
+  Urlaubs. Hierzu gibt es drei Klapplisten für die Angaben Tag, Monat sowie
+  Jahr. Durch den Verzicht auf einfache Eingabefelder wird die korrekte Angabe
+  des Datums vereinfacht. Ungültige Datumswerte (z.B. 30.\, Februar) können
+  dynamisch aus der Liste entfernt werden. Die Datumsfelder sind nicht
+  vorbelegt, es sollen lediglich die möglichen Eingabewerte dargestellt werden.
+  \item Eine Eingabemöglichkeit für das Enddatum der Abwesenheit bzw. des
+  Urlaubs mit analoger Funktionalität zum vorherigen Punkt.
+  \item Eine Klappliste für die Auswahl des Abwesenheitsgrundes. Hier sind die
+  vom Arbeitgeber vorgegebenen Möglichkeiten aufgeführt, sodass der Benutzer
+  keine Möglichkeit hat, ungültige Angaben zu tätigen.
+  \item Ein Eingabefeld für die Angabe der Begründung. Dieses Feld ist
+  ausgegraut und deaktiviert, sofern der Nutzer einen der Urlaubsgründe (0100
+  oder 0620) ausgewählt hat, da diese Angabe in diesen Fällen nicht nötig ist.
+  \item Auf der rechten Seite werden die Daten den Urlaub betreffend
+  eingegeben. Dazu gehört die Anschrift (Eingabefeld), der Ort (Eingabefeld),
+  das Land (Klappliste mit Ländern), Anzeige der beantragten Urlaubstage
+  (deaktiviertes Eingabefeld, Wert wird automatisch berechnet) sowie Anzeige der
+  verbleibenden Urlaubstage (deaktiviertes Eingabefeld, Wert wird automatisch
+  berechnet). Das komplette rechte Feld wird deaktiviert und ausgegraut,
+  falls der Nutzer keinen der Urlaubsgründe ausgewählt hat.
+\end{itemize}
+
+Die Unterteilung in die zwei Felder habe ich unternommen, um die zwei
+Unterthemen des Formulars (Datumsangabe sowie Urlaubsangaben) voneinander zu
+trennen.
+Schließlich gibt es eine Schaltfläche "`Daten absenden"', die zum Speichern der
+Daten betätigt werden muss. Die Schaltfläche "`Abbrechen"' löscht alle durch den
+Nutzer gemachten Angaben (mit vorheriger Nachfrage) aus dem Formular und stellt
+den Urzustand wieder her. Diese Schaltflächen sind in der unteren rechten
+Formularecke angeordnet, da dem Nutzer diese Positionierung aus anderen
+Softwareprodukten vertraut sein dürfte. Auf den weiteren Unterformularen sind
+die Schaltflächen gleich angeordnet und erfüllen die selbe Funktionalität.
+
+\subsection{Dienstreisen}
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/gui-mockup-dienstreisen}
+  \caption{GUI-Entwurf: Dienstreisen}
+  \label{fig:gui-mockup-dienstreisen}
+\end{figure}
+
+\subsubsection{Beschreibung des Formulars}
+Dieses Unterformular (s. Abbildung \ref{fig:gui-mockup-dienstreisen}) ist
+separiert in zwei Felder: Eines für die Eingabe von "`Reisezeiten and
+Reisetagen"' sowie eines für "`Arbeitszeiten an Reisetagen"'.
+Das erste Feld beinhaltet die folgenden Eingabemöglichkeiten:
+
+\begin{itemize}
+  \item Auswahl des Datums (analog zu den Ausführungen zum ersten Formular).
+  \item Eine Klappliste zur Auswahl der Reiseart, eingetragen sind die
+  mögliche Werten.
+  \item Auswahl von Beginn und Ende der Reisezeit jeweils durch eine Klappliste
+  mit Uhrzeiten im 15-Minuten-Abstand.
+  \item Eine Schaltfläche "`Speichern und neue Zeile"', durch welche die
+  selektierten Daten aus den Eingabeelementen übernommen werden und mit diesen
+  Daten eine neue Zeile (in Textform) erzeugt wird. Die Eingabeelemente rutschen
+  somit um eine Zeile nach unten und es kann ein neuer Datensatz eingegeben
+  werden. Auf diese Weise wird dem Nutzer stets die gerade benötigte Anzahl an
+  Eingabeelementen zur Verfügung gestellt, was meiner Meinung nach die
+  Übersichtlichkeit des Formulars erhöht.
+  \item Hat der Nutzer eine Datenzeile gespeichert, kann er diese natürlich auch
+  wieder entfernen - zu diesem Zwecke gibt es die Schaltfläche "`Zeile
+  entfernen"'.
+  \item Einzelne Daten der Zeile kann der Nutzer durch Anklicken des Datums
+  wieder manipulierbar machen (Ersetzen des Textes durch das entsprechende
+  Eingabeelement) und anschließend wieder speichern. Dieser Fall ist im
+  GUI-Entwurf nicht dargestellt.
+\end{itemize}
+
+Wird die maximal anzeigbare Anzahl von Zeilen erreicht, so wird dem Nutzer ein
+vertikaler Scrollbalken zur Verfügung gestellt, mit welchem er in der Liste
+navigieren kann. Die Anordnung der Daten in Zeilenform habe ich aus dem
+Originalformular übernommen, da sich diese Eingabeform besonders für die Eingabe
+von mehreren Datensätzen gleicher Art eignet.
+
+Im zweiten Feld erfolgt die Dateneingabe auf ähnliche Weise:
+
+\begin{itemize}
+  \item Auswahl des Datums analog zu oben. Hier werden dem Nutzer in den
+  Auswahllisten jeweils nur diejenigen Daten zur Verfügung gestellt werden, die
+  er bereits zuvor in der Reisezeiten-Liste angelegt hat.
+  \item Auswahl von Beginn und Ende der Arbeitszeit jeweils durch eine Klappliste
+  mit Uhrzeiten im 15-Minuten-Abstand.
+  \item Schaltflächen zum Speichern und Löschen analog zu oben.
+\end{itemize}
+
+
+\subsection{Zeitübertrag}
+\begin{figure}
+  \centering
+  \includegraphics[width=1.00\textwidth]{../images/gui-mockup-zeitübertrag}
+  \caption{GUI-Entwurf: Zeitübertrag}
+  \label{fig:gui-mockup-zeitübertrag}
+\end{figure}
+
+\subsubsection{Beschreibung des Formulars}
+Im letzten Unterformular (s. \ref{fig:gui-mockup-zeitübertrag}) gibt es die
+folgenden Elemente:
+
+\begin{itemize}
+  \item Auswahl des Anfangsdatums und Enddatums des Zeitübertrags. Funktion
+  analog zu den bisher beschriebenen Datumseingabeelementen.
+  \item Unter den Eingabefeldern wird die durch die Auswahl der Daten errechnete
+  Anzahl der Tage dargestellt. Die gewählte Anordnung soll den Zusammenhang
+  zwischen den Eingabefeldern und dem Resultat verdeutlichen.
+  \item Eine Klappliste mit den Monaten des Kalenders zur Auswahl desjenigen
+  Monats, für welchen der Zeitausgleich erfolgen soll.
+\end{itemize}
+
+\end{document}

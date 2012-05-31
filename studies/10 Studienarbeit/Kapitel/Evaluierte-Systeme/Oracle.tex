@@ -1,0 +1,52 @@
+\section{XML-Unterstützung}
+
+Für die Unterstützung von \acr{xml} bietet Oracle eine Reihe von Tools an. Diese Tools sind (Quelle: \citep{url:OracleXMLFAQ}):
+\begin{itemize}
+	\item XMLDB oder kurz XDB: Beinhaltet die mit Oracle 9i (oder spätere Versionen) standardmäßig ausgelieferte \acr{xml}-Unterstützung.
+	\item \acr{xml}-\acr{sql}-Utility (XSU): Interfaces für die Programmiersprachen \acr{plsql} und Java.
+	\item \acr{xml}-Developer Kit (XDK):  Es bietet eine Reihe von Tools für die Schnittstelle von \acr{xml} und Oracle. Es bietet Unterstützung für C, C++, Java und \acr{plsql}.
+	\item XSQL Servlet: Ermöglicht die dynamische Generierung von \acr{xml}-""Dokumenten.
+	\item weitere Tools wie beispielsweise Oracle iFS, Oracle InterMedia, JDeveloper.
+\end{itemize}
+
+Für das Projekt wurde nur XDB benutzt. Die übrigen Tools werden deshalb und aus Zeitgründen hier nicht näher betrachtet.
+
+\section{Unterstzützung des SQL/XML-Standards}
+Wie es der \acr{sql}/\acr{xml}-Standard vorschreibt, lassen sich relationale Daten mit \acr{xml}-Daten kombinieren. Der Datentyp wird bei Oracle allerdings als \texttt{XMLType} bezeichnet und nicht als \texttt{XML} wie im Standard vorgeschrieben \citep{Tuerker2003}.
+
+Der \acr{sql}/\acr{xml}-Standard ist noch nicht vollständig umgesetzt. In Oracle 9i werden nur die folgenden Elemente des Standards unterstützt:
+\begin{itemize}
+	\item \texttt{XMLAgg()}
+	\item \texttt{XMLConcat()}
+	\item \texttt{XMLElement()}
+	\item \texttt{XMLForest()}
+\end{itemize}
+
+In späteren Versionen ist laut Oracle eine vollständige Unterstützung des Standards geplant (Quelle: \citep{url:oracleTechnologyXML}).
+
+Neben dem im \acr{xml}-Standard beschriebenen Funktionen besitzt Oracle weitere Funktionen für die \acr{xml}-Unterstützung. Dies sind unter anderem:
+
+\begin{itemize}
+	\item \texttt{SYS\_XMLGEN()}: Die Funktion ist ähnlich der Funktion \texttt{XMLElement()}. Der einzige Unterschied besteht darin, dass die Funktion nur ein einziges Attribut aufnehmen kann und dieses in \acr{xml} umwandelt.
+	\item \texttt{SYS\_XMLLAGG()}: Aggregiert alle Elemente eines \acr{xml}-Dokuments oder ein Fragment davon und erzeugt ein \acr{xml}-Dokument. Das daraus entstehende Dokument wird in einem Element mit dem Defaultnamen "`ROWSET"' eingeschlossen.
+\end{itemize}
+
+(Quelle: \citep{OracleSQL})
+
+Es existieren eine Reihe von Methoden des Typs \texttt{XMLType}. Die folgende Liste ist eine unvollständige Aufzählung dieser Methoden, die auch im untersuchten Projekt benutzt werden:
+
+\begin{itemize}
+  \item \texttt{XMLType()}: Konstruktor zum Erzeugen einer \texttt{XMLType}-Instanz
+	\item \texttt{updateXML()}: Änderung eines einzelnen \acr{xml}-Elements.
+	\item \texttt{extract()}: Ermöglicht eine Abfrage mit XPath und liefert einen Teilbaum zurück.
+	\item \texttt{existsNode()}: Prüft, ob ein Knoten existiert. Wenn der Knoten vorhanden ist, so wird eine 1 zurückgeliefert, andernfalls eine 0.
+	\item \texttt{getClobVal()}: Liefert den Wert einer \texttt{XMLType}-Instanz als \acr{clob}-Wert zurück.
+	\item \texttt{getStringVal()}: Liefert den Wert einer \texttt{XMLType}-Instanz als Zeichenkette zurück.
+	\item \texttt{getNumVal()}: Liefert den Wert einer \texttt{XMLType}-Instanz als numerischen Wert zurück.
+\end{itemize}
+
+\section{Unterstützung von XPath und XQuery}
+
+Oracle unterstützt außerdem XPath. Dazu stellt das Oracle-\acr{dbms} die Funktion \texttt{extract()} zur Verfügung.
+
+XQuery hingegen wird erst ab Version 10i weitestgehend unterstützt. (Quelle: \citep{url:oracleXQuery})

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Anzahl-Zimmer (#PCDATA)>
+<!ELEMENT Ausstattung (Sauna?, Schwimmbad?, Telefon?)>
+<!ELEMENT Groesse (#PCDATA)>
+<!ELEMENT Land EMPTY>
+<!ATTLIST Land
+  Nr CDATA #REQUIRED
+>
+<!ELEMENT Name (#PCDATA)>
+<!ELEMENT Preis-Pro-Tag (#PCDATA)>
+<!ELEMENT Sauna EMPTY>
+<!ELEMENT Schwimmbad EMPTY>
+<!ELEMENT Telefon EMPTY>
+<!ELEMENT Wohnung (Name, Groesse, Anzahl-Zimmer, Preis-Pro-Tag, Ausstattung, Land)>
+<!ATTLIST Wohnung
+  Nr CDATA #REQUIRED
+>
+<!ELEMENT Wohnungen (Wohnung+)>

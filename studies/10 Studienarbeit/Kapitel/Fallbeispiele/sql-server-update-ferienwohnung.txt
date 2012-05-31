@@ -1,0 +1,8 @@
+UPDATE wohnung SET
+  name = "Neuer Name",
+  anzahl_zimmer = 4,
+  preis_pro_tag = 500,
+  id_land = 11,
+  groesse = 132,
+  ausstattung = '<Ausstattung><Sauna/><Telefon/></Ausstattung>'
+WHERE id_wohnung = 304;

@@ -1,0 +1,15 @@
+\chapter{Einleitung}
+\section{Zielsetzung der Arbeit}
+Da die Verwendung von \acr{xml} als Datenaustauschformat in den letzten Jahren stark zugenommen hat, gibt es auch einen steigenden Bedarf an Speicherungsmöglichkeiten von \acr{xml}-Daten in herkömmlichen, relationalen Datenbanken. Einige Anbieter von \acr{dbms} bieten deshalb spezielle Erweiterungen ihrer Systeme an -- außerdem wird versucht, den \acr{sql}-Standard konsequenterweise um \acr{xml}-Eigenschaften zu erweitern.
+
+In der vorliegenden Arbeit soll untersucht werden, welche \acr{xml}-Funktionalitäten heutige (relationale) \acr{dbms} bieten und inwiefern die Verwendung dieser Funktionen Vorteile \zB bezüglich des Austauschs von \acr{xml}-Dokumenten mit sich bringen. Hierbei ist besonders von Interesse, ob und wie sich bei der Verwendung von \acr{xml} die an das Datenbanksystem zu stellenden Anfragen ändern und ob alle in \acr{sql} vorhandenen Möglichkeiten abgebildet werden können.
+Da sich inzwischen auch eine größere Anzahl nativer \acr{xml}-\acr{dbms} auf dem Markt platziert hat, gehen wir auch auf die Verwendung eines solchen alternativen Konzepts ein.
+
+\section{Vorgehensweise}
+Zur Vorbereitung des Lesers seien zunächst die relevanten Technologien und Sprachen rund um \acr{xml} genannt und vorgestellt. Anschließend werfen wir einen Blick auf die aktuelle Revision des \acr{sql}-Standards, welcher von der \acr{iso} verabschiedet wurde und u.a. einige Änderungen in Bezug auf \acr{xml} enthält.
+
+Weiterhin werden die verschiedenen Techniken beleuchtet, mit denen eine dauerhafte Speicherung von \acr{xml}-Dokumenten erreicht werden kann -- im Allgemeinen kann hier zwischen "`hybriden"' und "`nativen"' Methoden unterschieden werden.
+
+Nach Vermittlung dieser technischen Voraussetzungen stellen wir die in dieser Arbeit zu evaluierenden \acr{dbms} vor. Die o.g. Fragen sollen anschließend anhand einer Beispiel-Applikation untersucht werden. Da verständlicherweise nicht alle existenten \acr{dbms} auf ihre \acr{xml}-Funktionalität behandelt werden können, beschränken wir uns dabei auf zwei der etabliertesten \acr{dbms} (Oracle sowie Microsoft SQL-Server), sowie eine kleineres, natives \acr{xml}-\acr{dbms} (eXist).
+
+Im letzten Teil der Arbeit werden die in Bezug auf die Beispiel-Applikation ermittelten Ergebnisse vorgestellt und die Funktionsweisen der einzelnen \acr{dbms} miteinander verglichen.

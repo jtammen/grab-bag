@@ -1,0 +1,6 @@
+Noten im Format ganze,zehntel eingeben (Ende mit Strg-D):
+
+Anzahl beruecksichtigter Noten: 22
+Beste Note: 1,0
+Schlechteste Note: 5,0
+Durchschnitt: 2,7

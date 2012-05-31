@@ -1,0 +1,243 @@
+\textbf{Tapestry} \cite{TapestryTR}, \cite{tapestry_jsac} ist ein Peer-to-Peer 
+Overlaynetzwerk, das usprünglich im Jahre 2000 von Ben Y. Zhao, John 
+Kubiatowicz und Anthony D. Joseph an der University of California, Berkeley, 
+entwickelt wurde. Der grundlegende Mechanismus von Tapestry basiert in 
+wesentlichen Teilen auf Arbeiten von Plaxton, Rajaraman und Richa 
+\cite{PlaxtonRR97} für statische Netzwerke. Für die praktische Umsetzung von 
+Tapestry und anderen verwandten Algorithmen existieren mittlerweile mehrere 
+frei verfügbare Implementierungen. Speziell für Tapestry existiert eine 
+Java-Implementierung, die jedoch seit Juli 2004 nicht mehr weiterentwickelt wird
+und langsam von einem neuen, aktuell existierenden Projekt namens 
+'Chimera'\footnote{http://current.cs.ucsb.edu/projects/chimera/} abgelöst 
+werden soll. 'Chimera' stellt grundlegende Funktionalität der 'prefix-routing' 
+Protokolle Tapestry und Pastry bereit und ist in der Programmiersprache C 
+geschrieben.
+
+\section{Grundlagen}
+Tapestry unterscheidet zwischen \textsl{Peers} (Knoten) und \textsl{Objekten}.
+Objekte können z.B. Dateien sein, die auf einem Knoten zur Verfügung gestellt 
+und von anderen Peers abgerufen werden sollen.
+
+Die in einem Tapestry-Overlaynetzwerk eingebundenen Knoten und Objekte erhalten 
+als eindeutige Identifizierung eine 160-Bit lange ID. Diese kann zufällig oder 
+alternativ unter Verwendung eines Hash-Verfahrens (z.B. SHA-1) zugewiesen 
+werden. Bei Verwendung einer Hash-Funktion kann davon ausgegangen werden, dass 
+die Werte annährend gleichverteilt sind. Somit ist sichergestellt, dass aus der 
+Nachbarschaft zweier Identifikatoren keine Rückschlüsse auf z.B. deren 
+geographische Lage gezogen werden können.
+
+Auf einem physikalischen Rechner können mehrere Tapestry-Knoten existieren - 
+auf diese Weise lassen sich gleichzeitig unterschiedliche P2P-Applikationen 
+über das selbe Overlaynetzwerk betreiben.
+
+\section{Struktur}
+Tapestry-Knoten sind in einer Komponentenarchitektur organisiert. Um 
+Nachrichten innerhalb des Netzwerks verschicken und empfangen zu können, muss 
+in jedem Knoten die Routingtabelle (bestehend aus den Nachbarschaftsmengen) 
+verwaltet werden. Weiterhin unterhält jeder Knoten eine Liste sog. 
+\textsl{Backpointer}. Dabei handelt es sich um Verweise auf diejenigen Knoten, 
+die diesen Knoten als Nachbarn besitzen.
+
+Schließlich besitzt jeder Knoten noch eine Menge von Objektverweisen in der 
+Tupelform $\langle \text{Objekt-ID} \, O_G, \text{Knoten-ID} \, N_{id} 
+\rangle$, mit deren Hilfe später die Suche nach Objekten deutlich beschleunigt 
+werden kann.
+
+\subsection{Nachbarschaftsmengen}
+Die Nachbarn eines Knotens $N$ sind in mehrere Mengen unterteilt. Jede dieser 
+Nachbarschaftsmengen enthält die Nachbarn einer Ebene $l$, d.h. diejenigen 
+Knoten, die einen bestimmten Präfix $x$ mit dem Identifikator $N_{id}$ des 
+Knotens $N$ gemeinsam haben. Abbildung \ref{fig:tapestry-neighbor-map} zeigt 
+beispielhaft die Nachbarschaftsmengen eines Knotens mit der ID \texttt{4227} 
+für die Level 1 bis 4.
+
+\begin{figure}
+  \centering
+  \def\JPicScale{0.42}
+  \input{../images/tapestry-neighbor-map}
+  \caption[Tapestry: Nachbarschaftsmengen]{Nachbarschaftsmengen des
+  Tapestry-Knotens \texttt{4227}. Vgl. \cite[Fig. 1]{TapestryTR}}
+  \label{fig:tapestry-neighbor-map}
+\end{figure}
+
+% Die Nachbarschaftsmengen besitzen nach \cite{Pastry-Middleware} die folgenden
+% zwei Eigenschaften.
+% 
+% \begin{description}
+%   \item[Konsistenz.] Sollte die Nachbarschaftsmenge eines bestimmten Levels $l$
+%   leer sein, so ist gesichert, dass im gesamten Netz kein Knoten existiert, der 
+%   \item[Lokalität.]
+% \end{description}
+
+\section{Routing}
+Da Tapestry zwischen Knoten und Objekten unterscheidet, müssen auch beim 
+Routing Unterschiede getroffen werden. Allgemein basiert das Routing in 
+Tapestry auf dem bereits von Pastry bekannten Präfix-Routing.
+
+\subsection{Routing to nodes}
+Soll eine Nachricht von einem Knoten $N$ zu einem Knoten $X$ gesendet werden, 
+so wird die Nachricht im ersten Schritt an einen Peer gesendet, dessen ID in 
+einer einzigen Stelle mit $X_{id}$ übereinstimmt. Dieser Peer sendet die 
+Nachricht nun weiter an einen Knoten, dessen ID \textsl{zwei} Stellen mit 
+$X_{id}$ gemeinsam hat. Dieser Vorgang setzt sich solange fort, bis die 
+Nachricht den Zielknoten $X$ erreicht. Aufgrund der baumartigen 
+Routing-Struktur benötigt dieses Verfahren einen logarithmischen Aufwand.
+
+Treten jedoch "`Löcher"' in der Routingtabelle auf, d.h. es ist kein Knoten mit
+passendem ID-Präfix bekannt, so könnte es zu Problemen kommen. Abhilfe schafft
+das sog. Surrogate-Routing, welches in Abschnitt \ref{subsec:surrogate-routing}
+näher beschrieben wird. Abbildung \ref{fig:tapestry-route-node} zeigt
+beispielhaft das Routing einer Nachricht von Knoten \texttt{5230} an Knoten
+\texttt{42AD}. 
+
+\begin{figure}
+  \centering
+  \def\JPicScale{0.55}
+  \input{../images/tapestry-route-node}
+  \caption[Tapestry: Routing zu Knoten]{Senden einer Nachricht vom Knoten
+  \texttt{5230} an den Knoten 
+  \texttt{42AD}. Vgl. \cite[Fig. 2]{TapestryTR}}
+  \label{fig:tapestry-route-node}
+\end{figure}
+
+Wie man sieht, läuft die Nachricht auf ihrem Weg zum Ziel stets zu einem 
+Knoten, dessen ID in einer höheren Anzahl an Stellen mit der ID des Ziels 
+übereinstimmt.
+
+\subsection{Routing to objects}
+Nachrichten an Objekte werden analog zu Nachrichten an Knoten mittels des 
+Präfix-Routings geroutet und an den sog. Root-Knoten $O_R$ des Objekts $O$ 
+gesendet. Der Root-Knoten eines Objekts ist ein vom bereitstellenden Knoten 
+verschiedener Knoten, der für das Objekt verantwortlich ist - das bedeutet, 
+dass er Links zu denjenigen Knoten speichert, die das Objekt bereithalten. 
+Dabei können für das selbe Objekt durchaus mehrere Root-Knoten existieren. In 
+Tapestry gibt es dazu eine Funktion $MapRoots()$, welche die ID $O_{G}$ eines 
+Objekts $O$ auf die Menge der Root-Knoten, das sog. Root-Set, abbildet. Um zu 
+garantieren, dass diese Abbildungsfunktion in jeder Situation ein eindeutiges 
+und identisches Root-Set zurückliefert, kann beispielsweise eine Hash-Funktion 
+eingesetzt werden \cite{HildrumKRZ02}.
+
+Wie bereits erwähnt, speichert jeder Tapestry-Knoten jedoch noch lokale 
+Objektverweise. Das bedeutet, dass das Routing der Nachricht u.U. nicht 
+komplett Tapestry nimmt an, dass, je dichter sich der Startknoten zum Objekt 
+befindet, desto schneller die Anfrage auf einen Knoten mit Verweis auf dieses 
+Objekt trifft, sprich das Objekt schneller gefunden wird.
+
+\begin{figure}
+  \centering
+  \def\JPicScale{0.59}
+  \input{../images/tapestry-route-object}
+  \caption[Tapestry: Routing zu Objekt]{Senden einer Nachricht an das Objekt
+  \texttt{4378} von verschiedenen Knoten aus. Vgl. \cite[Fig. 5]{TapestryTR}}
+  \label{fig:tapestry-route-object}
+\end{figure}
+
+Das Beispiel (Abb. \ref{fig:tapestry-route-object}) zeigt, wie drei Knoten
+(\texttt{4664}, \texttt{4B4F} und \texttt{57EC}) jeweils auf das Objekt
+\texttt{4378} zugreifen möchten. Dabei senden sie ihre Anfrage Richtung $O_R$,
+(hier \texttt{4377}) - sobald sie auf einen Knoten trifft, der einen lokalen
+Objektverweis gespeichert hat, wird die Nachricht direkt an den bereitstellenden
+Knoten weitergeschickt.
+
+\subsection{Publizieren von Objekten}
+Um ein solches Objekt $O$ im Netzwerk bekannt zu machen, sendet der 
+bereitstellende Knoten $S$ (genannt \textsl{Storage Server}) perdiodische 
+\textsl{publish}-Nachrichten in Richtung des Root-Knotens $O_R$ von $O$. Jeder 
+Knoten, der diese Nachricht auf ihrem Weg empfängt bzw. weiterleitet, speichert 
+nun einen Objektverweis $\langle O_G, S \rangle$. Auf diese Weise muss später 
+bei Anfragen an dieses Objekt u.U. nicht der komplette Weg zum Root-Knoten 
+durchlaufen werden. Tapestry unterstützt auch Objekt-Kopien, die auf 
+verschiedenen Knoten liegen können. Dabei publiziert jeder Knoten für sich 
+seine Kopie in das Netzwerk; andere Knoten haben dann u.U. mehrere 
+Objektverweise auf das selbe Objekt, die aber auf einen anderen Knoten zeigen. 
+Auf diese Weise wird die Redundanz und Zuverlässigkeit des Systems erhöht.
+
+\begin{figure}[hp]
+  \centering
+  \def\JPicScale{0.59}
+  \input{../images/tapestry-publish-object}
+  \caption[Tapestry: Veröffentlichen eines Objekts]{Veröffentlichen des Objekts
+  \texttt{4378}. Vgl. \cite[Fig. 4]{TapestryTR}}
+  \label{fig:tapestry-publish-object}
+\end{figure}
+
+Im Beispiel (Abb. \ref{fig:tapestry-publish-object}) haben sowohl der Knoten 
+\texttt{4228} als auch der Knoten \texttt{AA93} eine Kopie des Objekts (hier 
+eine Datei) \texttt{4378} bereitgestellt. Beide senden nun die 
+\textsl{publish}-Nachricht an den Root-Knoten von \texttt{4378}, in diesem 
+Beispiel der Knoten mit der ID \texttt{4377}. Wie aufgezeigt, speichern alle 
+Peers, die die Nachricht weiterleiten, einen lokalen Objektverweis. Hier sieht 
+man auch, dass z.B. Knoten \texttt{437A} jeweils einen Verweis auf beide 
+bereitstellende Knoten hält.
+
+\subsection{Surrogate-Routing} \label{subsec:surrogate-routing}
+Dieses Verfahren bietet Abhilfe für das Problem der möglichen Löcher in der
+Routingtabelle. Diese können z.B. dann auftreten, wenn die Abbildungsfunktion
+$MapRoots()$ nicht-existierende Knoten zurückliefert.
+
+Die Lösung besteht nun darin, dass Routing ganz normal Richtung Root-Knoten 
+laufen zu lassen. Trifft man nun auf ein Loch in der Routingtabelle, so wird 
+versucht, die Nachricht an einen anderen Nachbarn in einem höheren zu senden. 
+Schlägt auch dies fehl, so wird der nächst höhere Level versucht, usw. Aufgrund 
+der Eigenschaften des Tapestry-Netzwerks lässt sich durch das Surrogate-Routing 
+stets ein eindeutiger Knoten erreichen, unabhängig von der Startposition des 
+Routings. Einen Beweis für diese Annahme findet sich in \cite{HildrumKRZ02} bzw. 
+\cite{Schindelhauer2004}.
+
+\section{Organisation}
+\subsection{Einfügen eines Knotens}
+Der Eintritt eines neuen Knotens $N$ in das Tapestry-Netzwerk erfolgt in drei
+Schritten:
+
+\begin{enumerate}
+  \item Senden einer Nachricht an einen Knoten mit der eigenen ID. Dadurch wird
+  aufgrund des Surrogate-Routings der Surrogate-Knotens $S$ von $N$ gefunden.
+  Dieser Knoten hat eine ID, die numerisch nahe zur eigenen ID liegt. Die
+  Nachbarschaftstabellen von $S$ werden zu $N$ übernommen.
+  \item $S$ bestimmt $p$, die Länge des gemeinsamen Präfixes von $S_{id}$ und
+  $N{_id}$. $S$ sendet nun einen sog. \textsl{Acknowledged Multicast} an
+  diejenigen Knoten, deren ID in der selben Präfixlänge $p$ mit $N_{id}$
+  übereinstimmt. Die so erreichten Knoten fügen $N$ in ihre Routingtabellen ein
+  und übertragen im Gegenzug wenn nötig Objektverweise an $N$, da dieser neue
+  Knoten ja möglicherweise der neue Root-Knoten eines Objekts werden könnte.
+  \item Zunächst erstellt $N$ seine Nachbarschaftsmenge aus denjenigen Knoten,
+  die auf den \textsl{Acknowledged Multicast} geantwortet haben. Um jedoch
+  eine optimierte Routingtabelle zu erhalten und die Konsistenz- sowie
+  Lokalitätseigeschaften (s. \cite{HildrumKRZ02}) zu gewährleisten, wird im
+  folgenden iterativ eine sog. \textsl{nearest neighbor search} durchgeführt.
+\end{enumerate}
+
+Nach Durchführung dieser Schritt ist $N$ in das Tapestry-Netzwerk integriert -
+es besteht kein Unterschied zu dem Netzwerk das entstanden wäre, wenn $N$
+bereits von Anfang an Bestandteil gewesen wäre.
+
+\subsection{Austritt eines Knotens}
+Im Gegensatz zu Pastry unterscheidet Tapestry zwischen einem gewollten und einem
+ungewollten Austritt von Knoten aus dem Netzwerk.
+
+\subsubsection{Freiwilliger Austritt}
+Ein freiwilliger Austritt aus dem Netz kann in Tapestry relativ einfach
+gehandhabt werden. Denn wie beschrieben, hat ein Knoten $N$ jeweils eine Liste
+derjenigen Knoten gespeichert, die auf ihn verweisen (Backpointers). Diese
+Knoten kann er nun beim Verlassen des Netzes über seine Absicht informieren und
+gleichzeitig einen Ersatzknoten für jedes Level aus seiner Routingtabelle
+mitliefern - auf diese Weise kann das entstehende Loch im Netz recht schnell
+geschlossen werden.
+
+Um Objekte, die auf dem zu löschenden Knoten $N$ liegen, weiterhin zugänglich 
+zu machen, republiziert $N$ die auf ihm gespeicherten Objekte und leitet bis 
+zur abgeschlossenen Abmeldung eingehende Anfragen an lokale Objekt an den neuen 
+Root-Knoten weiter.
+
+\subsubsection{Unfreiwilliger Austritt}
+Grundsätzlich schwieriger ist ein unerwarteter Austritt eines Tapestry-Knotens.
+Dieser Fall ist jedoch aufgrund der Fehleranfälligkeit des Internets der weitaus
+häufigere. Tapestry begegnet diesem Problem zum einen durch redundante
+Routingtabellen- und Objektzeigereinträge.
+
+Zur Erhaltung des Netzes schicken die Knoten weiterhin periodische Nachrichten 
+an die Nachbarn, um so nicht mehr antwortende Knoten zu erkennen. Tritt ein 
+solcher Fehlerfall auf, so wird ein Recovery-Mechanismus aktiviert, der von den 
+Autoren des Papers jedoch nicht näher beschrieben wird. Nach 
+\cite[S.~44]{TapestryTR} bleibt jedoch eine nahezu 100\%ige Funktionsfähigkeit 
+des Netzes gegeben, für den Fall, dass nicht pausenlos Knoten ausfallen.

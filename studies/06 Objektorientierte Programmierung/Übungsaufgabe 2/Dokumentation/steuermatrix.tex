@@ -1,0 +1,90 @@
+\begin{table}[H]
+	\centering
+	\footnotesize
+		\begin{tabular}{@{}l|*{11}{l}@{}}		
+		\toprule
+		
+		\multicolumn{1}{@{}N}{} & 
+		\multicolumn{11}{V{10em}}{\bfseries{Bei Zeichen / --gruppe}} \\
+		
+		\multicolumn{1}{@{}N|}{Von Zustand}						& 
+		\multicolumn{1}{V{2em}}{Bu} 									& 
+		\multicolumn{1}{V{2em}}{Zi}										&
+		\multicolumn{1}{V{2em}}{Sz}										&
+		\multicolumn{1}{V{2em}}{Wz}										&		
+		\multicolumn{1}{V{2em}}{'} 										&
+		\multicolumn{1}{V{2em}}{''} 									&
+		\multicolumn{1}{V{2em}}{/}										&
+		\multicolumn{1}{V{2em}}{*} 										&
+		\multicolumn{1}{V{2em}}{$\backslash$}				 	&				
+		\multicolumn{1}{V{3em}}{sonst.}								&
+		\multicolumn{1}{V{2em}}{eol}				 					\\		
+		
+		\midrule
+		
+		\multirow{2}{*}{{\bfseries\scriptsize Basis}}	&
+		  Name	& Zahl	& SZF	& Basis & ZK	& String	& Ko? & SZF & SZF & --- & --- \\
+		& STO		& STO		& STO	& ---		& --- & ---			& ---	& STO	& STO	& --- & --- \\
+		\cmidrule{1-12}
+		
+		\multirow{2}{*}{{\bfseries\scriptsize ZK}}		&
+		  ---		& ---		& ---	& ---		& ---	& ---			& --- & --- & ZKe & ZKw & ---	\\
+		& ---		& ---		& ---	& ---		& --- & ---			& ---	& ---	& ---	& STO & --- \\
+		\cmidrule{1-12}
+	
+		\multirow{2}{*}{{\bfseries\scriptsize ZKe}}		&
+		  ---		& ---		& ---	& ---		& ---	& ---			& --- & --- & --- & ZKw & --- \\
+		& ---		& ---		& ---	& ---		& --- & ---			& ---	& ---	& ---	& STO & --- \\
+		\cmidrule{1-12}	
+	
+		\multirow{2}{*}{{\bfseries\scriptsize ZKw}}		&
+		  ---		& ---		& ---	& ---		& Basis	& ---		& --- & --- & --- & --- & --- \\
+		& ---		& ---		& ---	& ---		& OUT		& ---		& ---	& ---	& ---	& --- & --- \\
+		\cmidrule{1-12}	
+	
+		\multirow{2}{*}{{\bfseries\scriptsize Ko?}}		&
+		  ---		& ---		& ---	& ---		& ---		& ---		& Ko 	& *Ko & --- & Basis & --- \\
+		& ---		& ---		& ---	& ---		& ---		& ---		& ---	& ---	& ---	& --- 	& --- \\
+		\cmidrule{1-12}
+			
+		\multirow{2}{*}{{\bfseries\scriptsize Ko}}		&
+		  ---		& ---		& ---	& ---		& ---		& ---		& --- & --- & --- & Ko	& Basis \\
+		& ---		& ---		& ---	& ---		& ---		& ---		& ---	& ---	& ---	& ---	& --- 	\\
+		\cmidrule{1-12}			
+			
+		\multirow{2}{*}{{\bfseries\scriptsize *Ko}}		&
+		  ---		& ---		& ---	& ---		& ---		& ---		& --- & KoE?	& --- & *Ko	& --- \\
+		& ---		& ---		& ---	& ---		& ---		& ---		& ---	& ---		& ---	& ---	& ---	\\
+		\cmidrule{1-12}			
+			
+		\multirow{2}{*}{{\bfseries\scriptsize KoE?}}	&
+		  ---		& ---		& ---	& ---		& ---		& ---		& Basis	& ---	& --- & *Ko	& --- \\
+		& ---		& ---		& ---	& ---		& ---		& ---		& ---		& ---	& ---	& ---	& ---	\\
+		\cmidrule{1-12}			
+			
+		\multirow{2}{*}{{\bfseries\scriptsize Zahl}}	&
+		  ---		& Zahl	& SZF		& ---		& ---		& ---		& ---	& ---	& --- & Basis	& --- \\
+		& ---		& ADD		& O; S	& ---		& ---		& ---		& ---	& ---	& ---	& OUT		& ---	\\
+		\cmidrule{1-12}		
+
+		\multirow{2}{*}{{\bfseries\scriptsize SZF}}		&
+		  Name	& Zahl	& SZF	& SZF	& ---		& String	& ---	& ---	& --- & Basis	& --- \\
+		& O; S	& O; S	& ADD	& ---	& ---		& OUT			& ---	& ---	& ---	& OUT		& ---	\\
+		\cmidrule{1-12}
+		
+		\multirow{2}{*}{{\bfseries\scriptsize Name}}	&
+		  Name	& Name	& SZF		& Basis	& ---	& String	& ---	& ---	& --- & ---	& --- \\
+		& ADD		& ADD		& O; S	& OUT		& ---	& OUT			& ---	& ---	& ---	& ---	& ---	\\
+		\cmidrule{1-12}
+
+		\multirow{2}{*}{{\bfseries\scriptsize String}}	&
+		  ---		& ---		& ---	& ---		& ---		& Basis	& ---	& ---	& --- & String	& --- \\
+		& ---		& ---		& ---	& ---		& ---		& OUT		& ---	& ---	& ---	& ADD			& ---	\\
+						
+		\addlinespace
+		\bottomrule
+		
+		\end{tabular}
+	\caption{Steuermatrix}
+	\label{tab:Steuermatrix}
+\end{table}

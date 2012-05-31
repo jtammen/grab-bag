@@ -1,0 +1,107 @@
+%Created by jPicEdt 1.x
+%Standard LaTeX format (emulated lines)
+%Wed Jun 22 16:14:51 CEST 2005
+\unitlength 1mm
+\begin{picture}(167.50,40.00)(0,-7)
+
+\put(15.50,5.00){\makebox(0,0)[cc]{1 Byte}}
+
+\put(30.50,-5.00){\makebox(0,0)[cc]{}}
+
+\put(95.00,40.00){\makebox(0,0)[cc]{}}
+
+\put(35.50,5.00){\makebox(0,0)[cc]{1 Byte}}
+
+\put(15.50,25.00){\makebox(0,0)[cc]{1.}}
+
+\put(35.50,25.00){\makebox(0,0)[cc]{2.}}
+
+\put(10.50,25.00){\makebox(0,0)[cc]{}}
+
+\linethickness{0.15mm}
+%Rectangle(25.50,10.00)(45.50,20.00)  
+\put(25.50,10.00){\line(1,0){20.00}}
+\put(25.50,10.00){\line(0,1){10.00}}
+\put(45.50,10.00){\line(0,1){10.00}}
+\put(25.50,20.00){\line(1,0){20.00}}
+%End Rectangle
+
+\linethickness{0.15mm}
+%Rectangle(45.50,10.00)(66.50,20.00)  
+\put(45.50,10.00){\line(1,0){21.00}}
+\put(45.50,10.00){\line(0,1){10.00}}
+\put(66.50,10.00){\line(0,1){10.00}}
+\put(45.50,20.00){\line(1,0){21.00}}
+%End Rectangle
+
+\linethickness{0.15mm}
+%Rectangle(5.50,10.00)(25.50,20.00)  
+\put(5.50,10.00){\line(1,0){20.00}}
+\put(5.50,10.00){\line(0,1){10.00}}
+\put(25.50,10.00){\line(0,1){10.00}}
+\put(5.50,20.00){\line(1,0){20.00}}
+%End Rectangle
+
+\linethickness{0.15mm}
+%Polygon 0 0(45.50,20.00)(45.50,10.00) shade
+\put(45.50,10.00){\line(0,1){10.00}}
+%End Polygon
+
+\linethickness{0.15mm}
+%Polygon 0 0(46.50,20.00)(46.50,10.00) 
+\put(46.50,10.00){\line(0,1){10.00}}
+%End Polygon
+
+\put(55.50,25.00){\makebox(0,0)[cc]{3.}}
+
+\put(55.50,24.00){\makebox(0,0)[cc]{}}
+
+\put(55.50,5.00){\makebox(0,0)[cc]{1 Byte}}
+
+\put(50.50,-5.00){\makebox(0,0)[cc]{}}
+
+\linethickness{0.15mm}
+%Rectangle(66.50,10.00)(105.50,20.00)  
+\put(66.50,10.00){\line(1,0){39.00}}
+\put(66.50,10.00){\line(0,1){10.00}}
+\put(105.50,10.00){\line(0,1){10.00}}
+\put(66.50,20.00){\line(1,0){39.00}}
+%End Rectangle
+
+\put(85.50,25.00){\makebox(0,0)[cc]{4.}}
+
+\put(75.50,24.00){\makebox(0,0)[cc]{}}
+
+\put(72.50,5.00){\makebox(0,0)[cc]{}}
+
+\put(85.50,5.00){\makebox(0,0)[cc]{4 Byte}}
+
+\linethickness{0.15mm}
+%Rectangle(105.50,10.00)(125.50,20.00)  
+\put(105.50,10.00){\line(1,0){20.00}}
+\put(105.50,10.00){\line(0,1){10.00}}
+\put(125.50,10.00){\line(0,1){10.00}}
+\put(105.50,20.00){\line(1,0){20.00}}
+%End Rectangle
+
+\put(115.50,5.00){\makebox(0,0)[cc]{1 Byte}}
+
+\linethickness{0.15mm}
+%Rectangle(125.50,10.00)(164.50,20.00)  
+\put(125.50,10.00){\line(1,0){39.00}}
+\put(125.50,10.00){\line(0,1){10.00}}
+\put(164.50,10.00){\line(0,1){10.00}}
+\put(125.50,20.00){\line(1,0){39.00}}
+%End Rectangle
+
+\put(144.50,5.00){\makebox(0,0)[cc]{4 Byte}}
+
+\put(115.50,25.00){\makebox(0,0)[cc]{5.}}
+
+\put(113.50,25.00){\makebox(0,0)[cc]{}}
+
+\put(145.50,25.00){\makebox(0,0)[cc]{6.}}
+
+\put(167.50,15.00){\makebox(0,0)[cc]{...}}
+
+\end{picture}
