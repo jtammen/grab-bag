@@ -1,4 +1,4 @@
-grab-bag
+jtammen's grab-bag
 ========
 
-Grab Bag
+Probably not of interest for strangers - just my collection of personal stuff, e.g. study projects and assignments.
