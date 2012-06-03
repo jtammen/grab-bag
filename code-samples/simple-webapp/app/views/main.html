@@ -1,0 +1,92 @@
+%{
+dateFormatKey = "date.format."+lang 
+dateFormatIsoKey = "date.format.iso."+lang 
+}%
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="${lang}">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width" />
+<meta name="description" content="#{get 'description' /}" />
+<meta name="keywords" content="#{get 'keywords' /}" />
+
+<meta property="og:title" content="#{get 'og_title' /}" />
+<meta property="og:type" content="#{get 'og_type' /}" />
+<meta property="og:image" content="#{get 'og_image' /}" />
+<meta property="og:url" content="${request.base + request.url}" />
+<meta property="og:site_name" content="braincy.com" />
+<meta property="fb:app_id" content="${play.Play.configuration.get('securesocial.facebook.clientid')}" />
+
+<title>#{get 'title' /} | braincy.com</title>
+
+#{greenscript.css 'app < foundation chosen' /}
+#{greenscript.css 'ie', browser: 'lt IE 9', media: 'screen' /}
+#{greenscript.css output: 'all' /}
+
+<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', '${play.Play.configuration.get("google.analytics.id")}']);
+_gaq.push(['_setDomainName', '${play.Play.configuration.get("google.analytics.domain")}']);
+_gaq.push(['_trackPageview']);
+</script>
+</head>
+<body>
+	<div id="fb-root"></div>
+	
+	<div class="container">
+		<div class="row">
+  			<div class="twelve columns">
+				#{if flash.error}
+				<div class="error alert-box">${flash.error} <a href="" class="close">&times;</a></div>
+				#{/if}
+				#{if flash.success}
+				<div class="success alert-box">${flash.success} <a href="" class="close">&times;</a></div>
+				#{/if}
+			</div>
+		</div>
+	</div>
+
+	#{include 'Application/header.html' /}
+
+	<!-- main content -->
+	<div id="main" role="main" class="container #{get 'page' /}">
+	#{doLayout /}
+	</div>
+	<!-- /main content -->
+
+	#{include 'Application/footer.html' /}
+	
+	#{i18n /}
+	#{greenscript.js 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', output: true /}
+	#{greenscript.js output: 'true'}
+	/* jQuery local fallback */ 
+	window.jQuery || document.write('<script src="@{'public/javascripts/jquery-1.7.2.min.js'}"><\/script>');
+	
+	var config = {
+			lang: '${lang}',
+			locale: '${locale}',
+			dateFormat: '${play.Play.configuration.get(dateFormatIsoKey)}',
+			facebookAppId: '${play.Play.configuration.get("securesocial.facebook.clientid")}'
+	};
+	#{/greenscript.js}
+	#{greenscript.js 'modernizr.foundation foundation app jquery.placeholder' /}
+	#{greenscript.js 'play-jqvalidate < jquery.metadata < jquery.validate' /}
+	#{greenscript.js 'moment.de < moment' /}
+	#{greenscript.js 'play-ujs chosen.jquery', output: 'all' /}
+
+	<script type="text/javascript">
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</body>
+</html>

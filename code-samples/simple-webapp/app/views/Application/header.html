@@ -1,0 +1,24 @@
+<!-- header -->
+<header>
+	<div class="row">
+		<div class="three columns">
+			<span id="logo">#{a @Application.index()}<img alt="braincy" height="20" width="117" src="@{'/public/images/braincy.png'}" />#{/a}</span>
+		</div>
+		<div class="six columns">
+			<nav role="navigation" id="main-nav">
+				<ul class="nav-bar">
+					<li>#{a @Application.about(), class:'main'}&{'navigation.learn'}#{/a}</li>
+					<li>#{a @Application.about(), class:'main'}&{'navigation.teach'}#{/a}</li>
+					<li>#{a @Application.about(), class:'main'}&{'navigation.help'}#{/a}</li>
+				</ul>
+			</nav>
+		</div>
+		<div class="three columns">
+			<p class="right">#{if user} #{a @Users.edit()}${user.displayName}#{/a} &nbsp; #{a @securesocial.SecureSocial.logout(),
+				class:'tiny radius button'}&{'action.logout'}#{/a} #{/if} #{else} #{a @securesocial.UsernamePasswordController.signUp(),
+				class:'tiny radius button'}&{'action.signup'}#{/a} &nbsp; #{a @securesocial.SecureSocial.login(),
+				class:'tiny radius button'}&{'action.login'}#{/a} #{/else}</p>
+		</div>
+	</div>
+</header>
+<!-- /header -->

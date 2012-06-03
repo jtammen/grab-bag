@@ -1,0 +1,42 @@
+#{extends 'main.html' /} 
+#{set title: messages.get('views.Application.index.title') /}
+#{set page: 'home' /}
+
+<div class="row">
+	<div class="twelve columns">
+		<h1>&{'views.Application.index.courses.heading'}</h1>
+		<h2>&{'views.Application.index.courses.subheading'}</h2>
+	</div>
+</div>
+
+<div id="courses" class="row">
+	<ul class="three-up mobile block-grid">
+		#{list items:courses, as:'course'}
+		<li class="text-center">
+			<div class="course">
+				#{a @CoursesPublic.show(course.id, course.slug)}
+				<img alt="${course.description}" src="http://placehold.it/260x180/E83DAD/FFFFFF" />
+				<h3>${course.title}</h3>
+				<p>${course.tutor.fullName}</p>
+				#{/a}
+			</div>
+		</li>
+		#{/list}
+	</ul>
+</div>
+
+<div class="row">
+	<div class="twelve columns">
+		<h1>&{'views.Application.index.help.heading'}</h1>
+		<h2>&{'views.Application.index.help.subheading'}</h2>
+	</div>
+</div>
+
+<div id="features" class="row">
+	<div class="eight columns centered">
+		<div id="features-slider">
+			<img src="@{'/public/images/features/1.jpg'}" />
+			<img src="@{'/public/images/features/2.jpg'}" />
+		</div>
+	</div>
+</div>

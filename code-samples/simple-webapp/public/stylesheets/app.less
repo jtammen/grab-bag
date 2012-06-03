@@ -1,0 +1,117 @@
+/********** LESS stuff **********/
+@link-color: #E75A00;
+@import "mixins.less";
+
+/********** Common styles, basic (re)definitions **********/
+body {
+	font-size: 1.6em; /* A nice, readable, default size */
+	/* forces a "normal" line height since that is the browser default on the html element. */
+	line-height: inherit;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color: #3A3A40;
+}
+
+a {
+	color: @link-color;
+}
+
+a:hover {
+	color: @link-color;
+}
+
+a:focus {
+	color: #CC4714;
+}
+
+header {
+	padding-top: 20px;
+	border-bottom: 2px solid #DEE0E0;
+}
+
+header #logo {
+	padding-bottom: 22px;
+	border-bottom: 2px solid #E75A00;
+}
+
+#main {
+	padding-top: 20px;
+}
+
+footer {
+	background-color: #EBEFF2;
+	color: #797D80;
+	padding: 25px;
+	margin-top: 20px;
+	.inner-shadow(0, 2px, 8px, 0.1);
+}
+
+/********** Main navigation **********/
+.nav-bar {
+	border: none;
+	margin: 0;
+}
+
+.nav-bar>li {
+	border: none;
+	line-height: normal;
+}
+
+.nav-bar>li.has-flyout>a.flyout-toggle {
+	padding-top: 9px;
+}
+
+#main-nav a {
+	color: #3A3A40;
+}
+
+#main-nav a:hover {
+	color: #E75A00;
+	text-decoration: none;
+}
+
+/********** Footer **********/
+footer ul {
+	margin-top: 10px;
+}
+
+footer ul li {
+	margin-bottom: 6px;
+}
+
+footer a {
+	font-size: 13px;
+	font-size: 1.3rem;
+	color: #888888;
+}
+
+footer a:hover {
+	text-decoration: underline;
+}
+
+/********** Home **********/
+#main.home h2 {
+	font-size: 100%;
+	color: #8C8C8C;
+}
+
+#courses,#features {
+	margin-top: 20px;
+}
+
+div.course {
+	padding: 20px 2px 20px 2px;
+	min-height: 270px;
+	overflow: hidden;
+	.bordered;
+	.rounded(3px);
+}
+
+div.course h3 {
+	font-size: 100%;
+}
+
+li.course h3 {
+	font-size: 110%;
+}

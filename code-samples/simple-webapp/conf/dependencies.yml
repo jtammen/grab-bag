@@ -1,0 +1,6 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> greenscript 1.2.8a
+    - play -> securesocial 0.2.4
